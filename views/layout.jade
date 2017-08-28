@@ -1,15 +1,88 @@
 doctype html
 html
     head
-    title= title
-    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
 
-    link(rel='stylesheet', href='/dist/css/style.css')
-    link(rel='stylesheet', href='bootstrap/dist/css/bootstrap.min.css')
+        title= title
+
+        link(rel='stylesheet', href='dist/css/style.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/reset.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/site.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/container.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/grid.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/header.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/menu.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/divider.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/list.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
+        link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
 
     body
-        block content
+        .ui.fixed.inverted.menu
+            .ui.container
+                a.header.item(href='#')
+                    img.logo(src='img/logo.png')
+                    | &nbsp; &nbsp;  &nbsp; &nbsp; Easy Ads
+                a.item(href='#') Home
+                .ui.simple.dropdown.item
+                    | Dropdown
+                    i.dropdown.icon
+                    .menu
+                        a.item(href='#') Link Item
+                        a.item(href='#') Link Item
+                        .divider
+                        .header Header Item
+                        .item
+                            i.dropdown.icon
+                            |             Sub Menu
+                            .menu
+                                a.item(href='#') Link Item
+                                a.item(href='#') Link Item
+                        a.item(href='#') Link Item
+        .ui.main.text.container
+            block content
+
+        .ui.inverted.vertical.footer.segment
+            .ui.center.aligned.container
+                .ui.stackable.inverted.divided.grid
+                    .three.wide.column
+                        h4.ui.inverted.header Group 1
+                        .ui.inverted.link.list
+                            a.item(href='#') Link One
+                            a.item(href='#') Link Two
+                            a.item(href='#') Link Three
+                            a.item(href='#') Link Four
+                    .three.wide.column
+                        h4.ui.inverted.header Group 2
+                        .ui.inverted.link.list
+                            a.item(href='#') Link One
+                            a.item(href='#') Link Two
+                            a.item(href='#') Link Three
+                            a.item(href='#') Link Four
+                    .three.wide.column
+                        h4.ui.inverted.header Group 3
+                        .ui.inverted.link.list
+                            a.item(href='#') Link One
+                            a.item(href='#') Link Two
+                            a.item(href='#') Link Three
+                            a.item(href='#') Link Four
+                    .seven.wide.column
+                        h4.ui.inverted.header Footer Header
+                        p
+                            | Extra space for a call to action inside the footer that could help re-engage users.
+                .ui.inverted.section.divider
+                img.ui.centered.mini.image(src='img/logo.png')
+                .ui.horizontal.inverted.small.divided.link.list
+                    a.item(href='#') Site Map
+                    a.item(href='#') Contact Us
+                    a.item(href='#') Terms and Conditions
+                    a.item(href='#') Privacy Policy
+
+
 
     block javascripts
         script(src="angular/angular.min.js")
-        script(src="bootstrap/dist/js/bootstrap.min.js")
