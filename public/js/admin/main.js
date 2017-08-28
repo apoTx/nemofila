@@ -7,13 +7,12 @@ $(() => {
 
   let yayincont, parent;
   $('.yeniYayin').on('click',function(){
-    	parent = $(this).parent('.field').prev('.yayincont');
+    parent = $(this).parent('.field').prev('.yayincont');
     yayincont = parent.children('.fields:eq(0)').clone();
 
 
     parent.append(yayincont);
-
-    	parent.children('.fields:last').find('input').val('');
+    parent.children('.fields:last').find('input').val('');
 
     let obj = parent.children('input[type=hidden]');
     let yayinSize = parseInt(obj.val());

@@ -1,6 +1,4 @@
 let mongoose = require('mongoose');
-let bcrypt   = require('bcrypt-nodejs');
-
 let Schema	 = mongoose.Schema;
 
 let userSchema = new Schema({
@@ -25,8 +23,6 @@ let userSchema = new Schema({
     avatar       : String,
     tip 		 : String
   }
-    
 });
-
 
 module.exports = mongoose.model('users', userSchema);

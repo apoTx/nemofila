@@ -1,3 +1,4 @@
+/*eslint-disable*/
 let app = angular.module('adminApp', ['slugifier']);
 
 
@@ -37,3 +38,5 @@ const omdb_api_settings = {
 const movielab_api_settings = {
   api_key: 'mwdE1.)3~m9jNnYPQN,5'
 };
+
+/*eslint-enable*/

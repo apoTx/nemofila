@@ -14,10 +14,8 @@ let manage = require('./routes/manage/index');
 let app = express();
 
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/easyads');
-
-var User = require('./models/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
