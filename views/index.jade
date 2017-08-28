@@ -7,141 +7,144 @@ append stylesheets
 
 
 block content
+    div(ng-controller="indexController")
+        {{ name }}
+        .ui.grid.stackable
+            .eighteen.wide.column
+                button.ui.primary.button.right.floated.right New Ad
 
-    .ui.grid.stackable
-        .eighteen.wide.column
-            button.ui.primary.button.right.floated.right New Ad
+        .ui.grid.stackable.no-margin-bottom
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/sports')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/sports")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/business')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/business")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/city')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/city")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/people')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/people")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/transport')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/transport")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/nature')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/nature")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
+            .four.wide.column
+                .ui.card.margin-auto
+                    .content
+                        .right.floated.meta 14h
+                        img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/technics')
+                        a.item-title(href="#") Elliot
+                    a.image(href="#")
+                        img(src="http://lorempixel.com/400/400/technics")
+                    .content
+                        span.right.floated
+                            i.heart.outline.like.icon
+                            |       17 likes
+                        i.comment.icon
+                        |     3 comments
 
-    .ui.grid.stackable.no-margin-bottom
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/sports')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/sports")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/business')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/business")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/city')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/city")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/people')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/people")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/transport')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/transport")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/nature')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/nature")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-        .four.wide.column
-            .ui.card.margin-auto
-                .content
-                    .right.floated.meta 14h
-                    img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/technics')
-                    a.item-title(href="#") Elliot
-                a.image(href="#")
-                    img(src="http://lorempixel.com/400/400/technics")
-                .content
-                    span.right.floated
-                        i.heart.outline.like.icon
-                        |       17 likes
-                    i.comment.icon
-                    |     3 comments
-
-    .ui.grid.stackable
-        .eighteen.wide.column.center.aligned
-            .ui.pagination.menu
-                a.item
-                    | Prev
-                a.active.item
-                    | 1
-                a.item
-                    | 2
-                .disabled.item
-                    | ...
-                a.item
-                    | 10
-                a.item
-                    | 11
-                a.item
-                    | 12
-                a.item
-                    | Next
+        .ui.grid.stackable
+            .eighteen.wide.column.center.aligned
+                .ui.pagination.menu
+                    a.item
+                        | Prev
+                    a.active.item
+                        | 1
+                    a.item
+                        | 2
+                    .disabled.item
+                        | ...
+                    a.item
+                        | 10
+                    a.item
+                        | 11
+                    a.item
+                        | 12
+                    a.item
+                        | Next
+append javascripts
+    script(src="dist/js/app/controllers/indexController.min.js")

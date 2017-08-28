@@ -5,6 +5,10 @@
         "node": true,
         "mocha": true
     },
+    "globals": {
+      "angular": false,
+      "app": false
+    },
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module"

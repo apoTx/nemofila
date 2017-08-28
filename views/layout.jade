@@ -22,7 +22,7 @@ html
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
             link(rel='stylesheet', href='dist/css/style.css')
 
-    body
+    body(ng-app="app")
         .ui.fixed.inverted.menu
             .ui.container
                 a.header.item(href='#')
@@ -90,3 +90,4 @@ html
 
     block javascripts
         script(src="angular/angular.min.js")
+        script(src="dist/js/app/main.min.js")
