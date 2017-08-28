@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www",
+    "start:dev": "nodemon ./bin/www && gulp",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "mocha --recursive"
@@ -22,6 +22,9 @@
     "chai": "^4.1.1",
     "chai-http": "^3.0.0",
     "eslint": "^4.5.0",
+    "gulp": "^3.9.1",
+    "gulp-minify": "^1.0.0",
+    "gulp-minify-css": "^1.2.4",
     "mocha": "^3.5.0"
   }
 }
