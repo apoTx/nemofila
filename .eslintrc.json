@@ -10,10 +10,9 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
+        "no-var": "error",
+        "prefer-arrow-callback": "error",
+        "indent": ["error", 4],
         "linebreak-style": [
             "error",
             "unix"

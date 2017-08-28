@@ -1,14 +1,14 @@
-var gulp = require('gulp');
-var minifyCSS = require('gulp-minify-css');
-var minify = require('gulp-minify');
+let gulp = require('gulp');
+let minifyCSS = require('gulp-minify-css');
+let minify = require('gulp-minify');
 
-gulp.task('styles',function(){
+gulp.task('styles',() => {
     gulp.src('public/css/**/*.css')
         .pipe(minifyCSS({ keepBreaks : false }))
         .pipe(gulp.dest('public/dist/css'));
 });
 
-gulp.task('scripts',function(){
+gulp.task('scripts',() => {
     gulp.src(['public/js/**/*.js'])
         .pipe(minify({
             ext:{
@@ -21,7 +21,7 @@ gulp.task('scripts',function(){
         .pipe(gulp.dest('public/dist/js'));
 });
 
-gulp.task('watch',function(){
+gulp.task('watch',() => {
     gulp.watch('public/css/**/*.css',['styles']);
     gulp.watch('public/js/**/*.js',['scripts']);
 });
