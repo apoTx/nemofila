@@ -7,19 +7,20 @@ html
 
         title= title
 
-        link(rel='stylesheet', href='dist/css/style.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/reset.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/site.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/container.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/grid.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/header.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/menu.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/divider.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/list.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
-        link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
+        block stylesheets
+            link(rel='stylesheet', href='dist/css/style.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/reset.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/site.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/container.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/grid.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/header.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/menu.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/divider.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/list.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
 
     body
         .ui.fixed.inverted.menu
@@ -43,7 +44,10 @@ html
                                 a.item(href='#') Link Item
                                 a.item(href='#') Link Item
                         a.item(href='#') Link Item
-        .ui.main.text.container
+                .right.menu
+                    a.item.no-before(href='#') Sign Up
+                    a.item(href='#') Sign In
+        .ui.main.container.aligned
             block content
 
         .ui.inverted.vertical.footer.segment

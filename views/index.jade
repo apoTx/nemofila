@@ -1,14 +1,69 @@
 extends layout
 
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
+
+
 block content
     h1.ui.header= title
     p Welcome to #{title}
-    p
-        | A text container is used for the main container, which is useful for single column layouts
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/media-paragraph.png')
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png')
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png')
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png')
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png')
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png')
-    img.wireframe(src='https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png')
+    p &nbsp
+
+    .ui.grid.stackable
+        .four.wide.column
+            .ui.card
+                .content
+                    .right.floated.meta 14h
+                    img.ui.avatar.image(src='http://lorempixel.com/400/400')
+                    |  Elliot
+                .image
+                    img(src="http://lorempixel.com/400/400/")
+                .content
+                    span.right.floated
+                        i.heart.outline.like.icon
+                        |       17 likes
+                    i.comment.icon
+                    |     3 comments
+        .four.wide.column
+            .ui.card
+                .content
+                    .right.floated.meta 14h
+                    img.ui.avatar.image(src='http://lorempixel.com/500/500')
+                    |  Elliot
+                .image
+                    img(src="http://lorempixel.com/500/500/")
+                .content
+                    span.right.floated
+                        i.heart.outline.like.icon
+                        |       17 likes
+                    i.comment.icon
+                    |     3 comments
+        .four.wide.column
+            .ui.card
+                .content
+                    .right.floated.meta 14h
+                    img.ui.avatar.image(src='http://lorempixel.com/600/600')
+                    |  Elliot
+                .image
+                    img(src="http://lorempixel.com/600/600/")
+                .content
+                    span.right.floated
+                        i.heart.outline.like.icon
+                        |       17 likes
+                    i.comment.icon
+                    |     3 comments
+        .four.wide.column
+            .ui.card
+                .content
+                    .right.floated.meta 14h
+                    img.ui.avatar.image(src='http://lorempixel.com/300/300')
+                    |  Elliot
+                .image
+                    img(src="http://lorempixel.com/300/300/")
+                .content
+                    span.right.floated
+                        i.heart.outline.like.icon
+                        |       17 likes
+                    i.comment.icon
+                    |     3 comments
