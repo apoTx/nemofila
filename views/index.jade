@@ -4,14 +4,16 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/dimmer.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/modal.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/transition.min.css')
 
 
 block content
     div(ng-controller="indexController")
-        {{ name }}
         .ui.grid.stackable
             .eighteen.wide.column
-                button.ui.primary.button.right.floated.right New Ad
+                button.ui.primary.button.right.floated.right(ng-click="openNewAdModal()") New Ad
 
         .ui.grid.stackable.no-margin-bottom
             .four.wide.column
@@ -146,5 +148,33 @@ block content
                         | 12
                     a.item
                         | Next
+
+
+        .ui.modal
+            i.close.icon
+            .header
+                | New Ad
+            .image.content
+                .ui.medium.image
+                    img(src='https://semantic-ui.com/images/avatar2/large/rachel.png')
+                .description
+                    .ui.header We've auto-chosen a profile image for you.
+                    p
+                        | We've grabbed the following image from the
+                        a(href='https://www.gravatar.com', target='_blank') gravatar
+                        |  image associated with your registered e-mail address.
+                    p Is it okay to use this photo?
+            .actions
+                .ui.black.deny.button
+                    | Nope
+                .ui.positive.right.labeled.icon.button
+                    | Yep, that's me
+                    i.checkmark.icon
+
+
+
 append javascripts
     script(src="dist/js/app/controllers/indexController.min.js")
+    script(src="semantic/dist/components/dimmer.min.js")
+    script(src="semantic/dist/components/modal.min.js")
+    script(src="semantic/dist/components/transition.min.js")

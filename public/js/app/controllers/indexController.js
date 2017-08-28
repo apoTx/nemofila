@@ -1,3 +1,7 @@
 app.controller('indexController', ['$scope',  ($scope) => {
-    $scope.name = 'mehmet';
+
+  $scope.openNewAdModal = () => {
+    $('.ui.modal').modal('show');
+  };
+
 }]);
