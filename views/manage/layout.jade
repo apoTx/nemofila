@@ -1,0 +1,56 @@
+doctype html
+block head
+  meta(charset='utf-8')
+  title Admin
+  meta(name='description', content='')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  meta(name='mobile-web-app-capable', content='yes')
+  meta(name="robots", content="noindex")
+
+  link(rel='stylesheet', href='/semantic/dist/semantic.min.css')
+  link(rel='stylesheet', href='/dist/css/admin/main.css')
+
+
+nav.ui.fixed.menu.inverted.navbar
+  a.active.brand.item(href='') movielab
+  a.item(href='/manage') Home
+  a.item(href='/manage/new') Film Ekle
+  a.item(href='/manage/filmler') Filmler
+  a.item(href='/manage/altyazitesti') Altyazı Testi
+  //a.ui.dropdown.item
+    | Dropdown
+    i.dropdown.icon
+    .menu
+      .item Action
+      .item Another action
+      .item Something else here
+      .ui.horizontal.divider
+      .item Seperated link
+      .item One more seperated link
+// end nav
+main.ui.page.grid(ng-app="adminApp")
+  .row
+    .column
+      .ui.message.main
+        .ui.grid
+          .ten.wide.column
+            h3.ui.header= title
+          .six.wide.column
+            div.margin-right-10
+              h3.text-right
+                if total
+                  | #
+                  =total
+        hr(style='color:#eee; margin:30px 0 40px 0')
+
+
+        block body
+
+block javascripts
+  script(src='/angular/angular.min.js')
+  script(src="/angular-slugify/angular-slugify.js")
+  script(src='/dist/js/admin/app/app.min.js')
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/semantic/dist/semantic.min.js')
+  script(src='/dist/js/admin/main.min.js')
+  script(src="/jquery-ui/jquery-ui.min.js")

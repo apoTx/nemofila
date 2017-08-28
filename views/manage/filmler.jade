@@ -1,0 +1,23 @@
+extends layout
+
+block body
+	.ui.middle.aligned.divided.list(ng-controller="filmListController")
+		each val in filmler
+			.item(id=""+ val._id +"")
+				.right.floated.content
+					a.ui.button.icon(href="/" +val.slug+" ", target="_blank")
+						i.unhide.icon
+					a.ui.button.icon(href="./filmler/edit/" +val._id+" ")
+						i.edit.icon
+					a.ui.button.negative.icon(
+						ng-really-message="Are you sure?", 
+						ng-really-click="deleteFilm('"+ val._id +"')"
+						) 
+						i.trash.icon
+
+				img.ui.avatar.image(src='/uploads/'+val.folder_guid+'/cover/w185/'+val.cover+'')
+				.content
+					=val.lang.en.title
+
+block append javascripts
+	script(src="/dist/js/admin/app/filmListController.min.js")

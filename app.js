@@ -8,7 +8,16 @@ let bodyParser = require('body-parser');
 let index = require('./routes/index');
 let users = require('./routes/users');
 
+/*Admin pages*/
+let manage = require('./routes/manage/index');
+
 let app = express();
+
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyads');
+
+var User = require('./models/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,8 +32,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
+
+app.use('/manage/', manage);
+
 app.use('/', index);
 app.use('/users', users);
+
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

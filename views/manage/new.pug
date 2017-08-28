@@ -1,0 +1,254 @@
+extends layout
+
+block body
+
+		div(
+				ng-controller="myCtrl",
+				ng-init="update('"+ id +"')"
+			)
+
+			form.ui.form(ref='newForm', action='/manage/new', method='post', enctype='multipart/form-data')
+				.ui.grid
+					.six.wide.column.field
+						label IMDB ID 
+						.ui.icon.input#imdb_id_div
+							input(
+								type='text', 
+								name='imdb_id', 
+								placeholder='IMDB ID',
+								ng-model='imdb_id', 
+								ng-change = "getFilmInfo_viaImdbID()",
+							)
+							i.search.icon
+
+					.four.wide.column.field
+						label IMDB Score
+						input(type='text', name='imdb_score', ng-model='imdbScore')
+
+				.ui.top.attached.tabular.menu.lang
+					a.item.active(data-tab='en') English
+					a.item(data-tab='tr') Turkish
+					a.item(data-tab='mk') Macedonian
+					a.item(data-tab='sr') Serbian
+					a.item(data-tab='hr') Croatian
+					a.item(data-tab='es') Spanish
+					a.item(data-tab='bg') Bulgarian
+
+
+				.ui.bottom.attached.tab.segment.active(data-tab='en')
+					.field
+						label Film Adı
+						input(type='text', name='lang.en.title', ng-model="filmTitle.en", placeholder='Title', id="slug-source")
+					
+					.field
+						label Açıklama
+						textarea(name='lang.en.description', ng-model="filmDescription.en" )
+
+				.ui.bottom.attached.tab.segment(data-tab='tr')
+					.field
+						label Film Adı
+						input(type='text', name='lang.tr.title', ng-model="filmTitle.tr", placeholder='Title')
+					
+					.field
+						label Açıklama
+						textarea(name='lang.tr.description', ng-model="filmDescription.tr")
+
+				.ui.bottom.attached.tab.segment(data-tab='mk')
+					.field
+						label Film Adı
+						input(type='text', name='lang.mk.title', ng-model="filmTitle.mk", placeholder='Title')
+					
+					.field
+						label Açıklama
+						textarea(name='lang.mk.description', ng-model="filmDescription.mk")
+
+				.ui.bottom.attached.tab.segment(data-tab='sr')
+					.field
+						label Film Adı
+						input(type='text', name='lang.sr.title', ng-model="filmTitle.sr", placeholder='Title')
+					
+					.field
+						label Açıklama
+						textarea(name='lang.sr.description', ng-model="filmDescription.sr")
+
+				.ui.bottom.attached.tab.segment(data-tab='hr')
+					.field
+						label Film Adı
+						input(type='text', name='lang.hr.title', ng-model="filmTitle.hr", placeholder='Title')
+					
+					.field
+						label Açıklama
+						textarea(name='lang.hr.description', ng-model="filmDescription.hr")
+
+				.ui.bottom.attached.tab.segment(data-tab='es')
+					.field
+						label Film Adı
+						input(type='text', name='lang.es.title', ng-model="filmTitle.es", placeholder='Title')
+					
+					.field
+						label Açıklama
+						textarea(name='lang.es.description', ng-model="filmDescription.es")
+
+				.ui.bottom.attached.tab.segment(data-tab='bg')
+					.field
+						label Film Adı
+						input(type='text', name='lang.bg.title', ng-model="filmTitle.bg", placeholder='Title')
+					
+					.field
+						label Açıklama
+						textarea(name='lang.bg.description', ng-model="filmDescription.bg")
+
+				.ui.grid
+					.sixteen.wide.column.field
+						#context2
+							.ui.secondary.menu
+								a.item.active(data-tab='seo') SEO
+								//a.item(data-tab='test') Test
+							//.ui.tab.segment(data-tab='test')
+								| TEST
+							.ui.active.tab.segment(data-tab='seo')
+								.field
+									label Slug
+									input(type='text', name='slug', value="{{filmTitle.tr | slugify}}", ng-if="!isEdit" )
+									input(type='text', name='slug', ng-model="slug", ng-if="isEdit" )
+
+								.field
+									label Meta Title
+									input(type='text', name='lang.tr.metaTitle', ng-model="metaTitle.tr")
+									| altyazılı izle 1080p HD
+
+								.field
+									label Meta Description
+									textarea(name='lang.tr.metaDescription', ng-model="metaDescription.tr")
+
+							.clearfix
+
+				.ui.grid
+					.four.wide.column.field
+						.field
+							label Uzunluk (Saat)
+							input(type='text', name='hours', ng-model="hours")
+					.four.wide.column.field
+						.field
+							label Uzunluk (Dakika)
+							input(type='text', name='minutes', ng-model="minutes")
+
+					.four.wide.column.field
+						.field
+							label Release (Yıl)
+							input(type='text', name='release_year', ng-model="releaseYear")
+					.four.wide.column.field
+						.field
+							label Release (Ülke)
+							input(type='text', name='release_country', ng-model="releaseCountry")
+
+					.eight.wide.column.field
+						.field
+							label Yönetmen
+							input(type='text', name='director', ng-model="director")
+
+					.sixteen.wide.column.field
+						label Kategoriler
+						.ui.horizontal.label(ng-repeat="(k, x) in categories")
+							input(type='hidden', name='categories', value='{{categories}}')
+							| {{ x.name }}
+
+				br
+				hr
+				br
+				br
+
+				.ui.grid
+					.eight.wide.column.field
+						.sixteen.wide.column.field.margin-bottom-20
+							label Film Cover
+							input#file(type='file', name='film_cover', 
+										ng-model='uploadedFilmPosters', 
+										onchange="angular.element(this).scope().uploadFilmPoster(this)"
+									)
+						.ui.horizontal.divider Veya
+						div.text-center.margin-top-20
+							.ui.teal.labeled.icon.button.centered#get_imdb_poster(ng-click="getFilmPoster()")
+								| Resmi IMDB den getir
+								i.download.icon
+
+					.eight.wide.column.field.text-center
+						input#file(type='text', name='filmPosterImdb', ng-model='filmPosterImdb', style='display:none')
+						input(type='text', name='posterFromImdb', ng-model="filmPoster", style='display:none')
+						input(type='text', name='posterFromImdb2', ng-model="filmPoster2", style='display:none')
+						input(type='text', name='posterFromImdbFileName', ng-model="posterFromImdbFileName", style='display:none')
+
+						input(type='text', name='bgFromImdbFileName', ng-model="bgFromImdbFileName", style='display:none')
+						label Preview
+						div
+							img(ng-src="{{filmPoster}}", imageonload, id="blah", style="width:185px; height:278px")
+
+				br
+				br
+				hr
+				br
+				h3 Altyazılar
+				br
+				.ui.grid
+					.eight.wide.column.field
+						label English
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.en != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_en')
+					.eight.wide.column.field
+						label Turkish
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.tr != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_tr')
+					.eight.wide.column.field
+						label Macedonian
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.mk != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_mk')
+					.eight.wide.column.field
+						label Serbian
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.sr != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_sr')
+					.eight.wide.column.field
+						label Croatian
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.hr != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_hr')
+					.eight.wide.column.field
+						label Spanish
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.es != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_es')
+					.eight.wide.column.field
+						label Bulgarian
+							.ui.empty.circular.label.subtitlePoint(ng-if="isEdit", ng-class="(subtitle.bg != '') ? 'green' : 'red'")
+							input#file(type='file', name='subtitle_bg')
+					
+				br
+				hr
+				br
+				.ui.grid
+					.eight.wide.column.field
+						label Drive ID (Film)
+						input(type='text', name='drive_id', ng-model="driveId", placeholder='Drive ID')
+
+					.eight.wide.column.field
+						label Drive ID (Trailer)
+						input(type='text', name='drive_id_trailer', ng-model="driveTrailerId", placeholder='Drive ID Trailer')
+
+				.ui.segment
+					.field
+						.ui.toggle.checkbox
+							input.hidden(type='checkbox', name='active', tabindex='0'
+								ng-checked="status ? true : false"
+							)
+							label Film yayınlansın mı?
+
+				button.ui.button.primary.clearing.submitBtn(type='submit', ng-if="!isEdit") Kaydet
+				div
+					input(type='text', name='isEdit', ng-model="isEdit", style='display:none')
+					input(type='text', name='collectionId', value=""+ id +"" , style='display:none')
+					input(type='text', name='folder_guid', ng-model="folderGuid" , style='display:none')
+					button.ui.button.primary.clearing.submitBtn(type='submit', ng-if="isEdit") Güncelle
+
+				.clearfix
+		
+
+block append javascripts
+	script(src="/dist/js/admin/app/newController.min.js")
+	script(src="/dist/js/admin/new_film.min.js")
