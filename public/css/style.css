@@ -36,5 +36,9 @@ body {
 
 .item-title{
     color:#000;
-    margin-left: .2em;
+    margin-left: .4em !important;
+}
+
+.margin-auto{
+    margin:0 auto!important;
 }

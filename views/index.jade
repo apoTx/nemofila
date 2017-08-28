@@ -3,16 +3,18 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
 
 
 block content
-    h1.ui.header= title
-    p Welcome to #{title}
-    p &nbsp
+
+    .ui.grid.stackable
+        .eighteen.wide.column
+            button.ui.primary.button.right.floated.right New Ad
 
     .ui.grid.stackable.no-margin-bottom
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20')
@@ -26,7 +28,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/sports')
@@ -40,7 +42,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/business')
@@ -54,7 +56,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/city')
@@ -68,7 +70,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/people')
@@ -82,7 +84,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/transport')
@@ -96,7 +98,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/nature')
@@ -110,7 +112,7 @@ block content
                     i.comment.icon
                     |     3 comments
         .four.wide.column
-            .ui.card
+            .ui.card.margin-auto
                 .content
                     .right.floated.meta 14h
                     img.ui.avatara.image(href="#")(src='http://lorempixel.com/20/20/technics')
@@ -123,3 +125,23 @@ block content
                         |       17 likes
                     i.comment.icon
                     |     3 comments
+
+    .ui.grid.stackable
+        .eighteen.wide.column.center.aligned
+            .ui.pagination.menu
+                a.item
+                    | Prev
+                a.active.item
+                    | 1
+                a.item
+                    | 2
+                .disabled.item
+                    | ...
+                a.item
+                    | 10
+                a.item
+                    | 11
+                a.item
+                    | 12
+                a.item
+                    | Next
