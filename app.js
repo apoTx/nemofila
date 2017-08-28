@@ -13,9 +13,6 @@ let manage = require('./routes/manage/index');
 
 let app = express();
 
-
-let mongoose = require('mongoose');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
