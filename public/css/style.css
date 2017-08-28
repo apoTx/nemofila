@@ -18,3 +18,23 @@ body {
 .no-before:before{
     display: none
 }
+
+.no-margin{
+    margin:0
+}
+.no-margin-top{
+    margin-top: 0 !important;
+}
+.no-margin-bottom{
+}
+.no-margin-left{
+    margin-left:0 !important;
+}
+.no-margin-right{
+    margin-right:0 !important;
+}
+
+.item-title{
+    color:#000;
+    margin-left: .2em;
+}
