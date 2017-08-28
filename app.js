@@ -15,7 +15,6 @@ let app = express();
 
 
 let mongoose = require('mongoose');
-mongoose.createConnection('mongodb://localhost/easyads');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
