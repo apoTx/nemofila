@@ -1,8 +1,8 @@
 {
     "env": {
+        "node": true,
         "browser": true,
         "es6": true,
-        "node": true,
         "mocha": true
     },
     "globals": {
@@ -15,6 +15,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "no-console": 0,
         "no-var": "error",
         "prefer-arrow-callback": "error",
         "indent": ["error", 2],

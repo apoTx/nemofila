@@ -3,14 +3,11 @@ let router = express.Router();
 let bcrypt = require('bcryptjs');
 
 let User = require('./../../models/users');
-let Yayin = require('./../../models/manage/yayin');
 let requireLogin = require('./inc/requireLogin.js');
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
-  Yayin.find().sort('-zaman.eklenmeZamanı').find((ex, yayinlar) => {
-    res.render('manage/index', { title: 'Dashboard', maclar: yayinlar });
-  });
+  res.render('manage/index', { title: 'Dashboard'});
 });
 
 router.get('/login',(req,res) => {
@@ -25,7 +22,7 @@ router.post('/login', (req,res) => {
 
     /*
       const saltRounds = 10;
-      const myPlaintextPassword = 'MnoguTeskaLozinka123';
+      const myPlaintextPassword = '123';
 
       bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
           console.log(hash);
@@ -33,15 +30,14 @@ router.post('/login', (req,res) => {
     */
 
     if(!user){
-      res.render('manage/login',{ error: 'email yada şifre geçersiz' });
+      res.render('manage/login',{ error: 'Email or password is invalid' });
     }else{
-      bcrypt.compare(req.body.password, user.pw, (err, r, next) => {
+      bcrypt.compare(req.body.password, user.pw, (err, r) => {
         if (r) {
           req.session.user = user;
           res.redirect('./');
         }else{
-          res.render('manage/login',{ error: '** Email yada şifre geçersiz.' });
-          next();
+          res.render('manage/login',{ error: 'Email or password is invalid' });
         }
       });
     }
