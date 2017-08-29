@@ -22,7 +22,7 @@ html
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
             link(rel='stylesheet', href='dist/css/style.css')
 
-    body(ng-app="app")
+    body(ng-app="app" ng-controller="layoutController")
         .ui.fixed.inverted.menu
             .ui.container
                 a.header.item(href='#')
@@ -45,7 +45,7 @@ html
                                 a.item(href='#') Link Item
                         a.item(href='#') Link Item
                 .right.menu
-                    a.item.no-before(href='#') Sign Up
+                    a.item.no-before(href='javascript:;' ng-click="openSignUpModal()") Sign Up
                     a.item(href='#') Sign In
         .ui.main.container.aligned
             block content
@@ -86,9 +86,33 @@ html
                     a.item(href='#') Terms and Conditions
                     a.item(href='#') Privacy Policy
 
+        // modals
+        // Sign Up Modal
+        .ui.modal.tiny#signUpModal
+            i.close.icon
+            .header
+                | Profile Picture
+            .image.content
+                .ui.medium.image
+                    img(src='/images/avatar/large/chris.jpg')
+                .description
+                    .ui.header We've auto-chosen a profile image for you.
+                    p
+                        | We've grabbed the following image from the
+                        a(href='https://www.gravatar.com', target='_blank') gravatar
+                        |  image associated with your registered e-mail address.
+                    p Is it okay to use this photo?
+            .actions
+                .ui.black.deny.button
+                    | Nope
+                .ui.positive.right.labeled.icon.button
+                    | Yep, that's me
+                    i.checkmark.icon
+
 
 
     block javascripts
         script(src="angular/angular.min.js")
         script(src="dist/js/app/main.min.js")
+        script(src="dist/js/app/controllers/layoutController.min.js")
         script(src="jquery/dist/jquery.min.js")

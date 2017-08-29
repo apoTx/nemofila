@@ -1,7 +1,11 @@
 app.controller('indexController', ['$scope',  ($scope) => {
 
   $scope.openNewAdModal = () => {
-    $('.ui.modal').modal('show');
+    $('#newAdModal').modal('show');
+  };
+
+  $scope.openSignUpModal = () => {
+    $('#signUpModal').modal('show');
   };
 
 }]);
