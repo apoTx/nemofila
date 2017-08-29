@@ -44,12 +44,6 @@ router.post('/login', (req,res) => {
   });
 });
 
-
-router.get('/dashboard', requireLogin, (req, res) => {
-  res.render('manage/index');
-});
-
-
 router.get('/logout', requireLogin, (req,res) => {
   req.session.reset();
   res.redirect('./');

@@ -4,13 +4,9 @@ let path = require('path');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-let sessions = require('client-sessions');
 
 let index = require('./routes/index');
 let users = require('./routes/users');
-
-// Models
-let User = require('./models/users');
 
 
 let mongoose = require('mongoose');
@@ -37,39 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 
-/*Login sessions*/
-app.use(sessions({
-  cookieName: 'session',
-  secret: 'asdasjdh19e1djdalsdjasdljDJALSJDLASJDLJSAdkljaslkdj',
-  maxAge: 14 * 24 * 3600000, // 2 weeks
-}));
-
-/*User auth*/
-app.use((req,res,next) => {
-  console.log('asdaf');
-
-  if(req.session && req.session.user){
-    User.findOne({ email:req.session.user.email }, (err,user) => {
-      if(user){
-        req.user = user;
-        delete req.user.pw;
-        req.session.user = req.user;
-        res.locals.user = req.user;
-        console.log(req.user);
-      }
-      next();
-    });
-  }else{
-    console.log('asd');
-    next();
-  }
-});
-
 app.use('/manage/', manage);
-
 app.use('/', index);
 app.use('/users', users);
-
 
 
 // catch 404 and forward to error handler
