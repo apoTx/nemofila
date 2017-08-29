@@ -1,7 +1,7 @@
 app.controller('layoutController', ['$scope',  ($scope) => {
 
   $('#signUpForm').form({
-	  on: 'blur',
+    on: 'blur',
 	  fields: {
       name: {
 		  identifier  : 'name',
@@ -13,51 +13,54 @@ app.controller('layoutController', ['$scope',  ($scope) => {
 		  ]
       },
       surname: {
-		  identifier  : 'surname',
-		  rules: [
+        identifier  : 'surname',
+        rules: [
           {
-			  type   : 'empty',
-			  prompt : 'Please enter a surname'
+            type   : 'empty',
+            prompt : 'Please enter a surname'
           }
-		  ]
+        ]
       },
       email: {
-		  identifier  : 'email',
-		  rules: [
+        identifier  : 'email',
+        rules: [
           {
-			  type   : 'email',
-			  prompt : 'Please enter a valid e-mail'
+            type   : 'email',
+            prompt : 'Please enter a valid e-mail'
           }
-		  ]
+        ]
       },
       number: {
-		  identifier  : 'number',
-		  rules: [
+        identifier  : 'number',
+        rules: [
           {
-			  type   : 'number',
-			  prompt : 'Please enter a valid number'
+            type   : 'number',
+            prompt : 'Please enter a valid number'
           }
-		  ]
+        ]
       },
       password: {
-		  identifier  : 'password',
+        identifier  : 'password',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter a valid password'
+          }
+        ]
+      },
+      passwordConfirm: {
+		  identifier: 'passwordConfirm',
 		  rules: [
           {
-			  type   : 'empty',
-			  prompt : 'Please enter a valid password'
-          }
-		  ]
-      },
-	  passwordConfirm: {
-        identifier: 'passwordConfirm',
-        rules: [
-		  {
             type: 'match[password]',
             prompt: 'Mismatched Password'
-		  }
-        ]
-	  }
-	  }
+          }
+		  ]
+      }
+	  },
+    onSuccess: () => {
+      $scope.signUp();
+    }
   });
 
   $scope.openSignUpModal = () => {
@@ -67,5 +70,9 @@ app.controller('layoutController', ['$scope',  ($scope) => {
   setTimeout(()=>{
     $scope.openSignUpModal();
   });
+
+  $scope.signUp = () => {
+    alert('sign up');
+  };
 
 }]);
