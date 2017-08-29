@@ -46,7 +46,7 @@ app.use(sessions({
 
 /*User auth*/
 app.use((req,res,next) => {
-  console.log('asdaf')
+  console.log('asdaf');
 
   if(req.session && req.session.user){
     User.findOne({ email:req.session.user.email }, (err,user) => {
@@ -60,7 +60,7 @@ app.use((req,res,next) => {
       next();
     });
   }else{
-    console.log('asd')
+    console.log('asd');
     next();
   }
 });

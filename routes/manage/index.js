@@ -7,7 +7,7 @@ let requireLogin = require('./inc/requireLogin.js');
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
-  res.render('manage/index', { title: 'Dashboard'});
+  res.render('manage/index', { title: 'Dashboard' });
 });
 
 router.get('/login',(req,res) => {
