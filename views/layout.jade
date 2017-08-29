@@ -20,6 +20,7 @@ html
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/form.min.css')
             link(rel='stylesheet', href='dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
@@ -91,23 +92,44 @@ html
         .ui.modal.tiny#signUpModal
             i.close.icon
             .header
-                | Profile Picture
-            .image.content
-                .ui.medium.image
-                    img(src='/images/avatar/large/chris.jpg')
-                .description
-                    .ui.header We've auto-chosen a profile image for you.
-                    p
-                        | We've grabbed the following image from the
-                        a(href='https://www.gravatar.com', target='_blank') gravatar
-                        |  image associated with your registered e-mail address.
-                    p Is it okay to use this photo?
+                | Sign Up
+            .content
+                .ui.grid.stackable.no-margin-bottom
+                    .eight.wide.column
+                        button.ui.facebook.button.fluid
+                            i.facebook.icon
+                            |   Sign up with Facebook
+                    .eight.wide.column
+                        button.ui.google.plus.button.fluid
+                            i.google.plus.icon
+                            |   Sign up with Google
+
+                .ui.horizontal.divider
+                    | Or
+
+                .ui.form
+                    .two.fields
+                        .field
+                            input(placeholder='Name', name="name", required)
+                        .field
+                            input(placeholder='Surname', name="surname", required)
+                    .two.fields
+                        .field
+                            input(placeholder='e-mail address', name="email", required)
+                        .field
+                            input(placeholder='Phone', name="phone")
+                    .two.fields
+                        .field
+                            input(placeholder='Password', name="pw", required)
+                        .field
+                            input(placeholder='Retype Password', name="pw-r", required)
+
+
+
+
             .actions
-                .ui.black.deny.button
-                    | Nope
-                .ui.positive.right.labeled.icon.button
-                    | Yep, that's me
-                    i.checkmark.icon
+                .ui.positive.right.icon.button
+                    | Sign Up
 
 
 
