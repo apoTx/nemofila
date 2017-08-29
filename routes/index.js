@@ -1,4 +1,6 @@
 let express = require('express');
+let bcrypt = require('bcryptjs');
+
 let router = express.Router();
 
 // Models
@@ -12,20 +14,28 @@ router.get( '/', ( req, res ) => {
 router.post( '/saveUser', ( req, res ) => {
   let data = req.body.data;
 
-  let user = new User({
-    'name': data.name,
-    'surname': data.surname,
-    'email': data.email,
-    'phone': data.phone,
-    'password': data.password
+  // Password hash
+  const saltRounds = 10;
+  bcrypt.hash(req.body.data.password, saltRounds).then((hash) => {
+    let user = new User({
+	  'name': data.name,
+	  'surname': data.surname,
+	  'email': data.email,
+	  'phone': data.phone,
+	  'password': hash
+    });
+
+    user.save((err) => {
+	  if (err)
+        res.send(err);
+	  else
+        res.send('ok');
+    });
   });
 
-  user.save((err) => {
-    if (err)
-      res.send(err);
-    else
-      res.send('ok');
-  });
+
+
+
 });
 
 module.exports = router;
