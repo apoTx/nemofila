@@ -1,4 +1,4 @@
-app.controller('layoutController', ['$scope',  ($scope) => {
+app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
 
   $('#signUpForm').form({
     on: 'blur',
@@ -71,8 +71,21 @@ app.controller('layoutController', ['$scope',  ($scope) => {
     $scope.openSignUpModal();
   });
 
+
+
+  $scope.signupForm = {};
   $scope.signUp = () => {
-    alert('sign up');
+    $http({
+	  url: '/saveUser',
+	  method: 'POST',
+	  data: { 'data' : $scope.signupForm }
+    })
+	  .then((response) => {
+		  console.log(response);
+      },
+      () => { // optional
+		  console.log('fail');
+      });
   };
 
 }]);

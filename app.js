@@ -8,6 +8,8 @@ let bodyParser = require('body-parser');
 let index = require('./routes/index');
 let users = require('./routes/users');
 
+let sessions = require('client-sessions');
+
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/easyads', {
@@ -31,6 +33,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
+
+/*Login sessions*/
+app.use(sessions({
+  cookieName: 'session',
+  secret: 'asdasjdh19e1djdalsdjasdljDJALSJDLASJDLJSAdkljaslkdj',
+  maxAge: 14 * 24 * 3600000, // 2 weeks
+}));
 
 
 app.use('/manage/', manage);

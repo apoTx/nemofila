@@ -17,7 +17,7 @@ router.get('/login',(req,res) => {
 router.post('/login', (req,res) => {
 
   User.findOne({ email: req.body.email },(err,user) => {
-
+    console.log(user);
     // Yemi şifre üretmek için
 
     /*
@@ -32,7 +32,7 @@ router.post('/login', (req,res) => {
     if(!user){
       res.render('manage/login',{ error: 'Email or password is invalid' });
     }else{
-      bcrypt.compare(req.body.password, user.pw, (err, r) => {
+      bcrypt.compare(req.body.password, user.password, (err, r) => {
         if (r) {
           req.session.user = user;
           res.redirect('./');

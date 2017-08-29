@@ -111,22 +111,22 @@ html
                     .two.fields
                         .field
                             //label Name
-                            input(name='name', placeholder='Name')
+                            input(name='name', placeholder='Name', ng-model='signupForm.name')
                         .field
                             //label Surname
-                            input(name='surname', placeholder='Surname')
+                            input(name='surname', placeholder='Surname', ng-model='signupForm.surname')
                     .two.fields
                         .field
                             //label E-mail
-                            input(name='email', placeholder='E-mail')
+                            input(name='email', placeholder='E-mail', ng-model='signupForm.email')
                         .field
                             //label Phone Number
-                            input(name='number', placeholder='Phone Number')
+                            input(name='number', placeholder='Phone Number', ng-model="signupForm.phone")
                     .two.fields
                         .field
-                            input(name='password', type='password', placeholder='Password')
+                            input(name='password', type='password', placeholder='Password', ng-model='signupForm.password')
                         .field
-                            input(name='passwordConfirm', type='password', placeholder='Confirm Password')
+                            input(name='passwordConfirm', type='password', placeholder='Confirm Password', ng-model="signupForm.passwordConfirm")
                     .ui.error.message
 
 
