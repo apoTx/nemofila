@@ -4,8 +4,4 @@ app.controller('indexController', ['$scope',  ($scope) => {
     $('#newAdModal').modal('show');
   };
 
-  $scope.openSignUpModal = () => {
-    $('#signUpModal').modal('show');
-  };
-
 }]);

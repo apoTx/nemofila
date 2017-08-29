@@ -107,34 +107,36 @@ html
                 .ui.horizontal.divider
                     | Or
 
-                .ui.form
+                form.ui.form#signUpForm
                     .two.fields
                         .field
-                            input(placeholder='Name', name="name", required)
+                            //label Name
+                            input(name='name', placeholder='Name')
                         .field
-                            input(placeholder='Surname', name="surname", required)
+                            //label Surname
+                            input(name='surname', placeholder='Surname')
                     .two.fields
                         .field
-                            input(placeholder='e-mail address', name="email", required)
+                            //label E-mail
+                            input(name='email', placeholder='E-mail')
                         .field
-                            input(placeholder='Phone', name="phone")
+                            //label Phone Number
+                            input(name='number', placeholder='Phone Number')
                     .two.fields
                         .field
-                            input(placeholder='Password', name="pw", required)
+                            input(name='password', type='password', placeholder='Password')
                         .field
-                            input(placeholder='Retype Password', name="pw-r", required)
-
-
+                            input(name='passwordConfirm', type='password', placeholder='Confirm Password')
+                    .ui.error.message
 
 
             .actions
-                .ui.positive.right.icon.button
+                button.ui.right.icon.button(form="signUpForm")
                     | Sign Up
-
-
 
     block javascripts
         script(src="angular/angular.min.js")
         script(src="dist/js/app/main.min.js")
         script(src="dist/js/app/controllers/layoutController.min.js")
         script(src="jquery/dist/jquery.min.js")
+        script(src="semantic/dist/components/form.min.js")

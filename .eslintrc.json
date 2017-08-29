@@ -15,6 +15,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "no-mixed-spaces-and-tabs": 0,
         "no-console": 0,
         "no-var": "error",
         "prefer-arrow-callback": "error",
