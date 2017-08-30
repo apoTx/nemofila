@@ -105,7 +105,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 
   setTimeout(()=>{
     // $scope.openSignUpModal();
-    $scope.openSignInModal();
+    // $scope.openSignInModal();
   });
 
   // Sign Up
