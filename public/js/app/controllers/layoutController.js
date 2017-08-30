@@ -89,7 +89,10 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
     },
     onSuccess: () => {
       $scope.signIn();
-    }
+    },
+    onInvalid:() => {
+      $scope.signInErr = null;
+    },
   });
 
   $scope.openSignUpModal = () => {
@@ -135,7 +138,12 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
       .then((response) => {
         console.log(response);
         $scope.signInBtnLoading = false;
-	    $window.location.reload();
+
+        if (response.data.status == 1){
+          $window.location.reload();
+        }else {
+          $scope.signInErr = response.data.error;
+        }
       },
       () => { // optional
         console.log('fail');

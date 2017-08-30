@@ -21,6 +21,7 @@ html
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/form.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.min.css')
             link(rel='old stylesheet', href='dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
@@ -162,10 +163,11 @@ html
                         .field.sixteen.wide.column
                             //label E-mail
                             input(name='email', placeholder='E-mail', ng-model='loginFormData.email')
-                            | {{ sigInForm.email }}
                         .field.sixteen.wide.column.no-padding-top
                             input(name='password', type='password', placeholder='Password', ng-model='loginFormData.password')
                     .ui.error.message
+                    .backendErr.ui.red.message(ng-if="signInErr")
+                        | {{ signInErr }}
 
 
             .actions

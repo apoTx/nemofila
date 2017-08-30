@@ -39,14 +39,14 @@ router.post('/login', (req,res) => {
 
   User.findOne({ email: data.email },(err,user) => {
     if(!user){
-      res.json({ error: 'Email or password is invalid' });
+      res.json({ error: 'Email or password is did not match' });
     }else{
       bcrypt.compare(data.password, user.password, (err, r) => {
         if (r) {
           req.session.user = user;
           res.json({ status: 1 });
         }else{
-          res.json({ error: 'Email or password is invalid' });
+          res.json({ error: 'Email or password is did not match' });
         }
       });
     }
