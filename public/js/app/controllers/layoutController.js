@@ -92,6 +92,10 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 		},
 	});
 
+	// New Ad Form
+	$('.ui.dropdown').dropdown();
+	$('#newAdForm').form();
+
 	$scope.openSignUpModal = () => {
 		$('#signUpModal').modal('show');
 	};
@@ -100,9 +104,14 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 		$('#signInModal').modal('show');
 	};
 
+	$scope.openNewAdModal = () => {
+		$('#newAdModal').modal('show');
+	};
+
 	setTimeout(()=>{
 		// $scope.openSignUpModal();
-		$scope.openSignInModal();
+		// $scope.openSignInModal();
+		$scope.openNewAdModal();
 	});
 
 	// Sign Up

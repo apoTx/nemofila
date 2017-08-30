@@ -22,6 +22,7 @@ html
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/form.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.min.css')
+            link(rel='stylesheet', type='text/css', href='semantic/dist/components/label.min.css')
             link(rel='old stylesheet', href='dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
@@ -176,9 +177,88 @@ html
                 button.ui.right.icon.button(form="signInForm", ng-class="signInBtnLoading ? 'loading' : '' ")
                     | Sign In
 
+
+        // New ad Modal
+        .ui.modal.small#newAdModal
+            i.close.icon
+            .header
+                | New Ad
+            .content
+                form.ui.form.fluid#newAdForm
+                    .fields.two
+                        .field.wide.ten
+                            label Title
+                            input(name='name', placeholder='Title', ng-model='newAdForm.title')
+                        .field.wide.six
+                            label Price
+                            .ui.right.labeled.input
+                                input(type='text', placeholder='Price')
+                                .ui.basic.label
+                                    | USD
+                    .field
+                        label Description
+                        textarea(name='surname', ng-model='newAdForm.description')
+                    .five.fields
+                        .field
+                            label Country
+                            .ui.compact.selection.dropdown
+                                input(type='hidden', name='country')
+                                .default.text Country
+                                i.dropdown.icon
+                                .menu
+                                    .item(data-value='female') Iran
+                                    .item(data-value='male') Turkey
+                        .field
+                            label City
+                            .ui.compact.selection.dropdown
+                                input(type='hidden', name='city')
+                                .default.text City
+                                i.dropdown.icon
+                                .menu
+                                    .item(data-value='female') Iran
+                                    .item(data-value='male') Turkey
+                        .field
+                            label District
+                            .ui.compact.selection.dropdown
+                                input(type='hidden', name='district')
+                                .default.text District
+                                i.dropdown.icon
+                                .menu
+                                    .item(data-value='female') Iran
+                                    .item(data-value='male') Turkey
+                        .field
+                            label Group 1
+                            .ui.compact.selection.dropdown
+                                input(type='hidden', name='')
+                                .default.text Group 1
+                                i.dropdown.icon
+                                .menu
+                                    .item(data-value='female') Iran
+                                    .item(data-value='male') Turkey
+                        .field
+                            label Group 2
+                            .ui.compact.selection.dropdown
+                                input(type='hidden', name='')
+                                .default.text Group 2
+                                i.dropdown.icon
+                                .menu
+                                    .item(data-value='female') Iran
+                                    .item(data-value='male') Turkey
+
+
+                    .ui.error.message
+                    .backendErr.ui.red.message(ng-if="newAdErr")
+                        | {{ newAdErr }}
+
+
+            .actions
+                button.ui.right.icon.button(form="newAdForm", ng-class="newAdBtnLoading ? 'loading' : '' ")
+                    | Save
+
     block javascripts
         script(src="angular/angular.min.js")
         script(src="dist/js/app/main.min.js")
         script(src="jquery/dist/jquery.min.js")
         script(src="dist/js/app/controllers/layoutController.min.js")
         script(src="semantic/dist/components/form.min.js")
+        script(src="semantic/dist/components/dropdown.min.js")
