@@ -7,20 +7,24 @@ let bodyParser = require('body-parser');
 let sessions = require('client-sessions');
 let passport = require('passport');
 
+// Development env file
+let config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
+//Routes
 let index = require('./routes/index');
 let users = require('./routes/users');
 
-/*Admin pages*/
+// Admin Routes
 let manage = require('./routes/manage/index');
 
+// Models
 let User = require('./models/users');
 
+// Mongo connection
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/easyads', {
+mongoose.connect(config.db.MONGO_URI, {
   useMongoClient: true,
 });
-
 
 let app = express();
 
@@ -37,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-/*Login sessions*/
+// Login sessions
 app.use(sessions({
   cookieName: 'session',
   secret: 'asdasjdh19e1djdalsdjasdljDJALSJDLASJDLJSAdkljaslkdj',
@@ -46,7 +50,7 @@ app.use(sessions({
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*User auth*/
+// User auth
 app.use((req,res,next) => {
   if(req.session && req.session.user){
     User.findOne({ email:req.session.user.email },(err,user) => {
