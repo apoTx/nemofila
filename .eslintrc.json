@@ -15,11 +15,10 @@
         "sourceType": "module"
     },
     "rules": {
-      "no-mixed-spaces-and-tabs": [ "error", "smart-tabs" ],
       "no-console": 0,
         "no-var": "error",
         "prefer-arrow-callback": "error",
-        "indent": ["error", 2],
+        "indent": ["error", "tab"],
         "linebreak-style": [
             "error",
             "unix"

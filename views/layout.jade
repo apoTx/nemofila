@@ -133,6 +133,8 @@ html
                         .field
                             input(name='passwordConfirm', type='password', placeholder='Confirm Password', ng-model="signupForm.passwordConfirm")
                     .ui.error.message
+                    .backendErr.ui.red.message(ng-if="signUpErr")
+                        | {{ signUpErr }}
 
 
             .actions
