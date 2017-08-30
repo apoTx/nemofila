@@ -4,20 +4,23 @@ let path = require('path');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let sessions = require('client-sessions');
+let passport = require('passport');
+
 
 let index = require('./routes/index');
 let users = require('./routes/users');
 
-let sessions = require('client-sessions');
+/*Admin pages*/
+let manage = require('./routes/manage/index');
 
+let User = require('./models/users');
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/easyads', {
   useMongoClient: true,
 });
 
-/*Admin pages*/
-let manage = require('./routes/manage/index');
 
 let app = express();
 
@@ -40,7 +43,25 @@ app.use(sessions({
   secret: 'asdasjdh19e1djdalsdjasdljDJALSJDLASJDLJSAdkljaslkdj',
   maxAge: 14 * 24 * 3600000, // 2 weeks
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
+/*User auth*/
+app.use((req,res,next) => {
+  if(req.session && req.session.user){
+    User.findOne({ email:req.session.user.email },(err,user) => {
+      if(user){
+        req.user = user;
+        delete req.user.password;
+        req.session.user = req.user;
+        res.locals.user = req.user;
+      }
+      next();
+    });
+  }else{
+    next();
+  }
+});
 
 app.use('/manage/', manage);
 app.use('/', index);

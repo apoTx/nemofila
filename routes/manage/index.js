@@ -16,7 +16,7 @@ router.get('/login',(req,res) => {
 
 router.post('/login', (req,res) => {
 
-  User.findOne({ email: req.body.email },(err,user) => {
+  User.findOne({ email: req.body.email, isAdmin: true },(err,user) => {
     // Yemi şifre üretmek için
 
     /*
