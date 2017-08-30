@@ -10,8 +10,6 @@ let passport = require('passport');
 // Development env file
 let config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
-console.log(process.env.NODE_ENV);
-
 //Routes
 let index = require('./routes/index');
 let users = require('./routes/users');
