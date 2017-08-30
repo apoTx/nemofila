@@ -73,7 +73,7 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
 
   setTimeout(()=>{
     // $scope.openSignUpModal();
-    $scope.openSignInModal();
+    // $scope.openSignInModal();
   });
 
   // Sign Up

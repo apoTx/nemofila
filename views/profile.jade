@@ -1,0 +1,19 @@
+extends layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/dimmer.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/modal.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/transition.min.css')
+
+
+block content
+    div(ng-controller="profileController") hey what's going on here?
+
+append javascripts
+    script(src="dist/js/app/controllers/profileController.min.js")
+    script(src="semantic/dist/components/dimmer.min.js")
+    script(src="semantic/dist/components/modal.min.js")
+    script(src="semantic/dist/components/transition.min.js")

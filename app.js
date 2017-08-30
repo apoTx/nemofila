@@ -12,7 +12,7 @@ let config = require('./config/env.json')[process.env.NODE_ENV || 'development']
 
 //Routes
 let index = require('./routes/index');
-let users = require('./routes/users');
+let profile = require('./routes/profile');
 
 // Admin Routes
 let manage = require('./routes/manage/index');
@@ -54,13 +54,13 @@ app.use(passport.session());
 app.use((req,res,next) => {
   if(req.session && req.session.user){
     User.findOne({ email:req.session.user.email },(err,user) => {
-      if(user){
+		  if(user){
         req.user = user;
         delete req.user.password;
         req.session.user = req.user;
         res.locals.user = req.user;
-      }
-      next();
+		  }
+		  next();
     });
   }else{
     next();
@@ -69,7 +69,7 @@ app.use((req,res,next) => {
 
 app.use('/manage/', manage);
 app.use('/', index);
-app.use('/users', users);
+app.use('/profile', profile);
 
 
 // catch 404 and forward to error handler

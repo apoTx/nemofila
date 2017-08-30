@@ -8,7 +8,7 @@ let User = require('../models/users');
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-  res.render('index', { title:'Easy Ads' });
+  res.render('index', { title:'Easy Ads', user: req.session.user  });
 });
 
 router.post( '/register', ( req, res ) => {
@@ -32,6 +32,12 @@ router.post( '/register', ( req, res ) => {
 			  res.send({ 'status': 1 });
 	  });
   });
+});
+
+
+router.get('/logout',  (req,res) => {
+  req.session.reset();
+  res.redirect('./');
 });
 
 module.exports = router;
