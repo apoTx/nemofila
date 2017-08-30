@@ -71,17 +71,17 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
     $scope.openSignUpModal();
   });
 
-
-
   $scope.signupForm = {};
   $scope.signUp = () => {
+    $scope.registerBtnLoading = true;
     $http({
-	  url: '/saveUser',
+	  url: '/register',
 	  method: 'POST',
 	  data: { 'data' : $scope.signupForm }
     })
 	  .then((response) => {
 		  console.log(response);
+		  $scope.registerBtnLoading = false;
       },
       () => { // optional
 		  console.log('fail');

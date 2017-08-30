@@ -131,7 +131,7 @@ html
 
 
             .actions
-                button.ui.right.icon.button(form="signUpForm")
+                button.ui.right.icon.button(form="signUpForm", ng-class="registerBtnLoading ? 'loading' : '' ")
                     | Sign Up
 
     block javascripts

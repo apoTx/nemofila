@@ -29,6 +29,10 @@ let userSchema = new Schema({
     type: Boolean,
     default: 0
   },
+  verify: {
+    type: Boolean,
+    default:0
+  },
   social         : {
     id           : String,
     token        : String,
