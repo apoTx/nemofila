@@ -34,6 +34,24 @@ router.post( '/register', ( req, res ) => {
   });
 });
 
+router.post('/login', (req,res) => {
+  let data = req.body.data;
+
+  User.findOne({ email: data.email },(err,user) => {
+    if(!user){
+      res.json({ error: 'Email or password is invalid' });
+    }else{
+      bcrypt.compare(data.password, user.password, (err, r) => {
+        if (r) {
+          req.session.user = user;
+          res.json({ status: 1 });
+        }else{
+          res.json({ error: 'Email or password is invalid' });
+        }
+      });
+    }
+  });
+});
 
 router.get('/logout',  (req,res) => {
   req.session.reset();

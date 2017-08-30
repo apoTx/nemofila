@@ -1,5 +1,6 @@
-app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
+app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http, $window) => {
 
+  // SignUp form validation
   $('#signUpForm').form({
     on: 'blur',
 	  fields: {
@@ -63,6 +64,34 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
     }
   });
 
+  // SignIn form validation
+  $('#signInForm').form({
+    on: 'blur',
+    fields: {
+      email: {
+        identifier  : 'email',
+        rules: [
+          {
+            type   : 'email',
+            prompt : 'Please enter a valid e-mail'
+          }
+        ]
+      },
+      password: {
+        identifier  : 'password',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please enter a password'
+          }
+        ]
+      }
+    },
+    onSuccess: () => {
+      $scope.signIn();
+    }
+  });
+
   $scope.openSignUpModal = () => {
     $('#signUpModal').modal('show');
   };
@@ -73,7 +102,7 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
 
   setTimeout(()=>{
     // $scope.openSignUpModal();
-    // $scope.openSignInModal();
+    $scope.openSignInModal();
   });
 
   // Sign Up
@@ -95,17 +124,18 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
   };
 
   // Sign In
-  $scope.signInForm = {};
+  $scope.loginFormData = { };
   $scope.signIn = () => {
     $scope.signInBtnLoading = true;
     $http({
       url: '/login',
       method: 'POST',
-      data: { 'data' : $scope.signInForm }
+      data: { 'data' : $scope.loginFormData }
     })
       .then((response) => {
         console.log(response);
         $scope.signInBtnLoading = false;
+	    $window.location.reload();
       },
       () => { // optional
         console.log('fail');

@@ -161,9 +161,10 @@ html
                     .fields.ui.grid
                         .field.sixteen.wide.column
                             //label E-mail
-                            input(name='email', placeholder='E-mail', ng-model='sigInForm.email')
+                            input(name='email', placeholder='E-mail', ng-model='loginFormData.email')
+                            | {{ sigInForm.email }}
                         .field.sixteen.wide.column.no-padding-top
-                            input(name='password', type='password', placeholder='Password', ng-model='sigInForm.password')
+                            input(name='password', type='password', placeholder='Password', ng-model='loginFormData.password')
                     .ui.error.message
 
 
