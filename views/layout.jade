@@ -21,7 +21,7 @@ html
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
             link(rel='stylesheet', type='text/css', href='semantic/dist/components/form.min.css')
-            link(rel='stylesheet', href='dist/css/style.css')
+            link(rel='old stylesheet', href='dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
         .ui.fixed.inverted.menu
@@ -46,8 +46,8 @@ html
                                 a.item(href='#') Link Item
                         a.item(href='#') Link Item
                 .right.menu
-                    a.item.no-before(href='javascript:;' ng-click="openSignUpModal()") Sign Up
-                    a.item(href='#') Sign In
+                    a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") Sign Up
+                    a.item(href='javascript:;', ng-click="openSignInModal()") Sign In
         .ui.main.container.aligned
             block content
 
@@ -88,7 +88,7 @@ html
                     a.item(href='#') Privacy Policy
 
         // modals
-        // Sign Up Modal
+        // SignUp Modal
         .ui.modal.tiny#signUpModal
             i.close.icon
             .header
@@ -98,11 +98,11 @@ html
                     .eight.wide.column
                         button.ui.facebook.button.fluid
                             i.facebook.icon
-                            |   Sign up with Facebook
+                            |   Sign Up with Facebook
                     .eight.wide.column
                         button.ui.google.plus.button.fluid
                             i.google.plus.icon
-                            |   Sign up with Google
+                            |   Sign Up with Google
 
                 .ui.horizontal.divider
                     | Or
@@ -133,6 +133,39 @@ html
             .actions
                 button.ui.right.icon.button(form="signUpForm", ng-class="registerBtnLoading ? 'loading' : '' ")
                     | Sign Up
+
+        // SignIn Modal
+        .ui.modal.mini#signInModal
+            i.close.icon
+            .header
+                | Sign In
+            .content
+                .ui.grid.stackable.no-margin-bottom
+                    .sixteen.wide.column
+                        button.ui.facebook.button.fluid
+                            i.facebook.icon
+                            |   Sign In with Facebook
+                    .sixteen.wide.column.no-padding-top
+                        button.ui.google.plus.button.fluid
+                            i.google.plus.icon
+                            |   Sign In with Google
+
+                .ui.horizontal.divider
+                    | Or
+
+                form.ui.form#signInForm
+                    .fields.ui.grid
+                        .field.sixteen.wide.column
+                            //label E-mail
+                            input(name='email', placeholder='E-mail', ng-model='sigInForm.email')
+                        .field.sixteen.wide.column.no-padding-top
+                            input(name='password', type='password', placeholder='Password', ng-model='sigInForm.password')
+                    .ui.error.message
+
+
+            .actions
+                button.ui.right.icon.button(form="signInForm", ng-class="signInBtnLoading ? 'loading' : '' ")
+                    | Sign In
 
     block javascripts
         script(src="angular/angular.min.js")

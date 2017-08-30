@@ -67,10 +67,16 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
     $('#signUpModal').modal('show');
   };
 
+  $scope.openSignInModal = () => {
+    $('#signInModal').modal('show');
+  };
+
   setTimeout(()=>{
-    $scope.openSignUpModal();
+    // $scope.openSignUpModal();
+    $scope.openSignInModal();
   });
 
+  // Sign Up
   $scope.signupForm = {};
   $scope.signUp = () => {
     $scope.registerBtnLoading = true;
@@ -85,6 +91,24 @@ app.controller('layoutController', ['$scope', '$http',  ($scope, $http) => {
       },
       () => { // optional
 		  console.log('fail');
+      });
+  };
+
+  // Sign In
+  $scope.signInForm = {};
+  $scope.signIn = () => {
+    $scope.signInBtnLoading = true;
+    $http({
+      url: '/login',
+      method: 'POST',
+      data: { 'data' : $scope.signInForm }
+    })
+      .then((response) => {
+        console.log(response);
+        $scope.signInBtnLoading = false;
+      },
+      () => { // optional
+        console.log('fail');
       });
   };
 

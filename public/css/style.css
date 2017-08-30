@@ -26,12 +26,29 @@ body {
     margin-top: 0 !important;
 }
 .no-margin-bottom{
+    margin-bottom: 0 !important;
 }
 .no-margin-left{
     margin-left:0 !important;
 }
 .no-margin-right{
     margin-right:0 !important;
+}
+
+.padding{
+    padding:0
+}
+.no-padding-top{
+    padding-top: 0 !important;
+}
+.no-padding-bottom{
+    padding-bottom:0 !important;
+}
+.no-padding-left{
+    padding-left:0 !important;
+}
+.no-margin-right{
+    padding-right:0 !important;
 }
 
 .item-title{
