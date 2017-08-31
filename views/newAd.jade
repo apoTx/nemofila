@@ -3,10 +3,7 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/dimmer.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/modal.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/transition.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
 
 
 block content
@@ -77,6 +74,16 @@ block content
                     .small.ui.button
                         i.upload.icon
                         | Upload Photos
+            .field
+                .ui.checkbox
+                    input.hidden(type='checkbox', tabindex='0')
+                    label Use another person tel number and name
+            .fields.two#anotherContact(ng-if="anotherContact.checked")
+                .field.wide.eight
+                    input(placeholder='Contact Name', ng-model='newAdForm.title')
+                .field.wide.eight
+                    input( placeholder='Contact Phone Number')
+
 
             .ui.error.message
             .backendErr.ui.red.message(ng-if="newAdErr")
@@ -88,6 +95,4 @@ block content
 
 append javascripts
     script(src="dist/js/app/controllers/newAdController.min.js")
-    script(src="semantic/dist/components/dimmer.min.js")
-    script(src="semantic/dist/components/modal.min.js")
-    script(src="semantic/dist/components/transition.min.js")
+    script(src="semantic/dist/components/checkbox.min.js")

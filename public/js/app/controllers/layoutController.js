@@ -92,20 +92,12 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 		},
 	});
 
-	// New Ad Form
-	$('.ui.dropdown').dropdown();
-	$('#newAdForm').form();
-
 	$scope.openSignUpModal = () => {
 		$('#signUpModal').modal('show');
 	};
 
 	$scope.openSignInModal = () => {
 		$('#signInModal').modal('show');
-	};
-
-	$scope.openNewAdModal = () => {
-		$('#newAdModal').modal('show');
 	};
 
 	setTimeout(()=>{
