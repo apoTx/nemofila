@@ -1,6 +1,9 @@
 body {
   background-color: #FFFFFF;
 }
+.clearfix{
+    clear:both !important;
+}
 .ui.menu .item img.logo {
   margin-right: 1.5em;
 }
