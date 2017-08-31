@@ -62,7 +62,6 @@ body {
     margin-left: .4em !important;
 }
 
-
 .thumb {
     width: 24px;
     height: 24px;
@@ -70,6 +69,7 @@ body {
     position: relative;
     top: 7px;
 }
+
 form .progress {
     line-height: 15px;
 }
@@ -79,6 +79,7 @@ form .progress {
     width: 100px;
     border: 3px groove #CCC;
 }
+
 .progress div {
     font-size: smaller;
     background: orange;

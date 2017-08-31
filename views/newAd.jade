@@ -73,19 +73,17 @@ block content
             .ui.tiny.images.stacked.segment
                 .text-center
                     button.small.ui.button(
-                        ngf-select="uploadFiles($files)"
-                        multiple
+                        ngf-select="uploadFiles($files)",
+                        multiple,
                         accept="image/*"
                     )
                         i.upload.icon
                         | Upload Photos
 
-                    br
-                    | Files:
-                    ul
-                        li(ng-repeat='f in files', style='font:smaller')
-                            | {{f.name}}
+                div(ng-repeat='f in files', style="display:inline-block")
+                    img.ui.image(src='/images/wireframe/image.png', ngf-thumbnail="f || '/thumb.jpg'")
 
+                div
                     span.progress(ng-show='progress >= 0')
                         div(style='width:{{progress}}%', ng-bind="progress + '%'")
                     |     {{errorMsg}}
