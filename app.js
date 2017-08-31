@@ -67,7 +67,8 @@ app.use((req,res,next) => {
 	}
 });
 
-app.use('/manage/', manage);
+
+app.use('/manage/', manage)
 app.use('/', index);
 app.use('/profile', profile);
 
