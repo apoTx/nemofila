@@ -4,6 +4,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
 
 
 block content
@@ -70,7 +71,7 @@ block content
                             .item(data-value='male') Turkey
 
 
-            .ui.tiny.images.stacked.segment
+            .ui.tiny.stacked.segment
                 .text-center
                     button.small.ui.button(
                         ngf-select="uploadFiles($files)",
@@ -80,8 +81,13 @@ block content
                         i.upload.icon
                         | Upload Photos
 
-                div(ng-repeat='f in files', style="display:inline-block")
-                    img.ui.image(src='/images/wireframe/image.png', ngf-thumbnail="f || '/thumb.jpg'")
+                .ui.four.cards(ng-if="files", ng-cloak)
+                    .card(ng-repeat='f in files')
+                        .image
+                            img(ngf-thumbnail="f || '/thumb.jpg'")
+                        .ui.bottom.attached.button
+                            i.remove.icon
+                            |  Remove
 
                 div
                     span.progress(ng-show='progress >= 0')
