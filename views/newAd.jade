@@ -74,15 +74,20 @@ block content
                     .small.ui.button
                         i.upload.icon
                         | Upload Photos
-            .field
-                .ui.checkbox
-                    input.hidden(type='checkbox', tabindex='0')
-                    label Use another person tel number and name
-            .fields.two#anotherContact(ng-if="anotherContact.checked")
-                .field.wide.eight
-                    input(placeholder='Contact Name', ng-model='newAdForm.title')
-                .field.wide.eight
-                    input( placeholder='Contact Phone Number')
+            .field.ui.segment
+
+
+                .ui.grid
+                    .sixteen.wide.column
+                        .ui.checkbox
+                            input.hidden(type='checkbox', tabindex='0')
+                            label Use another person tel number and name
+                    .sixteen.wide.column.no-padding-top#anotherContact(ng-if="anotherContact.checked")
+                        .fields.two
+                            .field.wide.eight
+                                input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.title')
+                            .field.wide.eight
+                                input(name='anotherContactPhone', placeholder='Contact Phone Number')
 
 
             .ui.error.message
