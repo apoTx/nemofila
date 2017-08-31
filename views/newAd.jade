@@ -82,7 +82,7 @@ block content
                         .ui.checkbox
                             input.hidden(type='checkbox', tabindex='0')
                             label Use another person tel number and name
-                    .sixteen.wide.column.no-padding-top#anotherContact(ng-if="anotherContact.checked")
+                    .sixteen.wide.column.no-padding-top#anotherContact(ng-if="anotherContact.checked", ng-cloak)
                         .fields.two
                             .field.wide.eight
                                 input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.title')
