@@ -73,19 +73,18 @@ block content
                             .item(data-value='male') Turkey
 
             .ui.tiny.images.stacked.segment
-                img.ui.image.no-margin-bottom(src='https://semantic-ui.com/images/wireframe/image.png')
-                img.ui.image.no-margin-bottom(src='https://semantic-ui.com/images/wireframe/image.png')
-                img.ui.image.no-margin-bottom(src='https://semantic-ui.com/images/wireframe/image.png')
-                img.ui.image.no-margin-bottom(src='https://semantic-ui.com/images/wireframe/image.png')
-
+                .text-center
+                    .small.ui.button
+                        i.upload.icon
+                        | Upload Photos
 
             .ui.error.message
             .backendErr.ui.red.message(ng-if="newAdErr")
                 | {{ newAdErr }}
 
+            button.ui.right.floated.primary.button(form="newAdForm", ng-class="newAdBtnLoading ? 'loading' : '' ")
+                | Submit Ad
 
-            button.ui.right.icon.button(form="newAdForm", ng-class="newAdBtnLoading ? 'loading' : '' ")
-                | Save
 
 append javascripts
     script(src="dist/js/app/controllers/newAdController.min.js")

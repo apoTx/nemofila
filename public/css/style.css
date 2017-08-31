@@ -19,6 +19,9 @@ body {
     display: none
 }
 
+.margin-auto{
+    margin:0 auto!important;
+}
 .no-margin{
     margin:0
 }
@@ -51,11 +54,10 @@ body {
     padding-right:0 !important;
 }
 
+.text-center{
+    text-align: center
+}
 .item-title{
     color:#000;
     margin-left: .4em !important;
-}
-
-.margin-auto{
-    margin:0 auto!important;
 }
