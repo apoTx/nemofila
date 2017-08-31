@@ -69,11 +69,26 @@ block content
                             .item(data-value='female') Iran
                             .item(data-value='male') Turkey
 
+
             .ui.tiny.images.stacked.segment
                 .text-center
-                    .small.ui.button
+                    button.small.ui.button(
+                        ngf-select="uploadFiles($files)"
+                        multiple
+                        accept="image/*"
+                    )
                         i.upload.icon
                         | Upload Photos
+
+                    br
+                    | Files:
+                    ul
+                        li(ng-repeat='f in files', style='font:smaller')
+                            | {{f.name}}
+
+                    span.progress(ng-show='progress >= 0')
+                        div(style='width:{{progress}}%', ng-bind="progress + '%'")
+                    |     {{errorMsg}}
             .field.ui.segment
 
 
@@ -99,5 +114,7 @@ block content
 
 
 append javascripts
+    script(src="ng-file-upload/ng-file-upload-shim.min.js")
+    script(src="ng-file-upload/ng-file-upload.min.js")
     script(src="dist/js/app/controllers/newAdController.min.js")
     script(src="semantic/dist/components/checkbox.min.js")

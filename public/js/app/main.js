@@ -1,3 +1,3 @@
 /*eslint-disable */
-let app = angular.module('app',[]);
+let app = angular.module('app',['ngFileUpload']);
 /*eslint-enable */
