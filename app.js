@@ -12,6 +12,7 @@ let config = require('./config/env.json')[process.env.NODE_ENV || 'development']
 
 //Routes
 let index = require('./routes/index');
+let newAd = require('./routes/newAd');
 let profile = require('./routes/profile');
 
 // Admin Routes
@@ -70,6 +71,7 @@ app.use((req,res,next) => {
 
 app.use('/manage/', manage);
 app.use('/', index);
+app.use('/newAd', newAd);
 app.use('/profile', profile);
 
 
