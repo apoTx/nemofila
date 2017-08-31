@@ -91,7 +91,7 @@ block content
 
 
             .ui.error.message
-            .backendErr.ui.red.message(ng-show="newAdErr")
+            .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
                 | {{ newAdErr }}
 
             button.ui.right.floated.primary.button(form="newAdForm", ng-class="newAdBtnLoading ? 'loading' : '' ")
