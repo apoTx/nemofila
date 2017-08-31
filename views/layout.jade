@@ -28,10 +28,10 @@ html
     body(ng-app="app" ng-controller="layoutController")
         .ui.fixed.inverted.menu
             .ui.container
-                a.header.item(href='#')
+                a.header.item(href='/')
                     img.logo(src='img/logo.png')
                     | &nbsp; &nbsp;  &nbsp; &nbsp; Easy Ads
-                a.item(href='#') Home
+                a.item(href='/') Home
                 .ui.simple.dropdown.item
                     | Dropdown
                     i.dropdown.icon
@@ -54,6 +54,9 @@ html
                     else
                         a.item(href='/profile')= user.name
                         a.item(href='/logout') Logout
+                    .item
+                        a.ui.primary.button.right.floated.right(href="/newAd") New Ad
+
         .ui.main.container.aligned
             block content
 
