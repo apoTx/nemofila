@@ -1,6 +1,7 @@
 // Redis connection
+let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 let redis = require('redis');
-let client = redis.createClient(6379, '127.0.0.1');
+let client = redis.createClient(config.redis.PORT, config.redis.URI);
 
 client.on('connect', () => {
 	console.log('redis server was connected!');
