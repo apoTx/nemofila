@@ -79,8 +79,9 @@ form .progress {
 
 .progress {
     display: inline-block;
-    width: 100px;
-    border: 3px groove #CCC;
+    width: 100%;
+    border: 1px groove #CCC;
+    margin-top: 20px;
 }
 
 .progress div {

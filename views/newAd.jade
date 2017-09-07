@@ -91,6 +91,10 @@ block content
                             i.remove.icon
                             |  Remove
 
+                span.progress(ng-show='progress >= 0')
+                        div(style='width:{{progress}}%', ng-bind="progress + '%'")
+                    |     {{errorMsg}}
+
             .field.ui.segment
                 .ui.grid
                     .sixteen.wide.column
