@@ -1,8 +1,8 @@
 let express = require('express');
 let client = require('../redis/client.js');
 const uuid = require('uuid');
-let multer  = require('multer')
-let upload = multer({ dest: 'public/uploads/' })
+let multer  = require('multer');
+let upload = multer({ dest: 'public/uploads/' });
 
 let router = express.Router();
 
