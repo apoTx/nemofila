@@ -1,8 +1,8 @@
 let express = require('express');
 let client = require('../redis/client.js');
 const uuid = require('uuid');
-let multipart = require('connect-multiparty');
-let multipartMiddleware = multipart();
+let multer  = require('multer')
+let upload = multer({ dest: 'public/uploads/' })
 
 let router = express.Router();
 
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
-router.post('/uploadPhotos', multipartMiddleware, (req,res) => {
+router.post('/uploadPhotos', upload.any(), (req,res) => {
 	console.log(req.files);
 	res.end('ok');
 });
