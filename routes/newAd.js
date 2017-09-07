@@ -1,9 +1,28 @@
 let express = require('express');
 let client = require('../redis/client.js');
-const uuid = require('uuid');
-let multer  = require('multer');
-let upload = multer({ dest: 'public/uploads/' });
+let fs = require('fs');
 
+// uuid
+let uuid = require('uuid');
+let _uuid = uuid.v1();
+
+// Multer
+let multer  = require('multer');
+let storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		const dir = 'public/uploads/'+ _uuid;
+		fs.mkdir(dir, err => cb(err, dir));
+	},
+	filename: function (req, file, cb) {
+		let extArray = file.mimetype.split('/');
+		let extension = extArray[extArray.length - 1];
+		console.log(file);
+		cb(null, file.originalname + '-' + Date.now()+ '.' +extension);
+	}
+});
+let upload = multer({ storage: storage });
+
+// Express router
 let router = express.Router();
 
 /* GET users listing. */
@@ -20,7 +39,7 @@ router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
 	console.log(data);
 
-	client.hset('newAd', uuid.v1() , JSON.stringify(data), (error) => {
+	client.hset('newAd', _uuid , JSON.stringify(data), (error) => {
 		if (error)
 			res.send('Error: ' + error);
 		else
