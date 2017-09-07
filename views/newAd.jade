@@ -5,10 +5,29 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
 
 
 block content
     div(ng-controller="newAdController")
+        .ui.steps.fluid(class="margin-bottom-30")
+            a.active.step
+                i.info.icon
+                .content
+                    .title Ad Information
+            a.step
+                i.sign.in.icon
+                .content
+                    .title Sign In
+                    .description Sign Up and Sign In.
+
+            a.step.disabled
+                i.unhide.icon
+                .content
+                    .title Preview
+                    .description Your ad will look like this.
+
+
         form.ui.form.fluid#newAdForm(ng-submit="saveAd()")
             .fields.two
                 .field.wide.twelve
