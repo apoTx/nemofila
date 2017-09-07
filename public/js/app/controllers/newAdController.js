@@ -27,7 +27,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$scope.files = files;
 		if (files && files.length) {
 			Upload.upload({
-				url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+				url: 'newAd/uploadPhotos',
+				method: 'POST',
 				data: {
 					files: files
 				}

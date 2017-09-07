@@ -1,6 +1,9 @@
 let express = require('express');
 let client = require('../redis/client.js');
 const uuid = require('uuid');
+let multipart = require('connect-multiparty');
+let multipartMiddleware = multipart();
+
 let router = express.Router();
 
 /* GET users listing. */
@@ -8,8 +11,12 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
-router.post('/saveAdBuffer', (req,res) => {
+router.post('/uploadPhotos', multipartMiddleware, (req,res) => {
+	console.log(req.files);
+	res.end('ok');
+});
 
+router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
 	console.log(data);
 
