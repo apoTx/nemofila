@@ -1,6 +1,8 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', ($scope, Upload, $timeout) => {
 	// New Ad Form
-	$('.ui.dropdown').dropdown();
+
+	$scope.name = 'mehmet';
+
 	$('#newAdForm').form();
 
 	$scope.anotherContact =  { };
@@ -40,6 +42,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', ($scope, Uplo
 					Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 			});
 		}
+	};
+
+
+	$scope.newAdForm = {};
+
+	$scope.saveAd = () => {
+		console.log($scope.newAdForm);
 	};
 
 }]);

@@ -9,7 +9,7 @@ append stylesheets
 
 block content
     div(ng-controller="newAdController")
-        form.ui.form.fluid#newAdForm
+        form.ui.form.fluid#newAdForm(ng-submit="saveAd()")
             .fields.two
                 .field.wide.twelve
                     label Title
@@ -17,58 +17,41 @@ block content
                 .field.wide.four
                     label Price
                     .ui.right.labeled.input
-                        input(type='text', placeholder='Price')
+                        input(type='text', name="price", placeholder='Price', ng-model="newAdForm.price")
                         .ui.basic.label
                             | USD
             .field
                 label Description
                 textarea(name='surname', ng-model='newAdForm.description')
+
+
             .five.fields
                 .field
                     label Country
-                    .ui.compact.selection.dropdown
-                        input(type='hidden', name='country')
-                        .default.text Country
-                        i.dropdown.icon
-                        .menu
-                            .item(data-value='female') Iran
-                            .item(data-value='male') Turkey
+                    select(ng-model="newAdForm.country")
+                        option(value="1") Turkey
+                        option(value="0") Iran
                 .field
                     label City
-                    .ui.compact.selection.dropdown
-                        input(type='hidden', name='city')
-                        .default.text City
-                        i.dropdown.icon
-                        .menu
-                            .item(data-value='female') Iran
-                            .item(data-value='male') Turkey
+                    select(ng-model="newAdForm.city")
+                        option(value="1") Turkey
+                        option(value="0") Iran
                 .field
                     label District
-                    .ui.compact.selection.dropdown
-                        input(type='hidden', name='district')
-                        .default.text District
-                        i.dropdown.icon
-                        .menu
-                            .item(data-value='female') Iran
-                            .item(data-value='male') Turkey
+                    select(ng-model="newAdForm.district")
+                        option(value="1") Turkey
+                        option(value="0") Iran
                 .field
-                    label Group 1
-                    .ui.compact.selection.dropdown
-                        input(type='hidden', name='')
-                        .default.text Group 1
-                        i.dropdown.icon
-                        .menu
-                            .item(data-value='female') Iran
-                            .item(data-value='male') Turkey
+                    label Category
+                    select(ng-model="newAdForm.category")
+                        option(value="1") Category 1
+                        option(value="0") Category 2
                 .field
-                    label Group 2
-                    .ui.compact.selection.dropdown
-                        input(type='hidden', name='')
-                        .default.text Group 2
-                        i.dropdown.icon
-                        .menu
-                            .item(data-value='female') Iran
-                            .item(data-value='male') Turkey
+                    label Child Category
+                    select(ng-model="newAdForm.categoryChild")
+                        option(value="1") Child Category 1
+                        option(value="0") Child Category 2
+
 
 
             .ui.tiny.stacked.segment
@@ -104,9 +87,9 @@ block content
                     .sixteen.wide.column.no-padding-top#anotherContact(ng-if="anotherContact.checked", ng-cloak)
                         .fields.two
                             .field.wide.eight
-                                input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.title')
+                                input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.anotherContactName')
                             .field.wide.eight
-                                input(name='anotherContactPhone', placeholder='Contact Phone Number')
+                                input(name='anotherContactPhone', placeholder='Contact Phone Number', ng-model='newAdForm.anotherContactPhone')
 
 
             .ui.error.message
