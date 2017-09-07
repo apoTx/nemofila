@@ -74,8 +74,8 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 					}
 				]
 			},
-			password: {
-				identifier  : 'password',
+			pw: {
+				identifier  : 'pw',
 				rules: [
 					{
 						type   : 'empty',

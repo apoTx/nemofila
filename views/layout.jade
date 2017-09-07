@@ -175,7 +175,7 @@ html
                             //label E-mail
                             input(name='email', placeholder='E-mail', ng-model='loginFormData.email')
                         .field.sixteen.wide.column.no-padding-top
-                            input(name='password', type='password', placeholder='Password', ng-model='loginFormData.password')
+                            input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
                     .ui.error.message
                     .backendErr.ui.red.message(ng-if="signInErr")
                         | {{ signInErr }}
