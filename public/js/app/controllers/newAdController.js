@@ -46,7 +46,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 
 	$scope.newAdForm = {};
-
 	$scope.saveAd = () => {
 		$scope.newAdBtnLoading = true;
 		$http({

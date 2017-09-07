@@ -1,5 +1,6 @@
 let express = require('express');
 let client = require('../redis/client.js');
+const uuid = require('uuid')
 let router = express.Router();
 
 /* GET users listing. */
@@ -7,24 +8,11 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad' });
 });
 
-
-/*
-* client.set('name3', 'mehmet seven');
-
-	client.get('name3', (err, value) => {
-		if (err){
-			throw err;
-		}
-
-		console.log('the value is: '+ value);
-	});
-*
-* */
-
 router.post('/saveAdBuffer', (req,res) => {
-	let data = { name: 'ahmet', surname:'durueu' };
 
-	client.hset('newAd', '3', JSON.stringify(data), (error) => {
+	let data = req.body.data;
+
+	client.hset('newAd', uuid.v1() , JSON.stringify(data), (error) => {
 		if (error)
 			res.send('Error: ' + error);
 		else
