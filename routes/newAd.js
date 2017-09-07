@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 router.post('/saveAdBuffer', (req,res) => {
 
 	let data = req.body.data;
+	console.log(data);
 
 	client.hset('newAd', uuid.v1() , JSON.stringify(data), (error) => {
 		if (error)

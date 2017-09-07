@@ -76,23 +76,20 @@ block content
 
             .ui.tiny.stacked.segment
                 .text-center
-                    button.small.ui.button(
-                        ngf-select="uploadFiles($files)",
-                        multiple,
-                        accept="image/*"
-                    )
-                        i.upload.icon
-                        | Upload Photos
+                    input(type='file', style="width:30%" ngf-select='', ng-model='newAdForm.files', name='file', accept='image/*', ngf-max-size='2MB', ngf-multiple='true', ngf-keep='true', ngf-keep-distinct='true')
 
                 .clearfix &nbsp;
-                    
+
                 .ui.four.cards
-                    .card(ng-repeat='f in files')
+                    .card(ng-repeat='f in newAdForm.files')
                         .image
                             img(ngf-thumbnail="f || '/thumb.jpg'")
                         .ui.bottom.attached.button
                             i.remove.icon
                             |  Remove
+
+                button.ui.button.primary(ng-click="uploadFiles(newAdForm.files)")
+                    | Upload
 
                 span.progress(ng-show='progress >= 0')
                         div(style='width:{{progress}}%', ng-bind="progress + '%'")

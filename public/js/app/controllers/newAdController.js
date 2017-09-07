@@ -22,6 +22,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 	$scope.uploadFiles = function (files) {
+		console.log(files);
+
 		$scope.files = files;
 		if (files && files.length) {
 			Upload.upload({
