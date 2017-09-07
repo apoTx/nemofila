@@ -1,7 +1,9 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($scope, Upload, $timeout, $http) => {
 	// New Ad Form
 
-	$scope.name = 'mehmet';
+	$scope.steps = {};
+	$scope.steps.informations = true;
+	$scope.steps.preview = false;
 
 	$('#newAdForm').form();
 
@@ -50,7 +52,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.newAdForm = {};
 	$scope.saveAd = () => {
+		$scope.openSignInModal();
 		$scope.newAdBtnLoading = true;
+		$scope.steps.informations = false;
+		$scope.steps.preview = true;
+
 		$http({
 			url: '/newAd/saveAdBuffer',
 			method: 'POST',
