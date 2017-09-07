@@ -1,11 +1,11 @@
 let express = require('express');
 let client = require('../redis/client.js');
-const uuid = require('uuid')
+const uuid = require('uuid');
 let router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-	res.render( 'newAd', { title: 'New Ad' });
+	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
 router.post('/saveAdBuffer', (req,res) => {
@@ -16,7 +16,7 @@ router.post('/saveAdBuffer', (req,res) => {
 		if (error)
 			res.send('Error: ' + error);
 		else
-			res.end('Movie details saved!');
+			res.json({ status: '1' });
 	});
 });
 

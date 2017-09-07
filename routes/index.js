@@ -8,7 +8,7 @@ let User = require('../models/users');
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	res.render('index', { title:'Easy Ads', user: req.session.user  });
+	res.render('index', { title:'Easy Ads', user: req.session.user });
 });
 
 router.post( '/register', ( req, res ) => {
