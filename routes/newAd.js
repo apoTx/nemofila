@@ -22,7 +22,20 @@ router.get('/', (req, res) => {
 * */
 
 router.post('/saveAdBuffer', (req,res) => {
+	let data = { name: 'ahmet', surname:'durueu' };
 
+	client.hset('newAd', '3', JSON.stringify(data), (error) => {
+		if (error)
+			res.send('Error: ' + error);
+		else
+			res.end('Movie details saved!');
+	});
+});
+
+router.get('/getAdBuffer', (req,res) => {
+	client.hget('newAd', '2',  (err, reply) => {
+		res.end(reply);
+	});
 });
 
 module.exports = router;

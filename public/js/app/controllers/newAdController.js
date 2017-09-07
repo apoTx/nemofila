@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', ($scope, Upload, $timeout) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($scope, Upload, $timeout, $http) => {
 	// New Ad Form
 
 	$scope.name = 'mehmet';
@@ -48,7 +48,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', ($scope, Uplo
 	$scope.newAdForm = {};
 
 	$scope.saveAd = () => {
-		console.log($scope.newAdForm);
+		$scope.newAdBtnLoading = true;
+		$http({
+			url: '/newAd/saveAdBuffer',
+			method: 'POST',
+			data: { 'data' : $scope.newAdForm }
+		}).then((response) => {
+			console.log(response);
+			$scope.newAdBtnLoading = false;
+
+		}, () => { // optional
+			console.log('fail');
+		});
 	};
 
 }]);
