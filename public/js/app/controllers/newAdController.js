@@ -1,5 +1,6 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($scope, Upload, $timeout, $http) => {
 	// New Ad Form
+	$scope.newAdForm = {};
 
 	$scope.steps = {};
 	$scope.steps.informations = true;
@@ -23,16 +24,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}
 	});
 
+	$scope.newAdForm.uploadedFiles = {};
 	$scope.uploadFiles = function (files) {
-		console.log(files);
-
-		$scope.files = files;
 		if (files && files.length) {
 			Upload.upload({
 				url: 'newAd/uploadPhotos',
 				method: 'POST',
 				data: {
-					files: files
+					files: $scope.newAdForm.files
 				}
 			}).then((response) => {
 				$timeout(() => {
@@ -50,7 +49,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 
-	$scope.newAdForm = {};
 	$scope.saveAd = () => {
 		$scope.openSignInModal();
 		$scope.newAdBtnLoading = true;
