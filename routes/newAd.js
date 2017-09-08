@@ -51,12 +51,21 @@ router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
 	let _uuid = uuid.v1();
 
+	console.log(data);
 	// redis save
+	client.hmset(_uuid , { title:data.title, description: data.description, price: data.price }, (err) => {
+		if(err)
+			throw err;
+		else
+			res.json({ status: 1 });
+	});
+
 });
 
 router.get('/getAdBuffer', (req,res) => {
-	client.hget('newAd', '2',  (err, reply) => {
-		res.end(reply);
+	client.hgetall('myhashkey',  (err, reply) => {
+		console.log(reply);
+		res.json(reply);
 	});
 });
 
