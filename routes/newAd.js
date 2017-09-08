@@ -51,12 +51,7 @@ router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
 	let _uuid = uuid.v1();
 
-	client.hset('newAd', _uuid, JSON.stringify(data), (error) => {
-		if (error)
-			res.send('Error: ' + error);
-		else
-			res.json({ status: 1, uuid: _uuid });
-	});
+	// redis save
 });
 
 router.get('/getAdBuffer', (req,res) => {
