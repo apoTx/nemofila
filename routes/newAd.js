@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/uploadPhotos', (req,res) => {
-	console.log(req.body);
 
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
@@ -32,6 +31,7 @@ router.post('/uploadPhotos', (req,res) => {
 		filename: function (req, file, cb) {
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
+			console.log('test');
 			console.log(file);
 			cb(null, file.originalname + '-' + Date.now()+ '.' +extension);
 		}
@@ -53,7 +53,7 @@ router.post('/saveAdBuffer', (req,res) => {
 
 	console.log(data);
 	// redis save
-	client.hmset(_uuid , { title:data.title, description: data.description, price: data.price }, (err) => {
+	client.hmset(_uuid , { title:data.title }, (err) => {
 		if(err)
 			throw err;
 		else
