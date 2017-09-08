@@ -11,7 +11,12 @@ let multer  = require('multer');
 let storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		const dir = 'public/uploads/'+ _uuid;
-		fs.mkdir(dir, err => cb(err, dir));
+
+		if (!fs.existsSync(dir)){
+			fs.mkdir(dir, err => cb(err, dir));
+		}else{
+			cb(null, dir);
+		}
 	},
 	filename: function (req, file, cb) {
 		let extArray = file.mimetype.split('/');
