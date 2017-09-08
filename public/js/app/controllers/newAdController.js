@@ -36,6 +36,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			}).then((response) => {
 				$timeout(() => {
 					$scope.result = response.data;
+					if (response.data.status == 1){
+						$scope.openSignInModal();
+					}
 				});
 			}, (response) => {
 				if (response.status > 0) {
@@ -50,18 +53,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 
 	$scope.saveAd = () => {
-		$scope.openSignInModal();
 		$scope.newAdBtnLoading = true;
-		$scope.steps.informations = false;
-		$scope.steps.preview = true;
+
 
 		$http({
 			url: '/newAd/saveAdBuffer',
 			method: 'POST',
 			data: { 'data' : $scope.newAdForm }
 		}).then((response) => {
-			console.log(response);
 			$scope.newAdBtnLoading = false;
+
+			if (response.data.status == 1){
+				$scope.uploadFiles($scope.newAdForm.files);
+			}
 
 		}, () => { // optional
 			console.log('fail');
