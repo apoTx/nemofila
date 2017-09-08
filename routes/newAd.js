@@ -1,6 +1,6 @@
 let express = require('express');
 let client = require('../redis/client.js');
-//let fs = require('fs');
+let fs = require('fs');
 
 // uuid
 let uuid = require('uuid');
@@ -21,14 +21,11 @@ router.post('/uploadPhotos',  (req,res) => {
 		destination: function (req, file, cb) {
 			const dir = 'public/uploads/';
 
-			cb(null, dir);
-
-			/*
 			if (!fs.existsSync(dir)){
 				fs.mkdir(dir, err => cb(err, dir));
 			}else{
 				cb(null, dir);
-			}*/
+			}
 		},
 		filename: function (req, file, cb) {
 			let extArray = file.mimetype.split('/');
