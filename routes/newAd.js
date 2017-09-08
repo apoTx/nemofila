@@ -16,7 +16,9 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
-router.post('/uploadPhotos',  (req,res) => {
+router.post('/uploadPhotos', (req,res) => {
+	console.log(req.body);
+
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
 			const dir = 'public/uploads/';
@@ -47,13 +49,13 @@ router.post('/uploadPhotos',  (req,res) => {
 
 router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
-	console.log(data);
+	let _uuid = uuid.v1();
 
-	client.hset('newAd', uuid.v1() , JSON.stringify(data), (error) => {
+	client.hset('newAd', _uuid, JSON.stringify(data), (error) => {
 		if (error)
 			res.send('Error: ' + error);
 		else
-			res.json({ status: 1 });
+			res.json({ status: 1, uuid: _uuid });
 	});
 });
 

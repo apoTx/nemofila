@@ -25,13 +25,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 	$scope.newAdForm.uploadedFiles = {};
-	$scope.uploadFiles = function (files) {
+	$scope.uploadFiles = function (files, uuid) {
 		if (files && files.length) {
 			Upload.upload({
 				url: 'newAd/uploadPhotos',
 				method: 'POST',
 				data: {
-					files: $scope.newAdForm.files
+					files: $scope.newAdForm.files,
+					uuid : uuid
 				}
 			}).then((response) => {
 				$timeout(() => {
@@ -62,8 +63,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			data: { 'data' : $scope.newAdForm }
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
+			console.log(response);
 			if (response.data.status == 1){
-				$scope.uploadFiles($scope.newAdForm.files);
+				$scope.uploadFiles($scope.newAdForm.files, response.data.uuid);
 			}
 		}, () => { // optional
 			console.log('fail');
