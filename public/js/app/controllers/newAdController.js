@@ -28,7 +28,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 
-	$scope.uploadFiles = function (files, uuid) {
+	$scope.uploadFiles = function (files, uuid, callback) {
 		if (files && files.length) {
 			Upload.upload({
 				url: 'newAd/uploadPhotos/'+ uuid,
@@ -39,14 +39,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				$timeout(() => {
 					$scope.result = response.data;
 					if (response.data.status == 1){
-						// $scope.openSignInModal();
-						$scope.steps.informations = false;
-						$scope.steps.preview = true;
+						callback();
 					}
 				});
 			}, (response) => {
 				if (response.status > 0) {
 					$scope.errorMsg = response.status + ': ' + response.data;
+					callback($scope.errorMsg);
 				}
 			}, (evt) => {
 				$scope.progress =
@@ -64,13 +63,30 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			data: { 'data' : $scope.newAdForm }
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
-			console.log(response);
+
 			if (response.data.status == 1){
-				$scope.uploadFiles($scope.newAdForm.files, response.data.uuid);
+				if ($scope.newAdForm.files){
+					$scope.uploadFiles($scope.newAdForm.files, response.data.uuid,  (err) => {
+						if (err){
+							throw err;
+						}else{
+							completeSaveAd();
+						}
+					});
+				}else{
+					completeSaveAd();
+				}
 			}
 		}, () => { // optional
 			console.log('fail');
 		});
+	};
+
+
+	let completeSaveAd = () => {
+		// $scope.openSignInModal();
+		$scope.steps.informations = false;
+		$scope.steps.preview = true;
 	};
 
 }]);
