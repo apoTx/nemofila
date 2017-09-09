@@ -50,6 +50,7 @@ router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
 	let _uuid = uuid.v1();
 
+	console.log(data);
 	// redis save
 	client.hmset(_uuid , {
 		title: data.title,
@@ -60,6 +61,7 @@ router.post('/saveAdBuffer', (req,res) => {
 		district: data.district,
 		category: data.category,
 		childCategory: data.categoryChild,
+		anotherContact: data.anotherContact.checked ? JSON.stringify(data.anotherContact) : false
 	}, (err) => {
 		if(err)
 			throw err;

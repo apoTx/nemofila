@@ -10,16 +10,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$(() => {
 		$('#newAdForm').form();
 
-		$scope.anotherContact =  { };
+		$scope.newAdForm.anotherContact =  { };
 		$('.ui.checkbox').checkbox({
 			onChecked: () => {
-				$scope.anotherContact.checked = true;
+				$scope.newAdForm.anotherContact.checked = true;
 				setTimeout( () => {
 					$('input[name="anotherContactName"]').focus();
 				},20);
 			},
 			onUnchecked: () => {
-				$scope.anotherContact.checked = false;
+				$scope.newAdForm.anotherContact.checked = false;
 			},
 			onChange: () => {
 				$scope.$apply();

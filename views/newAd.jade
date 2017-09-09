@@ -111,14 +111,14 @@ block content
                     .ui.grid
                         .sixteen.wide.column
                             .ui.checkbox
-                                input.hidden(type='checkbox', tabindex='0')
+                                input.hidden(type='checkbox', tabindex='0', name='anotherContactChecked', ng-model='newAdForm.anotherContactChecked')
                                 label Use another person tel number and name
-                        .sixteen.wide.column.no-padding-top#anotherContact(ng-if="anotherContact.checked", ng-cloak)
+                        .sixteen.wide.column.no-padding-top#anotherContact(ng-if="newAdForm.anotherContact.checked", ng-cloak)
                             .fields.two
                                 .field.wide.eight
-                                    input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.anotherContactName')
+                                    input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.anotherContact.name')
                                 .field.wide.eight
-                                    input(name='anotherContactPhone', placeholder='Contact Phone Number', ng-model='newAdForm.anotherContactPhone')
+                                    input(name='anotherContactPhone', placeholder='Contact Phone Number', ng-model='newAdForm.anotherContact.phone')
 
 
                 .ui.error.message
