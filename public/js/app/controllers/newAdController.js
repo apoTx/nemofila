@@ -6,23 +6,27 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$scope.steps.informations = true;
 	$scope.steps.preview = false;
 
-	$('#newAdForm').form();
 
-	$scope.anotherContact =  { };
-	$('.ui.checkbox').checkbox({
-		onChecked: () => {
-			$scope.anotherContact.checked = true;
-			setTimeout( () => {
-				$('input[name="anotherContactName"]').focus();
-			},20);
-		},
-		onUnchecked: () => {
-			$scope.anotherContact.checked = false;
-		},
-		onChange: () => {
-			$scope.$apply();
-		}
+	$(() => {
+		$('#newAdForm').form();
+
+		$scope.anotherContact =  { };
+		$('.ui.checkbox').checkbox({
+			onChecked: () => {
+				$scope.anotherContact.checked = true;
+				setTimeout( () => {
+					$('input[name="anotherContactName"]').focus();
+				},20);
+			},
+			onUnchecked: () => {
+				$scope.anotherContact.checked = false;
+			},
+			onChange: () => {
+				$scope.$apply();
+			}
+		});
 	});
+
 
 	$scope.uploadFiles = function (files, uuid) {
 		if (files && files.length) {
