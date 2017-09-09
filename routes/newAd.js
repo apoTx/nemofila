@@ -50,7 +50,7 @@ router.post('/uploadPhotos', (req,res) => {
 	});
 });
 
-router.post('/saveAdBuffer', (req,res) => {
+router.post('/saveAdRedis', (req,res) => {
 	let data = req.body.data;
 
 	// redis save
