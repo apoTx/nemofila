@@ -28,7 +28,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 
+	$scope.nextLoader = false;
 	$scope.uploadFiles = function (files) {
+		$scope.nextLoader = true;
 		if (files && files.length) {
 			Upload.upload({
 				url: 'newAd/uploadPhotos',
@@ -38,7 +40,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				$timeout(() => {
 					$scope.result = response.data;
 					if (response.data.status == 1){
-						console.log(response.data);
 						$scope.saveAdToRedis(response.data.uuid, response.data.photos);
 					}
 				});
@@ -75,6 +76,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		// $scope.openSignInModal();
 		$scope.steps.informations = false;
 		$scope.steps.preview = true;
+		$scope.nextLoader = false;
 	};
 
 }]);
