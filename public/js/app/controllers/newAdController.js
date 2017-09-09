@@ -38,7 +38,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				$timeout(() => {
 					$scope.result = response.data;
 					if (response.data.status == 1){
-						console.log(response.data)
+						console.log(response.data);
 						$scope.saveAd(response.data.uuid, response.data.photos);
 					}
 				});
