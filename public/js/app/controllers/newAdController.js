@@ -34,7 +34,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				url: 'newAd/uploadPhotos/'+ uuid,
 				method: 'POST',
 				file: files,
-				data: { veri: 1 },
 			}).then((response) => {
 				$timeout(() => {
 					$scope.result = response.data;
