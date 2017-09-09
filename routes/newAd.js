@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 
 router.post('/uploadPhotos', (req,res) => {
 	const _uuid = uuid.v1();
+	const photos = [];
 
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
@@ -32,8 +33,9 @@ router.post('/uploadPhotos', (req,res) => {
 		filename: function (req, file, cb) {
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
-			console.log(file);
-			cb(null, file.originalname + '-' + Date.now()+ '.' +extension);
+			let filename = file.originalname + '-' + Date.now()+ '.' +extension;
+			photos.push({ filename: filename });
+			cb(null, filename);
 		}
 	});
 
@@ -43,13 +45,15 @@ router.post('/uploadPhotos', (req,res) => {
 		if (err){
 			throw err;
 		}else {
-			res.json({ status: 1, uuid: _uuid });
+			res.json({ status: 1, uuid: _uuid, photos: photos });
 		}
 	});
 });
 
 router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
+
+	console.log(req.body.photos)
 
 	// redis save
 	client.hmset(req.body.uuid, {
@@ -61,7 +65,8 @@ router.post('/saveAdBuffer', (req,res) => {
 		district: data.district,
 		category: data.category,
 		childCategory: data.categoryChild,
-		anotherContact: data.anotherContact.checked ? JSON.stringify(data.anotherContact) : false
+		anotherContact: data.anotherContact.checked ? JSON.stringify(data.anotherContact) : false,
+		photos: JSON.stringify(req.body.photos)
 	}, (err) => {
 		if(err)
 			throw err;
@@ -72,7 +77,7 @@ router.post('/saveAdBuffer', (req,res) => {
 });
 
 router.get('/getAdBuffer', (req,res) => {
-	client.hgetall('myhashkey',  (err, reply) => {
+	client.hgetall('ef8195f0-9557-11e7-9cbf-435411554d7c',  (err, reply) => {
 		console.log(reply);
 		res.json(reply);
 	});

@@ -38,7 +38,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				$timeout(() => {
 					$scope.result = response.data;
 					if (response.data.status == 1){
-						$scope.saveAd(response.data.uuid);
+						console.log(response.data)
+						$scope.saveAd(response.data.uuid, response.data.photos);
 					}
 				});
 			}, (response) => {
@@ -53,12 +54,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 
-	$scope.saveAd = (uuid) => {
+	$scope.saveAd = (uuid, photos) => {
 		$scope.newAdBtnLoading = true;
 		$http({
 			url: '/newAd/saveAdBuffer',
 			method: 'POST',
-			data: { 'data' : $scope.newAdForm, 'uuid': uuid }
+			data: { 'data' : $scope.newAdForm, 'uuid': uuid, 'photos':photos }
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
 			if (response.data.status == 1) {
