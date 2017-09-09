@@ -28,23 +28,22 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 
-	$scope.uploadFiles = function (files, uuid, callback) {
+	$scope.uploadFiles = function (files) {
 		if (files && files.length) {
 			Upload.upload({
-				url: 'newAd/uploadPhotos/'+ uuid,
+				url: 'newAd/uploadPhotos',
 				method: 'POST',
 				file: files,
 			}).then((response) => {
 				$timeout(() => {
 					$scope.result = response.data;
 					if (response.data.status == 1){
-						callback();
+						$scope.saveAd(response.data.uuid);
 					}
 				});
 			}, (response) => {
 				if (response.status > 0) {
 					$scope.errorMsg = response.status + ': ' + response.data;
-					callback($scope.errorMsg);
 				}
 			}, (evt) => {
 				$scope.progress =
@@ -54,27 +53,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 
-	$scope.saveAd = () => {
+	$scope.saveAd = (uuid) => {
 		$scope.newAdBtnLoading = true;
 		$http({
 			url: '/newAd/saveAdBuffer',
 			method: 'POST',
-			data: { 'data' : $scope.newAdForm }
+			data: { 'data' : $scope.newAdForm, 'uuid': uuid }
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
-
-			if (response.data.status == 1){
-				if ($scope.newAdForm.files){
-					$scope.uploadFiles($scope.newAdForm.files, response.data.uuid,  (err) => {
-						if (err){
-							throw err;
-						}else{
-							completeSaveAd();
-						}
-					});
-				}else{
-					completeSaveAd();
-				}
+			if (response.data.status == 1) {
+				completeSaveAd();
 			}
 		}, () => { // optional
 			console.log('fail');

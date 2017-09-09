@@ -120,7 +120,7 @@ block content
                 .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
                     | {{ newAdErr }}
 
-                button.ui.right.floated.primary.button(form="newAdForm", ng-click="saveAd()", ng-class="newAdBtnLoading ? 'loading' : '' ")
+                button.ui.right.floated.primary.button(form="newAdForm", ng-click="uploadFiles(newAdForm.files)", ng-class="newAdBtnLoading ? 'loading' : '' ")
                     | Next
 
         div#preview(ng-if="steps.preview", ng-cloak)

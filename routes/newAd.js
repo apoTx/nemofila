@@ -16,8 +16,9 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
-router.post('/uploadPhotos/:uuid', (req,res) => {
-	let _uuid = req.params.uuid;
+router.post('/uploadPhotos', (req,res) => {
+	const _uuid = uuid.v1();
+
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
 			const dir = 'public/uploads/'+ _uuid;
@@ -39,20 +40,19 @@ router.post('/uploadPhotos/:uuid', (req,res) => {
 	let upload = multer({ storage: storage }).any();
 
 	upload(req,res, (err) => {
-		if (err)
+		if (err){
 			throw err;
-		else
-			res.json({ status: 1 });
+		}else {
+			res.json({ status: 1, uuid: _uuid });
+		}
 	});
 });
 
 router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
-	let _uuid = uuid.v1();
 
-	console.log(data);
 	// redis save
-	client.hmset(_uuid , {
+	client.hmset(req.body.uuid, {
 		title: data.title,
 		description: data.description,
 		price: data.price,
@@ -66,7 +66,7 @@ router.post('/saveAdBuffer', (req,res) => {
 		if(err)
 			throw err;
 		else
-			res.json({ status: 1, uuid: _uuid });
+			res.json({ status: 1 });
 	});
 
 });
