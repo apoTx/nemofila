@@ -52,7 +52,7 @@ router.post('/uploadPhotos', (req,res) => {
 
 router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
-	
+
 	// redis save
 	client.hmset(req.body.uuid, {
 		title: data.title,
