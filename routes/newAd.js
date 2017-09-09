@@ -16,11 +16,11 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
-router.post('/uploadPhotos', (req,res) => {
-
+router.post('/uploadPhotos/:uuid', (req,res) => {
+	let _uuid = req.params.uuid;
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
-			const dir = 'public/uploads/';
+			const dir = 'public/uploads/'+ _uuid;
 
 			if (!fs.existsSync(dir)){
 				fs.mkdir(dir, err => cb(err, dir));
@@ -31,7 +31,6 @@ router.post('/uploadPhotos', (req,res) => {
 		filename: function (req, file, cb) {
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
-			console.log('test');
 			console.log(file);
 			cb(null, file.originalname + '-' + Date.now()+ '.' +extension);
 		}
@@ -51,13 +50,12 @@ router.post('/saveAdBuffer', (req,res) => {
 	let data = req.body.data;
 	let _uuid = uuid.v1();
 
-	console.log(data);
 	// redis save
-	client.hmset(_uuid , { title:data.title }, (err) => {
+	client.hmset(_uuid , { title: 'test' }, (err) => {
 		if(err)
 			throw err;
 		else
-			res.json({ status: 1 });
+			res.json({ status: 1, uuid: _uuid });
 	});
 
 });

@@ -28,12 +28,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$scope.uploadFiles = function (files, uuid) {
 		if (files && files.length) {
 			Upload.upload({
-				url: 'newAd/uploadPhotos',
+				url: 'newAd/uploadPhotos/'+ uuid,
 				method: 'POST',
-				data: {
-					files: $scope.newAdForm.files,
-					uuid : uuid
-				}
+				file: files,
+				data: { veri: 1 },
 			}).then((response) => {
 				$timeout(() => {
 					$scope.result = response.data;
