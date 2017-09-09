@@ -24,7 +24,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}
 	});
 
-	$scope.newAdForm.uploadedFiles = {};
 	$scope.uploadFiles = function (files, uuid) {
 		if (files && files.length) {
 			Upload.upload({

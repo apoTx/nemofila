@@ -51,7 +51,16 @@ router.post('/saveAdBuffer', (req,res) => {
 	let _uuid = uuid.v1();
 
 	// redis save
-	client.hmset(_uuid , { title: 'test' }, (err) => {
+	client.hmset(_uuid , {
+		title: data.title,
+		description: data.description,
+		price: data.price,
+		country: data.country,
+		city: data.city,
+		district: data.district,
+		category: data.category,
+		childCategory: data.categoryChild,
+	}, (err) => {
 		if(err)
 			throw err;
 		else
