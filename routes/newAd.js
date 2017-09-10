@@ -76,7 +76,7 @@ router.post('/saveAdRedis', (req,res) => {
 });
 
 router.get('/getAdBuffer', (req,res) => {
-	client.hgetall('ef8195f0-9557-11e7-9cbf-435411554d7c',  (err, reply) => {
+	client.hgetall('43350cf0-965b-11e7-a76e-4d93e04ad2b8',  (err, reply) => {
 		console.log(reply);
 		res.json(reply);
 	});
