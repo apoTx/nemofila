@@ -6,7 +6,6 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
 
 
 block content
@@ -24,23 +23,25 @@ block content
                     .title Preview
                     .description Your ad will look like this.
 
-        .ui.segment#adInformation(ng-if="steps.informations", ng-cloak)
-            .ui.dimmer(ng-class="nextLoader ? 'active': '' ")
-                .ui.text.loader Loading
-            div
-                form.ui.form.fluid#newAdForm
-                    .fields.two
-                        .field.wide.twelve
-                            label Title
-                            input(name='name', placeholder='Title', ng-model='newAdForm.title')
-                        .field.wide.four
-                            label Price
-                            .ui.right.labeled.input
-                                input(type='text', name="price", placeholder='Price', ng-model="newAdForm.price")
-                                .ui.basic.label
-                                    | USD
+        div#adInformation(ng-if="steps.informations", ng-cloak)
+            form.ui.form.fluid#newAdForm
+                .fields.two
+                    .field.wide.twelve
+                        label Title
+                        input(name='name', placeholder='Title', ng-model='newAdForm.title')
+                    .field.wide.four
+                        label Price
+                        .ui.right.labeled.input
+                            input(type='text', name="price", placeholder='Price', ng-model="newAdForm.price")
+                            .ui.basic.label
+                                | USD
+                .field
+                    label Description
+                    textarea(name='surname', ng-model='newAdForm.description')
+
+
+                .five.fields
                     .field
-<<<<<<< HEAD
                         label Country
                         select(ng-model="newAdForm.country")
                             option(value="1") Turkey
@@ -119,93 +120,6 @@ block content
 
                 button.ui.right.floated.primary.button(form="newAdForm", ng-click="uploadFiles(newAdForm.files)", ng-class="newAdBtnLoading ? 'loading' : '' ")
                     | Next
-=======
-                        label Description
-                        textarea(name='surname', ng-model='newAdForm.description')
-
-
-                    .five.fields
-                        .field
-                            label Country
-                            select(ng-model="newAdForm.country")
-                                option(value="1") Turkey
-                                option(value="0") Iran
-                        .field
-                            label City
-                            select(ng-model="newAdForm.city")
-                                option(value="1") Turkey
-                                option(value="0") Iran
-                        .field
-                            label District
-                            select(ng-model="newAdForm.district")
-                                option(value="1") Turkey
-                                option(value="0") Iran
-                        .field
-                            label Category
-                            select(ng-model="newAdForm.category")
-                                option(value="1") Category 1
-                                option(value="0") Category 2
-                        .field
-                            label Child Category
-                            select(ng-model="newAdForm.categoryChild")
-                                option(value="1") Child Category 1
-                                option(value="0") Child Category 2
-
-                    .ui.tiny.stacked.segment
-                        .text-center
-                            input(
-                                type='file',
-                                style="width:30%"
-                                ngf-select='',
-                                ng-model='newAdForm.files',
-                                name='photos',
-                                accept='image/*',
-                                ngf-max-size='2MB',
-                                ngf-multiple='true',
-                                ngf-keep='true',
-                                ngf-keep-distinct='true',
-                                ngf-max-files="10"
-                            )
-
-                        .clearfix &nbsp;
-
-                        .ui.four.cards
-                            .card(ng-repeat='f in newAdForm.files')
-                                .image
-                                    img(ngf-thumbnail="f || '/thumb.jpg'")
-                                .ui.bottom.attached.button
-                                    i.remove.icon
-                                    |  Remove
-
-                        // button.ui.button.primary(ng-click="uploadFiles(newAdForm.files)")
-                            | Upload
-
-                        span.progress(ng-show='progress >= 0')
-                                div(style='width:{{progress}}%', ng-bind="progress + '%'")
-                            |     {{errorMsg}}
-
-                    .field.ui.segment
-                        .ui.grid
-                            .sixteen.wide.column
-                                .ui.checkbox
-                                    input.hidden(type='checkbox', tabindex='0', name='anotherContactChecked', ng-model='newAdForm.anotherContactChecked')
-                                    label Use another person tel number and name
-                            .sixteen.wide.column.no-padding-top#anotherContact(ng-if="newAdForm.anotherContact.checked", ng-cloak)
-                                .fields.two
-                                    .field.wide.eight
-                                        input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.anotherContact.name')
-                                    .field.wide.eight
-                                        input(name='anotherContactPhone', placeholder='Contact Phone Number', ng-model='newAdForm.anotherContact.phone')
-
-
-                    .ui.error.message
-                    .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
-                        | {{ newAdErr }}
-
-                    button.ui.right.floated.primary.button(form="newAdForm", ng-click="uploadFiles(newAdForm.files)", ng-class="newAdBtnLoading ? 'loading' : '' ")
-                        | Next
-                    .clearfix
->>>>>>> 837db3f2491de0322dd973d7d999d1c2400333ec
 
         div#preview(ng-if="steps.preview", ng-cloak)
             | preview
