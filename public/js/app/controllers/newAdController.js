@@ -27,9 +27,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		});
 	});
 
+	$scope.uploadAndSaveRedis = () => {
+		if ($scope.newAdForm.files){
+			$scope.uploadFiles($scope.newAdForm.files);
+		}else{
+			$scope.saveAdToRedis(null, null);
+		}
+	};
 
 	$scope.nextLoader = false;
-	$scope.uploadFiles = function (files) {
+	$scope.uploadFiles = (files) => {
 		$scope.nextLoader = true;
 		if (files && files.length) {
 			Upload.upload({
@@ -58,10 +65,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$scope.saveAdToRedis = (uuid, photos) => {
 		$scope.newAdBtnLoading = true;
 
+		/* eslint-disable */
+		var data;
+		/* eslint-enable */
+		if (uuid !== null){
+			data = 	{ 'data':$scope.newAdForm, 'uuid': uuid, 'photos':photos };
+		}else {
+			data = { 'data':$scope.newAdForm };
+		}
+
 		$http({
 			url: '/newAd/saveAdRedis',
 			method: 'POST',
-			data: { 'data' : $scope.newAdForm, 'uuid': uuid, 'photos':photos }
+			data: data
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
 			if (response.data.status === 1) {
