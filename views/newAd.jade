@@ -11,13 +11,13 @@ append stylesheets
 block content
     div(ng-controller="newAdController")
         .ui.steps.fluid(class="margin-bottom-30")
-            a.active.step
+            a.step(ng-class="steps.informations ? 'active': 'disabled' " ng-cloak)
                 i.info.icon
                 .content
                     .title Ad Information
                     .description Please enter your ad informations.
 
-            a.step.disabled
+            a.step.disabled(ng-class="steps.preview ? 'active':'disabled' " ng-cloak)
                 i.unhide.icon
                 .content
                     .title Preview
