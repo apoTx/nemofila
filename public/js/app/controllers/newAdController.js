@@ -72,7 +72,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 
 	let completeSaveAd = () => {
-		// $scope.openSignInModal();
+		$scope.openSignInModal();
 		$scope.steps.informations = false;
 		$scope.steps.preview = true;
 	};
