@@ -65,6 +65,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
 			if (response.data.status == 1) {
+				console.log(uuid);
+				console.log(photos);
 				completeSaveAd();
 			}
 		}, () => { // optional
