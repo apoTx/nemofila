@@ -52,9 +52,10 @@ router.post('/uploadPhotos', (req,res) => {
 
 router.post('/saveAdRedis', (req,res) => {
 	let data = req.body.data;
+	let _uuid = req.body.uuid || uuid.v1();
 
 	// redis save
-	client.hmset(req.body.uuid, {
+	client.hmset(_uuid, {
 		title: data.title,
 		description: data.description,
 		price: data.price,
@@ -63,8 +64,8 @@ router.post('/saveAdRedis', (req,res) => {
 		district: data.district,
 		category: data.category,
 		childCategory: data.categoryChild,
-		anotherContact: data.anotherContact.checked ? JSON.stringify(data.anotherContact) : false,
-		photos: JSON.stringify(req.body.photos)
+		anotherContact: JSON.stringify(data.anotherContact) || false,
+		photos: JSON.stringify(req.body.photos) || false
 	}, (err) => {
 		if(err)
 			throw err;
