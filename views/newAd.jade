@@ -88,10 +88,15 @@ block content
                     .ui.four.cards
                         .card(ng-repeat='f in newAdForm.files')
                             .image
+                                a.ui.left.corner.label
+                                    i.bookmark.icon
                                 img(ngf-thumbnail="f || '/thumb.jpg'")
-                            .ui.bottom.attached.button
-                                i.remove.icon
-                                |  Remove
+
+                            .ui.two.buttons
+                                .ui.bottom.attached.button
+                                    i.remove.icon.margin-auto
+                                .ui.bottom.attached.button
+                                    i.bookmark.icon.margin-auto
 
                     // button.ui.button.primary(ng-click="uploadFiles(newAdForm.files)")
                         | Upload
