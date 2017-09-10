@@ -39,7 +39,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			}).then((response) => {
 				$timeout(() => {
 					$scope.result = response.data;
-					if (response.data.status == 1){
+					if (response.data.status === 1){
 						$scope.saveAdToRedis(response.data.uuid, response.data.photos);
 					}
 				});
@@ -64,7 +64,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			data: { 'data' : $scope.newAdForm, 'uuid': uuid, 'photos':photos }
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
-			if (response.data.status == 1) {
+			if (response.data.status === 1) {
 				completeSaveAd();
 			}
 		}, () => { // optional
