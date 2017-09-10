@@ -56,7 +56,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.saveAdToRedis = (uuid, photos) => {
 		$scope.newAdBtnLoading = true;
-		
+
 		$http({
 			url: '/newAd/saveAdRedis',
 			method: 'POST',
