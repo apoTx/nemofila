@@ -13,7 +13,15 @@ let router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
+
+	if (req.cookies.newAdRedisId){
+		client.hgetall(req.cookies.newAdRedisId,  (err, reply) => {
+			res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisData: reply });
+		});
+	}else{
+		res.render( 'newAd', { title: 'New Ad', user: req.session.user });
+	}
+
 });
 
 router.post('/uploadPhotos/:showcaseIndex', (req,res) => {
@@ -74,10 +82,12 @@ router.post('/saveAdRedis', (req,res) => {
 		anotherContact: JSON.stringify(data.anotherContact) || false,
 		photos: JSON.stringify(req.body.photos) || false
 	}, (err) => {
-		if(err)
+		if(err){
 			throw err;
-		else
-			res.json({ status: 1 });
+		}else {
+			res.cookie('newAdRedisId', _uuid);
+			res.json( { status: 1 } );
+		}
 	});
 
 });
