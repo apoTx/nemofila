@@ -40,7 +40,7 @@ router.post('/uploadPhotos/:showcaseIndex', (req,res) => {
 			if (file.fieldname === 'file['+ showcaseIndex +']' )
 				photos.push({ filename: filename, showcase: true });
 			else
-				photos.push({ filename: filename});
+				photos.push({ filename: filename });
 
 			cb(null, filename);
 		}
