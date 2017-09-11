@@ -50,7 +50,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$scope.newAdForm.files.splice(index, 1);
 
 		console.log($scope.newAdForm.files);
-	}
+	};
 
 	$scope.nextLoader = false;
 	$scope.uploadFiles = (files) => {
