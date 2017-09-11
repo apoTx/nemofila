@@ -103,7 +103,7 @@ block content
                             .ui.two.buttons(ng-if="!f.showcase", ng-cloak)
                                 .ui.bottom.attached.button(ng-click="onDeletePhoto($index)")
                                     i.remove.icon.margin-auto
-                                .ui.bottom.attached.button
+                                .ui.bottom.attached.button(ng-click="onSelectShowCase($index)")
                                     i.bookmark.icon.margin-auto
 
                     // button.ui.button.primary(ng-click="uploadFiles(newAdForm.files)")

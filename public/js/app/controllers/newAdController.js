@@ -35,21 +35,27 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}
 	};
 
+	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
-		$scope.newAdForm.files[0].showcase = true;
-		console.log($scope.newAdForm.files);
+		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
 	};
 
 	$scope.onDeletePhoto = (index) => {
 		if ($scope.newAdForm.files[index].showcase){
 			if($scope.newAdForm.files[1]){
 				$scope.newAdForm.files[1].showcase = true;
+				$scope.newAdForm.showcaseIndex = 1;
 			}
 		}
 
 		$scope.newAdForm.files.splice(index, 1);
+	};
 
-		console.log($scope.newAdForm.files);
+	$scope.onSelectShowCase = (index) => {
+		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = false;
+
+		$scope.newAdForm.showcaseIndex = index;
+		$scope.newAdForm.files[index].showcase = true;
 	};
 
 	$scope.nextLoader = false;
