@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 	if (req.cookies.newAdRedisId){
 		client.hgetall(req.cookies.newAdRedisId,  (err, reply) => {
-			res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisData: reply });
+			res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisData: JSON.stringify(reply) });
 		});
 	}else{
 		res.render( 'newAd', { title: 'New Ad', user: req.session.user });
@@ -71,14 +71,14 @@ router.post('/saveAdRedis', (req,res) => {
 
 	// redis save
 	client.hmset(_uuid, {
-		title: data.title,
-		description: data.description,
-		price: data.price,
-		country: data.country,
-		city: data.city,
-		district: data.district,
-		category: data.category,
-		childCategory: data.categoryChild,
+		title: data.title || '',
+		description: data.description || '',
+		price: data.price || false,
+		country: data.country || false,
+		city: data.city || false,
+		district: data.district || false,
+		category: data.category || false,
+		childCategory: data.categoryChild || false,
 		anotherContact: JSON.stringify(data.anotherContact) || false,
 		photos: JSON.stringify(req.body.photos) || false
 	}, (err) => {

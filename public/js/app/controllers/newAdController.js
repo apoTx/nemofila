@@ -27,6 +27,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		});
 	});
 
+	$scope.init = (data) => {
+		let data = JSON.parse(data);
+
+	};
+
 	$scope.uploadAndSaveRedis = () => {
 		if ($scope.newAdForm.files){
 			$scope.uploadFiles($scope.newAdForm.files);

@@ -24,7 +24,7 @@ block content
                     .description Your ad will look like this.
 
         div#adInformation(ng-if="steps.informations", ng-cloak)
-            form.ui.form.fluid#newAdForm
+            form.ui.form.fluid#newAdForm(ng-init="init('#{redisData}')")
                 .fields.two
                     .field.wide.twelve
                         label Title
