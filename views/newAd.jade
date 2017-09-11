@@ -104,7 +104,7 @@ block content
                                     a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                         i.bookmark.icon
                                     img(
-                                        ngf-thumbnail="f || '/thumb.jpg'",
+                                        ngf-thumbnail="f || 'img/image.jpg'",
                                         ngf-size="{width:200, height:200, quality:0.6}",
                                         ng-src="img/spinner.gif",
                                         class="upload-photo-thumb"
@@ -157,8 +157,7 @@ block content
         div#preview(ng-if="steps.preview", ng-cloak)
             h2 Preview
 
-
-            button.ui.right.floated.primary.button()
+            button.ui.right.floated.primary.button(ng-click="onSubmitAd()")
                 | Save
             button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
                 | Back

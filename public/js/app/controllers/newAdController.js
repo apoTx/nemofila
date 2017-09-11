@@ -43,6 +43,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
 			$scope.newAdForm.price = response.data.price || '';
+			$scope.newAdForm.files = JSON.parse(response.data.photos);
+
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
@@ -114,6 +116,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
+		console.log($scope.newAdForm.files);
 		if ($scope.newAdForm.files.length > 0)
 			$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
 	};
