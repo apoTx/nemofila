@@ -35,27 +35,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}
 	};
 
-	$scope.newAdForm.showcaseIndex = 0;
-	$scope.onPhotoSelect = () => {
-		if ($scope.newAdForm.files.length > 0)
-			$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
-	};
-
-	$scope.onDeletePhoto = (index) => {
-		$scope.newAdForm.files.splice(index, 1);
-		if ($scope.newAdForm.files.length > 0){
-			$scope.newAdForm.files[0].showcase = true;
-			$scope.newAdForm.showcaseIndex = 0;
-		}
-	};
-
-	$scope.onSelectShowCase = (index) => {
-		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = false;
-
-		$scope.newAdForm.showcaseIndex = index;
-		$scope.newAdForm.files[index].showcase = true;
-	};
-
 	$scope.nextLoader = false;
 	$scope.uploadFiles = (files) => {
 		$scope.nextLoader = true;
@@ -109,6 +88,27 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		});
 	};
 
+
+	$scope.newAdForm.showcaseIndex = 0;
+	$scope.onPhotoSelect = () => {
+		if ($scope.newAdForm.files.length > 0)
+			$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+	};
+
+	$scope.onDeletePhoto = (index) => {
+		$scope.newAdForm.files.splice(index, 1);
+		if ($scope.newAdForm.files.length > 0){
+			$scope.newAdForm.files[0].showcase = true;
+			$scope.newAdForm.showcaseIndex = 0;
+		}
+	};
+
+	$scope.onSelectShowCase = (index) => {
+		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = false;
+
+		$scope.newAdForm.showcaseIndex = index;
+		$scope.newAdForm.files[index].showcase = true;
+	};
 
 	let completeSaveAd = () => {
 		$scope.openSignInModal();
