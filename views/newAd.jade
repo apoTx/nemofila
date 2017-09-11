@@ -69,12 +69,19 @@ block content
 
                 .ui.tiny.stacked.segment
                     .text-center
+                        .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
+                            .ui.button
+                                i.upload.icon
+                                |  Upload Photos
+                            a.ui.basic.label
+                                | {{ newAdForm.files.length > 0 ? newAdForm.files.length : '0'  }}
                         input(
                             type='file',
                             style="width:30%"
                             ngf-select='onPhotoSelect()',
                             ng-model='newAdForm.files',
                             name='photos',
+                            class='hidden'
                             ngf-pattern="'image/*'",
                             ngf-accept="'image/*'",
                             ngf-max-size='2MB',

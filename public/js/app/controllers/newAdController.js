@@ -110,6 +110,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$scope.newAdForm.files[index].showcase = true;
 	};
 
+	$scope.triggerUploadWindow = () => {
+		$('input[type=file]').trigger('click');
+	};
+
 	let completeSaveAd = () => {
 		$scope.openSignInModal();
 		previewTab();
