@@ -16,9 +16,10 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user });
 });
 
-router.post('/uploadPhotos', (req,res) => {
+router.post('/uploadPhotos/:showcaseIndex', (req,res) => {
 	const _uuid = uuid.v1();
 	const photos = [];
+	let showcaseIndex = req.params.showcaseIndex;
 
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
@@ -31,10 +32,16 @@ router.post('/uploadPhotos', (req,res) => {
 			}
 		},
 		filename: function (req, file, cb) {
+			console.log(file);
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
 			let filename = file.originalname + '-' + Date.now()+ '.' +extension;
-			photos.push({ filename: filename });
+
+			if (file.fieldname === 'file['+ showcaseIndex +']' )
+				photos.push({ filename: filename, showcase: true });
+			else
+				photos.push({ filename: filename});
+
 			cb(null, filename);
 		}
 	});

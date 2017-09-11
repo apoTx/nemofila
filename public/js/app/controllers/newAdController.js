@@ -40,7 +40,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$scope.nextLoader = true;
 		if (files && files.length) {
 			Upload.upload({
-				url: 'newAd/uploadPhotos',
+				url: 'newAd/uploadPhotos/'+ $scope.newAdForm.showcaseIndex,
 				method: 'POST',
 				file: files,
 			}).then((response) => {
