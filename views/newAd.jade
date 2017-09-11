@@ -75,7 +75,8 @@ block content
                             ngf-select='onPhotoSelect()',
                             ng-model='newAdForm.files',
                             name='photos',
-                            accept='image/*',
+                            ngf-pattern="'image/*'",
+                            ngf-accept="'image/*'",
                             ngf-max-size='2MB',
                             ngf-multiple='true',
                             ngf-keep='true',
@@ -92,7 +93,7 @@ block content
                                     i.bookmark.icon
                                 img(
                                     ngf-thumbnail="f || '/thumb.jpg'",
-                                    ngf-size="{width:200, height:100, quality:0.6}",
+                                    ngf-size="{width:200, height:200, quality:0.6}",
                                     ng-src="img/spinner.gif",
                                 )
 

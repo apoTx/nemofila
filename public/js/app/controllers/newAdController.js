@@ -37,7 +37,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
-		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+		if ($scope.newAdForm.files.length > 0)
+			$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
 	};
 
 	$scope.onDeletePhoto = (index) => {
