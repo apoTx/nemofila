@@ -73,14 +73,6 @@ body {
     margin-left: .4em !important;
 }
 
-.thumb {
-    width: 24px;
-    height: 24px;
-    float: none;
-    position: relative;
-    top: 7px;
-}
-
 .upload-photo-thumb{
     max-height: 90px!important;
 }

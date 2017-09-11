@@ -32,7 +32,6 @@ router.post('/uploadPhotos/:showcaseIndex', (req,res) => {
 			}
 		},
 		filename: function (req, file, cb) {
-			console.log(file);
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
 			let filename = file.originalname + '-' + Date.now()+ '.' +extension;
@@ -65,14 +64,14 @@ router.post('/saveAdRedis', (req,res) => {
 	client.hmset(_uuid, {
 		title: data.title || '',
 		description: data.description || '',
-		price: data.price || false,
-		country: data.country || false,
-		city: data.city || false,
-		district: data.district || false,
-		category: data.category || false,
-		childCategory: data.categoryChild || false,
-		anotherContact: JSON.stringify(data.anotherContact) || false,
-		photos: JSON.stringify(req.body.photos) || false
+		price: data.price || '',
+		country: data.country || '',
+		city: data.city || '',
+		district: data.district || '',
+		category: data.category || '',
+		childCategory: data.categoryChild || '',
+		anotherContact: JSON.stringify(data.anotherContact) || '',
+		photos: JSON.stringify(req.body.photos) || ''
 	}, (err) => {
 		if(err){
 			throw err;
@@ -87,7 +86,6 @@ router.post('/saveAdRedis', (req,res) => {
 router.get('/getAdBuffer/:uuid', (req,res) => {
 	let uuid = req.params.uuid;
 	client.hgetall(uuid,  (err, reply) => {
-		console.log(reply);
 		res.json(reply);
 	});
 });

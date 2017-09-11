@@ -28,7 +28,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 	$scope.init = (uuid) => {
-		if (uuid)
+		if (uuid !== 'false')
 			$scope.getAdBuffer(uuid);
 	};
 
@@ -40,8 +40,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}).then( (response) => {
 			console.log( response );
 
-			$scope.newAdForm.title = response.data.title;
-			$scope.newAdForm.description = response.data.description;
+			$scope.newAdForm.title = response.data.title || '';
+			$scope.newAdForm.description = response.data.description || '';
+			$scope.newAdForm.price = response.data.price || '';
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
@@ -138,13 +139,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	let completeSaveAd = () => {
 		$scope.openSignInModal();
-		previewTab();
+		$scope.previewTab();
 		$scope.nextLoader = false;
 	};
 
-	let previewTab = () => {
+	$scope.previewTab = () => {
 		$scope.steps.informations = false;
 		$scope.steps.preview = true;
+	};
+
+	$scope.adInformationTab = () => {
+		$scope.steps.informations = true;
+		$scope.steps.preview = false;
 	};
 
 }]);
