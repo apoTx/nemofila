@@ -134,7 +134,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 	$scope.triggerUploadWindow = () => {
-		$('input[type=file]').trigger('click');
+		$('input[type="file"]').trigger('click');
 	};
 
 	let completeSaveAd = () => {
