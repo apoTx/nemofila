@@ -27,10 +27,20 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		});
 	});
 
-	$scope.init = (data) => {
-		if (data){
-			let data = JSON.parse(data);
-		}
+	$scope.init = (uuid) => {
+		if (uuid)
+			$scope.getAdBuffer(uuid);
+	};
+
+	$scope.getAdBuffer = (uuid) => {
+		$http({
+			url: '/newAd/getAdBuffer/'+ uuid,
+			method: 'GET',
+		}).then((response) => {
+			console.log(response);
+		}, () => { // optional
+			console.log('fail');
+		});
 	};
 
 	$scope.uploadAndSaveRedis = () => {

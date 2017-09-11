@@ -13,15 +13,7 @@ let router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-
-	if (req.cookies.newAdRedisId){
-		client.hgetall(req.cookies.newAdRedisId,  (err, reply) => {
-			res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisData: JSON.stringify(reply) });
-		});
-	}else{
-		res.render( 'newAd', { title: 'New Ad', user: req.session.user });
-	}
-
+	res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisId: req.cookies.newAdRedisId || false });
 });
 
 router.post('/uploadPhotos/:showcaseIndex', (req,res) => {
@@ -92,8 +84,9 @@ router.post('/saveAdRedis', (req,res) => {
 
 });
 
-router.get('/getAdBuffer', (req,res) => {
-	client.hgetall('43350cf0-965b-11e7-a76e-4d93e04ad2b8',  (err, reply) => {
+router.get('/getAdBuffer/:uuid', (req,res) => {
+	let uuid = req.params.uuid;
+	client.hgetall(uuid,  (err, reply) => {
 		console.log(reply);
 		res.json(reply);
 	});
