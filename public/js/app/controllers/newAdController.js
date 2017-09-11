@@ -33,13 +33,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 	$scope.getAdBuffer = (uuid) => {
-		$http({
-			url: '/newAd/getAdBuffer/'+ uuid,
+		$scope.loadingBufferData = true;
+		$http( {
+			url: '/newAd/getAdBuffer/' + uuid,
 			method: 'GET',
-		}).then((response) => {
-			console.log(response);
+		}).then( (response) => {
+			console.log( response );
+
+			$scope.newAdForm.title = response.data.title;
+			$scope.newAdForm.description = response.data.description;
+
+			$scope.loadingBufferData = false;
 		}, () => { // optional
-			console.log('fail');
+			console.log( 'fail' );
 		});
 	};
 

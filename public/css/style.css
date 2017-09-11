@@ -101,3 +101,9 @@ form .progress {
     background: orange;
     width: 0;
 }
+
+.no-segment{
+    box-shadow:none !important;
+    padding:0 !important;
+    border:none !important;
+}
