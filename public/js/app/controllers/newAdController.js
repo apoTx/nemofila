@@ -1,6 +1,7 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($scope, Upload, $timeout, $http) => {
 	// New Ad Form
 	$scope.newAdForm = {};
+	$scope.newAdForm.anotherContact =  { };
 
 	$scope.steps = {};
 	$scope.steps.informations = true;
@@ -10,7 +11,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$(() => {
 		$('#newAdForm').form();
 
-		$scope.newAdForm.anotherContact =  { };
 		$('.ui.checkbox').checkbox({
 			onChecked: () => {
 				$scope.newAdForm.anotherContact.checked = true;
@@ -43,6 +43,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
 			$scope.newAdForm.price = response.data.price || '';
+			$scope.newAdForm.anotherContact = JSON.parse(response.data.anotherContact);
+			console.log($scope.newAdForm.anotherContact);
 
 			try{
 				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
