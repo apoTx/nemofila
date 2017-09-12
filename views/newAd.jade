@@ -104,7 +104,7 @@ block content
                                     a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                         i.bookmark.icon
                                     img(
-                                        ngf-thumbnail="f || 'img/image.jpg'",
+                                        ngf-thumbnail="f.filename ? 'uploads/#{redisId}/{{f.filename}}': f ",
                                         ngf-size="{width:200, height:200, quality:0.6}",
                                         ng-src="img/spinner.gif",
                                         class="upload-photo-thumb"

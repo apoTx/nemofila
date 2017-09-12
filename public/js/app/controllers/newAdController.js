@@ -43,12 +43,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
 			$scope.newAdForm.price = response.data.price || '';
-			$scope.newAdForm.files = JSON.parse(response.data.photos);
+
+			try{
+				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
+			}catch (e){
+				$scope.newAdForm.files = {};
+			}
 
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
 			console.log( 'fail' );
+			$scope.loadingBufferData = false;
 		});
 	};
 
