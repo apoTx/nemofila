@@ -2,6 +2,7 @@ extends layout
 
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/popup.min.css')
     link(rel='stylesheet', type='text/css', href='dist/css/style.css')
     link(rel='stylesheet', type='text/css', href='dist/css/detail.css')
 
@@ -11,18 +12,21 @@ block content
             .ten.wide.column
                 h1 Macbook Pro 15.5 Retina
 
-            .six.wide.column.text-right
-                button.ui.basic.button.addFav
-                    i.icon.empty.star
-                    |   Add Favorites
-
-                .ui.small.basic.icon.buttons
-                    button.ui.button
+            .six.wide.column.text-right.detail-right-menu
+                .ui.right.floated.main.menu
+                    a.music.popup.icon.item(data-content='Share with Facebook')
                         i.facebook.icon
-                    button.ui.button
+                    a.music.popup.icon.item(data-content='Share with Twitter')
                         i.twitter.icon
-                    button.ui.button
+                    a.music.popup.icon.item(data-content='Share with Google+')
                         i.google.plus.icon
+
+                .ui.right.floated.main.menu
+                    a.music.popup.icon.item(data-content='Add Favorites')
+                        i.star.empty.icon
+
+
+
 
         .ui.grid
             .seven.wide.column
@@ -37,8 +41,9 @@ block content
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
 
             .nine.wide.column
-                | test
+                h2
 
 
 append javascripts
+    script(src="semantic/dist/components/popup.min.js")
     script(src="dist/js/app/controllers/detailController.min.js")
