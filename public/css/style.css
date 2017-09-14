@@ -68,6 +68,9 @@ body {
 .text-center{
     text-align: center!important;
 }
+.text-right{
+    text-align: right!important;
+}
 .item-title{
     color:#000;
     margin-left: .4em !important;
@@ -98,4 +101,14 @@ form .progress {
     box-shadow:none !important;
     padding:0 !important;
     border:none !important;
+}
+
+.addFav{
+    color: inherit;
+}
+.addFav i{
+    font-size: 1.1em
+}
+.addFav:hover i{
+    color: #333
 }

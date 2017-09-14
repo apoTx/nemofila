@@ -1,14 +1,40 @@
 extends layout
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
+    link(rel='stylesheet', type='text/css', href='dist/css/style.css')
+    link(rel='stylesheet', type='text/css', href='dist/css/detail.css')
 
 block content
     div(ng-controller="detailController")
         .ui.grid
+            .ten.wide.column
+                h1 Macbook Pro 15.5 Retina
+
+            .six.wide.column.text-right
+                button.ui.basic.button.addFav
+                    i.icon.empty.star
+                    |   Add Favorites
+
+                .ui.small.basic.icon.buttons
+                    button.ui.button
+                        i.facebook.icon
+                    button.ui.button
+                        i.twitter.icon
+                    button.ui.button
+                        i.google.plus.icon
+
+        .ui.grid
             .seven.wide.column
-                a.ui.medium.fluid.image(href='http://google.com')
+                a.ui.fluid.image(href='http://google.com')
                     img(src='https://semantic-ui.com/images/wireframe/image-text.png')
+
+                .ui.tiny.images.detail-photo-list
+                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
+                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
+                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
+                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
+                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
 
             .nine.wide.column
                 | test
