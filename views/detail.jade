@@ -1,10 +1,18 @@
 extends layout
 
 append stylesheets
-
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.min.css')
 
 block content
-    div(ng-controller="detailController") detail
+    div(ng-controller="detailController")
+        .ui.grid
+            .seven.wide.column
+                a.ui.medium.fluid.image(href='http://google.com')
+                    img(src='https://semantic-ui.com/images/wireframe/image-text.png')
+
+            .nine.wide.column
+                | test
+
 
 append javascripts
     script(src="dist/js/app/controllers/detailController.min.js")
