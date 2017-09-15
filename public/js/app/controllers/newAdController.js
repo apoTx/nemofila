@@ -38,13 +38,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			url: '/newAd/getAdBuffer/' + uuid,
 			method: 'GET',
 		}).then( (response) => {
-			console.log( response );
 
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
 			$scope.newAdForm.price = response.data.price || '';
 			$scope.newAdForm.anotherContact = JSON.parse(response.data.anotherContact);
-			console.log($scope.newAdForm.anotherContact);
 
 			try{
 				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
@@ -78,6 +76,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.nextLoader = false;
 	$scope.uploading = false;
+
 	$scope.uploadFiles = (files, saveRedis) => {
 		$scope.nextLoader = true;
 		$scope.uploading = true;
@@ -93,7 +92,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 					if (saveRedis){
 						$scope.saveAdToRedis(response.data.uuid, response.data.photos);
 					}else{ // mongo
-						$scope.onSubmitAd(response.data.uuid, response.data.photos);
+						$scope.onSubmitAd(response.data.uuid, response.data.photos );
 					}
 				}
 			}, (response) => {
@@ -148,7 +147,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			data: { data: data, photos: photos, uuid: uuid }
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
-			console.log(response);
 			if(response.data.status === 1){
 				$scope.adSaveComplete = true;
 			}
@@ -160,7 +158,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
-		console.log($scope.newAdForm.files);
 		if ($scope.newAdForm.files.length > 0)
 			$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
 	};
