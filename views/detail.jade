@@ -5,6 +5,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/popup.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/breadcrumb.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='dist/css/style.css')
     link(rel='stylesheet', type='text/css', href='dist/css/detail.css')
 
@@ -31,7 +32,7 @@ block content
 
 
         .ui.grid
-            .seven.wide.column
+            .six.wide.column
                 a.ui.fluid.image(href='http://google.com')
                     img(src='https://semantic-ui.com/images/wireframe/image-text.png')
 
@@ -40,7 +41,7 @@ block content
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
 
-            .nine.wide.column
+            .ten.wide.column
                 h2 $120
 
                 .ui.breadcrumb.tiny
@@ -59,9 +60,25 @@ block content
                         tr
                             td Listing Date
                             td 12.09.2017
+                        tr
+                            td Contact Name
+                            td
+                                div.contact-name Mehmet Seven
+                                button.ui.right.floated.button.primary Send Message
+                                .clearfix
+                        tr
+                            td Contact Number
+                            td
+                                a.phone-number(href="tel:905318640941")
+                                    | +90 531 864 0941
+
+
+
+
         h3 Description
-        .ui.secondary.segment
-            p
+        .ui.segment
+            p.description
+                | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                 | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
 append javascripts
