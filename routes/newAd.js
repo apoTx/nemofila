@@ -107,6 +107,7 @@ router.post('/create', (req, res) => {
 			categoryChildId: data.categoryChild
 		},
 		anotherContact: {
+			checked: data.anotherContact.checked,
 			name: data.anotherContact.name,
 			phone: data.anotherContact.phone
 		},

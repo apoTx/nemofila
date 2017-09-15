@@ -18,21 +18,24 @@ let adSchema = new Schema({
 		type: String
 	},
 	location:{
-		countryId: String,
-		cityId: String,
-		districtId: String,
+		countryId: Number,
+		cityId: Number,
+		districtId: Number,
 	},
 	category: {
 		categoryId: {
-			type: String,
+			type: Number,
 			// required: true
 		},
 		categoryChildId: {
-			type: String,
+			type: Number,
 			// required: true
 		}
 	},
 	anotherContact: {
+		checked: {
+			type: Boolean
+		},
 		name: {
 			type: String,
 			// required: true
