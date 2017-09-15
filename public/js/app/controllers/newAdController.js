@@ -62,14 +62,22 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.uploadAndSaveRedis = () => {
 		if ($scope.newAdForm.files){
-			$scope.uploadFiles($scope.newAdForm.files);
+			$scope.uploadFiles($scope.newAdForm.files, true);
 		}else{
 			$scope.saveAdToRedis(null, null);
 		}
 	};
 
+	$scope.uploadAndSaveMongo = () => {
+		if ($scope.newAdForm.files){
+			$scope.uploadFiles($scope.newAdForm.files, false);
+		}else{
+			alert('foto yok');
+		}
+	};
+
 	$scope.nextLoader = false;
-	$scope.uploadFiles = (files) => {
+	$scope.uploadFiles = (files, saveRedis) => {
 		$scope.nextLoader = true;
 		if (files && files.length) {
 			Upload.upload({
@@ -79,8 +87,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			}).then((response) => {
 				$timeout(() => {
 					$scope.result = response.data;
-					if (response.data.status === 1){
-						$scope.saveAdToRedis(response.data.uuid, response.data.photos);
+					if (response.data.status === 1 ){
+						if (saveRedis){
+							$scope.saveAdToRedis(response.data.uuid, response.data.photos);
+						}else{ // mongo
+							$scope.onSubmitAd(response.data.uuid, response.data.photos);
+						}
 					}
 				});
 			}, (response) => {
@@ -121,6 +133,24 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		});
 	};
 
+	$scope.submitBtnLoading = false;
+	$scope.onSubmitAd = (uuid, photos) => {
+		let data = $scope.newAdForm;
+		delete data.files;
+
+		$scope.submitBtnLoading = true;
+		console.log($scope.newAdForm.files)
+		$http({
+			url: '/newAd/create',
+			method: 'POST',
+			data: { data: data, photos: photos, uuid: uuid }
+		}).then((response) => {
+			$scope.submitBtnLoading = false;
+			console.log(response);
+		}, () => { // optional
+			console.log('fail');
+		});
+	};
 
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {

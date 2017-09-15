@@ -2,6 +2,9 @@ let express = require('express');
 let client = require('../redis/client.js');
 let fs = require('fs');
 
+// Models
+let Ads = require('../models/ads');
+
 // uuid
 let uuid = require('uuid');
 
@@ -81,6 +84,40 @@ router.post('/saveAdRedis', (req,res) => {
 		}
 	});
 
+});
+
+router.post('/create', (req, res) => {
+	let data = req.body;
+
+	console.log(data)
+	res.json('ok');
+	return false;
+
+	let ad = new Ads({
+		title: data.title,
+		price: data.price,
+		description: data.description,
+		location: {
+			countryId: data.country,
+			cityId: data.city,
+			districtId: data.district,
+		},
+		category: {
+			categoryId: data.category,
+			categoryChildId: data.categoryChild
+		},
+		anotherContact: {
+			name: data.anotherContact.name,
+			phone: data.anotherContact.phone
+		},
+	});
+
+	ad.save((err) => {
+		if (err)
+			res.send(err);
+		else
+			res.send({ 'status': 1 });
+	});
 });
 
 router.get('/getAdBuffer/:uuid', (req,res) => {

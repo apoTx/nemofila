@@ -13,6 +13,7 @@ let adSchema = new Schema({
 	description: {
 		type: String
 	},
+	photos: [],
 	location:{
 		countryId: String,
 		cityId: String,
@@ -31,14 +32,15 @@ let adSchema = new Schema({
 	anotherContact: {
 		name: {
 			type: String,
-			required: true
 		},
-		tel: {
+		phone: {
 			type: String,
-			required: true
 		}
 	},
-	createdAt: new Date()
+	createdAt: {
+		type: Date,
+		default: new Date()
+	}
 });
 
 module.exports = mongoose.model('ads', adSchema);
