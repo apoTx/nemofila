@@ -178,7 +178,7 @@ block content
                 br
                 br
 
-                button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo()", ng-class="{loading:submitBtnLoading, disabled:uploading}")
+                button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                     | Save
                 button.ui.right.floated.secondary.button(ng-click="adInformationTab()", ng-class="{disabled:uploading}")
                     | Back
