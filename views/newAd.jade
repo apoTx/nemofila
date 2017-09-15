@@ -158,7 +158,7 @@ block content
             div#preview(ng-if="steps.preview", ng-cloak)
                 h2 {{ newAdForm.title }}
                 h4 {{ newAdForm.price | currency }}
-                h2 {{newAdForm.files.length}}
+
                 .ui.four.cards
                     .card(ng-repeat='f in newAdForm.files')
                         .image

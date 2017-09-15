@@ -72,7 +72,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		if ($scope.newAdForm.files){
 			$scope.uploadFiles($scope.newAdForm.files, false);
 		}else{
-			alert('foto yok');
+			$scope.onSubmitAd(null, null);
 		}
 	};
 
