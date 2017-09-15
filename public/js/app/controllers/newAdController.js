@@ -77,24 +77,25 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 	$scope.nextLoader = false;
+	$scope.uploading = false;
 	$scope.uploadFiles = (files, saveRedis) => {
 		$scope.nextLoader = true;
+		$scope.uploading = true;
 		if (files && files.length) {
 			Upload.upload({
 				url: 'newAd/uploadPhotos/'+ $scope.newAdForm.showcaseIndex,
 				method: 'POST',
 				file: files,
 			}).then((response) => {
-				$timeout(() => {
-					$scope.result = response.data;
-					if (response.data.status === 1 ){
-						if (saveRedis){
-							$scope.saveAdToRedis(response.data.uuid, response.data.photos);
-						}else{ // mongo
-							$scope.onSubmitAd(response.data.uuid, response.data.photos);
-						}
+				$scope.result = response.data;
+				$scope.uploading = false;
+				if (response.data.status === 1 ){
+					if (saveRedis){
+						$scope.saveAdToRedis(response.data.uuid, response.data.photos);
+					}else{ // mongo
+						$scope.onSubmitAd(response.data.uuid, response.data.photos);
 					}
-				});
+				}
 			}, (response) => {
 				if (response.status > 0) {
 					$scope.errorMsg = response.status + ': ' + response.data;
