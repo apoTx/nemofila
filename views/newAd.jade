@@ -155,7 +155,19 @@ block content
                     .clearfix
 
         div#preview(ng-if="steps.preview", ng-cloak)
-            h2 Preview
+            h2 {{ newAdForm.title }}
+            h4 ${{ newAdForm.price }}
+            .ui.four.cards
+                .card(ng-repeat='f in newAdForm.files')
+                    .image
+                        a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
+                            i.bookmark.icon
+                        img(
+                            ngf-thumbnail="f.filename ? 'uploads/#{redisId}/{{f.filename}}': f ",
+                            ngf-size="{width:200, height:200, quality:0.6}",
+                            ng-src="img/spinner.gif",
+                            class="upload-photo-thumb"
+                        )
 
             button.ui.right.floated.primary.button(ng-click="onSubmitAd()")
                 | Save

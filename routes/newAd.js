@@ -76,7 +76,7 @@ router.post('/saveAdRedis', (req,res) => {
 		if(err){
 			throw err;
 		}else {
-			res.cookie('newAdRedisId', _uuid, { expires: new Date(Date.now() + 1200000), httpOnly: true }); // 20 min expires
+			// res.cookie('newAdRedisId', _uuid, { expires: new Date(Date.now() + 1200000), httpOnly: true }); // 20 min expires
 			res.json( { status: 1 } );
 		}
 	});
