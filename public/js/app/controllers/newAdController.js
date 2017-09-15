@@ -133,6 +133,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		});
 	};
 
+	$scope.adSaveComplete = false;
 	$scope.submitBtnLoading = false;
 	$scope.onSubmitAd = (uuid, photos) => {
 		$scope.submitBtnLoading = true;
@@ -147,7 +148,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 			console.log(response);
+			if(response.data.status === 1){
+				$scope.adSaveComplete = true;
+			}
 		}, () => { // optional
+			$scope.submitBtnLoading = false;
 			console.log('fail');
 		});
 	};
