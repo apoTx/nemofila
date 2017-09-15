@@ -178,9 +178,9 @@ block content
                 br
                 br
 
-                button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo()", ng-class="submitBtnLoading ? 'loading' : '' ")
+                button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo()", ng-class="submitBtnLoading ? 'loading disabled' : '' ")
                     | Save
-                button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
+                button.ui.right.floated.secondary.button(ng-click="adInformationTab()", ng-class="submitBtnLoading ? 'disabled': '' ")
                     | Back
 
         div(ng-if="adSaveComplete", ng-cloak)
