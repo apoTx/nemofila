@@ -37,7 +37,8 @@ let adSchema = new Schema({
 			type: String,
 			required: true
 		}
-	}
+	},
+	createdAt: new Date()
 });
 
 module.exports = mongoose.model('ads', adSchema);

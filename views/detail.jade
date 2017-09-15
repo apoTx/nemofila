@@ -3,6 +3,8 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/popup.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/breadcrumb.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='dist/css/style.css')
     link(rel='stylesheet', type='text/css', href='dist/css/detail.css')
 
@@ -37,12 +39,30 @@ block content
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
 
             .nine.wide.column
-                h2
+                h2 $120
 
+                .ui.breadcrumb.tiny
+                    .active.section Turkey
+                    .divider  /
+                    .active.section Istanbul
+                    .divider  /
+                    .active.section Atasehir
+
+
+                table.ui.definition.table
+                    tbody
+                        tr
+                            td Category
+                            td Electronic / Computer
+                        tr
+                            td Listing Date
+                            td 12.09.2017
+        h3 Description
+        .ui.secondary.segment
+            p
+                | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
 append javascripts
     script(src="semantic/dist/components/popup.min.js")
