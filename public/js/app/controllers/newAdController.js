@@ -135,11 +135,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.submitBtnLoading = false;
 	$scope.onSubmitAd = (uuid, photos) => {
+		$scope.submitBtnLoading = true;
+
 		let data = $scope.newAdForm;
 		delete data.files;
 
-		$scope.submitBtnLoading = true;
-		console.log($scope.newAdForm.files)
 		$http({
 			url: '/newAd/create',
 			method: 'POST',

@@ -87,16 +87,16 @@ router.post('/saveAdRedis', (req,res) => {
 });
 
 router.post('/create', (req, res) => {
-	let data = req.body;
-
-	console.log(data)
-	res.json('ok');
-	return false;
+	let data = req.body.data;
+	let photos = req.body.photos;
+	let uuid = req.body.uuid;
 
 	let ad = new Ads({
 		title: data.title,
 		price: data.price,
 		description: data.description,
+		photos: photos,
+		uuid: uuid,
 		location: {
 			countryId: data.country,
 			cityId: data.city,

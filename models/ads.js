@@ -4,16 +4,19 @@ let Schema	 = mongoose.Schema;
 let adSchema = new Schema({
 	title: {
 		type: String,
-		required: true
+		// required: true
 	},
 	price: {
 		type: Number,
-		required: true
+		// required: true
 	},
 	description: {
 		type: String
 	},
 	photos: [],
+	uuid: {
+		type: String
+	},
 	location:{
 		countryId: String,
 		cityId: String,
@@ -22,19 +25,21 @@ let adSchema = new Schema({
 	category: {
 		categoryId: {
 			type: String,
-			required: true
+			// required: true
 		},
 		categoryChildId: {
 			type: String,
-			required: true
+			// required: true
 		}
 	},
 	anotherContact: {
 		name: {
 			type: String,
+			// required: true
 		},
 		phone: {
 			type: String,
+			// required: true
 		}
 	},
 	createdAt: {
