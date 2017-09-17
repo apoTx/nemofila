@@ -67,8 +67,11 @@ router.get('/getIndexAds', (req,res) => {
 		'title': true,
 		'photos': true
 	},(err, data)=>{
+		if (err)
+			console.log(err);
+
 		res.json(data);
-	}).sort({ _id: 1 }).limit(8);
+	}).sort({ "$natural": -1 }).limit(8);
 });
 
 module.exports = router;

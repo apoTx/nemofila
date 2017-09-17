@@ -6,7 +6,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='css/index.css')
 
 block content
-    div(ng-controller="indexController")
+    div(ng-controller="indexController" ng-init="init()")
         .ui.grid.stackable.no-margin-bottom
             .four.wide.column
                 a.ui.fluid.card.adCard
