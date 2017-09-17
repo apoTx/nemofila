@@ -124,7 +124,7 @@ block content
                             // button.ui.button.primary(ng-click="uploadFiles(newAdForm.files)")
                                 | Upload
 
-                            span.progress(ng-show='progress >= 0')
+                            .progress(ng-show='progress >= 0')
                                     div(style='width:{{progress}}%', ng-bind="progress + '%'")
                                 |     {{errorMsg}}
 

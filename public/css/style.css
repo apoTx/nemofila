@@ -87,14 +87,17 @@ form .progress {
 .progress {
     display: inline-block;
     width: 100%;
-    border: 1px groove #CCC;
+    border: 1px groove #ddd;
     margin-top: 20px;
+    height:25px;
 }
 
 .progress div {
-    font-size: smaller;
     background: orange;
-    width: 0;
+    width: 30px;
+    line-height:23px;
+    font-size:11px;
+    text-align:center
 }
 
 .no-segment{

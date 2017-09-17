@@ -20,8 +20,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
-	console.log(req.params);
-
 	const _uuid = req.params.uuid !== 'undefined' && req.params.uuid !=='false' ? req.params.uuid : uuid.v1();
 	const photos = [];
 	let showcaseIndex = req.params.showcaseIndex;
@@ -40,6 +38,7 @@ router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
 			let filename = file.originalname + '-' + Date.now()+ '.' +extension;
+			console.log(filename);
 
 			if (file.fieldname === 'file['+ showcaseIndex +']' )
 				photos.push({ filename: filename, showcase: true });
