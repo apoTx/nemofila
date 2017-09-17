@@ -3,17 +3,23 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
     link(rel='stylesheet', type='text/css', href='css/index.css')
 
 block content
     div(ng-controller="indexController" ng-init="init()")
-        .ui.grid.stackable.no-margin-bottom
-            .four.wide.column
-                a.ui.fluid.card.adCard
-                    .image
-                        img(src='https://semantic-ui.com/images/avatar/large/daniel.jpg')
-                    .content
-                        span Daniel Louise
+        .ui.segment
+            .ui.grid.stackable.no-margin-bottom
+                .four.wide.column
+                    a.ui.fluid.card.adCard
+                        .image
+                            img(src='https://semantic-ui.com/images/avatar/large/daniel.jpg')
+                        .content
+                            span Daniel Louise
+            .ui.dimmer(ng-class="{ active:indexAdsLoading }")
+                .ui.loader
+
 
 
         .ui.grid.stackable
