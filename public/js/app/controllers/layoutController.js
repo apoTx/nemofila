@@ -156,6 +156,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 			}
 		}, () => { // optional
 			console.log('fail');
+			$scope.signInBtnLoading = false;
 		});
 	};
 

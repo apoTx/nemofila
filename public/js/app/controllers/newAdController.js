@@ -113,7 +113,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 
 	$scope.saveAdToRedis = (uuid, photos) => {
-		alert('asd')
 		$scope.newAdBtnLoading = true;
 
 		/* eslint-disable */

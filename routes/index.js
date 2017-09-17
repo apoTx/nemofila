@@ -65,7 +65,8 @@ router.get('/getIndexAds', (req,res) => {
 
 	},{
 		'title': true,
-		'photos': true
+		'photos': true,
+		'uuid': true
 	},(err, data)=>{
 		if (err)
 			console.log(err);

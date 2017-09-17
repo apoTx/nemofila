@@ -5,18 +5,19 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='css/style.css')
     link(rel='stylesheet', type='text/css', href='css/index.css')
 
 block content
     div(ng-controller="indexController" ng-init="init()")
-        .ui.segment
+        .ui.segment.list-segment
             .ui.grid.stackable.no-margin-bottom
-                .four.wide.column
+                .four.wide.column(ng-repeat="ad in ads")
                     a.ui.fluid.card.adCard
                         .image
-                            img(src='https://semantic-ui.com/images/avatar/large/daniel.jpg')
+                            img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[0].filename }}')
                         .content
-                            span Daniel Louise
+                            span {{ ad.title }}
             .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                 .ui.loader
 
@@ -41,6 +42,8 @@ block content
                         | 12
                     a.item
                         | Next
+
+        .clearfix
 
 append javascripts
     script(src="dist/js/app/controllers/indexController.min.js")
