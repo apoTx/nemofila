@@ -19,8 +19,10 @@ router.get('/', (req, res) => {
 	res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisId: req.cookies.newAdRedisId || false });
 });
 
-router.post('/uploadPhotos/:showcaseIndex', (req,res) => {
-	const _uuid = uuid.v1();
+router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
+	console.log(req.params);
+
+	const _uuid = req.params.uuid !== 'undefined' && req.params.uuid !=='false' ? req.params.uuid : uuid.v1();
 	const photos = [];
 	let showcaseIndex = req.params.showcaseIndex;
 

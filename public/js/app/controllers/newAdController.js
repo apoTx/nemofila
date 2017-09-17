@@ -66,9 +66,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}
 	};
 
-	$scope.uploadAndSaveMongo = () => {
+	$scope.uploadAndSaveMongo = (uuid) => {
 		if ($scope.newAdForm.files){
-			$scope.uploadFiles($scope.newAdForm.files, false);
+			$scope.uploadFiles($scope.newAdForm.files, false, uuid);
 		}else{
 			$scope.onSubmitAd(null, null);
 		}
@@ -77,12 +77,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 
-	$scope.uploadFiles = (files, saveRedis) => {
+	$scope.uploadFiles = (files, saveRedis, uuid) => {
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
 			Upload.upload({
-				url: 'newAd/uploadPhotos/'+ $scope.newAdForm.showcaseIndex,
+				url: 'newAd/uploadPhotos/'+ $scope.newAdForm.showcaseIndex +'/'+ uuid,
 				method: 'POST',
 				file: files,
 			}).then((response) => {
