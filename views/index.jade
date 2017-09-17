@@ -11,7 +11,7 @@ append stylesheets
 block content
     div(ng-controller="indexController" ng-init="init()")
         .ui.segment.list-segment
-            .ui.grid.stackable.no-margin-bottom
+            .ui.grid.stackable.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
                 .four.wide.column(ng-repeat="ad in ads")
                     a.ui.fluid.card.adCard
                         .image
