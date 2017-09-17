@@ -3,123 +3,18 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
-
+    link(rel='stylesheet', type='text/css', href='css/index.css')
 
 block content
     div(ng-controller="indexController")
         .ui.grid.stackable.no-margin-bottom
             .four.wide.column
-                .ui.card.margin-auto
+                a.ui.fluid.card.adCard
+                    .image
+                        img(src='https://semantic-ui.com/images/avatar/large/daniel.jpg')
                     .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
-            .four.wide.column
-                .ui.card.margin-auto
-                    .content
-                        .right.floated.meta 14h
-                        img.ui.avatara.image(href="#" src='img/profile.jpg')
-                        a.item-title(href="#") Elliot
-                    a.image(href="#")
-                        img(src="img/image.jpg")
-                    .content
-                        span.right.floated
-                            i.heart.outline.like.icon
-                            |       17 likes
-                        i.comment.icon
-                        |     3 comments
+                        span Daniel Louise
+
 
         .ui.grid.stackable
             .eighteen.wide.column.center.aligned
@@ -140,9 +35,6 @@ block content
                         | 12
                     a.item
                         | Next
-
-        // Modals
-
 
 append javascripts
     script(src="dist/js/app/controllers/indexController.min.js")

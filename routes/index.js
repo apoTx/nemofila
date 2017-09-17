@@ -5,6 +5,7 @@ let router = express.Router();
 
 // Models
 let User = require('../models/users');
+let Ads = require('../models/ads');
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
@@ -56,6 +57,18 @@ router.post('/login', (req,res) => {
 router.get('/logout',  (req,res) => {
 	req.session.reset();
 	res.redirect('./');
+});
+
+
+router.get('/getIndexAds', (req,res) => {
+	Ads.find({
+
+	},{
+		'title': true,
+		'photos': true
+	},(err, data)=>{
+		res.json(data);
+	}).sort({ _id: 1 }).limit(8);
 });
 
 module.exports = router;
