@@ -72,7 +72,7 @@ router.get('/getIndexAds', (req,res) => {
 			console.log(err);
 
 		res.json(data);
-	}).sort({ "$natural": -1 }).limit(8);
+	}).sort({ '$natural': -1 }).limit(8);
 });
 
 module.exports = router;
