@@ -28,10 +28,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	});
 
 	$scope.init = (uuid) => {
-		if (uuid !== 'false')
+		if (uuid !== 'false'){
 			$scope.getAdBuffer(uuid);
+		}
 	};
 
+	let uploadedFiles = [];
 	$scope.getAdBuffer = (uuid) => {
 		$scope.loadingBufferData = true;
 		$http( {
@@ -46,6 +48,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 			try{
 				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
+				uploadedFiles = $scope.newAdForm.files;
 			}catch (e){
 				$scope.newAdForm.files = {};
 			}
@@ -144,7 +147,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
-			data: { data: data, photos: photos, uuid: uuid }
+			data: { data: data, photos: photos.concat(uploadedFiles), uuid: uuid }
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 			if(response.data.status === 1){
