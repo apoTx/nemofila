@@ -147,7 +147,10 @@ html
 
 
             .actions
-                button.ui.right.icon.button(form="signUpForm", ng-class="registerBtnLoading ? 'loading' : '' ")
+                button.ui.left.floated.button(ng-click="openSignInModal()")
+                    | Sign In
+
+                button.ui.right.icon.button.primary(form="signUpForm", ng-class="registerBtnLoading ? 'loading' : '' ")
                     | Sign Up
 
         // SignIn Modal
@@ -182,7 +185,9 @@ html
 
 
             .actions
-                button.ui.right.icon.button(form="signInForm", ng-class="signInBtnLoading ? 'loading' : '' ")
+                button.ui.left.floated.button(ng-click="openSignUpModal()")
+                    | Sign Up
+                button.ui.right.icon.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading' : '' ")
                     | Sign In
 
 

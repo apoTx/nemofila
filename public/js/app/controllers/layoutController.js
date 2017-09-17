@@ -92,11 +92,17 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 		},
 	});
 
-	$scope.openSignUpModal = () => {
+	$scope.openSignUpModal = (closeOther) => {
+		if (closeOther){
+			$('#signInModal').modal('show');
+		}
 		$('#signUpModal').modal('show');
 	};
 
-	$scope.openSignInModal = () => {
+	$scope.openSignInModal = (closeOther) => {
+		if (closeOther){
+			$('#signUpModal').modal('show');
+		}
 		$('#signInModal').modal('show');
 	};
 
