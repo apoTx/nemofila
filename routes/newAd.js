@@ -122,10 +122,9 @@ router.post('/create', (req, res) => {
 			client.del(uuid, (err) => {
 				if (err)
 					console.log(err);
-
-				res.clearCookie('newAdRedisId');
 			});
 
+			res.clearCookie('newAdRedisId');
 			res.send({ 'status': 1 });
 		}
 	});
