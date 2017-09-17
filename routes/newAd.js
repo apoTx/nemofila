@@ -116,10 +116,18 @@ router.post('/create', (req, res) => {
 	});
 
 	ad.save((err) => {
-		if (err)
+		if (err){
 			res.send(err);
-		else
+		}else{
+			client.del(uuid, (err) => {
+				if (err)
+					console.log(err);
+
+				res.clearCookie('newAdRedisId');
+			});
+
 			res.send({ 'status': 1 });
+		}
 	});
 });
 
