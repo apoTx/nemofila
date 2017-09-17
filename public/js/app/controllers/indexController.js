@@ -1,18 +1,14 @@
 app.controller('indexController', ['$scope', '$http', ($scope, $http) => {
 	$scope.init = () => {
-
+		$scope.getIndexAds();
 	};
 
 	$scope.getIndexAds = () => {
 		$http({
 			url: '/getIndexAds',
-			method: 'POST',
-			data: data
+			method: 'GET'
 		}).then((response) => {
-			$scope.newAdBtnLoading = false;
-			if (response.data.status === 1) {
-				completeSaveAd();
-			}
+			console.log(response);
 		}, () => { // optional
 			console.log('fail');
 		});
