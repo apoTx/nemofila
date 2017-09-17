@@ -62,9 +62,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 	$scope.uploadAndSaveRedis = () => {
-		if ($scope.newAdForm.files){
+		if ($scope.newAdForm.files.length > 0){
+			console.log('with files');
 			$scope.uploadFiles($scope.newAdForm.files, true);
 		}else{
+			console.log('without files');
 			$scope.saveAdToRedis(null, null);
 		}
 	};
@@ -111,6 +113,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 
 	$scope.saveAdToRedis = (uuid, photos) => {
+		alert('asd')
 		$scope.newAdBtnLoading = true;
 
 		/* eslint-disable */
