@@ -24,6 +24,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			'title': 1,
 			'description': 1,
 			'price': 1,
+			'photos': 1,
 			'user.name': 1,
 			'user.surname': 1,
 			'user.phone': 1
@@ -33,6 +34,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		if (err)
 			return next(err);
 
+		console.log(result);
 		res.render( 'detail', { title: result[0].title, data: result[0], moment: moment });
 	});
 
