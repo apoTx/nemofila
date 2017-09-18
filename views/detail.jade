@@ -10,7 +10,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
 
 block content
-    div(ng-controller="detailController")
+    div(ng-controller="detailController" ng-init="init('#{data.id}')")
         .ui.grid
             .ten.wide.column
                 h1 Macbook Pro 15.5 Retina
@@ -27,9 +27,6 @@ block content
                 .ui.right.floated.main.menu
                     a.music.popup.icon.item(data-content='Add Favorites')
                         i.star.empty.icon
-
-
-
 
         .ui.grid
             .six.wide.column

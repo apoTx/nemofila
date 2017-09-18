@@ -5,4 +5,8 @@ app.controller('detailController', ['$scope', '$http',  ($scope, $http) => {
 		position: 'bottom center'
 	});
 
+	$scope.init = (id) => {
+		console.log(id);
+	};
+
 }]);
