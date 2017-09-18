@@ -1,6 +1,7 @@
 let express = require('express');
 let client = require('../redis/client.js');
 let fs = require('fs');
+let slugify = require('slugify')
 
 // Models
 let Ads = require('../models/ads');
@@ -93,6 +94,7 @@ router.post('/create', (req, res) => {
 
 	let ad = new Ads({
 		title: data.title,
+		slug: slugify(data.title, { lower:true }),
 		price: data.price,
 		description: data.description,
 		photos: photos,
