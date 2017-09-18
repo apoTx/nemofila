@@ -60,14 +60,14 @@ block content
                         tr
                             td Contact Name
                             td
-                                div.contact-name Mehmet Seven
+                                div.contact-name #{ data.user.name } #{ data.user.surname }
                                 button.ui.right.floated.button.primary Send Message
                                 .clearfix
                         tr
                             td Contact Number
                             td
-                                a.phone-number(href="tel:905318640941")
-                                    | +90 531 864 0941
+                                a.phone-number(href="tel:#{ data.user.phone }")
+                                    | #{ data.user.phone }
 
 
 
@@ -75,8 +75,7 @@ block content
         h3 Description
         .ui.segment
             p.description
-                | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                | #{ data.description }
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")

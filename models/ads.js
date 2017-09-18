@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 let Schema	 = mongoose.Schema;
+let ObjectId = Schema.ObjectId;
 
 let adSchema = new Schema({
 	title: {
@@ -53,7 +54,7 @@ let adSchema = new Schema({
 		default: new Date()
 	},
 	ownerId: {
-		type: String
+		type: ObjectId
 	}
 });
 
