@@ -113,6 +113,7 @@ router.post('/create', (req, res) => {
 			name: data.anotherContact.name,
 			phone: data.anotherContact.phone
 		},
+		ownerId: req.session.user._id
 	});
 
 	ad.save((err) => {

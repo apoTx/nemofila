@@ -51,6 +51,9 @@ let adSchema = new Schema({
 	createdAt: {
 		type: Date,
 		default: new Date()
+	},
+	ownerId: {
+		type: String
 	}
 });
 
