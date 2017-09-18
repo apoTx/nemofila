@@ -9,32 +9,32 @@ html
             |  - EasyAd
 
         block stylesheets
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/reset.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/site.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/container.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/grid.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/header.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/image.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/menu.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/divider.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/list.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/segment.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/dropdown.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/icon.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/form.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/label.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/dimmer.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/modal.min.css')
-            link(rel='stylesheet', type='text/css', href='semantic/dist/components/transition.min.css')
-            link(rel='old stylesheet', href='dist/css/style.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/reset.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/site.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/container.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/grid.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/header.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/image.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/menu.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/divider.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/list.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/dropdown.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/icon.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/message.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/button.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/dimmer.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/modal.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/transition.min.css')
+            link(rel='old stylesheet', href='/dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
         .ui.fixed.inverted.menu
             .ui.container
                 a.header.item(href='/')
-                    img.logo(src='img/logo.png')
+                    img.logo(src='/img/logo.png')
                     | &nbsp; &nbsp;  &nbsp; &nbsp; Easy Ads
                 a.item(href='/') Home
                 .ui.simple.dropdown.item
@@ -94,7 +94,7 @@ html
                         p
                             | Extra space for a call to action inside the footer that could help re-engage users.
                 .ui.inverted.section.divider
-                img.ui.centered.mini.image(src='img/logo.png')
+                img.ui.centered.mini.image(src='/img/logo.png')
                 .ui.horizontal.inverted.small.divided.link.list
                     a.item(href='#') Site Map
                     a.item(href='#') Contact Us
@@ -192,15 +192,15 @@ html
 
 
     block javascripts
-        script(src="angular/angular.min.js")
+        script(src="/angular/angular.min.js")
         // ng-file-upload module
-        script(src="ng-file-upload/ng-file-upload-shim.min.js")
-        script(src="ng-file-upload/ng-file-upload.min.js")
+        script(src="/ng-file-upload/ng-file-upload-shim.min.js")
+        script(src="/ng-file-upload/ng-file-upload.min.js")
         // ng-file-upload module ##
-        script(src="dist/js/app/main.min.js")
-        script(src="jquery/dist/jquery.min.js")
-        script(src="dist/js/app/controllers/layoutController.min.js")
-        script(src="semantic/dist/components/dimmer.min.js")
-        script(src="semantic/dist/components/modal.min.js")
-        script(src="semantic/dist/components/transition.min.js")
-        script(src="semantic/dist/components/form.min.js")
+        script(src="/dist/js/app/main.min.js")
+        script(src="/jquery/dist/jquery.min.js")
+        script(src="/dist/js/app/controllers/layoutController.min.js")
+        script(src="/semantic/dist/components/dimmer.min.js")
+        script(src="/semantic/dist/components/modal.min.js")
+        script(src="/semantic/dist/components/transition.min.js")
+        script(src="/semantic/dist/components/form.min.js")

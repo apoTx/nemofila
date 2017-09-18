@@ -13,7 +13,7 @@ block content
         .ui.segment.list-segment
             .ui.grid.stackable.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
                 .four.wide.column(ng-repeat="ad in ads")
-                    a.ui.fluid.card.adCard
+                    a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
                         .image
                             img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[0].filename }}')
                         .content

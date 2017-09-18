@@ -1,7 +1,7 @@
 let express = require('express');
 let client = require('../redis/client.js');
 let fs = require('fs');
-let slugify = require('slugify')
+let slugify = require('slugify');
 
 // Models
 let Ads = require('../models/ads');
