@@ -13,7 +13,7 @@ block content
     div(ng-controller="detailController" ng-init="init('#{data.id}')")
         .ui.grid
             .ten.wide.column
-                h1 Macbook Pro 15.5 Retina
+                h1 #{data.title}
 
             .six.wide.column.text-right.detail-right-menu
                 .ui.right.floated.main.menu
@@ -39,7 +39,7 @@ block content
                     img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
 
             .ten.wide.column
-                h2 $120
+                h2 $#{ data.price }
 
                 .ui.breadcrumb.tiny
                     .active.section Turkey
@@ -56,7 +56,7 @@ block content
                             td Electronic / Computer
                         tr
                             td Listing Date
-                            td 12.09.2017
+                            td #{ moment(data.createdAt).format("DD/MM/YYYY") }
                         tr
                             td Contact Name
                             td
