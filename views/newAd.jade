@@ -184,7 +184,11 @@ block content
                     | Back
 
         div(ng-if="adSaveComplete", ng-cloak)
-            | her şey tamam !
+            div.text-center
+                h1 Everything is ok!
+                div.margin-bottom-30 Your ad will be published after it is approved
+                a.ui.primary.button(href="./") Home
+
 
 append javascripts
     script(src="dist/js/app/controllers/newAdController.min.js")
