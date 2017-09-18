@@ -62,7 +62,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 	$scope.uploadAndSaveRedis = () => {
-		if ($scope.newAdForm.files.length > 0){
+		if ($scope.newAdForm.files && $scope.newAdForm.files.length  > 0 ){
 			console.log('with files');
 			$scope.uploadFiles($scope.newAdForm.files, true);
 		}else{
@@ -72,7 +72,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	};
 
 	$scope.uploadAndSaveMongo = (uuid) => {
-		if ($scope.newAdForm.files){
+		if ($scope.newAdForm.files && $scope.newAdForm.files.length  > 0 ){
+			console.log($scope.newAdForm.files);
 			$scope.uploadFiles($scope.newAdForm.files, false, uuid);
 		}else{
 			$scope.onSubmitAd(null, null);
