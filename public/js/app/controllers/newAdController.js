@@ -146,10 +146,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		let data = Object.assign({}, $scope.newAdForm);
 		delete data.files;
 
+		let photoList = photos ? photos.concat(uploadedFiles) : null;
+
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
-			data: { data: data, photos: photos.concat(uploadedFiles), uuid: uuid }
+			data: { data: data, photos: photoList, uuid: uuid }
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 			if(response.data.status === 1){
