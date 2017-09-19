@@ -152,7 +152,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
-			data: { data: data, photos: photoList, uuid: uuid }
+			data: { data: data, photos: photoList, uuid: uuid, showcaseIndex: $scope.newAdForm.showcaseIndex }
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 			if(response.data.status === 1){

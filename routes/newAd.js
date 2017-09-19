@@ -91,6 +91,7 @@ router.post('/create', (req, res) => {
 	let data = req.body.data;
 	let photos = req.body.photos;
 	let uuid = req.body.uuid;
+	let showcaseIndex = req.body.showcaseIndex;
 
 	let ad = new Ads({
 		title: data.title,
@@ -98,6 +99,7 @@ router.post('/create', (req, res) => {
 		price: data.price,
 		description: data.description,
 		photos: photos,
+		photoShowCaseIndex: showcaseIndex,
 		uuid: uuid,
 		location: {
 			countryId: data.country,
