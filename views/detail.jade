@@ -32,7 +32,7 @@ block content
             .six.wide.column
                 a.ui.fluid.image(href='http://google.com')
                     - if (data.photos !== null)
-                        img(ng-src='/uploads/#{ data.uuid }/#{data.photos[data.photoShowcaseIndex].filename}')
+                        img(ng-src='/uploads/#{data.uuid}/#{data.photos[data.photoShowcaseIndex].filename}')
                     - else
                         img(ng-src='/img/no-photo.png')
 
