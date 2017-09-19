@@ -31,15 +31,11 @@ block content
         .ui.grid
             .six.wide.column
                 a.ui.fluid.image(href='http://google.com')
-                    img(src='https://semantic-ui.com/images/wireframe/image-text.png')
+                    img(ng-src='https://semantic-ui.com/images/wireframe/image-text.png')
 
                 .ui.mini.images.detail-photo-list.text-center
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
-                    img.ui.image(src='https://semantic-ui.com/images/wireframe/image.png')
+                    each photo in data.photos
+                        img.ui.image(src='/uploads/#{ data.uuid }/#{ photo.filename }')
 
             .ten.wide.column
                 h2 $#{ data.price }

@@ -1,6 +1,9 @@
 .detail-photo-list{
     margin-top: 10px !important;
 }
+.detail-photo-list img{
+    cursor:pointer;
+}
 .phone-number{
     color:#000!important;
 }
