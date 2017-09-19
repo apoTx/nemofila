@@ -15,7 +15,7 @@ block content
                 .four.wide.column(ng-repeat="ad in ads")
                     a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
                         .image
-                            img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[0].filename }}')
+                            img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
                         .content
                             span {{ ad.title }}
             .ui.dimmer(ng-class="{ active:indexAdsLoading }")

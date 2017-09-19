@@ -99,7 +99,7 @@ router.post('/create', (req, res) => {
 		price: data.price,
 		description: data.description,
 		photos: photos,
-		photoShowCaseIndex: showcaseIndex,
+		photoShowcaseIndex: showcaseIndex,
 		uuid: uuid,
 		location: {
 			countryId: data.country,
