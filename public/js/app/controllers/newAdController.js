@@ -76,6 +76,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			console.log($scope.newAdForm.files);
 			$scope.uploadFiles($scope.newAdForm.files, false, uuid);
 		}else{
+			console.log('test');
 			$scope.onSubmitAd(null, null);
 		}
 	};
@@ -149,12 +150,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 		let photoList = photos ? photos.concat(uploadedFiles) : null;
 
+
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
 			data: { data: data, photos: photoList, uuid: uuid, showcaseIndex: $scope.newAdForm.showcaseIndex }
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
+
 			if(response.data.status === 1){
 				$scope.adSaveComplete = true;
 			}

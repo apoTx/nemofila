@@ -18,7 +18,7 @@ let adSchema = new Schema({
 		type: String
 	},
 	photos: [],
-	photoShowCaseIndex: {
+	photoShowcaseIndex: {
 		type: Number
 	},
 	uuid: {
