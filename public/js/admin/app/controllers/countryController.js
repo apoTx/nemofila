@@ -18,6 +18,11 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 		list: []
 	};
 
+	$scope.visibles = {
+		cities: false,
+		district: false
+	};
+
 	$scope.init = () => {
 		$http({
 			url: path +'/countries/getCountries',
@@ -53,6 +58,7 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 	};
 
 	$scope.selectCountry = (index) => {
+		$scope.visibles.cities = true;
 		$scope.countries.selected.index = index;
 		$scope.countries.selected._id = $scope.countries.list[index]._id;
 	};
