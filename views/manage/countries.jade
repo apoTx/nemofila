@@ -7,9 +7,9 @@ block content
             .three.column.row
                 .column
                     .ui.vertical.menu.countryList
-                        a.item(ng-repeat="country in countries.list", ng-cloak)
+                        a.item(ng-repeat="country in countries.list track by $index")
                             | {{ country.name }}
-                            i.remove.icon(ng-click="removeCountry()")
+                            i.remove.icon(ng-click="removeCountry($index)")
                         .item
                             .ui.transparent.icon.input
                                 form(ng-submit="saveCountry()")

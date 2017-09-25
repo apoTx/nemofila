@@ -17,7 +17,13 @@ router.get('/getCountries', requireLogin, (req,res) => {
 });
 
 router.delete('/deleteCountry', requireLogin, (req, res) => {
-	res.json({'STA':1});
+	console.log(req.body);
+	Countries.findByIdAndRemove(req.body._id, (err, data) => {
+		if (err)
+			console.log(err);
+		else
+			res.json({ 'status': 1 });
+	});
 });
 
 router.post('/saveCountry', requireLogin, (req, res) => {

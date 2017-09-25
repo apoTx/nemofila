@@ -19,22 +19,27 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 			url: path +'/countries/getCountries',
 			method: 'GET',
 		}).then((response) => {
-			console.log(response);
 			$scope.countries.list = response.data;
 		}, () => { // optional
 			console.log('fail');
 		});
 	};
 
-	$scope.removeCountry = () => {
+	$scope.removeCountry = (index) => {
 		let confirm = window.confirm('Are you sure ?');
 
 		if (confirm){
 			$http({
 				url: path +'/countries/deleteCountry',
 				method: 'DELETE',
+				data: { '_id': $scope.countries.list[index]._id },
+				headers: {
+					'Content-type': 'application/json;charset=utf-8'
+				}
 			}).then((response) => {
-				console.log(response);
+				if(response.data.status === 1){
+					$scope.countries.list.splice(index, 1);
+				}
 			}, () => { // optional
 				console.log('fail');
 			});
@@ -42,7 +47,7 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 	};
 
 	$scope.saveCountry = () => {
-		if ($scope.countries.form.country.name != ''){
+		if ($scope.countries.form.country.name !== ''){
 			$http({
 				url: path +'/countries/saveCountry',
 				method: 'POST',
