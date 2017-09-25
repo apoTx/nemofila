@@ -10,6 +10,12 @@ router.get('/', requireLogin, (req, res) => {
 	res.render('manage/countries', { title: 'Countries' });
 });
 
+router.get('/getCountries', requireLogin, (req,res) => {
+	Countries.find({}, (err, data) => {
+		res.json( data );
+	});
+});
+
 router.post('/saveCountry', requireLogin, (req, res) => {
 	let country = new Countries({
 		name: capitalize.words(req.body.name)
