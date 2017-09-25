@@ -9,7 +9,7 @@ let countrySchema = new Schema({
 	cities: [
 		{
 			name: String,
-			district: [
+			districts: [
 				{
 					name: String
 				}

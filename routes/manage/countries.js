@@ -39,4 +39,21 @@ router.post('/saveCountry', requireLogin, (req, res) => {
 	});
 });
 
+router.post('/saveCity', requireLogin, (req, res) => {
+	console.log(req.body);
+
+	Countries.findByIdAndUpdate( req.body.countryId,
+		{
+			$push: { 'cities': { 'name': capitalize.words(req.body.name) } }
+		},
+		{
+			safe: true,
+			upsert: true
+		},
+		(err, data) => {
+			res.json({ 'status': 1, '_id': data._id, 'name': data.name });
+		}
+	);
+});
+
 module.exports = router;

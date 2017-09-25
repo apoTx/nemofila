@@ -1,5 +1,9 @@
 app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 	$scope.countries = {
+		selected: {
+			index: 0,
+			_id: 0
+		},
 		form: {
 			country: {
 				name: ''
@@ -19,10 +23,12 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 			url: path +'/countries/getCountries',
 			method: 'GET',
 		}).then((response) => {
+			console.log(response);
 			$scope.countries.list = response.data;
 		}, () => { // optional
 			console.log('fail');
 		});
+
 	};
 
 	$scope.removeCountry = (index) => {
@@ -46,6 +52,11 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 		}
 	};
 
+	$scope.selectCountry = (index) => {
+		$scope.countries.selected.index = index;
+		$scope.countries.selected._id = $scope.countries.list[index]._id;
+	};
+
 	$scope.saveCountry = () => {
 		if ($scope.countries.form.country.name !== ''){
 			$http({
@@ -54,8 +65,29 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				data: { 'name': $scope.countries.form.country.name }
 			}).then((response) => {
 				console.log(response);
-				$scope.countries.list.push({ name: response.data.name, _id: response.data._id });
-				$scope.countries.form.country.name = '';
+				if (response.data.status === 1) {
+					$scope.countries.list.push( { name: response.data.name, _id: response.data._id } );
+					$scope.countries.form.country.name = '';
+				}
+			}, () => { // optional
+				console.log('fail');
+			});
+		}
+	};
+
+	$scope.saveCity = () => {
+		console.log($scope.countries.selected._id);
+		if ($scope.countries.form.city.name !== ''){
+			$http({
+				url: path +'/countries/saveCity',
+				method: 'POST',
+				data: { 'name': $scope.countries.form.city.name, 'countryId': $scope.countries.selected._id }
+			}).then((response) => {
+				console.log(response);
+				if (response.data.status === 1){
+					$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
+					$scope.countries.form.city.name = '';
+				}
 			}, () => { // optional
 				console.log('fail');
 			});
