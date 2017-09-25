@@ -161,4 +161,29 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 		}
 	};
 
+	$scope.deleteDistrict = (index) => {
+		let confirm = window.confirm('Are you sure ?');
+
+		if (confirm){
+			$http({
+				url: path +'/countries/deleteDistrict',
+				method: 'DELETE',
+				data: {
+					'_id': $scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts[index]._id,
+					'cityId': $scope.city.selected._id,
+					'countryId': $scope.countries.selected._id
+				},
+				headers: {
+					'Content-type': 'application/json;charset=utf-8'
+				}
+			}).then((response) => {
+				if(response.data.status === 1){
+					$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.splice(index, 1);
+				}
+			}, () => { // optional
+				console.log('fail');
+			});
+		}
+	};
+
 }]);

@@ -102,4 +102,30 @@ router.delete('/deleteCity', requireLogin, (req, res) => {
 		});
 });
 
+router.delete('/deleteDistrict', requireLogin, (req, res) => {
+	console.log(req.body);
+	Countries.update(
+		{
+			_id: req.body.countryId,
+			'cities._id': req.body.cityId
+		},
+		{
+			'$pull': {
+				'cities.$.districts':
+					{
+						'_id': req.body._id
+					}
+			}
+		},
+		{
+			safe: true,
+			multi:true
+		},
+		(err) => {
+			if (err)
+				throw(err);
+			res.json({ 'status': 1 });
+		});
+});
+
 module.exports = router;
