@@ -4,6 +4,7 @@ let Schema	 = mongoose.Schema;
 let countrySchema = new Schema({
 	name: {
 		type: String,
+		unique: true
 	},
 	cities: [
 		{
