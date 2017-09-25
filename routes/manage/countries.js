@@ -16,16 +16,6 @@ router.get('/getCountries', requireLogin, (req,res) => {
 	});
 });
 
-router.delete('/deleteCountry', requireLogin, (req, res) => {
-	console.log(req.body);
-	Countries.findByIdAndRemove(req.body._id, (err, data) => {
-		if (err)
-			console.log(err);
-		else
-			res.json({ 'status': 1 });
-	});
-});
-
 router.post('/saveCountry', requireLogin, (req, res) => {
 	let country = new Countries({
 		name: capitalize.words(req.body.name)
@@ -56,6 +46,40 @@ router.post('/saveCity', requireLogin, (req, res) => {
 			res.json({ 'status': 1, '_id': d._id, 'name': d.name });
 		}
 	);
+});
+
+router.delete('/deleteCountry', requireLogin, (req, res) => {
+	console.log(req.body);
+	Countries.findByIdAndRemove(req.body._id, (err) => {
+		if (err)
+			throw(err);
+		res.json({ 'status': 1 });
+	});
+});
+
+router.delete('/deleteCity', requireLogin, (req, res) => {
+	console.log(req.body);
+	Countries.update(
+		{
+			_id: req.body.countryId
+		},
+		{
+			'$pull': {
+				'cities':
+					{
+						'_id': req.body._id
+					}
+			}
+		},
+		{
+			safe: true,
+			multi:true
+		},
+		(err) => {
+			if (err)
+				throw(err);
+			res.json({ 'status': 1 });
+		});
 });
 
 module.exports = router;

@@ -10,7 +10,7 @@ block content
                     .ui.vertical.menu.countryList
                         a.item(ng-repeat="country in countries.list track by $index", ng-click="selectCountry($index)")
                             | {{ country.name }}
-                            i.remove.icon(ng-click="removeCountry($index)")
+                            i.remove.icon(ng-click="deleteCountry($index)")
                         .item
                             .ui.transparent.icon.input
                                 form(ng-submit="saveCountry()")
@@ -22,7 +22,7 @@ block content
                     .ui.vertical.menu.countryList
                         a.item(ng-repeat="city in countries.list[countries.selected.index].cities track by $index")
                             | {{ city.name }}
-                            i.remove.icon(ng-click="removeCity($index)")
+                            i.remove.icon(ng-click="deleteCity($index)")
                         .item
                             .ui.transparent.icon.input
                                 form(ng-submit="saveCity()")

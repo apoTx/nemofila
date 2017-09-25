@@ -36,27 +36,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 
 	};
 
-	$scope.removeCountry = (index) => {
-		let confirm = window.confirm('Are you sure ?');
-
-		if (confirm){
-			$http({
-				url: path +'/countries/deleteCountry',
-				method: 'DELETE',
-				data: { '_id': $scope.countries.list[index]._id },
-				headers: {
-					'Content-type': 'application/json;charset=utf-8'
-				}
-			}).then((response) => {
-				if(response.data.status === 1){
-					$scope.countries.list.splice(index, 1);
-				}
-			}, () => { // optional
-				console.log('fail');
-			});
-		}
-	};
-
 	$scope.selectCountry = (index) => {
 		$scope.visibles.cities = true;
 		$scope.countries.selected.index = index;
@@ -93,6 +72,48 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				if (response.data.status === 1){
 					$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
 					$scope.countries.form.city.name = '';
+				}
+			}, () => { // optional
+				console.log('fail');
+			});
+		}
+	};
+
+	$scope.deleteCountry = (index) => {
+		let confirm = window.confirm('Are you sure ?');
+
+		if (confirm){
+			$http({
+				url: path +'/countries/deleteCountry',
+				method: 'DELETE',
+				data: { '_id': $scope.countries.list[index]._id },
+				headers: {
+					'Content-type': 'application/json;charset=utf-8'
+				}
+			}).then((response) => {
+				if(response.data.status === 1){
+					$scope.countries.list.splice(index, 1);
+				}
+			}, () => { // optional
+				console.log('fail');
+			});
+		}
+	};
+
+	$scope.deleteCity = (index) => {
+		let confirm = window.confirm('Are you sure ?');
+
+		if (confirm){
+			$http({
+				url: path +'/countries/deleteCity',
+				method: 'DELETE',
+				data: { '_id': $scope.countries.list[$scope.countries.selected.index].cities[index]._id, 'countryId': $scope.countries.selected._id },
+				headers: {
+					'Content-type': 'application/json;charset=utf-8'
+				}
+			}).then((response) => {
+				if(response.data.status === 1){
+					$scope.countries.list[$scope.countries.selected.index].cities.splice(index, 1);
 				}
 			}, () => { // optional
 				console.log('fail');
