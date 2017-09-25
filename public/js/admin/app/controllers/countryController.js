@@ -86,7 +86,7 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 						$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
 					}catch (e){
 						$scope.countries.list[$scope.countries.selected.index].cities = [];
-						$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id })
+						$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
 					}
 					$scope.countries.form.city.name = '';
 				}
@@ -109,7 +109,7 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.push({ name: response.data.name, _id: response.data._id });
 					}catch (e){
 						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts = [];
-						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.push({ name: response.data.name, _id: response.data._id })
+						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.push({ name: response.data.name, _id: response.data._id });
 					}
 					$scope.countries.form.district.name = '';
 				}
