@@ -34,7 +34,7 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				data: { 'name': $scope.countries.form.country.name }
 			}).then((response) => {
 				console.log(response);
-				$scope.countries.list.push({ name: $scope.countries.form.country.name });
+				$scope.countries.list.push({ name: response.data.name, _id: response.data._id });
 				$scope.countries.form.country.name = '';
 			}, () => { // optional
 				console.log('fail');

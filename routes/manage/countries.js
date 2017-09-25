@@ -21,11 +21,11 @@ router.post('/saveCountry', requireLogin, (req, res) => {
 		name: capitalize.words(req.body.name)
 	});
 
-	country.save((err) => {
+	country.save((err, data) => {
 		if (err)
 			console.log(err);
 
-		res.json({ 'status': 1 });
+		res.json({ 'status': 1, '_id': data._id, 'name': data.name });
 	});
 });
 
