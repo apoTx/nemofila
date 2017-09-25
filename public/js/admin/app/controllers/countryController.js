@@ -18,6 +18,13 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 		list: []
 	};
 
+	$scope.city = {
+		selected: {
+			index: 0,
+			_id: 0
+		}
+	};
+
 	$scope.visibles = {
 		cities: false,
 		district: false
@@ -40,6 +47,11 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 		$scope.visibles.cities = true;
 		$scope.countries.selected.index = index;
 		$scope.countries.selected._id = $scope.countries.list[index]._id;
+	};
+
+	$scope.selectCity = (index) => {
+		$scope.visibles.districts = true;
+		$scope.city.selected.index = index;
 	};
 
 	$scope.saveCountry = () => {
