@@ -55,3 +55,11 @@ hr{
 	margin:2px 3px 0 0!important;
 	cursor:pointer;
 }
+
+.countryList a i{
+    display: none;
+}
+
+.countryList a:hover i{
+    display: block;
+}

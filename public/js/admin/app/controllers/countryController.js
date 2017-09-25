@@ -26,6 +26,21 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 		});
 	};
 
+	$scope.removeCountry = () => {
+		let confirm = window.confirm('Are you sure ?');
+
+		if (confirm){
+			$http({
+				url: path +'/countries/deleteCountry',
+				method: 'DELETE',
+			}).then((response) => {
+				console.log(response);
+			}, () => { // optional
+				console.log('fail');
+			});
+		}
+	};
+
 	$scope.saveCountry = () => {
 		if ($scope.countries.form.country.name != ''){
 			$http({

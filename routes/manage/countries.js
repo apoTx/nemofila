@@ -16,6 +16,10 @@ router.get('/getCountries', requireLogin, (req,res) => {
 	});
 });
 
+router.delete('/deleteCountry', requireLogin, (req, res) => {
+	res.json({'STA':1});
+});
+
 router.post('/saveCountry', requireLogin, (req, res) => {
 	let country = new Countries({
 		name: capitalize.words(req.body.name)

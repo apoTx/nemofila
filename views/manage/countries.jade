@@ -6,9 +6,10 @@ block content
         .ui.grid
             .three.column.row
                 .column
-                    .ui.vertical.menu
+                    .ui.vertical.menu.countryList
                         a.item(ng-repeat="country in countries.list", ng-cloak)
-                           | {{ country.name }}
+                            | {{ country.name }}
+                            i.remove.icon(ng-click="removeCountry()")
                         .item
                             .ui.transparent.icon.input
                                 form(ng-submit="saveCountry()")
