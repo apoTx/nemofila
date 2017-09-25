@@ -7,7 +7,7 @@ block content
             .three.column.row
                 .column
                     .ui.vertical.menu
-                        a.item(ng-repeat="country in countries.list")
+                        a.item(ng-repeat="country in countries.list", ng-cloak)
                            | {{ country.name }}
                         .item
                             .ui.transparent.icon.input
