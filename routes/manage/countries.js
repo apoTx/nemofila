@@ -48,10 +48,12 @@ router.post('/saveCity', requireLogin, (req, res) => {
 		},
 		{
 			safe: true,
-			upsert: true
+			upsert: true,
+			new: true
 		},
 		(err, data) => {
-			res.json({ 'status': 1, '_id': data._id, 'name': data.name });
+			let d = data.cities[data.cities.length - 1];
+			res.json({ 'status': 1, '_id': d._id, 'name': d.name });
 		}
 	);
 });
