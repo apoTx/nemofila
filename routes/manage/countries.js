@@ -47,7 +47,25 @@ router.post('/saveCity', requireLogin, (req, res) => {
 });
 
 router.post('/saveDistrict', requireLogin, (req, res) => {
-	console.log(req.body);
+	Countries.findOneAndUpdate(
+		{
+			_id:  req.body.countryId,
+			'cities._id': req.body.cityId
+		},
+		{
+			$push: { 'cities.$.districts': { 'name': capitalize.words(req.body.name) } }
+		},
+		{
+			safe: true,
+			upsert: true,
+			new: true
+		},
+		(err, data) => {
+			let districts = data.cities[req.body.cityIndex].districts;
+			let district = districts[districts.length - 1];
+			res.json({ 'status': 1, '_id': district._id, 'name': district.name });
+		}
+	);
 });
 
 router.delete('/deleteCountry', requireLogin, (req, res) => {

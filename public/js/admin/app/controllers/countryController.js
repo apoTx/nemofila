@@ -82,7 +82,12 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 			}).then((response) => {
 				console.log(response);
 				if (response.data.status === 1){
-					$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
+					try{
+						$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
+					}catch (e){
+						$scope.countries.list[$scope.countries.selected.index].cities = [];
+						$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id })
+					}
 					$scope.countries.form.city.name = '';
 				}
 			}, () => { // optional
@@ -96,12 +101,17 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 			$http({
 				url: path +'/countries/saveDistrict',
 				method: 'POST',
-				data: { 'name': $scope.countries.form.district.name, 'countryId': $scope.countries.selected._id, 'cityId': $scope.city.selected._id  }
+				data: { 'name': $scope.countries.form.district.name, 'countryId': $scope.countries.selected._id, 'cityId': $scope.city.selected._id, 'cityIndex':$scope.city.selected.index  }
 			}).then((response) => {
 				console.log(response);
 				if (response.data.status === 1){
-					$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected._id].district.push({ name: response.data.name, _id: response.data._id });
-					$scope.countries.form.city.name = '';
+					try{
+						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.push({ name: response.data.name, _id: response.data._id });
+					}catch (e){
+						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts = [];
+						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.push({ name: response.data.name, _id: response.data._id })
+					}
+					$scope.countries.form.district.name = '';
 				}
 			}, () => { // optional
 				console.log('fail');
