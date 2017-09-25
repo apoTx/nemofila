@@ -52,6 +52,7 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 	$scope.selectCity = (index) => {
 		$scope.visibles.districts = true;
 		$scope.city.selected.index = index;
+		$scope.city.selected._id = $scope.countries.list[$scope.countries.selected.index].cities[index]._id;
 	};
 
 	$scope.saveCountry = () => {
@@ -73,7 +74,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 	};
 
 	$scope.saveCity = () => {
-		console.log($scope.countries.selected._id);
 		if ($scope.countries.form.city.name !== ''){
 			$http({
 				url: path +'/countries/saveCity',
@@ -83,6 +83,24 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				console.log(response);
 				if (response.data.status === 1){
 					$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
+					$scope.countries.form.city.name = '';
+				}
+			}, () => { // optional
+				console.log('fail');
+			});
+		}
+	};
+
+	$scope.saveDistrict = () => {
+		if ($scope.countries.form.district.name !== ''){
+			$http({
+				url: path +'/countries/saveDistrict',
+				method: 'POST',
+				data: { 'name': $scope.countries.form.district.name, 'countryId': $scope.countries.selected._id, 'cityId': $scope.city.selected._id  }
+			}).then((response) => {
+				console.log(response);
+				if (response.data.status === 1){
+					$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected._id].district.push({ name: response.data.name, _id: response.data._id });
 					$scope.countries.form.city.name = '';
 				}
 			}, () => { // optional

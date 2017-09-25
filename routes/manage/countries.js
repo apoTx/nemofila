@@ -30,8 +30,6 @@ router.post('/saveCountry', requireLogin, (req, res) => {
 });
 
 router.post('/saveCity', requireLogin, (req, res) => {
-	console.log(req.body);
-
 	Countries.findByIdAndUpdate( req.body.countryId,
 		{
 			$push: { 'cities': { 'name': capitalize.words(req.body.name) } }
@@ -46,6 +44,10 @@ router.post('/saveCity', requireLogin, (req, res) => {
 			res.json({ 'status': 1, '_id': d._id, 'name': d.name });
 		}
 	);
+});
+
+router.post('/saveDistrict', requireLogin, (req, res) => {
+	console.log(req.body);
 });
 
 router.delete('/deleteCountry', requireLogin, (req, res) => {
