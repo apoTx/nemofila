@@ -37,7 +37,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			url: '/countries/getCountries',
 			method: 'GET',
 		}).then((response) => {
-			console.log(response);
 			$scope.countries = response.data;
 
 		}, () => { // optional
@@ -49,9 +48,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			url: '/categories/getCategories',
 			method: 'GET',
 		}).then((response) => {
-			console.log(response);
 			$scope.categories = response.data;
-
 		}, () => { // optional
 			console.log('fail');
 		});
@@ -87,20 +84,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 	$scope.uploadAndSaveRedis = () => {
 		if ($scope.newAdForm.files && $scope.newAdForm.files.length  > 0 ){
-			console.log('with files');
 			$scope.uploadFiles($scope.newAdForm.files, true);
 		}else{
-			console.log('without files');
 			$scope.saveAdToRedis(null, null);
 		}
 	};
 
 	$scope.uploadAndSaveMongo = (uuid) => {
 		if ($scope.newAdForm.files && $scope.newAdForm.files.length  > 0 ){
-			console.log($scope.newAdForm.files);
 			$scope.uploadFiles($scope.newAdForm.files, false, uuid);
 		}else{
-			console.log('test');
 			$scope.onSubmitAd(null, null);
 		}
 	};
@@ -186,13 +179,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 					countryId: $scope.countries[$scope.newAdForm.country]._id,
 					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
 					districtId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id
+				},
+				category: {
+					categoryId: $scope.categories[$scope.newAdForm.category]._id,
+					childCategoryId: $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id
 				}
 			}
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 
 			if(response.data.status === 1){
-				console.log('ok')
 				$scope.adSaveComplete = true;
 			}
 		}, () => { // optional

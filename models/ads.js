@@ -30,14 +30,8 @@ let adSchema = new Schema({
 		districtId: ObjectId,
 	},
 	category: {
-		categoryId: {
-			type: ObjectId,
-			// required: true
-		},
-		categoryChildId: {
-			type: ObjectId,
-			// required: true
-		}
+		categoryId: ObjectId ,
+		categoryChildId: ObjectId ,
 	},
 	anotherContact: {
 		checked: {

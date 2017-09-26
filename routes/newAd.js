@@ -93,6 +93,9 @@ router.post('/create', (req, res) => {
 	let _uuid = req.body.uuid  || uuid.v1();
 	let showcaseIndex = req.body.showcaseIndex;
 	let country = req.body.country;
+	let category = req.body.category;
+
+	console.log(category)
 
 	let ad = new Ads({
 		title: data.title,
@@ -108,8 +111,8 @@ router.post('/create', (req, res) => {
 			districtId: country.districtId,
 		},
 		category: {
-			categoryId: data.category,
-			categoryChildId: data.categoryChild
+			categoryId: category.categoryId,
+			categoryChildId: category.childCategoryId
 		},
 		anotherContact: {
 			checked: data.anotherContact.checked,
