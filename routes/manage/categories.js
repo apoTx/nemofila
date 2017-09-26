@@ -47,7 +47,6 @@ router.post('/saveSubCategory', requireLogin, (req, res) => {
 });
 
 router.delete('/deleteCategory', requireLogin, (req, res) => {
-	console.log(req.body);
 	Categories.findByIdAndRemove(req.body._id, (err) => {
 		if (err)
 			throw(err);
@@ -56,7 +55,6 @@ router.delete('/deleteCategory', requireLogin, (req, res) => {
 });
 
 router.delete('/deleteSubCategory', requireLogin, (req, res) => {
-	console.log(req.body);
 	Categories.update(
 		{
 			_id: req.body.categoryId
