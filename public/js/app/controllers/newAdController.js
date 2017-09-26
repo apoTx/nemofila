@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($scope, Upload, $timeout, $http) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', ($scope, Upload, $timeout, $http, $window) => {
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
@@ -224,6 +224,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 			if(response.data.status === 1){
 				$scope.adSaveComplete = true;
+				$window.scrollTo(0, 0);
 			}
 		}, () => { // optional
 			$scope.submitBtnLoading = false;
