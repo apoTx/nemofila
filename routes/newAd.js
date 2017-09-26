@@ -36,9 +36,10 @@ router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
 			}
 		},
 		filename: function (req, file, cb) {
+			console.log(file);
 			let extArray = file.mimetype.split('/');
 			let extension = extArray[extArray.length - 1];
-			let filename = file.originalname + '-' + Date.now()+ '.' +extension;
+			let filename = file.originalname.split('.')[0] + '-' + Date.now()+ '.' +extension;
 
 			if (file.fieldname === 'file['+ showcaseIndex +']' )
 				photos.push({ filename: filename, showcase: true });
@@ -65,7 +66,7 @@ router.post('/saveAdRedis', (req,res) => {
 	let countries = req.body.country;
 	let categories = req.body.category;
 
-	let _uuid = req.body.uuid || uuid.v1();
+	let _uuid = req.body.data.uuid || uuid.v1();
 
 	// redis save
 	client.hmset(_uuid, {
@@ -75,7 +76,7 @@ router.post('/saveAdRedis', (req,res) => {
 		country: JSON.stringify(countries) || '',
 		category: JSON.stringify(categories) || '',
 		anotherContact: JSON.stringify(data.anotherContact) || '',
-		photos: JSON.stringify(req.body.photos) || ''
+		photos: JSON.stringify(req.body.data.photos) || ''
 	}, (err) => {
 		if(err){
 			throw err;
