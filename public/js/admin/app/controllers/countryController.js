@@ -164,6 +164,8 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 	$scope.deleteDistrict = (index) => {
 		let confirm = window.confirm('Are you sure ?');
 
+		console.log(index);
+
 		if (confirm){
 			$http({
 				url: path +'/countries/deleteDistrict',

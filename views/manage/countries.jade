@@ -31,7 +31,7 @@ block content
                 .column(ng-if="visibles.districts")
                     b Districts
                     .ui.vertical.menu.countryList
-                        a.item(ng-repeat="district in countries.list[countries.selected.index].cities[city.selected.index].districts track by $index", ng-click="selectCity($index)")
+                        a.item(ng-repeat="district in countries.list[countries.selected.index].cities[city.selected.index].districts track by $index")
                             | {{ district.name }}
                             i.remove.icon(ng-click="deleteDistrict($index)")
                         .item
