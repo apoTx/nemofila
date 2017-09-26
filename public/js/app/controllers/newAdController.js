@@ -79,6 +79,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			$scope.newAdForm.city = country.city.index;
 			$scope.newAdForm.district = country.district.index;
 
+			let category = JSON.parse(response.data.category);
+			$scope.newAdForm.category = category.category.index;
+			$scope.newAdForm.categoryChild = category.category.index;
+
 			$scope.loadingBufferData = false;
 		}, () => { // optional
 			console.log( 'fail' );
@@ -167,8 +171,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 					}
 				},
 				category: {
-					categoryId: $scope.categories[$scope.newAdForm.category]._id,
-					childCategoryId: $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id
+					category: {
+						id: $scope.categories[$scope.newAdForm.category]._id,
+						index: $scope.newAdForm.category
+					},
+					childCategory: {
+						id: $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id,
+						index: $scope.newAdForm.categoryChild
+					}
 				}
 			}
 		}).then((response) => {
