@@ -146,7 +146,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$http({
 			url: '/newAd/saveAdRedis',
 			method: 'POST',
-			data: data
+			data: {
+				data: data,
+				country: {
+					countryId: $scope.countries[$scope.newAdForm.country]._id,
+					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
+					districtId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id
+				},
+				category: {
+					categoryId: $scope.categories[$scope.newAdForm.category]._id,
+					childCategoryId: $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id
+				}
+			}
 		}).then((response) => {
 			$scope.newAdBtnLoading = false;
 			if (response.data.status === 1) {

@@ -61,7 +61,10 @@ router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
 });
 
 router.post('/saveAdRedis', (req,res) => {
-	let data = req.body.data;
+	let data = req.body.data.data;
+	let countries = req.body.country;
+	let categories = req.body.category;
+
 	let _uuid = req.body.uuid || uuid.v1();
 
 	// redis save
@@ -69,11 +72,8 @@ router.post('/saveAdRedis', (req,res) => {
 		title: data.title || '',
 		description: data.description || '',
 		price: data.price || '',
-		country: data.country || '',
-		city: data.city || '',
-		district: data.district || '',
-		category: data.category || '',
-		childCategory: data.categoryChild || '',
+		country: JSON.stringify(countries) || '',
+		category: JSON.stringify(categories) || '',
 		anotherContact: JSON.stringify(data.anotherContact) || '',
 		photos: JSON.stringify(req.body.photos) || ''
 	}, (err) => {
