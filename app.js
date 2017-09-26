@@ -19,6 +19,7 @@ let profile = require('./routes/profile');
 // Admin Routes
 let manage = require('./routes/manage/index');
 let countries = require('./routes/manage/countries');
+let categories = require('./routes/manage/categories');
 
 // Models
 let User = require('./models/users');
@@ -73,6 +74,7 @@ app.use((req,res,next) => {
 
 app.use('/manage/', manage);
 app.use('/manage/countries', countries);
+app.use('/manage/categories', categories);
 app.use('/', index);
 app.use('/newAd', newAd);
 app.use('/detail', detail);
