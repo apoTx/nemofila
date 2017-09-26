@@ -78,7 +78,7 @@ app.controller('categoryController', ['$scope', '$http',  ($scope, $http) => {
 						$scope.categories.list[$scope.categories.selected.index].subCategories = [];
 						$scope.categories.list[$scope.categories.selected.index].subCategories.push({ name: response.data.name, _id: response.data._id });
 					}
-					$scope.categories.form.city.name = '';
+					$scope.categories.form.subCategory.name = '';
 				}
 			}, () => { // optional
 				console.log('fail');
@@ -86,12 +86,12 @@ app.controller('categoryController', ['$scope', '$http',  ($scope, $http) => {
 		}
 	};
 
-	$scope.deleteCountry = (index) => {
+	$scope.deleteCategory = (index) => {
 		let confirm = window.confirm('Are you sure ?');
 
 		if (confirm){
 			$http({
-				url: path +'/categories/deleteCountry',
+				url: path +'/categories/deleteCategory',
 				method: 'DELETE',
 				data: { '_id': $scope.categories.list[index]._id },
 				headers: {
@@ -107,20 +107,23 @@ app.controller('categoryController', ['$scope', '$http',  ($scope, $http) => {
 		}
 	};
 
-	$scope.deleteCity = (index) => {
+	$scope.deleteSubCategory = (index) => {
 		let confirm = window.confirm('Are you sure ?');
 
 		if (confirm){
 			$http({
-				url: path +'/categories/deleteCity',
+				url: path +'/categories/deleteSubCategory',
 				method: 'DELETE',
-				data: { '_id': $scope.categories.list[$scope.categories.selected.index].cities[index]._id, 'countryId': $scope.categories.selected._id },
+				data: {
+					'_id': $scope.categories.list[$scope.categories.selected.index].subCategories[index]._id,
+					'categoryId': $scope.categories.selected._id
+				},
 				headers: {
 					'Content-type': 'application/json;charset=utf-8'
 				}
 			}).then((response) => {
 				if(response.data.status === 1){
-					$scope.categories.list[$scope.categories.selected.index].cities.splice(index, 1);
+					$scope.categories.list[$scope.categories.selected.index].subCategories.splice(index, 1);
 				}
 			}, () => { // optional
 				console.log('fail');

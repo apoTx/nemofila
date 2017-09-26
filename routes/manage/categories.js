@@ -46,7 +46,7 @@ router.post('/saveSubCategory', requireLogin, (req, res) => {
 	);
 });
 
-router.delete('/deleteCountry', requireLogin, (req, res) => {
+router.delete('/deleteCategory', requireLogin, (req, res) => {
 	console.log(req.body);
 	Categories.findByIdAndRemove(req.body._id, (err) => {
 		if (err)
@@ -55,15 +55,15 @@ router.delete('/deleteCountry', requireLogin, (req, res) => {
 	});
 });
 
-router.delete('/deleteCity', requireLogin, (req, res) => {
+router.delete('/deleteSubCategory', requireLogin, (req, res) => {
 	console.log(req.body);
 	Categories.update(
 		{
-			_id: req.body.countryId
+			_id: req.body.categoryId
 		},
 		{
 			'$pull': {
-				'cities':
+				'subCategories':
 					{
 						'_id': req.body._id
 					}
