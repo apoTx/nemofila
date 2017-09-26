@@ -16,6 +16,7 @@ let newAd = require('./routes/newAd');
 let detail = require('./routes/detail');
 let profile = require('./routes/profile');
 let countries = require('./routes/countries');
+let categories = require('./routes/categories');
 
 // Admin Routes
 let manage = require('./routes/manage/index');
@@ -81,6 +82,7 @@ app.use('/newAd', newAd);
 app.use('/detail', detail);
 app.use('/profile', profile);
 app.use('/countries', countries);
+app.use('/categories', categories);
 
 
 // catch 404 and forward to error handler

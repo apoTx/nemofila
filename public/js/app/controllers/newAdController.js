@@ -43,6 +43,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		}, () => { // optional
 			console.log('fail');
 		});
+
+		$scope.categories = {};
+		$http({
+			url: '/categories/getCategories',
+			method: 'GET',
+		}).then((response) => {
+			console.log(response);
+			$scope.categories = response.data;
+
+		}, () => { // optional
+			console.log('fail');
+		});
 	};
 
 	let uploadedFiles = [];
@@ -220,7 +232,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$scope.steps.preview = false;
 	};
 
-	// Select option
+	// Select option Countries
 	$scope.visiblesCountries = {
 		cities: true,
 		districts: true
@@ -232,5 +244,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 	$scope.changeCity= () => {
 		console.log($scope.newAdForm.city);
 		$scope.visiblesCountries.districts = false;
+	};
+
+	// Select option Categories
+	$scope.visiblesCategories = {
+		subCategory: true,
+	};
+	$scope.changeCategory = () => {
+		console.log($scope.newAdForm.category);
+		$scope.visiblesCategories.subCategory = false;
 	};
 }]);
