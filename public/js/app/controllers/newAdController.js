@@ -74,10 +74,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				$scope.newAdForm.files = {};
 			}
 
-			let test = JSON.parse(response.data.country);
-			$scope.newAdForm.country = test.country.index;
-			$scope.newAdForm.city = test.city.index;
-			$scope.newAdForm.district = test.district.index;
+			let country = JSON.parse(response.data.country);
+			$scope.newAdForm.country = country.country.index;
+			$scope.newAdForm.city = country.city.index;
+			$scope.newAdForm.district = country.district.index;
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
