@@ -27,7 +27,7 @@ router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
 
 	let storage = multer.diskStorage({
 		destination: function (req, file, cb) {
-			const dir = 'public/uploads/'+ _uuid;
+			const dir = 'public/uploads/'+ _uuid +'/';
 
 			if (!fs.existsSync(dir)){
 				fs.mkdir(dir, err => cb(err, dir));
