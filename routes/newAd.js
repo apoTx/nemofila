@@ -106,9 +106,18 @@ router.post('/create', (req, res) => {
 		photoShowcaseIndex: showcaseIndex,
 		uuid: _uuid,
 		location: {
-			countryId: country.countryId,
-			cityId: country.cityId,
-			districtId: country.districtId,
+			country: {
+				id: country.country.id,
+				index: country.country.index
+			},
+			city: {
+				id: country.city.id,
+				index: country.city.index
+			},
+			district: {
+				id: country.district.id,
+				index: country.district.index
+			}
 		},
 		category: {
 			categoryId: category.categoryId,

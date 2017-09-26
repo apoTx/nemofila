@@ -74,6 +74,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 				$scope.newAdForm.files = {};
 			}
 
+			let test = JSON.parse(response.data.country);
+			$scope.newAdForm.country = test.country.index;
+			$scope.newAdForm.city = test.city.index;
+			$scope.newAdForm.district = test.district.index;
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
@@ -149,9 +153,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 			data: {
 				data: data,
 				country: {
-					countryId: $scope.countries[$scope.newAdForm.country]._id,
-					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
-					districtId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id
+					country: {
+						id: $scope.countries[$scope.newAdForm.country]._id,
+						index: $scope.newAdForm.country
+					},
+					city: {
+						id: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
+						index: $scope.newAdForm.city
+					},
+					district: {
+						id: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id,
+						index: $scope.newAdForm.district
+					}
 				},
 				category: {
 					categoryId: $scope.categories[$scope.newAdForm.category]._id,
