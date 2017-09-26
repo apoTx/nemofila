@@ -25,17 +25,17 @@ let adSchema = new Schema({
 		type: String
 	},
 	location:{
-		countryId: Number,
-		cityId: Number,
-		districtId: Number,
+		countryId: ObjectId,
+		cityId: ObjectId,
+		districtId: ObjectId,
 	},
 	category: {
 		categoryId: {
-			type: Number,
+			type: ObjectId,
 			// required: true
 		},
 		categoryChildId: {
-			type: Number,
+			type: ObjectId,
 			// required: true
 		}
 	},

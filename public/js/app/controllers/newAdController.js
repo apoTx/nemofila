@@ -174,15 +174,25 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 
 		let photoList = photos ? photos.concat(uploadedFiles) : null;
 
-
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
-			data: { data: data, photos: photoList, uuid: uuid, showcaseIndex: $scope.newAdForm.showcaseIndex }
+			data: {
+				data: data,
+				photos: photoList,
+				uuid: uuid,
+				showcaseIndex: $scope.newAdForm.showcaseIndex,
+				country: {
+					countryId: $scope.countries[$scope.newAdForm.country]._id,
+					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
+					districtId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id
+				}
+			}
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 
 			if(response.data.status === 1){
+				console.log('ok')
 				$scope.adSaveComplete = true;
 			}
 		}, () => { // optional
@@ -238,11 +248,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		districts: true
 	};
 	$scope.changeCountry = () => {
-		console.log($scope.newAdForm.country);
 		$scope.visiblesCountries.cities = false;
 	};
 	$scope.changeCity= () => {
-		console.log($scope.newAdForm.city);
 		$scope.visiblesCountries.districts = false;
 	};
 
@@ -251,7 +259,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		subCategory: true,
 	};
 	$scope.changeCategory = () => {
-		console.log($scope.newAdForm.category);
 		$scope.visiblesCategories.subCategory = false;
 	};
 }]);
