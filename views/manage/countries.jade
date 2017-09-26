@@ -28,7 +28,7 @@ block content
                                 form(ng-submit="saveCity()")
                                     input(type='text', placeholder='Add new...', ng-model="countries.form.city.name")
                                 i.add.icon
-                .column(ng-if="visibles.districts")
+                .column(ng-if="visibles.district")
                     b Districts
                     .ui.vertical.menu.countryList
                         a.item(ng-repeat="district in countries.list[countries.selected.index].cities[city.selected.index].districts track by $index")
