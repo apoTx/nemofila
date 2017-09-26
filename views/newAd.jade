@@ -49,19 +49,27 @@ block content
                         .five.fields
                             .field
                                 label Country
-                                select(ng-model="newAdForm.country")
-                                    option(value="1") Turkey
-                                    option(value="0") Iran
+                                select(
+                                    ng-model="newAdForm.country" ,
+                                    ng-options="index as country.name for (index, country) in countries",
+                                    ng-change="changeCountry()"
+                                )
                             .field
                                 label City
-                                select(ng-model="newAdForm.city")
-                                    option(value="1") Turkey
-                                    option(value="0") Iran
+                                select(
+                                    ng-disabled="visiblesCountries.cities",
+                                    ng-model="newAdForm.city",
+                                    ng-options="index as city.name for (index, city) in countries[newAdForm.country].cities",
+                                    ng-change="changeCity()"
+                                )
                             .field
                                 label District
-                                select(ng-model="newAdForm.district")
-                                    option(value="1") Turkey
-                                    option(value="0") Iran
+                                select(
+                                    ng-disabled="visiblesCountries.districts",
+                                    ng-model="newAdForm.district",
+                                    ng-options="index as district.name for (index, district) in countries[newAdForm.country].cities[newAdForm.city].districts",
+                                    ng-change="changeDistrict()"
+                                )
                             .field
                                 label Category
                                 select(ng-model="newAdForm.category")

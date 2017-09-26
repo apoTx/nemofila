@@ -31,6 +31,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		if (uuid !== 'false'){
 			$scope.getAdBuffer(uuid);
 		}
+
+		$scope.countries = {};
+		$http({
+			url: '/countries/getCountries',
+			method: 'GET',
+		}).then((response) => {
+			console.log(response);
+			$scope.countries = response.data;
+
+		}, () => { // optional
+			console.log('fail');
+		});
 	};
 
 	let uploadedFiles = [];
@@ -208,4 +220,17 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', ($sc
 		$scope.steps.preview = false;
 	};
 
+	// Select option
+	$scope.visiblesCountries = {
+		cities: true,
+		districts: true
+	};
+	$scope.changeCountry = () => {
+		console.log($scope.newAdForm.country);
+		$scope.visiblesCountries.cities = false;
+	};
+	$scope.changeCity= () => {
+		console.log($scope.newAdForm.city);
+		$scope.visiblesCountries.districts = false;
+	};
 }]);

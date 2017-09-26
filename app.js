@@ -15,11 +15,12 @@ let index = require('./routes/index');
 let newAd = require('./routes/newAd');
 let detail = require('./routes/detail');
 let profile = require('./routes/profile');
+let countries = require('./routes/countries');
 
 // Admin Routes
 let manage = require('./routes/manage/index');
-let countries = require('./routes/manage/countries');
-let categories = require('./routes/manage/categories');
+let manage_countries = require('./routes/manage/countries');
+let manage_categories = require('./routes/manage/categories');
 
 // Models
 let User = require('./models/users');
@@ -73,12 +74,13 @@ app.use((req,res,next) => {
 
 
 app.use('/manage/', manage);
-app.use('/manage/countries', countries);
-app.use('/manage/categories', categories);
+app.use('/manage/countries', manage_countries);
+app.use('/manage/categories', manage_categories);
 app.use('/', index);
 app.use('/newAd', newAd);
 app.use('/detail', detail);
 app.use('/profile', profile);
+app.use('/countries', countries);
 
 
 // catch 404 and forward to error handler
