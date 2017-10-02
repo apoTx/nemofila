@@ -24,6 +24,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			'title': 1,
 			'description': 1,
 			'price': 1,
+			'anotherContact': 1,
 			'uuid': 1,
 			'photoShowcaseIndex': 1,
 			'photos': 1,

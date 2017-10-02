@@ -63,8 +63,11 @@ block content
                         tr
                             td Contact Name
                             td
-                                div.contact-name #{ data.user.name } #{ data.user.surname }
-                                button.ui.right.floated.button.primary Send Message
+                                - if (!data.anotherContact)
+                                    div.contact-name #{ data.user.name } #{ data.user.surname }
+                                    button.ui.right.floated.button.primary Send Message
+                                - else
+                                    div #{ data.anotherContact.name }
                                 .clearfix
                         tr
                             td Contact Number
