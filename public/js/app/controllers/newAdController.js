@@ -81,7 +81,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			let category = JSON.parse(response.data.category);
 			$scope.newAdForm.category = category.category.index;
-			$scope.newAdForm.categoryChild = category.category.index;
+			$scope.newAdForm.categoryChild = category.childCategory.index;
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
