@@ -7,6 +7,7 @@ let router = express.Router();
 let User = require('../models/users');
 let Ads = require('../models/ads');
 
+
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', { title:'Easy Ads', user: req.session.user });
@@ -59,10 +60,8 @@ router.get('/logout',  (req,res) => {
 	res.redirect('./');
 });
 
-
 router.get('/getIndexAds', (req,res) => {
 	Ads.find({
-
 	},{
 		'title': true,
 		'photos': true,
@@ -75,6 +74,15 @@ router.get('/getIndexAds', (req,res) => {
 
 		res.json(data);
 	}).sort({ '$natural': -1 }).limit(8);
+});
+
+router.get('/searchAd', (req, res) => {
+	Ads.find({ title: new RegExp(req.query.title, 'i') }, (err, data) => {
+		if (err)
+			throw(err);
+
+		res.json(data);
+	});
 });
 
 module.exports = router;

@@ -11,12 +11,27 @@ app.controller('indexController', ['$scope', '$http', ($scope, $http) => {
 			url: '/getIndexAds',
 			method: 'GET'
 		}).then((response) => {
-			console.log(response);
 			$scope.indexAdsLoading = false;
-
 			$scope.ads = response.data;
 		}, () => { // optional
 			console.log('fail');
 		});
 	};
+
+	$scope.searchForm = { };
+	$scope.onSubmit = () => {
+		$scope.indexAdsLoading = true;
+
+		$http({
+			url: '/searchAd',
+			method: 'get',
+			params: { title: $scope.searchForm.title },
+		}).then((response) => {
+			console.log(response);
+			$scope.indexAdsLoading = false;
+		}, () => { // optional
+			console.log('fail');
+		});
+	};
+
 }]);
