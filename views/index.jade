@@ -69,7 +69,8 @@ block content
             .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                 .ui.loader
 
-
+            h1.text-center(ng-show="ads.length < 1", ng-cloak)
+                | No results.
 
         .ui.grid.stackable
             .eighteen.wide.column.center.aligned
