@@ -19,7 +19,12 @@ block content
                         i.search.icon
                         input(ng-model='searchForm.title', placeholder='Search...', )
 
-                .five.fields(style="display:none")
+                div.advancedSearch
+                    a(href="#")
+                        | Advanced search
+
+
+                .five.fields
                     .field
                         label Country
                         select(
@@ -95,4 +100,7 @@ block content
         .clearfix
 
 append javascripts
+    script(src="/dist/js/app/services/indexFactory.min.js")
+    script(src="/dist/js/app/services/categoriesFactory.min.js")
+    script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="dist/js/app/controllers/indexController.min.js")

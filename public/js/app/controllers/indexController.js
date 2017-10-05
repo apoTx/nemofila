@@ -1,20 +1,18 @@
-app.controller('indexController', ['$scope', '$http', ($scope, $http) => {
+app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countriesFactory', 'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
 
 	$scope.indexAdsLoading = true;
 	$scope.init = () => {
-		$scope.getIndexAds();
-	};
-
-	$scope.ads = {};
-	$scope.getIndexAds = () => {
-		$http({
-			url: '/getIndexAds',
-			method: 'GET'
-		}).then((response) => {
+		indexFactory.getIndexAds().then((response) => {
 			$scope.indexAdsLoading = false;
-			$scope.ads = response.data;
-		}, () => { // optional
-			console.log('fail');
+			$scope.ads = response;
+		});
+
+		countriesFactory.getCountries().then((response) => {
+			$scope.countries = response;
+		});
+
+		categoriesFactory.getCategories().then((response) => {
+			$scope.categories = response;
 		});
 	};
 
@@ -22,16 +20,9 @@ app.controller('indexController', ['$scope', '$http', ($scope, $http) => {
 	$scope.onSubmit = () => {
 		$scope.indexAdsLoading = true;
 
-		$http({
-			url: '/searchAd',
-			method: 'get',
-			params: { title: $scope.searchForm.title },
-		}).then((response) => {
-			console.log(response);
+		indexFactory.searchAd($scope.searchForm.title).then((response) => {
 			$scope.indexAdsLoading = false;
-			$scope.ads = response.data;
-		}, () => { // optional
-			console.log('fail');
+			$scope.ads = response;
 		});
 	};
 
