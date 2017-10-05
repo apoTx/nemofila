@@ -29,6 +29,7 @@ app.controller('indexController', ['$scope', '$http', ($scope, $http) => {
 		}).then((response) => {
 			console.log(response);
 			$scope.indexAdsLoading = false;
+			$scope.ads = response.data;
 		}, () => { // optional
 			console.log('fail');
 		});
