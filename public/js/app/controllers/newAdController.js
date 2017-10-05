@@ -260,23 +260,4 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.steps.preview = false;
 	};
 
-	// Select option Countries
-	$scope.visiblesCountries = {
-		cities: true,
-		districts: true
-	};
-	$scope.changeCountry = () => {
-		$scope.visiblesCountries.cities = false;
-	};
-	$scope.changeCity= () => {
-		$scope.visiblesCountries.districts = false;
-	};
-
-	// Select option Categories
-	$scope.visiblesCategories = {
-		subCategory: true,
-	};
-	$scope.changeCategory = () => {
-		$scope.visiblesCategories.subCategory = false;
-	};
 }]);

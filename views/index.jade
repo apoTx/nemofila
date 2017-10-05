@@ -10,6 +10,8 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='dist/css/index.css')
 
 block content
+
+
     div(ng-controller="indexController" ng-init="init()")
 
         .searchForm
@@ -24,48 +26,12 @@ block content
                         | Advanced search
 
                 div(ng-show="advancedSearchVisible", ng-cloak)
-                    .six.fields
-                        .field
-                            label Country
-                            select(
-                                ng-model="newAdForm.country",
-                                ng-options="index as country.name for (index, country) in countries",
-                                ng-change="changeCountry()"
-                            )
-                        .field
-                            label City
-                            select(
-                                ng-disabled="visiblesCountries.cities",
-                                ng-model="newAdForm.city",
-                                ng-options="index as city.name for (index, city) in countries[newAdForm.country].cities",
-                                ng-change="changeCity()"
-                            )
-                        .field
-                            label District
-                            select(
-                                ng-disabled="visiblesCountries.districts",
-                                ng-model="newAdForm.district",
-                                ng-options="index as district.name for (index, district) in countries[newAdForm.country].cities[newAdForm.city].districts",
-                                ng-change="changeDistrict()"
-                            )
-                        .field
-                            label Category
-                            select(
-                                ng-model="newAdForm.category" ,
-                                ng-options="index as category.name for (index, category) in categories",
-                                ng-change="changeCategory()"
-                            )
-                        .field
-                            label Child Category
-                            select(
-                                ng-disabled="visiblesCategories.subCategory",
-                                ng-model="newAdForm.categoryChild",
-                                ng-options="index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories",
-                            )
-                        .field.text-center
-                            label &nbsp;
-                            .ui.button.primary(style="margin-top:-1px")
-                                | Search
+                    .five.fields(country-and-category-dropdowns)
+
+                    .field.text-right
+                        .ui.button.primary
+                            | Search
+
         .ui.segment.list-segment
             .ui.grid.stackable.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
                 .four.wide.column(ng-repeat="ad in ads")
@@ -106,4 +72,5 @@ append javascripts
     script(src="/dist/js/app/services/indexFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/services/countriesFactory.min.js")
+    script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="dist/js/app/controllers/indexController.min.js")
