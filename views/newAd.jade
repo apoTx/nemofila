@@ -121,7 +121,7 @@ block content
                             | {{ newAdErr }}
 
                         if !user
-                            a.ui.right.floated.primary.button(form="newAdForm", ng-click="uploadAndSaveRedis()", ng-class="uploading ? 'loading' : '' ")
+                            a.ui.right.floated.primary.button(form="newAdForm", ng-click="uploadAndSaveRedis()", ng-class="uploading ? 'loading disabled' : '' ")
                                 | Next
                         else
                             a.ui.right.floated.primary.button(ng-click="previewTab()")
