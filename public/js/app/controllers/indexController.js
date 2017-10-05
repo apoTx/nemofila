@@ -1,7 +1,9 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countriesFactory', 'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
 
-	$scope.indexAdsLoading = true;
 	$scope.init = () => {
+		$scope.indexAdsLoading = true;
+		$scope.advancedSearchVisible = false;
+
 		indexFactory.getIndexAds().then((response) => {
 			$scope.indexAdsLoading = false;
 			$scope.ads = response;
@@ -26,4 +28,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 		});
 	};
 
+	$scope.advancedSearch = () => {
+		$scope.advancedSearchVisible = true;
+	};
 }]);
