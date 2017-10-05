@@ -21,7 +21,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 		'  <select ng-disabled="visiblesCategories.subCategory" ng-model="newAdForm.categoryChild" ng-options="index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories"></select>\n' +
 		'</div>',
 
-		link: function($scope, element, attrs) {
+		link: function($scope) {
 			// Select option Countries
 			$scope.visiblesCountries = {
 				cities: true,
