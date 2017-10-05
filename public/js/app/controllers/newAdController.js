@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', ($scope, Upload, $timeout, $http, $window) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory) => {
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
@@ -32,15 +32,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.getAdBuffer(uuid);
 		}
 
-		$scope.countries = {};
-		$http({
-			url: '/countries/getCountries',
-			method: 'GET',
-		}).then((response) => {
-			$scope.countries = response.data;
-
-		}, () => { // optional
-			console.log('fail');
+		countriesFactory.getCountries().then((response) => {
+			$scope.countries = response;
 		});
 
 		$scope.categories = {};
