@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
@@ -36,14 +36,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.countries = response;
 		});
 
-		$scope.categories = {};
-		$http({
-			url: '/categories/getCategories',
-			method: 'GET',
-		}).then((response) => {
-			$scope.categories = response.data;
-		}, () => { // optional
-			console.log('fail');
+		categoriesFactory.getCategories().then((response) => {
+			$scope.categories = response;
 		});
 	};
 
