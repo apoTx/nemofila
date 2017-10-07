@@ -77,13 +77,19 @@ router.get('/getIndexAds', (req,res) => {
 });
 
 router.get('/searchAd', (req, res) => {
-	console.log(req.query.location);
-	Ads.find({ title: new RegExp(req.query.title, 'i') }, (err, data) => {
+	let location = JSON.parse(req.query.location);
+	console.log(location.countryId);
+
+	Ads.find({
+		title: new RegExp(req.query.title, 'i'),
+		'location.countryId': location.countryId,
+		// 'location.cityId': location.cityId,
+	}, (err, data) => {
 		if (err)
 			throw(err);
 
 		res.json(data);
-	});
+	}).sort({ '$natural': -1 }).limit(8);
 });
 
 module.exports = router;
