@@ -37,8 +37,6 @@ router.get('/:slug/:id', (req, res, next) => {
 				'user.name': 1,
 				'user.surname': 1,
 				'user.phone': 1,
-				'country': '$country.name',
-				'city': '$city.cities',
 			},
 		},
 	], (err, result)=>{
