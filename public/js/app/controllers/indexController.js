@@ -1,5 +1,7 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countriesFactory', 'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
 
+	$scope.newAdForm = {};
+
 	$scope.init = () => {
 		$scope.indexAdsLoading = true;
 		$scope.advancedSearchVisible = false;
@@ -11,6 +13,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 
 		countriesFactory.getCountries().then((response) => {
 			$scope.countries = response;
+			console.log($scope.countries);
 		});
 
 		categoriesFactory.getCategories().then((response) => {
@@ -22,7 +25,26 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	$scope.onSubmit = () => {
 		$scope.indexAdsLoading = true;
 
-		indexFactory.searchAd($scope.searchForm.title).then((response) => {
+		let location = { };
+		try{
+			location.country = $scope.countries[$scope.newAdForm.country]._id;
+		}catch (e){
+			location.country = -1;
+		}
+
+		try{
+			location.city = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id;
+		}catch (e){
+			location.city = -1;
+		}
+
+		try{
+			location.district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
+		}catch (e){
+			location.district = -1;
+		}
+
+		indexFactory.searchAd($scope.searchForm.title, location).then((response) => {
 			$scope.indexAdsLoading = false;
 			$scope.ads = response;
 		});

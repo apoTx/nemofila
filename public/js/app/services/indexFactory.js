@@ -8,11 +8,11 @@ app.factory('indexFactory', ['$http', ($http) => {
 			});
 	};
 
-	let searchAd = (title) => {
+	let searchAd = (title, location) => {
 		return $http({
 			url: '/searchAd',
 			method: 'get',
-			params: { title: title },
+			params: { title: title, location: location },
 		}).then((response) => {
 			return response.data;
 		}, () => { // optional

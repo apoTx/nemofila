@@ -77,6 +77,7 @@ router.get('/getIndexAds', (req,res) => {
 });
 
 router.get('/searchAd', (req, res) => {
+	console.log(req.query.location);
 	Ads.find({ title: new RegExp(req.query.title, 'i') }, (err, data) => {
 		if (err)
 			throw(err);

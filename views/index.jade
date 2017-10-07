@@ -25,11 +25,11 @@ block content
                     a(href="javascript:;" ng-click="advancedSearch()")
                         | Advanced search
 
-                div(ng-show="advancedSearchVisible", ng-cloak)
+                div(ng-show="!advancedSearchVisible", ng-cloak)
                     .five.fields(country-and-category-dropdowns)
 
                     .field.text-right
-                        .ui.button.primary
+                        .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                             | Search
 
         .ui.segment.list-segment
