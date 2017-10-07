@@ -82,7 +82,7 @@ router.get('/searchAd', (req, res) => {
 
 	Ads.find({
 		title: new RegExp(req.query.title, 'i'),
-		location: location.countryId,
+		'location.countryId': location.countryId,
 	}, (err, data) => {
 		if (err)
 			throw(err);
