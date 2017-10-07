@@ -24,17 +24,6 @@ router.get('/:slug/:id', (req, res, next) => {
 				'_id': ObjectId(req.params.id),
 			}
 		},
-
-		{
-			$lookup: {
-				from: 'countries',
-				localField: 'location.countryId',
-				foreignField: '_id',
-				as: 'country'
-			}
-		},
-		{ '$unwind': '$country' },
-
 		{
 			'$project': {
 				'title': 1,
