@@ -9,30 +9,49 @@ let Ads = require('../models/ads');
 
 router.get('/:slug/:id', (req, res, next) => {
 
-	Ads.aggregate([{
-		$lookup: {
-			from: 'users',
-			localField: 'ownerId',
-			foreignField: '_id',
-			as: 'user'
-		}
-	},
-	{ '$unwind': '$user' },
-	{ '$match': { '_id': ObjectId(req.params.id)  } },
-	{
-		'$project': {
-			'title': 1,
-			'description': 1,
-			'price': 1,
-			'anotherContact': 1,
-			'uuid': 1,
-			'photoShowcaseIndex': 1,
-			'photos': 1,
-			'user.name': 1,
-			'user.surname': 1,
-			'user.phone': 1
-		}
-	},
+	Ads.aggregate([
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'ownerId',
+				foreignField: '_id',
+				as: 'user'
+			}
+		},
+		{ '$unwind': '$user' },
+		{
+			'$match': {
+				'_id': ObjectId(req.params.id),
+			}
+		},
+
+		{
+			$lookup: {
+				from: 'countries',
+				localField: 'location.countryId',
+				foreignField: '_id',
+				as: 'country'
+			}
+		},
+		{ '$unwind': '$country' },
+
+		{
+			'$project': {
+				'title': 1,
+				'description': 1,
+				'price': 1,
+				'anotherContact': 1,
+				'uuid': 1,
+				'photoShowcaseIndex': 1,
+				'photos': 1,
+				'location': 1,
+				'user.name': 1,
+				'user.surname': 1,
+				'user.phone': 1,
+				'country': '$country.name',
+				'city': '$city.cities',
+			},
+		},
 	], (err, result)=>{
 		if (err)
 			return next(err);
