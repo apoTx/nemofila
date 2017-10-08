@@ -1,6 +1,6 @@
 function requireLogin(req,res,next) {
 	if(!req.user){
-		res.redirect('/manage/login');
+		res.redirect('/login');
 	}else{
 		next();
 	}
