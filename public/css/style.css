@@ -7,6 +7,9 @@ body {
 .hidden{
     display: none;
 }
+.i-block{
+    display: inline-block;
+}
 
 .ui.menu .item img.logo {
   margin-right: 1.5em;
