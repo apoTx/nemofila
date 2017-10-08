@@ -82,7 +82,7 @@ app.use('/', index);
 app.use('/newAd', newAd);
 app.use('/detail', detail);
 app.use('/profile', profile);
-app.use('/profile/myAds', myAds);
+app.use('/profile/myads', myAds);
 app.use('/countries', countries);
 app.use('/categories', categories);
 

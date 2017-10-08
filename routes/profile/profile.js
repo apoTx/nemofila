@@ -8,5 +8,4 @@ router.get('/', requireLogin, (req, res) => {
 	res.render( 'profile', { title: 'Profile' });
 });
 
-
 module.exports = router;
