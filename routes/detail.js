@@ -30,6 +30,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'_id': _id,
 			}
 		},
+		{ $limit: 1 },
 		{
 			'$project': {
 				'title': 1,
@@ -37,6 +38,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'price': 1,
 				'anotherContact': 1,
 				'uuid': 1,
+				'ownerId': 1,
 				'status': 1,
 				'photoShowcaseIndex': 1,
 				'photos': 1,
@@ -51,20 +53,27 @@ router.get('/:slug/:id', (req, res, next) => {
 			return next(err);
 
 		if(result.length < 1){
-			let notFound = new Error('No Ads Found');
-			notFound.status = 404;
-			return next(notFound);
+			res.status(404).render('error/404', { message: 'Ad Not Found' });
+		}else{
+
+			let data = result[0];
+			let object = {
+				title: data.title,
+				data: data,
+				moment: moment,
+				url: req.protocol + '://' + req.get('host') + req.originalUrl
+			};
+
+			if( data.status === false ){
+				if ( String(data.ownerId) == req.session.user._id ){
+					res.render( 'detail', object);
+				}else{
+					res.status(404).render('error/404', { message: 'Ad Not Found' });
+				}
+			}else {
+				res.render( 'detail', object);
+			}
 		}
-
-
-		console.log(result);
-
-		res.render( 'detail', {
-			title: result[0].title,
-			data: result[0],
-			moment: moment,
-			url: req.protocol + '://' + req.get('host') + req.originalUrl
-		});
 	});
 
 	/*

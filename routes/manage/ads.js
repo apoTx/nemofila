@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 
-let Ads = require('../../models/ads')
+let Ads = require('../../models/ads');
 
 let requireLogin = require('./inc/requireLogin.js');
 
