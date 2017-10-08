@@ -12,14 +12,17 @@ block content
         .ui.pointing.menu
             a.item(
                 href="#!myads",
+                ng-class="{active: activetab=='/myads'}"
             )
                 | My Ads
             a.item(
                 href="#!messages",
+                ng-class="{active: activetab=='/messages'}"
             )
                 | Messages
             a.item(
                 href="#!myfavourites",
+                ng-class="{active: activetab=='/myfavourites'}"
             )
                 | My Favourite Ads
 

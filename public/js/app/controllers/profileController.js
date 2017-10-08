@@ -19,4 +19,9 @@ app.config(['$routeProvider', ($routeProvider) => {
 		.otherwise({
 			redirectTo: '/myads'
 		});
+}]).run(['$rootScope', '$location', function($rootScope, $location){
+	let path = function() { return $location.path();};
+	$rootScope.$watch(path, (newVal) => {
+		$rootScope.activetab = newVal;
+	});
 }]);
