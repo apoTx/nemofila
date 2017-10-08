@@ -1,9 +1,29 @@
 extends layout
 
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
 
 block content
     div(ng-controller="adsController", ng-init="init()")
-        | ads
+        .ui.segment.no-segment
+            table.ui.celled.table
+                thead
+                    tr
+                        th Ad Title
+                        th Name of Owner
+                        th Date
+                        th Status
+                        th &nbsp;
+                tbody
+                    tr(ng-repeat="ad in ads")
+                        td {{ ad.title }}
+                        td {{ ad.user.name }} {{ ad.user.surname }}
+                        td(am-time-ago='ad.createdAt')
+                        td {{ ad.status }}
+                        td None
+            .ui.dimmer(ng-class="{active: loadingAds }")
+                .ui.loader
 
 append javascripts
     script(src='/dist/js/admin/app/services/adsFactory.min.js')

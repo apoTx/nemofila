@@ -7,8 +7,9 @@ block head
   meta(name='mobile-web-app-capable', content='yes')
   meta(name="robots", content="noindex")
 
-  link(rel='stylesheet', href='/semantic/dist/semantic.min.css')
-  link(rel='stylesheet', href='/dist/css/admin/main.css')
+  block stylesheets
+      link(rel='stylesheet', href='/semantic/dist/semantic.min.css')
+      link(rel='stylesheet', href='/dist/css/admin/main.css')
 
   body
     nav.ui.fixed.menu.inverted.navbar
@@ -39,6 +40,10 @@ block head
     block javascripts
       script(src='/angular/angular.min.js')
       script(src="/angular-slugify/angular-slugify.js")
+      // moment
+      script(src="/moment/moment.js")
+      script(src="/angular-moment/angular-moment.js")
+      // moment
       script(src='/dist/js/admin/app/app.min.js')
       script(src='/jquery/dist/jquery.min.js')
       script(src='/semantic/dist/semantic.min.js')
