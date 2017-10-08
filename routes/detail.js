@@ -31,6 +31,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'price': 1,
 				'anotherContact': 1,
 				'uuid': 1,
+				'status': 1,
 				'photoShowcaseIndex': 1,
 				'photos': 1,
 				'location': 1,
@@ -44,6 +45,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			return next(err);
 
 		console.log(result);
+
 		res.render( 'detail', {
 			title: result[0].title,
 			data: result[0],

@@ -11,6 +11,13 @@ append stylesheets
 
 block content
     div(ng-controller="detailController" ng-init="init('#{data.id}')")
+
+        - if (!data.status)
+            .ui.warning.message.margin-bottom-30
+                .header
+                    | This ad is in the approval phase
+                |   Only you can view it.
+
         .ui.grid
             .ten.wide.column
                 h1 #{data.title}

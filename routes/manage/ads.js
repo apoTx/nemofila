@@ -21,6 +21,7 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 			}
 		},
 		{ '$unwind': '$user' },
+		{ $sort : { _id : -1 } },
 		{
 			'$project': {
 				'title': 1,
