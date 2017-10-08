@@ -17,7 +17,11 @@ block content
 
             .six.wide.column.text-right.detail-right-menu
                 .ui.right.floated.main.menu
-                    a.music.popup.icon.item(data-content='Share with Facebook')
+                    a.music.popup.icon.item(
+                            data-content='Share with Facebook',
+                            target="_blank",
+                            href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
+                        )
                         i.facebook.icon
                     a.music.popup.icon.item(data-content='Share with Twitter')
                         i.twitter.icon

@@ -44,7 +44,12 @@ router.get('/:slug/:id', (req, res, next) => {
 			return next(err);
 
 		console.log(result);
-		res.render( 'detail', { title: result[0].title, data: result[0], moment: moment });
+		res.render( 'detail', {
+			title: result[0].title,
+			data: result[0],
+			moment: moment,
+			url: req.protocol + '://' + req.get('host') + req.originalUrl
+		});
 	});
 
 	/*
