@@ -2,35 +2,35 @@ extends layout
 
 append stylesheets
     link(rel='stylesheet', type='text/css', href='dist/css/style.css')
+    link(rel='stylesheet', type='text/css', href='dist/css/profile.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
 
 
 block content
-    p
-        a(href='#/!') Main
-    a(href='#!red') Red
-    a(href='#!green') Green
-    a(href='#!blue') Blue
-    div(ng-view='')
-
     div(ng-controller="profileController")
-        .ui.grid
-            .five.wide.column
-                .ui.vertical.menu
-                    a.active.item(href="#/!")
-                        | My Ads
-                    a.teal.item(href="#!red")
-                        | Messages
-                        .ui.teal.left.pointing.label 1
-                    a.item(href="#!green")
-                        | My Favourites
-            .eleven.wide.column
-                p asdasd
+        .ui.pointing.menu
+            a.item(
+                href="#!myads",
+            )
+                | My Ads
+            a.item(
+                href="#!messages",
+            )
+                | Messages
+            a.item(
+                href="#!myfavourites",
+            )
+                | My Favourite Ads
+
+        div.contentArea(ng-view='')
 
 
 append javascripts
     script(src="dist/js/app/controllers/profileController.min.js")
+    script(src="dist/js/app/controllers/profile/myAdsController.min.js")
+    script(src="dist/js/app/controllers/profile/messagesController.min.js")
+    script(src="dist/js/app/controllers/profile/myFavouritesController.min.js")
     script(src="semantic/dist/components/dimmer.min.js")
     script(src="semantic/dist/components/modal.min.js")
     script(src="semantic/dist/components/transition.min.js")

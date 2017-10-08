@@ -91,4 +91,12 @@ router.get('/searchAd', (req, res) => {
 	}).sort({ '$natural': -1 }).limit(8);
 });
 
+
+// Get angular partials
+router.get('/partials/:folder/:filename', (req, res) => {
+	let folder = req.params.folder;
+	let filename = req.params.filename;
+	res.render('partials/'+ folder +'/'+ filename);
+});
+
 module.exports = router;
