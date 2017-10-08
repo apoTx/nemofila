@@ -1,0 +1,10 @@
+extends layout
+
+
+block content
+    div(ng-controller="adsController", ng-init="init()")
+        | ads
+
+append javascripts
+    script(src='/dist/js/admin/app/services/adsFactory.min.js')
+    script(src='/dist/js/admin/app/controllers/adsController.min.js')

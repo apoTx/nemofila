@@ -52,6 +52,10 @@ let adSchema = new Schema({
 	},
 	ownerId: {
 		type: ObjectId
+	},
+	status: {
+		type: Boolean,
+		default: false,
 	}
 });
 
