@@ -26,6 +26,7 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 			'$project': {
 				'title': 1,
 				'status': 1,
+				'slug': 1,
 				'createdAt': 1,
 				'user.name': 1,
 				'user.surname': 1,
@@ -35,7 +36,6 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 		if (err)
 			return next(err);
 
-		console.log(result);
 		res.json(result);
 	});
 });

@@ -33,7 +33,10 @@ block content
                         td(am-time-ago='ad.createdAt')
                         td {{ ad.status ? 'approved' : 'waiting' }}
                         td.text-right
-                            a.ui.button.icon.mini(href="")
+                            a.ui.button.icon.mini(
+                                href="/detail/{{ ad.slug }}/{{ad._id}}",
+                                target="_blank"
+                            )
                                 i.eye.icon
             .ui.dimmer(ng-class="{active: loadingAds }")
                 .ui.loader

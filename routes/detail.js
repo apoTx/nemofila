@@ -65,7 +65,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			};
 
 			if( data.status === false ){
-				if ( String(data.ownerId) == req.session.user._id ){
+				if ( String(data.ownerId) == req.session.user._id || req.session.user.isAdmin ){
 					res.render( 'detail', object);
 				}else{
 					res.status(404).render('error/404', { message: 'Ad Not Found' });
@@ -75,14 +75,6 @@ router.get('/:slug/:id', (req, res, next) => {
 			}
 		}
 	});
-
-	/*
-	Ads.findById(req.params.id, (err, data) => {
-		if (err)
-			return next(err);
-
-		res.render( 'detail', { title: data.title, data: data, moment: moment });
-	});*/
 });
 
 module.exports = router;
