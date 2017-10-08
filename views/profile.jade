@@ -7,6 +7,13 @@ append stylesheets
 
 
 block content
+    p
+        a(href='#/!') Main
+    a(href='#!red') Red
+    a(href='#!green') Green
+    a(href='#!blue') Blue
+    div(ng-view='')
+
     div(ng-controller="profileController")
         .ui.grid
             .five.wide.column
