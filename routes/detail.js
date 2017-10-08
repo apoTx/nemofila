@@ -2,12 +2,18 @@ let express = require('express');
 let router = express.Router();
 let moment = require('moment');
 let mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
+let ObjectId = mongoose.Types.ObjectId;
 
 // Models
 let Ads = require('../models/ads');
 
 router.get('/:slug/:id', (req, res, next) => {
+	let _id;
+	try{
+		_id = new ObjectId(req.params.id);
+	}catch(e){
+		_id = '';
+	}
 
 	Ads.aggregate([
 		{
@@ -21,7 +27,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		{ '$unwind': '$user' },
 		{
 			'$match': {
-				'_id': ObjectId(req.params.id),
+				'_id': _id,
 			}
 		},
 		{
@@ -43,6 +49,13 @@ router.get('/:slug/:id', (req, res, next) => {
 	], (err, result)=>{
 		if (err)
 			return next(err);
+
+		if(result.length < 1){
+			let notFound = new Error('No Ads Found');
+			notFound.status = 404;
+			return next(notFound);
+		}
+
 
 		console.log(result);
 
