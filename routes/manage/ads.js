@@ -24,6 +24,7 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 		{ $sort : { _id : -1 } },
 		{
 			'$project': {
+				'_id': 1,
 				'title': 1,
 				'status': 1,
 				'slug': 1,

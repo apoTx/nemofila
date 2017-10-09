@@ -25,7 +25,9 @@ block content
                             .ui.fitted.slider.checkbox
                                 input(
                                     type='checkbox',
-                                    ng-checked="ad.status"
+                                    ng-checked="ad.status",
+                                    ng-change="changeStatus('{{ad._id}}')",
+                                    ng-model="isChecked"
                                 )
                                 label
                         td {{ ad.title }}
