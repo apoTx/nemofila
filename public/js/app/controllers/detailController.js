@@ -1,4 +1,4 @@
-app.controller('detailController', ['$scope', '$http',  ($scope, $http) => {
+app.controller('detailController', ['$scope', '$http', 'detailFactory',  ($scope, $http, detailFactory) => {
 	$scope,$http;
 
 	$('.detail-right-menu a').popup({
@@ -6,7 +6,16 @@ app.controller('detailController', ['$scope', '$http',  ($scope, $http) => {
 	});
 
 	$scope.init = (id) => {
-		console.log(id);
+		// console.log(id);
+	};
+
+	$scope.addFavourites = (adId, userId) => {
+		console.log(adId);
+		console.log(userId);
+
+		detailFactory.addFavourites(adId,userId).then((response) => {
+			console.log(response);
+		});
 	};
 
 }]);

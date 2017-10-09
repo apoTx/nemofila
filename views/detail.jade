@@ -10,7 +10,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
 
 block content
-    div(ng-controller="detailController" ng-init="init('#{data.id}')")
+    div(ng-controller="detailController" ng-init="init('#{data._id}')")
 
         - if (!data.status)
             .ui.warning.message.margin-bottom-30
@@ -37,7 +37,10 @@ block content
                         i.google.plus.icon
 
                 .ui.right.floated.main.menu
-                    a.music.popup.icon.item(data-content='Add Favorites')
+                    a.music.popup.icon.item(
+                        data-content='Add Favorites',
+                        ng-click="addFavourites('#{ data._id }','#{ data.user._id }')"
+                    )
                         i.star.empty.icon
 
         .ui.grid
@@ -97,4 +100,5 @@ block content
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
+    script(src="/dist/js/app/services/detailFactory.min.js")
     script(src="/dist/js/app/controllers/detailController.min.js")

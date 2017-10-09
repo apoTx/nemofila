@@ -6,6 +6,7 @@ let ObjectId = mongoose.Types.ObjectId;
 
 // Models
 let Ads = require('../models/ads');
+let Favourites = require('../models/favourites');
 
 router.get('/:slug/:id', (req, res, next) => {
 	let _id;
@@ -44,6 +45,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'photos': 1,
 				'location': 1,
 				'user.name': 1,
+				'user._id': 1,
 				'user.surname': 1,
 				'user.phone': 1,
 			},
@@ -75,6 +77,23 @@ router.get('/:slug/:id', (req, res, next) => {
 			}
 		}
 	});
+});
+
+router.get('/addFavourites', (req, res) => {
+	console.log(req.query);
+
+	let fav = new Favourites({
+		userId: req.query.userId,
+		adId: req.query.adId,
+	});
+
+	fav.save((err) => {
+		if (err)
+			res.send(err);
+		else
+			res.json({ status: 1 });
+	});
+
 });
 
 module.exports = router;
