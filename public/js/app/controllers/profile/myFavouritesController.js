@@ -1,5 +1,11 @@
 /*eslint-disable */
-app.controller('myFavouritesController', ['$scope', '$http',  function($scope, $http){
+app.controller('myFavouritesController', ['$scope', 'myFavouritesFactory' ,  function($scope, myFavouritesFactory){
 /*eslint-enable */
-	$scope.data = 3;
+	$scope.loadingMyFavourites = true;
+
+	myFavouritesFactory.getMyFavourites().then((response) => {
+		$scope.loadingMyFavourites = false;
+		$scope.myFavourites = response;
+		console.log(response);
+	});
 }]);

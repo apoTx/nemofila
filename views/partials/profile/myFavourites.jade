@@ -1,2 +1,17 @@
+link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
+
 h2 My Favourites
-| {{ data }}
+.ui.segment.no-segment
+    table.ui.striped.table
+        tbody
+            tr(ng-repeat="fav in myFavourites")
+                td
+                    |  {{ fav.ad.title }}
+                td.right.aligned
+                    a.ui.icon.button.tiny(
+                        href="/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}",
+                        target="_blank"
+                    )
+                        i.eye.icon
+    .ui.dimmer(ng-class="{active: loadingMyFavourites }")
+        .ui.loader
