@@ -84,14 +84,24 @@ router.get('/:slug/:id', (req, res, next) => {
 });
 
 router.get('/addFavourites', (req, res) => {
-	console.log(req.query);
-
 	let fav = new Favourites({
 		userId: req.query.userId,
 		adId: req.query.adId,
 	});
 
 	fav.save((err) => {
+		if (err)
+			res.send(err);
+		else
+			res.json({ status: 1 });
+	});
+});
+
+router.get('/delFavourites', (req, res) => {
+	Favourites.findOneAndRemove({
+		userId: req.query.userId,
+		adId: req.query.adId
+	},(err) => {
 		if (err)
 			res.send(err);
 		else

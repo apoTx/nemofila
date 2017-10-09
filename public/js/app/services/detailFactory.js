@@ -12,6 +12,19 @@ app.factory('detailFactory', ['$http', ($http) => {
 			});
 	};
 
+	let delFavourites = (userId, adId) => {
+		return $http({
+			url: '/detail/delFavourites',
+			method: 'get',
+			params: { userId: userId, adId: adId },
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	let isFav = (userId, adId) => {
 		return $http({
 			url: '/detail/isFav',
@@ -27,6 +40,7 @@ app.factory('detailFactory', ['$http', ($http) => {
 
 	return {
 		addFavourites: addFavourites,
+		delFavourites: delFavourites,
 		isFav: isFav
 	};
 }]);
