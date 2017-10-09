@@ -69,8 +69,6 @@ router.get('/:slug/:id', (req, res, next) => {
 				session: req.session.user
 			};
 
-			console.log(object.session);
-
 			if( data.status === false ){
 				if ( req.session.user ){
 					if (String(data.ownerId) == req.session.user._id || req.session.user.isAdmin)
@@ -99,7 +97,18 @@ router.get('/addFavourites', (req, res) => {
 		else
 			res.json({ status: 1 });
 	});
+});
 
+router.get('/isFav', (req, res) => {
+	Favourites.findOne( {
+		userId: req.query.userId,
+		adId: req.query.adId
+	},(err, response) => {
+		if (err)
+			res.send(err);
+		else
+			res.json({ isFav: response == null ? false : true });
+	});
 });
 
 module.exports = router;

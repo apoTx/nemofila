@@ -10,7 +10,13 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
 
 block content
-    div(ng-controller="detailController" ng-init="init('#{data._id}')")
+    -var sessionId;
+    - if (session)
+        - sessionId = session._id;
+    - else
+        - sessionId = null;
+
+    div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }')")
         - if (!data.status)
             .ui.warning.message.margin-bottom-30
                 .header
@@ -37,12 +43,25 @@ block content
 
 
                 - if (session)
-                    .ui.right.floated.main.menu
+                    .ui.right.floated.main.menu(
+                        ng-show="!isFav",
+                        ng-cloak
+                    )
                         a.music.popup.icon.item(
                             data-content='Add Favorites',
-                            ng-click="addFavourites('#{ data.user._id }','#{ data._id }')"
+                            ng-click="addFavourites('#{ session._id }','#{ data._id }')"
                         )
                             i.star.empty.icon
+
+                    .ui.right.floated.main.menu(
+                        ng-show="isFav",
+                        ng-cloak
+                    )
+                        a.music.popup.icon.item(
+                        data-content='Remove Favorites',
+                        ng-click="delFavourites('#{ session._id }','#{ data._id }')"
+                        )
+                            i.star.icon
 
         .ui.grid
             .six.wide.column

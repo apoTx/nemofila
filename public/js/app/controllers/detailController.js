@@ -5,8 +5,18 @@ app.controller('detailController', ['$scope', '$http', 'detailFactory',  ($scope
 		position: 'bottom center'
 	});
 
-	$scope.init = (id) => {
+	$scope.init = (userId, adId) => {
 		// console.log(id);
+
+		console.log(userId);
+		console.log(adId);
+
+		if ( userId !== null ){
+			detailFactory.isFav(userId,adId).then((response) => {
+				$scope.isFav = response.isFav;
+			});
+		}
+
 	};
 
 	$scope.addFavourites = (adId, userId) => {
