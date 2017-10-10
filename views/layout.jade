@@ -179,6 +179,9 @@ html
                             input(name='email', placeholder='E-mail', ng-model='loginFormData.email')
                         .field.sixteen.wide.column.no-padding-top
                             input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
+                        .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
+                            a.forgot(href="#", ng-click="openForgotModal()")
+                                | Forgot my password
                     .ui.error.message
                     .backendErr.ui.red.message(ng-if="signInErr")
                         | {{ signInErr }}
@@ -190,6 +193,25 @@ html
                 button.ui.right.icon.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading' : '' ")
                     | Sign In
 
+
+        // Forgot Modal
+        .ui.modal.mini#forgotModal
+            i.close.icon
+            .header
+                | Forgot My Password
+            .content
+                form.ui.form#forgotForm
+                    .fields.ui.grid
+                        .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                            //label E-mail
+                            input(name='email', placeholder='E-mail', ng-model='forgotFormData.email')
+                    .ui.error.message
+                    .backendErr.ui.red.message(ng-if="forgotErr")
+                        | {{ forgotErr }}
+
+            .actions
+                button.ui.right.icon.button.primary(form="forgotForm", ng-class="forgotBtnLoading ? 'loading' : '' ")
+                    | Submit
 
     block javascripts
         script(src="/angular/angular.min.js")

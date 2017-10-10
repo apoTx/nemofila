@@ -106,9 +106,16 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		$('#signInModal').modal('show');
 	};
 
+	$scope.openForgotModal = (closeOther) => {
+		if (closeOther){
+			$('#signInModal').modal('show');
+		}
+		$('#forgotModal').modal('show');
+	};
+
 	setTimeout(()=>{
 		// $scope.openSignUpModal();
-		// $scope.openSignInModal();
+		$scope.openSignInModal();
 		// $scope.openNewAdModal();
 	});
 
