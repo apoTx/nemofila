@@ -7,7 +7,6 @@ let router = express.Router();
 let User = require('../models/users');
 let Ads = require('../models/ads');
 
-
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', { title:'Easy Ads', user: req.session.user });
@@ -66,7 +65,14 @@ router.post('/login', (req,res) => {
 });
 
 router.post('/forgotPassword',  (req,res) => {
-	res.json({status: 'what does you say?' });
+	User.findOne({ email: req.body.email },(err,user) => {
+		if(!user){
+			res.json({ error: 'This email was not found.' });
+		}else{
+			// send email
+			
+		}
+	});
 });
 
 router.get('/logout',  (req,res) => {
