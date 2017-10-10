@@ -82,17 +82,21 @@ router.get('/getIndexAds', (req,res) => {
 
 router.get('/searchAd', (req, res) => {
 	let location = JSON.parse(req.query.location);
-	console.log(location.countryId);
+	let category = JSON.parse(req.query.category);
 
 	Ads.find({
 		title: new RegExp(req.query.title, 'i'),
-		'location.countryId': location.countryId,
+		'location.countryId': location.countryId ? location.countryId :  { $exists: true },
+		'location.cityId': location.cityId ? location.cityId :  { $exists: true },
+		'location.districtId': location.districtId ? location.districtId :  { $exists: true },
+		'category.categoryId': category.categoryId ? category.categoryId :  { $exists: true },
+		'category.categoryChildId': category.categoryChildId ? category.categoryChildId :  { $exists: true },
 	}, (err, data) => {
 		if (err)
 			throw(err);
 
 		res.json(data);
-	}).sort({ '$natural': -1 }).limit(8);
+	}).sort({ '$natural': -1 }).limit(16);
 });
 
 // Get angular partials
