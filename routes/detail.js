@@ -4,6 +4,8 @@ let moment = require('moment');
 let mongoose = require('mongoose');
 let ObjectId = mongoose.Types.ObjectId;
 
+let requireLogin = require('./inc/requireLogin.js');
+
 // Models
 let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
@@ -31,6 +33,17 @@ router.get('/:slug/:id', (req, res, next) => {
 				'_id': _id,
 			}
 		},
+
+		{
+			$lookup: {
+				from: 'categories',
+				localField: 'category.categoryChildId',
+				foreignField: 'subCategories._id',
+				as: 'category'
+			}
+		},
+		{ '$unwind': '$category' },
+
 		{ $limit: 1 },
 		{
 			'$project': {
@@ -47,7 +60,8 @@ router.get('/:slug/:id', (req, res, next) => {
 				'user.name': 1,
 				'user._id': 1,
 				'user.surname': 1,
-				'user.phone': 1
+				'user.phone': 1,
+				'category': '$category'
 			},
 		},
 	], (err, result)=>{
@@ -83,7 +97,7 @@ router.get('/:slug/:id', (req, res, next) => {
 	});
 });
 
-router.get('/addFavourites', (req, res) => {
+router.get('/addFavourites', requireLogin, (req, res) => {
 	let fav = new Favourites({
 		userId: req.query.userId,
 		adId: req.query.adId,
@@ -97,7 +111,7 @@ router.get('/addFavourites', (req, res) => {
 	});
 });
 
-router.get('/delFavourites', (req, res) => {
+router.get('/delFavourites', requireLogin, (req, res) => {
 	Favourites.findOneAndRemove({
 		userId: req.query.userId,
 		adId: req.query.adId
@@ -109,7 +123,7 @@ router.get('/delFavourites', (req, res) => {
 	});
 });
 
-router.get('/isFav', (req, res) => {
+router.get('/isFav', requireLogin, (req, res) => {
 	Favourites.findOne( {
 		userId: req.query.userId,
 		adId: req.query.adId
