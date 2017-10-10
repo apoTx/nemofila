@@ -150,7 +150,7 @@ html
                 button.ui.left.floated.button(ng-click="openSignInModal()")
                     | Sign In
 
-                button.ui.right.icon.button.primary(form="signUpForm", ng-class="registerBtnLoading ? 'loading' : '' ")
+                button.ui.right.icon.button.primary(form="signUpForm", ng-class="registerBtnLoading ? 'loading disabled' : '' ")
                     | Sign Up
 
         // SignIn Modal
@@ -190,7 +190,7 @@ html
             .actions
                 button.ui.left.floated.button(ng-click="openSignUpModal()")
                     | Sign Up
-                button.ui.right.icon.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading' : '' ")
+                button.ui.right.icon.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading disabled' : '' ")
                     | Sign In
 
 
@@ -210,7 +210,7 @@ html
                         | {{ forgotErr }}
 
             .actions
-                button.ui.right.icon.button.primary(form="forgotForm", ng-class="forgotBtnLoading ? 'loading' : '' ")
+                button.ui.right.icon.button.primary(form="forgotForm", ng-class="forgotBtnLoading ? 'loading disabled' : '' ")
                     | Submit
 
     block javascripts
