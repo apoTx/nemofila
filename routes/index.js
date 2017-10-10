@@ -42,19 +42,25 @@ router.post( '/register', ( req, res ) => {
 
 router.post('/login', (req,res) => {
 	let data = req.body.data;
+	let autoLogin = req.body.autoLogin;
 
 	User.findOne({ email: data.email },(err,user) => {
 		if(!user){
 			res.json({ error: 'Email or password is did not match' });
 		}else{
-			bcrypt.compare(data.password, user.password, (err, r) => {
-				if (r) {
-					req.session.user = user;
-					res.json({ status: 1 });
-				}else{
-					res.json({ error: 'Email or password is did not match' });
-				}
-			});
+			if (autoLogin){
+				req.session.user = user;
+				res.json({ status: 1 });
+			}else{
+				bcrypt.compare(data.password, user.password, (err, r) => {
+					if (r) {
+						req.session.user = user;
+						res.json({ status: 1 });
+					}else{
+						res.json({ error: 'Email or password is did not match' });
+					}
+				});
+			}
 		}
 	});
 });

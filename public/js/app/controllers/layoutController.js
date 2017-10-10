@@ -1,4 +1,4 @@
-app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http, $window) => {
+app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory', ($scope, $http, $window, layoutFactory) => {
 
 	// SignUp form validation
 	$('#signUpForm').form({
@@ -116,25 +116,23 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 	$scope.signupForm = {};
 	$scope.signUp = () => {
 		$scope.registerBtnLoading = true;
-		$http({
-			url: '/register',
-			method: 'POST',
-			data: { 'data' : $scope.signupForm }
-		}).then((response) => {
-			console.log(response);
-			$scope.registerBtnLoading = false;
 
-			if (response.data.status == 1){
-				// call email verify service
+		layoutFactory.signUp($scope.signupForm).then((response) => {
+			if (response.status === 1){
+				// auto login
+				layoutFactory.signIn({ email: $scope.signupForm.email }, true).then((response) => {
+					$scope.registerBtnLoading = false;
+					if (response.status === 1){
+						$window.location.reload();
+					}
+				});
 			}else {
-				if(response.data.code == 11000){
+				if(response.code === 11000){
 					$scope.signUpErr = 'This email address is already in use.';
 				}else {
 					$scope.signUpErr = 'There was an unexpected problem.';
 				}
 			}
-		}, () => { // optional
-			console.log('fail');
 		});
 	};
 
@@ -142,22 +140,14 @@ app.controller('layoutController', ['$scope', '$http', '$window', ($scope, $http
 	$scope.loginFormData = { };
 	$scope.signIn = () => {
 		$scope.signInBtnLoading = true;
-		$http({
-			url: '/login',
-			method: 'POST',
-			data: { 'data' : $scope.loginFormData }
-		}).then((response) => {
-			console.log(response);
+
+		layoutFactory.signIn($scope.loginFormData).then((response) => {
 			$scope.signInBtnLoading = false;
-			if (response.data.status == 1){
+			if (response.status === 1){
 				$window.location.reload();
 			}else {
-				$scope.signInErr = response.data.error;
+				$scope.signInErr = response.error;
 			}
-		}, () => { // optional
-			console.log('fail');
-			$scope.signInBtnLoading = false;
 		});
 	};
-
 }]);
