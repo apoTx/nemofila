@@ -195,19 +195,31 @@ html
 
 
         // Forgot Modal
-        .ui.modal.mini#forgotModal
+        .ui.modal.tiny#forgotModal
             i.close.icon
             .header
                 | Forgot My Password
             .content
-                form.ui.form#forgotForm
-                    .fields.ui.grid
-                        .field.sixteen.wide.column.no-padding-top.no-padding-bottom
-                            //label E-mail
-                            input(name='email', placeholder='E-mail', ng-model='forgotFormData.email')
-                    .ui.error.message
-                    .backendErr.ui.red.message(ng-if="forgotErr")
-                        | {{ forgotErr }}
+                div(ng-show="!emailSended" ng-cloak)
+                    form.ui.form#forgotForm
+                        .fields.ui.grid
+                            .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                                //label E-mail
+                                input(name='email', placeholder='E-mail', ng-model='forgotFormData.email')
+                        .ui.error.message
+                        .backendErr.ui.red.message(ng-if="forgotErr")
+                            | {{ forgotErr }}
+
+                div(ng-show="emailSended" ng-cloak)
+                    .ui.success.message
+                        i.close.icon
+                        .header
+                            | Check your email.
+                        p
+                            | We've sent an email to
+                            b {{ forgotFormData.email }}. 
+                            | Click the link in the email to reset your password.
+
 
             .actions
                 button.ui.right.icon.button.primary(form="forgotForm", ng-class="forgotBtnLoading ? 'loading disabled' : '' ")

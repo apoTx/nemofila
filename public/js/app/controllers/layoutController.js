@@ -180,12 +180,13 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 	$scope.forgotFormData = { };
 	$scope.forgotPassword = () => {
 		$scope.forgotBtnLoading = true;
+		$scope.emailSended = false;
 
 		layoutFactory.forgotPassword($scope.forgotFormData.email).then((response) => {
 			$scope.forgotBtnLoading = false;
 			console.log(response);
 			if (response.status === 1){
-
+				$scope.emailSended = true;
 			}else {
 				$scope.forgotErr = response.error;
 			}

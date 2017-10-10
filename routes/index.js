@@ -7,6 +7,9 @@ let router = express.Router();
 let User = require('../models/users');
 let Ads = require('../models/ads');
 
+// Mail transporter
+let transporter = require('../helper/mailer');
+
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', { title:'Easy Ads', user: req.session.user });
@@ -70,7 +73,23 @@ router.post('/forgotPassword',  (req,res) => {
 			res.json({ error: 'This email was not found.' });
 		}else{
 			// send email
-			
+			let mailOptions = {
+				from: 'name ✔ <email@gmail.com>',
+				to: 'mehmetseven0@gmail.com',
+				subject: 'Testing test ✔',
+				text: 'It works! ✔',
+				html: '<p>It works</p>',
+			};
+
+			transporter.sendMail(mailOptions, (error, info) => {
+				if(error){
+					console.log(error);
+					res.json({ error: 'Email was not send.' });
+				}else{
+					console.log('Message sent: ' + info.response);
+					res.json({ status: 1 });
+				}
+			});
 		}
 	});
 });
