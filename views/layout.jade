@@ -181,7 +181,7 @@ html
                             input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
                         .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
                             a.forgot(href="#", ng-click="openForgotModal()")
-                                | Forgot my password
+                                | Forgot password?
                     .ui.error.message
                     .backendErr.ui.red.message(ng-if="signInErr")
                         | {{ signInErr }}
@@ -217,12 +217,19 @@ html
                             | Check your email.
                         p
                             | We've sent an email to
-                            b {{ forgotFormData.email }}. 
-                            | Click the link in the email to reset your password.
+                            b {{ forgotFormData.email }}.
+                            |  Click the link in the email to reset your password.
+
+                        p If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.
+
 
 
             .actions
-                button.ui.right.icon.button.primary(form="forgotForm", ng-class="forgotBtnLoading ? 'loading disabled' : '' ")
+                button.ui.right.icon.button.primary(
+                    form="forgotForm",
+                    ng-class="forgotBtnLoading ? 'loading disabled' : '' ",
+                    ng-show="!emailSended"
+                )
                     | Submit
 
     block javascripts

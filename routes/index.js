@@ -74,10 +74,10 @@ router.post('/forgotPassword',  (req,res) => {
 		}else{
 			// send email
 			let mailOptions = {
-				from: 'name ✔ <email@gmail.com>',
-				to: 'mehmetseven0@gmail.com',
-				subject: 'Testing test ✔',
-				text: 'It works! ✔',
+				from: 'Easyad <email@gmail.com>',
+				to: req.body.email.trim(),
+				subject: 'Password reset request',
+				text: 'Reset your password?',
 				html: '<p>It works</p>',
 			};
 
