@@ -65,6 +65,10 @@ router.post('/login', (req,res) => {
 	});
 });
 
+router.post('/forgotPassword',  (req,res) => {
+	res.json({status: 'what does you say?' });
+});
+
 router.get('/logout',  (req,res) => {
 	req.session.reset();
 	res.redirect('./');

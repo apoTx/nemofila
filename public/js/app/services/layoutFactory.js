@@ -23,8 +23,21 @@ app.factory('layoutFactory', ['$http', ($http) => {
 		});
 	};
 
+	let forgotPassword = (email) => {
+		return $http({
+			url: '/forgotPassword',
+			method: 'POST',
+			data: { 'email' : email }
+		}).then((response) => {
+			return response.data;
+		}, () => { // optional
+			console.log('fail');
+		});
+	};
+
 	return {
 		signIn: signIn,
 		signUp: signUp,
+		forgotPassword: forgotPassword
 	};
 }]);

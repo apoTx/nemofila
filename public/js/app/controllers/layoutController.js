@@ -92,6 +92,23 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		},
 	});
 
+	// Forgot form validation
+	$('#forgotForm').form( {
+		on: 'blur',
+		fields: {
+			name: {
+				identifier: 'email',
+				rules: [{
+					type: 'email',
+					prompt: 'Please enter a valid e-mail'
+				}]
+			},
+		},
+		onSuccess: () => {
+			$scope.forgotPassword();
+		}
+	});
+
 	$scope.openSignUpModal = (closeOther) => {
 		if (closeOther){
 			$('#signInModal').modal('show');
@@ -115,8 +132,9 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 
 	setTimeout(()=>{
 		// $scope.openSignUpModal();
-		$scope.openSignInModal();
+		// $scope.openSignInModal();
 		// $scope.openNewAdModal();
+		$scope.openForgotModal();
 	});
 
 	// Sign Up
@@ -154,6 +172,22 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 				$window.location.reload();
 			}else {
 				$scope.signInErr = response.error;
+			}
+		});
+	};
+
+	// Forgot Password
+	$scope.forgotFormData = { };
+	$scope.forgotPassword = () => {
+		$scope.forgotBtnLoading = true;
+
+		layoutFactory.forgotPassword($scope.forgotFormData.email).then((response) => {
+			$scope.forgotBtnLoading = false;
+			console.log(response);
+			if (response.status === 1){
+
+			}else {
+				$scope.forgotErr = response.error;
 			}
 		});
 	};
