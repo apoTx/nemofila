@@ -74,15 +74,14 @@ router.post('/forgotPassword',  (req,res) => {
 			res.json({ error: 'This email was not found.' });
 		}else{
 			// send email
+			let to_email = req.body.email.trim();
 			let mailOptions = {
 				from: mailer.config.defaultFromAddress,
-				to: req.body.email.trim(),
+				to: to_email,
 				subject: 'Password reset request',
-				text: 'Reset your password?',
 				template: 'forgot-password',
 				context: {
-					variable1 : 'value1',
-					variable2 : 'value2'
+					email : to_email,
 				}
 			};
 
