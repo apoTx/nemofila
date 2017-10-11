@@ -30,9 +30,10 @@ app.controller('accountController',  ['$scope', 'accountFactory',  ($scope, acco
 	$scope.resetPassword = () => {
 		$scope.resetPasswordBtnLoading = true;
 		accountFactory.resetPassword($scope.resetPasswordData).then((response) => {
+			$scope.resetPasswordBtnLoading = false;
+
 			if (response.status === 1){
 				$scope.passwordChanged = true;
-				$scope.resetPasswordBtnLoading = false;
 			}else {
 				$scope.resetPaswordErr = response.error;
 			}

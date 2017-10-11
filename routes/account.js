@@ -55,7 +55,6 @@ router.get( '/reset_password/:uuid', ( req, res, next ) => {
 				uuid: uuid
 			});
 	});
-
 });
 
 router.post( '/reset_password', ( req, res ) => {
@@ -97,7 +96,6 @@ router.post( '/reset_password', ( req, res ) => {
 						else
 							console.log('Message sent: ' + info.response);
 					});
-
 				}
 			});
 		});
