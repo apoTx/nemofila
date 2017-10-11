@@ -1,7 +1,6 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
 let router = express.Router();
-let moment = require('moment');
 
 // Models
 let User = require('../models/users');
@@ -65,7 +64,6 @@ router.post( '/reset_password', ( req, res ) => {
 	let userId = req.body.userId;
 	let resetPasswordUuid = req.body.resetPasswordUuid;
 
-
 	if (password !== passwordConfirm){
 		res.json({ error: 'Passwords do not match.' });
 	}else{
@@ -74,18 +72,45 @@ router.post( '/reset_password', ( req, res ) => {
 		bcrypt.hash(password, saltRounds).then((hash) => {
 			User.findByIdAndUpdate( userId , {
 				password: hash
-			}, (err,res) => {
-				console.log(res);
+			}, (err,user) => {
+				if (err) {
+					throw (err);
+				}else {
+					res.json( { status: 1 } );
+
+					// send email
+					let to_email = user.email;
+					let mailOptions = {
+						from: mailer.config.defaultFromAddress,
+						to: to_email,
+						subject: 'Your Easyad password has been changed',
+						template: 'forgot-password-changed',
+						context: {
+							siteUrl: mailer.siteUrl,
+							email : to_email,
+						}
+					};
+
+					mailer.transporter.sendMail(mailOptions, (error, info) => {
+						if(error)
+							console.log(error);
+						else
+							console.log('Message sent: ' + info.response);
+					});
+
+				}
 			});
 		});
 
 		forgotPasswords.findOneAndUpdate({ uuid: resetPasswordUuid } , {
 			status: false
-		}, (err,res) => {
-			console.log(res);
+		}, (err) => {
+			if (err){
+				console.log(err);
+				throw (err);
+			}
 		});
 	}
-
 });
 
 module.exports = router;
