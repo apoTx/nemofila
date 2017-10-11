@@ -14,7 +14,7 @@ let forgotPasswordSchema = new Schema({
 	},
 	lastValidityTime:{
 		type: Date,
-		default: moment(new Date()).add(55, 'm').toDate()
+		default: moment(new Date()).add(10, 'm').toDate()
 	},
 	status: {
 		type: Boolean,
