@@ -10,6 +10,21 @@ let Ads = require('../models/ads');
 // Mail transporter
 let transporter = require('../helper/mailer');
 
+let hbs = require('nodemailer-express-handlebars');
+let options = {
+	viewEngine: {
+		extname: '.hbs',
+		layoutsDir: 'views/mailer/',
+		defaultLayout : 'template',
+		partialsDir : 'views/mailer/partials/'
+	},
+	viewPath: 'views/mailer/',
+	extName: '.hbs'
+};
+
+transporter.use('compile', hbs(options));
+
+
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', { title:'Easy Ads', user: req.session.user });
@@ -78,7 +93,11 @@ router.post('/forgotPassword',  (req,res) => {
 				to: req.body.email.trim(),
 				subject: 'Password reset request',
 				text: 'Reset your password?',
-				html: '<p>It works</p>',
+				template: 'email_body',
+				context: {
+					variable1 : 'value1',
+					variable2 : 'value2'
+				}
 			};
 
 			transporter.sendMail(mailOptions, (error, info) => {
