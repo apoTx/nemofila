@@ -12,7 +12,6 @@ let forgotPasswords = require('../models/forgotPassword');
 // Mail transporter
 let mailer = require('../helper/mailer');
 
-
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', { title:'Easy Ads', user: req.session.user });
@@ -169,7 +168,5 @@ router.get('/partials/:folder/:filename', (req, res) => {
 	let filename = req.params.filename;
 	res.render('partials/'+ folder +'/'+ filename);
 });
-
-
 
 module.exports = router;
