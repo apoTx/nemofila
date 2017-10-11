@@ -1,18 +1,15 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
-
 let router = express.Router();
+let moment = require('moment');
 
 // Models
 let User = require('../models/users');
-let Ads = require('../models/ads');
 let forgotPasswords = require('../models/forgotPassword');
 
 // Mail transporter
 let mailer = require('../helper/mailer');
 
-
-/* GET home page. */
 router.get( '/reset_password/:uuid', ( req, res, next ) => {
 	let uuid = req.params.uuid;
 
@@ -49,13 +46,12 @@ router.get( '/reset_password/:uuid', ( req, res, next ) => {
 		if (err)
 			return next( err );
 
-		console.log(result);
-
-		if (result.length < 1){
+		console.log(moment(result[0].lastValidityTime).format('H:m:s'));
+		console.log(moment(new Date()).format('H:m:s'));
+		if (result.length < 1)
 			res.status(404).render('error/404', { message: 'This Page Not Found' });
-		}else{
+		else
 			res.render('account/reset_password', { title:'Reset Password', data: result[0].user });
-		}
 	});
 
 });
