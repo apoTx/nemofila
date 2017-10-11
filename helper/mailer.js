@@ -25,5 +25,6 @@ transporter.use('compile', hbs(options));
 
 module.exports = {
 	transporter: transporter,
-	config: config.mail
+	config: config.mail,
+	siteUrl: config.siteUrl
 };

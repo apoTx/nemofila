@@ -1,11 +1,13 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
+let uuid = require('uuid');
 
 let router = express.Router();
 
 // Models
 let User = require('../models/users');
 let Ads = require('../models/ads');
+let forgotPasswords = require('../models/forgotPassword');
 
 // Mail transporter
 let mailer = require('../helper/mailer');
@@ -73,6 +75,20 @@ router.post('/forgotPassword',  (req,res) => {
 		if(!user){
 			res.json({ error: 'This email was not found.' });
 		}else{
+
+			let _uuid = uuid.v1();
+
+			// save to db
+			let forgot = new forgotPasswords({
+				userId: user._id,
+				uuid: _uuid
+			});
+
+			forgot.save((err) => {
+				if (err)
+					throw(err);
+			});
+
 			// send email
 			let to_email = req.body.email.trim();
 			let mailOptions = {
@@ -81,7 +97,9 @@ router.post('/forgotPassword',  (req,res) => {
 				subject: 'Password reset request',
 				template: 'forgot-password',
 				context: {
+					siteUrl: mailer.siteUrl,
 					email : to_email,
+					uuid: _uuid
 				}
 			};
 
