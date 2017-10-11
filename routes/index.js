@@ -78,15 +78,22 @@ router.post('/forgotPassword',  (req,res) => {
 
 			let _uuid = uuid.v1();
 
-			// save to db
-			let forgot = new forgotPasswords({
-				userId: user._id,
-				uuid: _uuid
-			});
+			// update old forgot password requests status
+			forgotPasswords.update({ userId: user._id,  status: true }, {
+				$set: {
+					status: false
+				}
+			}, () => {
+				// save to db
+				let forgot = new forgotPasswords({
+					userId: user._id,
+					uuid: _uuid
+				});
 
-			forgot.save((err) => {
-				if (err)
-					throw(err);
+				forgot.save((err) => {
+					if (err)
+						throw(err);
+				});
 			});
 
 			// send email

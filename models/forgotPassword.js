@@ -10,6 +10,10 @@ let forgotPasswordSchema = new Schema({
 	createdAt: {
 		type: Date,
 		default: new Date(),
+	},
+	status: {
+		type: Boolean,
+		default: true
 	}
 });
 
