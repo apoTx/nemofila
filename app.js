@@ -15,6 +15,7 @@ let index = require('./routes/index');
 let newAd = require('./routes/newAd');
 let detail = require('./routes/detail');
 let profile = require('./routes/profile/profile');
+let account = require('./routes/account');
 let myAds = require('./routes/profile/myAds');
 let myFavourites = require('./routes/profile/myFavourites');
 let countries = require('./routes/countries');
@@ -87,6 +88,7 @@ app.use('/detail', detail);
 app.use('/profile', profile);
 app.use('/profile/adsMy', myAds);
 app.use('/profile/myFavourites', myFavourites);
+app.use('/account', account);
 app.use('/countries', countries);
 app.use('/categories', categories);
 

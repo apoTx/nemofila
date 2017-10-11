@@ -134,7 +134,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		// $scope.openSignUpModal();
 		// $scope.openSignInModal();
 		// $scope.openNewAdModal();
-		$scope.openForgotModal();
+		// $scope.openForgotModal();
 	});
 
 	// Sign Up
