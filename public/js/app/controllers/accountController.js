@@ -28,7 +28,11 @@ app.controller('accountController',  ['$scope', 'accountFactory',  ($scope, acco
 
 	$scope.resetPassword = () => {
 		accountFactory.resetPassword($scope.resetPasswordData).then((response) => {
-			console.log(response);
+			if (response.status === 1){
+				console.log('ok');
+			}else {
+				$scope.resetPaswordErr = response.error;
+			}
 		});
 	};
 

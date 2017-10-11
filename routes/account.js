@@ -37,6 +37,7 @@ router.get( '/reset_password/:uuid', ( req, res, next ) => {
 			'$project': {
 				'createdAt': 1,
 				'lastValidityTime': 1,
+				'user._id': 1,
 				'user.name': 1,
 				'user.surname': 1,
 				'user.email': 1,
@@ -46,18 +47,45 @@ router.get( '/reset_password/:uuid', ( req, res, next ) => {
 		if (err)
 			return next( err );
 
-		console.log(moment(result[0].lastValidityTime).format('H:m:s'));
-		console.log(moment(new Date()).format('H:m:s'));
 		if (result.length < 1)
 			res.status(404).render('error/404', { message: 'This Page Not Found' });
 		else
-			res.render('account/reset_password', { title:'Reset Password', data: result[0].user });
+			res.render('account/reset_password', {
+				title:'Reset Password',
+				data: result[0].user,
+				uuid: uuid
+			});
 	});
 
 });
 
 router.post( '/reset_password', ( req, res ) => {
-	console.log(req.body);
+	let password =  req.body.password.trim();
+	let passwordConfirm = req.body.passwordConfirm.trim();
+	let userId = req.body.userId;
+	let resetPasswordUuid = req.body.resetPasswordUuid;
+
+
+	if (password !== passwordConfirm){
+		res.json({ error: 'Passwords do not match.' });
+	}else{
+		// Password hash
+		const saltRounds = 10;
+		bcrypt.hash(password, saltRounds).then((hash) => {
+			User.findByIdAndUpdate( userId , {
+				password: hash
+			}, (err,res) => {
+				console.log(res);
+			});
+		});
+
+		forgotPasswords.findOneAndUpdate({ uuid: resetPasswordUuid } , {
+			status: false
+		}, (err,res) => {
+			console.log(res);
+		});
+	}
+
 });
 
 module.exports = router;
