@@ -1,5 +1,10 @@
 /*eslint-disable */
 app.controller('messagesController', ['$scope', '$http',  function($scope, $http){
 /*eslint-enable */
-	$scope.data = 2;
+
+	$scope.messageSended = false;
+	$scope.sendMessage = () => {
+		$scope.sendMessageLoading = true;
+		console.log($scope.sendMessageFormData);
+	};
 }]);

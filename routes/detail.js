@@ -87,6 +87,8 @@ router.get('/:slug/:id', (req, res, next) => {
 				if ( req.session.user ){
 					if (String(data.ownerId) == req.session.user._id || req.session.user.isAdmin)
 						res.render( 'detail', object);
+					else
+						res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}else{
 					res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}
