@@ -16,7 +16,7 @@ app.controller('detailController', ['$scope', 'detailFactory',  ($scope, detailF
 						prompt : 'Please enter your message.'
 					},
 					{
-						type   : 'maxLength[6]',
+						type   : 'maxLength[600]',
 						prompt : 'Your message can be up to {ruleValue} characters long.'
 					}
 				]
@@ -68,7 +68,9 @@ app.controller('detailController', ['$scope', 'detailFactory',  ($scope, detailF
 		$scope.openSendMessageModal();
 	});
 
+	$scope.messageSended = false;
 	$scope.sendMessage = () => {
+		$scope.sendMessageLoading = true;
 		console.log($scope.sendMessageFormData);
 	};
 
