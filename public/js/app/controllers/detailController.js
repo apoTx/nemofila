@@ -1,4 +1,4 @@
-app.controller('detailController', ['$scope', 'detailFactory',  ($scope, detailFactory) => {
+app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory', ($scope, detailFactory, messageFactory) => {
 
 	$('.detail-right-menu a').popup({
 		position: 'bottom center'
@@ -71,7 +71,14 @@ app.controller('detailController', ['$scope', 'detailFactory',  ($scope, detailF
 	$scope.messageSended = false;
 	$scope.sendMessage = () => {
 		$scope.sendMessageLoading = true;
-		console.log($scope.sendMessageFormData);
+
+		messageFactory.createConversation($scope.sendMessageFormData).then((response) => {
+			$scope.sendMessageLoading = false;
+			console.log(response);
+			if (response.status !== 1){
+				$scope.sendMessageErr = response.error;
+			}
+		});
 	};
 
 }]);

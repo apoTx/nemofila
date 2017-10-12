@@ -4,8 +4,8 @@ let Schema	 = mongoose.Schema;
 let conversationSchema = new Schema({
 	adId: Schema.Types.ObjectId,
 	participants: {
-		user1Id: Schema.Types.ObjectId,
-		user2Id: Schema.Types.ObjectId,
+		fromUserId: Schema.Types.ObjectId,
+		toUserId: Schema.Types.ObjectId,
 	}
 });
 
