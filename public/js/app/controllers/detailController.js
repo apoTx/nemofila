@@ -4,6 +4,32 @@ app.controller('detailController', ['$scope', 'detailFactory',  ($scope, detailF
 		position: 'bottom center'
 	});
 
+	// Send Message Form validation
+	$('#sendMessageForm').form({
+		on: 'blur',
+		fields: {
+			pw: {
+				identifier  : 'message',
+				rules: [
+					{
+						type   : 'empty',
+						prompt : 'Please enter your message.'
+					},
+					{
+						type   : 'maxLength[6]',
+						prompt : 'Your message can be up to {ruleValue} characters long.'
+					}
+				]
+			}
+		},
+		onSuccess: () => {
+			$scope.sendMessage();
+		},
+		onInvalid:() => {
+			$scope.sendMessageErr = null;
+		},
+	});
+
 	$scope.init = (userId, adId) => {
 		if ( userId !== null ){
 			detailFactory.isFav(userId,adId).then((response) => {
@@ -32,6 +58,18 @@ app.controller('detailController', ['$scope', 'detailFactory',  ($scope, detailF
 				$scope.isFav = false;
 			}
 		});
+	};
+
+	$scope.openSendMessageModal = () => {
+		$('#sendMessageModal').modal('show');
+	};
+
+	setTimeout(() => {
+		$scope.openSendMessageModal();
+	});
+
+	$scope.sendMessage = () => {
+		console.log($scope.sendMessageFormData);
 	};
 
 }]);

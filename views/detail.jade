@@ -101,7 +101,7 @@ block content
                                 - if (!data.anotherContact)
                                     div.contact-name #{ data.user.name } #{ data.user.surname }
                                     - if (sessionId !== null)
-                                        button.ui.right.floated.button.primary Send Message
+                                        button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
                                 - else
                                     div #{ data.anotherContact.name }
                                 .clearfix
@@ -118,6 +118,52 @@ block content
         .ui.segment
             p.description
                 | #{ data.description }
+
+
+        // Send Message Modal
+        .ui.modal.tiny#sendMessageModal
+            i.close.icon
+            .header
+                | Send Message
+            .content
+                div(ng-show="!messageSended" ng-cloak)
+                    div.margin-bottom-30
+                        h4.no-margin-bottom To: #{ data.user.name } #{ data.user.surname }
+
+                    form.ui.form#sendMessageForm
+                        input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ data.user._id }' ", ng-model="sendMessageFormData.toUserId")
+                        input(type='hidden', ng-init="sendMessageFormData.fromUserId = '#{ sessionId }' ", ng-model="sendMessageFormData.fromUserId")
+                        input(type='hidden', ng-init="sendMessageFormData.adId = '#{ data._id }' ", ng-model="sendMessageFormData.adId")
+
+                        .fields.ui.grid
+                            .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                                textarea(
+                                    name="message",
+                                    placeholder='Enter your message',
+                                    ng-model='sendMessageFormData.message'
+                                )
+                        .ui.error.message
+                        .backendErr.ui.red.message(ng-if="sendMessageErr")
+                            | {{ sendMessageErr }}
+
+                div(ng-show="messageSended" ng-cloak)
+                    .ui.success.message
+                        .header
+                            | Check your email.
+                        p
+                            | We've sent an email to
+                            b {{ forgotFormData.email }}.
+                            |  Click the link in the email to reset your password.
+
+                        p If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.
+
+            .actions
+                button.ui.right.icon.button.primary(
+                    form="sendMessageForm",
+                    ng-class="sendMessageLoading ? 'loading disabled' : '' ",
+                    ng-show="!messageSended"
+                )
+                    | Submit
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
