@@ -10,7 +10,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
 
 block content
-    -var sessionId;
+    - var sessionId;
     - if (session)
         - sessionId = session._id;
     - else
@@ -100,7 +100,8 @@ block content
                             td
                                 - if (!data.anotherContact)
                                     div.contact-name #{ data.user.name } #{ data.user.surname }
-                                    button.ui.right.floated.button.primary Send Message
+                                    - if (sessionId !== null)
+                                        button.ui.right.floated.button.primary Send Message
                                 - else
                                     div #{ data.anotherContact.name }
                                 .clearfix
