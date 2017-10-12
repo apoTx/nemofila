@@ -68,16 +68,26 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 		$scope.openSendMessageModal();
 	});
 
-	$scope.messageSended = false;
+
 	$scope.sendMessage = () => {
 		$scope.sendMessageLoading = true;
 
 		messageFactory.createConversation($scope.sendMessageFormData).then((response) => {
-			$scope.sendMessageLoading = false;
-			console.log(response);
 			if (response.status !== 1){
+				$scope.sendMessageLoading = false;
 				$scope.sendMessageErr = response.error;
+				return false;
 			}
+
+			messageFactory.createMessage($scope.sendMessageFormData, response.conversationId).then((response) => {
+				$scope.sendMessageLoading = false;
+				if (response.status !== 1) {
+					$scope.sendMessageErr = response.error;
+					return false;
+				}
+
+				$scope.messageSended = true;
+			});
 		});
 	};
 

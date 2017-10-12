@@ -149,14 +149,7 @@ block content
                 div(ng-show="messageSended" ng-cloak)
                     .ui.success.message
                         .header
-                            | Check your email.
-                        p
-                            | We've sent an email to
-                            b {{ forgotFormData.email }}.
-                            |  Click the link in the email to reset your password.
-
-                        p If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.
-
+                            | Your message has been sent.
             .actions
                 button.ui.right.icon.button.primary(
                     form="sendMessageForm",

@@ -3,7 +3,7 @@ let Schema	 = mongoose.Schema;
 
 let messageSchema = new Schema({
 	conversationId: Schema.Types.ObjectId,
-	userId: Schema.Types.ObjectId,
+	fromUserId: Schema.Types.ObjectId,
 	message: {
 		type: String,
 	},
