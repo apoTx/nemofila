@@ -101,7 +101,7 @@ router.post('/createMessage', requireLogin, (req, res) => {
 
 	let message = new Messages({
 		conversationId: data.conversationId,
-		fromUserId: data.fromUserId,
+		fromUserId: req.session.user._id,
 		message: data.message,
 	});
 
@@ -125,6 +125,7 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 				'conversationId': mongoose.Types.ObjectId(conversationId) ,
 			}
 		},
+		{ $sort: { createdAt: 1 } },
 
 		// User lookup
 		{
@@ -150,7 +151,6 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 
 		console.log( result );
 		res.json(result);
-
 	});
 });
 
