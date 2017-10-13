@@ -1,5 +1,6 @@
 let express = require('express');
 let router = express.Router();
+let mongoose = require('mongoose');
 
 let Ads = require('../../models/ads');
 let Conversations = require('../../models/conversation');
@@ -112,6 +113,44 @@ router.post('/createMessage', requireLogin, (req, res) => {
 				status: 1,
 				message: 'Message created.'
 			} );
+	});
+});
+
+router.get('/getMessages', requireLogin, (req,res,next) => {
+	let conversationId = req.query.conversationId;
+
+	Messages.aggregate([
+		{
+			'$match': {
+				'conversationId': mongoose.Types.ObjectId(conversationId) ,
+			}
+		},
+
+		// User lookup
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'fromUserId',
+				foreignField: '_id',
+				as: 'user'
+			}
+		},
+		{ '$unwind': '$user' },
+		{
+			'$project': {
+				'message': 1,
+				'createdAt': 1,
+				'user.name': '$user.name',
+				'user.surname': '$user.surname',
+			},
+		},
+	], (err, result)=> {
+		if (err)
+			return next( err );
+
+		console.log( result );
+		res.json(result);
+
 	});
 });
 

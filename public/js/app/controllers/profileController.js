@@ -8,11 +8,7 @@ app.config(['$routeProvider', ($routeProvider) => {
 			templateUrl : 'partials/profile/myads.jade',
 			controller: 'myAdsController',
 		})
-		.when('/messages', {
-			templateUrl : 'partials/profile/messages.jade',
-			controller: 'messagesController'
-		})
-		.when('/messages/:id', {
+		.when('/messages/:id?', {
 			templateUrl : 'partials/profile/messages.jade',
 			controller: 'messagesController'
 		})
