@@ -41,6 +41,57 @@ router.post('/createConversation', requireLogin, (req, res) => {
 	});
 });
 
+router.get('/getConversations', requireLogin, (req, res, next) => {
+	let sessionId = req.session.user._id;
+
+	Conversations.aggregate([
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'participants.fromUserId',
+				foreignField: '_id',
+				as: 'user'
+			}
+		},
+		{ '$unwind': '$user' },
+		{
+			'$match': {
+				$or:[
+					{ 'participants.fromUserId': sessionId },
+					{ 'participants.toUserId': sessionId }
+				],
+			}
+		},
+
+		{
+			$lookup: {
+				from: 'ads',
+				localField: 'adId',
+				foreignField: '_id',
+				as: 'ad'
+			}
+		},
+		{ '$unwind': '$ad' },
+
+		{
+			'$project': {
+				'participants': 1,
+				'user.name': '$user.name',
+				'user.surname': '$user.surname',
+				'ad.title': '$ad.title'
+			},
+		},
+	], (err, result)=> {
+		if (err)
+			return next( err );
+
+		console.log( result );
+		res.json(result);
+
+	});
+
+});
+
 router.post('/createMessage', requireLogin, (req, res) => {
 	let data = req.body;
 

@@ -16,6 +16,18 @@ app.factory('messageFactory', ['$http', ($http) => {
 			});
 	};
 
+	let getConversations = () => {
+		return $http({
+			url: '/profile/myMessages/getConversations',
+			method:'GET',
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	let createMessage = (data, conversationId) => {
 		return $http({
 			url: '/profile/myMessages/createMessage',
@@ -35,6 +47,7 @@ app.factory('messageFactory', ['$http', ($http) => {
 
 	return {
 		createConversation: createConversation,
+		getConversations: getConversations,
 		createMessage: createMessage,
 	};
 }]);

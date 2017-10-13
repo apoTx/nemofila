@@ -4,7 +4,9 @@ append stylesheets
 
 h2.ui.dividing.header Messages
 
-.ui.stackable.two.column.grid
+.ui.stackable.two.column.grid(
+        ng-controller="messagesController",
+    )
     .five.wide.column
         .ui.vertical.menu
             .item
@@ -53,5 +55,3 @@ h2.ui.dividing.header Messages
                     ng-click="sendMessage()"
                 )
                     |  Submit
-
-
