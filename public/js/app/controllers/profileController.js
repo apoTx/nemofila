@@ -12,6 +12,10 @@ app.config(['$routeProvider', ($routeProvider) => {
 			templateUrl : 'partials/profile/messages.jade',
 			controller: 'messagesController'
 		})
+		.when('/messages/:id', {
+			templateUrl : 'partials/profile/messages.jade',
+			controller: 'messagesController'
+		})
 		.when('/myfavourites', {
 			templateUrl : 'partials/profile/myFavourites.jade',
 			controller: 'myFavouritesController'

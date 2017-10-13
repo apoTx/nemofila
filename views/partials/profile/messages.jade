@@ -15,7 +15,10 @@ h2.ui.dividing.header Messages
                         input(type='text', placeholder='Search')
                         i.search.icon
 
-                a.item(ng-repeat="conversation in conversations")
+                a.item(
+                        ng-repeat="conversation in conversations",
+                        href="#!/messages/{{ conversation._id }}"
+                    )
                     strong
                         | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
                     br
