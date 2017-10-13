@@ -2,7 +2,6 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 
-let Ads = require('../../models/ads');
 let Conversations = require('../../models/conversation');
 let Messages = require('../../models/messages');
 
