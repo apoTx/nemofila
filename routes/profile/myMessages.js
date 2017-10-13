@@ -46,15 +46,6 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 
 	Conversations.aggregate([
 		{
-			$lookup: {
-				from: 'users',
-				localField: 'participants.fromUserId',
-				foreignField: '_id',
-				as: 'user'
-			}
-		},
-		{ '$unwind': '$user' },
-		{
 			'$match': {
 				$or:[
 					{ 'participants.fromUserId': sessionId },
@@ -63,6 +54,18 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 			}
 		},
 
+		// User lookup
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'participants.toUserId',
+				foreignField: '_id',
+				as: 'user'
+			}
+		},
+		{ '$unwind': '$user' },
+
+		// Ad lookup
 		{
 			$lookup: {
 				from: 'ads',

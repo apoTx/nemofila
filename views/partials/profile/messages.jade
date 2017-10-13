@@ -8,17 +8,20 @@ h2.ui.dividing.header Messages
         ng-controller="messagesController",
     )
     .five.wide.column
-        .ui.vertical.menu
-            .item
-                .ui.transparent.icon.input
-                    input(type='text', placeholder='Search')
-                    i.search.icon
-            a.active.item(style="white-space: nowrap;")
-                | {{ "Macbook Pro 15.5 Retina 16GB" | limitTo: 20 }} {{ "Akın İsmail Gültekin Babacan".length > 20 ? '...' : ''}}
-            a.item
-                | {{ "Dell Pro Retina 16GB" | limitTo: 20 }} {{ "Akın İsmail Gültekin Babacan".length > 20 ? '...' : ''}}
-            a.item
-                | {{ "Samsung Pro  Retina 16GB" | limitTo: 20 }} {{ "Akın İsmail Gültekin Babacan".length > 20 ? '...' : ''}}
+        .ui.segment.no-segment
+            .ui.vertical.menu
+                .item
+                    .ui.transparent.icon.input
+                        input(type='text', placeholder='Search')
+                        i.search.icon
+
+                a.item(ng-repeat="conversation in conversations")
+                    strong
+                        | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
+                    br
+                    | {{ conversation.user.name }} {{ conversation.user.surname }}
+        .ui.active.dimmer(ng-class="{disabled: !loadingConversations}")
+            .ui.loader
 
     .eleven.wide.column
         .ui.comments

@@ -4,6 +4,9 @@ app.controller('messagesController', ['$scope', 'messageFactory', function($scop
 
 	$scope.loadingConversations = true;
 	messageFactory.getConversations().then((response) => {
+		$scope.loadingConversations = false;
+		$scope.conversations = response;
+
 		console.log(response);
 	});
 
