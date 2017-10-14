@@ -29,7 +29,6 @@ html
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/modal.min.css')
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/transition.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
-            link(rel='old stylesheet', href='/ng-image-gallery/dist/ng-image-gallery.min.css')
 
     body(ng-app="app" ng-controller="layoutController")
         .ui.fixed.inverted.menu
@@ -227,21 +226,21 @@ html
     block javascripts
         script(src="/angular/angular.min.js")
         script(src="/angular-route/angular-route.min.js")
+
         // ng-file-upload module
         script(src="/ng-file-upload/ng-file-upload-shim.min.js")
         script(src="/ng-file-upload/ng-file-upload.min.js")
         // ng-file-upload module ##
+
         // moment
         script(src='/moment/min/moment.min.js')
         script(src='/angular-moment/angular-moment.min.js')
         // moment ##
 
-
-        // gallery
+        // ng-image-gallery
         script(src="/angular-animate/angular-animate.min.js")
         script(src="/ng-image-gallery/dist/ng-image-gallery.min.js")
-
-        // gallery ##
+        // ng-image-gallery ##
 
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")
