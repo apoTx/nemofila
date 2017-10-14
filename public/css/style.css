@@ -134,3 +134,7 @@ form .progress {
     font-size:12px;
     color:#333;
 }
+
+a.black{
+    color:#000!important;
+}

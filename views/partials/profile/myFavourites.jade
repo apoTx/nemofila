@@ -6,7 +6,7 @@ h2 My Favourites
         tbody
             tr(ng-repeat="fav in myFavourites")
                 td
-                    a(
+                    a.black(
                         href="/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}",
                         target="_blank"
                     )
