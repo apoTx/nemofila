@@ -36,28 +36,20 @@ html
                 a.header.item(href='/')
                     img.logo(src='/img/logo.png')
                     | &nbsp; &nbsp;  &nbsp; &nbsp; Easy Ads
-                a.item(href='/') Home
-                .ui.simple.dropdown.item
-                    | Dropdown
-                    i.dropdown.icon
-                    .menu
-                        a.item(href='#') Link Item
-                        a.item(href='#') Link Item
-                        .divider
-                        .header Header Item
-                        .item
-                            i.dropdown.icon
-                            |             Sub Menu
-                            .menu
-                                a.item(href='#') Link Item
-                                a.item(href='#') Link Item
-                        a.item(href='#') Link Item
+
                 .right.menu
                     if !user
                         a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") Sign Up
                         a.item(href='javascript:;', ng-click="openSignInModal()") Sign In
                     else
-                        a.item(href='/profile')= user.name
+                        .ui.simple.dropdown.item
+                            a(href="/profile")=user.name
+                            i.dropdown.icon
+                            .menu
+                                a.item(href='/profile#!/myads') My Ads
+                                a.item(href='/profile#!/messages') Messages
+                                a.item(href='/profile#!/myfavourites') Favourites
+
                         a.item(href='/logout') Logout
                     .item
                         a.ui.primary.button.right.floated.right(href="/newAd") New Ad

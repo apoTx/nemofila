@@ -6,7 +6,11 @@ h2 My Favourites
         tbody
             tr(ng-repeat="fav in myFavourites")
                 td
-                    |  {{ fav.ad.title }}
+                    a(
+                        href="/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}",
+                        target="_blank"
+                    )
+                        |  {{ fav.ad.title }}
                 td.right.aligned
                     a.ui.icon.button.tiny(
                         href="/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}",
