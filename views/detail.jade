@@ -72,7 +72,10 @@ block content
 
         .ui.grid
             .six.wide.column
-                a.ui.fluid.image(href='http://google.com')
+                a.ui.fluid.image(
+                        ng-click='openGallery()',
+                        href="javascript:;"
+                    )
                     - if (data.photos !== null)
                         img(ng-src='/uploads/#{data.uuid}/#{data.photos[data.photoShowcaseIndex].filename}')
                     - else

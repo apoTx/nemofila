@@ -1,27 +1,5 @@
 app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory', ($scope, detailFactory, messageFactory) => {
 
-	$scope.images = [
-		{
-			id : 1,
-			title : 'This is <b>amazing photo</b> of <i>nature</i>',
-			alt : 'amazing nature photo',
-			thumbUrl : 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793__340.jpg',
-			url : 'https://pixabay.com/static/uploads/photo/2016/06/13/07/32/cactus-1453793_960_720.jpg',
-			extUrl : 'http://mywebsitecpm/photo/1453793'
-		},
-		{
-			id : 2,
-			url : 'https://pixabay.com/static/uploads/photo/2016/06/10/22/25/ortler-1449018_960_720.jpg',
-			deletable : true,
-		},
-		{
-			id : 3,
-			thumbUrl : 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701__340.jpg',
-			url : 'https://pixabay.com/static/uploads/photo/2016/04/11/18/53/aviator-1322701_960_720.jpg'
-		}
-	];
-
-
 	$('.detail-right-menu a').popup({
 		position: 'bottom center'
 	});
@@ -61,7 +39,7 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 
 		let photoList = JSON.parse(photos);
 		photoList.forEach((elem,index)=>{
-			elem.url = 'http://localhost:3000/uploads/'+ uuid +'/'+elem.filename;
+			elem.url = '/uploads/'+ uuid +'/'+elem.filename;
 			elem.id = index;
 		});
 
@@ -122,17 +100,24 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 		});
 	};
 
+
+	// Photo gallery
+	$scope.methods = {};
+	$scope.openGallery = function(){
+		$scope.methods.open();
+	};
+
 }]);
 
 app.config(['ngImageGalleryOptsProvider', function(ngImageGalleryOptsProvider){
 	ngImageGalleryOptsProvider.setOpts({
 		thumbnails  	:   true,
-		thumbSize		: 	30,
+		thumbSize		: 	40,
 		inline      	:   false,
 		bubbles     	:   true,
 		bubbleSize		: 	20,
 		imgBubbles  	:   false,
-		bgClose     	:   false,
+		bgClose     	:   true,
 		piracy 			: 	false,
 		imgAnim 		: 	'fadeup',
 	});
