@@ -123,3 +123,17 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 	};
 
 }]);
+
+app.config(['ngImageGalleryOptsProvider', function(ngImageGalleryOptsProvider){
+	ngImageGalleryOptsProvider.setOpts({
+		thumbnails  	:   true,
+		thumbSize		: 	30,
+		inline      	:   false,
+		bubbles     	:   true,
+		bubbleSize		: 	20,
+		imgBubbles  	:   false,
+		bgClose     	:   false,
+		piracy 			: 	false,
+		imgAnim 		: 	'fadeup',
+	});
+}]);

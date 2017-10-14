@@ -21,16 +21,7 @@ block content
     div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ data.uuid }' )")
 
 
-        ng-image-gallery(
-            images='imagesa',
-            methods='methods',
 
-            img-anim='fadeup',
-            conf='conf',
-            on-open='opened();',
-            on-close='closed();',
-            on-delete='delete(img, cb)'
-        )
 
 
         - if (!data.status)
@@ -87,10 +78,17 @@ block content
                     - else
                         img(ng-src='/img/no-photo.png')
 
-                .ui.mini.images.detail-photo-list.text-center
+                .ui.images.detail-photo-list.text-center
                     - if (data.photos !== null)
-                        each photo in data.photos
-                            img.ui.image(src='/uploads/#{ data.uuid }/#{ photo.filename }')
+                        ng-image-gallery(
+                            images='imagesa',
+                            methods='methods',
+                            img-anim='slide',
+                            conf='conf',
+                            on-open='opened();',
+                            on-close='closed();',
+                            on-delete='delete(img, cb)'
+                        )
 
             .ten.wide.column
                 h2 $#{ data.price }
