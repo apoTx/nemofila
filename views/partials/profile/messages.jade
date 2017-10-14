@@ -18,10 +18,9 @@ h2.ui.dividing.header Messages
                         ng-repeat="conversation in conversations | filter:search",
                         href="#!/messages/{{ conversation._id }}"
                     )
-                    strong
-                        | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
+                    | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
                     br
-                    | {{ conversation.user.name | limitTo: 20 }} {{ conversation.user.surname }}
+                    //| {{ conversation.user.name | limitTo: 20 }} {{ conversation.user.surname }}
         .ui.dimmer(ng-class="{ active: loadingConversations }")
             .ui.loader
 
