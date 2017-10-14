@@ -21,3 +21,13 @@ p.description{
     line-height:26px;
     color:#666
 }
+.ng-image-gallery, .ng-image-gallery *{
+    text-align:center!important;
+}
+.ng-image-gallery .ng-image-gallery-thumbnails .thumb:not(:last-child){
+    margin-bottom:0!important;
+}
+.ng-image-gallery .ng-image-gallery-thumbnails .thumb{
+    float:none!important;
+    display: inline-block!important;
+}
