@@ -9,7 +9,63 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 
 	$(() => {
-		$('#newAdForm').form();
+		$('#newAdForm').form({
+			on: 'blur',
+			fields: {
+				title: {
+					identifier  : 'title',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a title.'
+						},
+						{
+							type   : 'maxLength[100]',
+							prompt : 'Your title can be up to {ruleValue} characters long.'
+						}
+					]
+				},
+				price: {
+					identifier  : 'price',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a price.'
+						},
+						{
+							type   : 'decimal',
+							prompt : 'Please enter a valid price.'
+						}
+					]
+				},
+				description: {
+					identifier  : 'description',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a description.'
+						},
+						{
+							type   : 'maxLength[2]',
+							prompt : 'Your description can be up to {ruleValue} characters long.'
+						}
+					]
+				},
+				country: {
+					identifier: 'country',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a country.'
+						}
+					]
+				},
+			},
+			onSuccess: () => {
+				console.log('success');
+				// $scope.resetPassword();
+			}
+		});
 
 		$('.ui.checkbox').checkbox({
 			onChecked: () => {

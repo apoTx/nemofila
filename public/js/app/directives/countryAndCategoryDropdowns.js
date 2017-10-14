@@ -2,7 +2,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 	return {
 		template : '<div class="field" ng-click="updateMap()">\n' +
 		'  <label>Country</label>\n' +
-		'  <select ng-model="newAdForm.country" ng-options="index as country.name for (index, country) in countries" ng-change="changeCountry()"></select>\n' +
+		'  <select name="country" ng-model="newAdForm.country" ng-options="index as country.name for (index, country) in countries " ng-change="changeCountry()"></select>\n' +
 		'</div>\n' +
 		'<div class="field">\n' +
 		'  <label>City</label>\n' +
