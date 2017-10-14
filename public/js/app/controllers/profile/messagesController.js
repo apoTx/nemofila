@@ -18,12 +18,9 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 		$scope.loadingMessages = true;
 		messageFactory.getMessages($routeParams.id).then((response) => {
 			$scope.loadingMessages = false;
-
 			$scope.messages = response;
-			console.log(response);
 		});
 	}
-
 
 	$scope.messageSended = false;
 	$scope.sendMessage = () => {
@@ -36,7 +33,16 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 				return false;
 			}
 
-			console.log(response);
+			$scope.messages.push ({
+				message: $scope.sendMessageFormData.message,
+				createdAt: new Date(),
+				user: {
+					name: $scope.sendMessageFormData.name,
+					surname: $scope.sendMessageFormData.surname
+				}
+			});
+
+			$scope.sendMessageFormData.message = '';
 		});
 	};
 }]);

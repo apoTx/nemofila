@@ -39,6 +39,17 @@ h2.ui.dividing.header Messages
                         type="hidden",
                         ng-model="sendMessageFormData.conversationId",
                     )
+                    input(
+                        type="hidden",
+                        ng-model="sendMessageFormData.username",
+                        ng-init="sendMessageFormData.username= '#{user.name}'"
+                    )
+                    input(
+                        type="hidden",
+                        ng-model="sendMessageFormData.surname",
+                        ng-init="sendMessageFormData.surname= '#{user.surname}'"
+                    )
+
                     .field
                         textarea(
                             ng-model="sendMessageFormData.message"
