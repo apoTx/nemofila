@@ -2,7 +2,7 @@
 app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams', function($scope, messageFactory, $routeParams){
 /*eslint-enable */
 
-	let objDiv = document.getElementById("messageList");
+	let objDiv = document.getElementById('messageList');
 
 	$scope.sendMessageFormData = { };
 	$scope.loadingMessages = false;
