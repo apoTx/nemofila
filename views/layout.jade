@@ -29,6 +29,7 @@ html
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/modal.min.css')
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/transition.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
+            link(rel='old stylesheet', href='/ng-image-gallery/dist/ng-image-gallery.min.css')
 
     body(ng-app="app" ng-controller="layoutController")
         .ui.fixed.inverted.menu
@@ -234,6 +235,14 @@ html
         script(src='/moment/min/moment.min.js')
         script(src='/angular-moment/angular-moment.min.js')
         // moment ##
+
+
+        // gallery
+        script(src="/angular-animate/angular-animate.min.js")
+        script(src="/ng-image-gallery/dist/ng-image-gallery.min.js")
+
+        // gallery ##
+
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")
         script(src="/dist/js/app/services/layoutFactory.min.js")

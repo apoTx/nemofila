@@ -16,7 +16,23 @@ block content
     - else
         - sessionId = null;
 
-    div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }')")
+    - var photosList = JSON.stringify(data.photos);
+
+    div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ data.uuid }' )")
+
+
+        ng-image-gallery(
+            images='imagesa',
+            methods='methods',
+
+            img-anim='fadeup',
+            conf='conf',
+            on-open='opened();',
+            on-close='closed();',
+            on-delete='delete(img, cb)'
+        )
+
+
         - if (!data.status)
             .ui.warning.message.margin-bottom-30
                 .header
