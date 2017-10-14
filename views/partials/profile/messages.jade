@@ -11,11 +11,11 @@ h2.ui.dividing.header Messages
             .ui.vertical.menu
                 .item
                     .ui.transparent.icon.input
-                        input(type='text', placeholder='Search')
+                        input(type='text', placeholder='Search', ng-model='search')
                         i.search.icon
 
                 a.item(
-                        ng-repeat="conversation in conversations",
+                        ng-repeat="conversation in conversations | filter:search",
                         href="#!/messages/{{ conversation._id }}"
                     )
                     strong
