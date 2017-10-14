@@ -1,6 +1,9 @@
 /*eslint-disable */
 app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams', function($scope, messageFactory, $routeParams){
 /*eslint-enable */
+
+	let objDiv = document.getElementById("messageList");
+
 	$scope.sendMessageFormData = { };
 	$scope.loadingMessages = false;
 
@@ -19,6 +22,7 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 		messageFactory.getMessages($routeParams.id).then((response) => {
 			$scope.loadingMessages = false;
 			$scope.messages = response;
+			scrollDown();
 		});
 	}
 
@@ -43,6 +47,13 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 			});
 
 			$scope.sendMessageFormData.message = '';
+			scrollDown();
 		});
 	};
+
+	function scrollDown(){
+		setTimeout(()=>{
+			objDiv.scrollTop = objDiv.scrollHeight;
+		},1);
+	}
 }]);

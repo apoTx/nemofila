@@ -1,6 +1,7 @@
 append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/comment.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/messages.css')
 
 h2.ui.dividing.header Messages
 
@@ -21,12 +22,12 @@ h2.ui.dividing.header Messages
                         | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
                     br
                     | {{ conversation.user.name | limitTo: 20 }} {{ conversation.user.surname }}
-        .ui.active.dimmer(ng-class="{ disabled: !loadingConversations }")
+        .ui.dimmer(ng-class="{ active: loadingConversations }")
             .ui.loader
 
     .eleven.wide.column
         .ui.segment.no-segment(ng-show="visibleMessages", ng-cloak)
-            .ui.comments(style="min-height:200px")
+            .ui.comments#messageList
                 .comment(ng-repeat="message in messages")
                     .content
                         a.author {{ message.user.name }} {{ message.user.surname }}
@@ -34,32 +35,32 @@ h2.ui.dividing.header Messages
                             span.date(am-time-ago='message.createdAt')
                         .text
                             | {{ message.message }}
-                form.ui.reply.form
-                    input(
-                        type="hidden",
-                        ng-model="sendMessageFormData.conversationId",
-                    )
-                    input(
-                        type="hidden",
-                        ng-model="sendMessageFormData.username",
-                        ng-init="sendMessageFormData.username= '#{user.name}'"
-                    )
-                    input(
-                        type="hidden",
-                        ng-model="sendMessageFormData.surname",
-                        ng-init="sendMessageFormData.surname= '#{user.surname}'"
-                    )
+            form.ui.reply.form
+                input(
+                    type="hidden",
+                    ng-model="sendMessageFormData.conversationId",
+                )
+                input(
+                    type="hidden",
+                    ng-model="sendMessageFormData.username",
+                    ng-init="sendMessageFormData.username= '#{user.name}'"
+                )
+                input(
+                    type="hidden",
+                    ng-model="sendMessageFormData.surname",
+                    ng-init="sendMessageFormData.surname= '#{user.surname}'"
+                )
 
-                    .field
-                        textarea(
-                            ng-model="sendMessageFormData.message"
-                        )
-                    .ui.right.floated.primary.submit.button(
-                        form="sendMessageForm",
-                        ng-class="sendMessageLoading ? 'loading disabled' : '' ",
-                        ng-click="sendMessage()"
+                .field
+                    textarea(
+                        ng-model="sendMessageFormData.message"
                     )
-                        |  Submit
+                .ui.right.floated.primary.submit.button(
+                    form="sendMessageForm",
+                    ng-class="sendMessageLoading ? 'loading disabled' : '' ",
+                    ng-click="sendMessage()"
+                )
+                    |  Submit
 
         .ui.dimmer(ng-class="{ active: loadingMessages }")
             .ui.loader
