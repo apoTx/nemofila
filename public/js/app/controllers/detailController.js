@@ -64,9 +64,9 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 		$('#sendMessageModal').modal('show');
 	};
 
-	setTimeout(() => {
+	/*setTimeout(() => {
 		$scope.openSendMessageModal();
-	});
+	});*/
 
 
 	$scope.sendMessage = () => {
