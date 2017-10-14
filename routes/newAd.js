@@ -17,7 +17,7 @@ let router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-	res.render( 'newAd', { title: 'New Ad', user: req.session.user, redisId: req.cookies.newAdRedisId || false });
+	res.render( 'newAd', { title: 'New Ad', userExists: req.session.user ? true : false, redisId: req.cookies.newAdRedisId || false });
 });
 
 router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {

@@ -99,8 +99,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				},
 			},
 			onSuccess: () => {
-				console.log('success');
-				// $scope.resetPassword();
+				$scope.next();
 			}
 		});
 
@@ -120,10 +119,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 	});
 
-	$scope.init = (uuid) => {
+	$scope.init = (uuid, userExists) => {
 		if (uuid !== 'false'){
 			$scope.getAdBuffer(uuid);
 		}
+
+		$scope.userExists =  (userExists == 'true');
 
 		countriesFactory.getCountries().then((response) => {
 			$scope.countries = response;
@@ -132,6 +133,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
 		});
+	};
+
+	$scope.next = () => {
+
+		if (!$scope.userExists){
+			console.log('uploadAndSaveRedis()')
+			$scope.uploadAndSaveRedis();
+		}else{
+			console.log('previewTab()')
+			$scope.previewTab();
+		}
+
 	};
 
 	let uploadedFiles = [];
