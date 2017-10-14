@@ -11,6 +11,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$(() => {
 		$('#newAdForm').form({
 			on: 'blur',
+			inline : true,
 			fields: {
 				title: {
 					identifier  : 'title',
@@ -46,7 +47,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 							prompt : 'Please enter a description.'
 						},
 						{
-							type   : 'maxLength[2]',
+							type   : 'maxLength[2000]',
 							prompt : 'Your description can be up to {ruleValue} characters long.'
 						}
 					]
@@ -57,6 +58,42 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						{
 							type   : 'empty',
 							prompt : 'Please select a country.'
+						}
+					]
+				},
+				city: {
+					identifier: 'city',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a city.'
+						}
+					]
+				},
+				district: {
+					identifier: 'district',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a district.'
+						}
+					]
+				},
+				category: {
+					identifier: 'category',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a category.'
+						}
+					]
+				},
+				subCategory: {
+					identifier: 'subCategory',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a sub category.'
 						}
 					]
 				},
