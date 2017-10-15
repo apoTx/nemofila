@@ -166,7 +166,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
 				uploadedFiles = $scope.newAdForm.files;
 			}catch (e){
-				$scope.newAdForm.files = {};
+				$scope.newAdForm.files = [];
 			}
 
 			let country = JSON.parse(response.data.country);
