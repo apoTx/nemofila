@@ -138,10 +138,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.next = () => {
 
 		if (!$scope.userExists){
-			console.log('uploadAndSaveRedis()')
+			console.log('uploadAndSaveRedis()');
 			$scope.uploadAndSaveRedis();
 		}else{
-			console.log('previewTab()')
+			console.log('previewTab()');
 			$scope.previewTab();
 		}
 
