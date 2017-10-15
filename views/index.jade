@@ -36,7 +36,7 @@ block content
                         .image
                             img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
                         .content
-                            span {{ ad.title }}
+                            span {{ ad.title | limitTo: 16 }} {{ ad.title.length > 16 ? '...' : ''}}
             .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                 .ui.loader
 
