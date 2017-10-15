@@ -1,9 +1,14 @@
 let express = require('express');
 let router = express.Router();
 
+// Models
 let Ads = require('../../models/ads');
+let Users = require('../../models/users');
 
 let requireLogin = require('./inc/requireLogin.js');
+
+// Mail transporter
+let mailer = require('../../helper/mailer');
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
@@ -11,6 +16,7 @@ router.get('/', requireLogin, (req, res) => {
 });
 
 router.get('/edit/:id', requireLogin, (req, res) => {
+
 	Ads.findById( req.params.id ,(err,result) => {
 
 		let statusText;
@@ -25,12 +31,12 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 		else
 			statusText = 'Another';
 
-
 		res.render('manage/ads/ad_edit', {
 			title: result.title,
 			data: result,
 			statusText: statusText
 		});
+
 	});
 });
 
@@ -48,8 +54,35 @@ router.post('/publishAd', requireLogin, (req, res) => {
 
 	Ads.findByIdAndUpdate(data.id, updateDate, (err,result) => {
 		if (!err){
-			console.log(result);
 			res.json({ status: 1 });
+
+			Users.findById(result.ownerId, (err,response) => {
+				// send email
+				let to_email = response.email;
+				let subject = publishStatus === 1 ? 'Your ad has been published' : 'Your ad has been rejected';
+				let mailOptions = {
+					from: mailer.config.defaultFromAddress,
+					to: to_email,
+					subject: subject,
+					template: 'ad-approve',
+					context: {
+						siteUrl: mailer.siteUrl,
+						adTitle: result.title,
+						slug: result.slug,
+						id: result._id,
+						subject: subject,
+						reason: data.reason ? data.reason : ''
+					}
+				};
+
+				mailer.transporter.sendMail(mailOptions, (error, info) => {
+					if(error)
+						console.log(error);
+					else
+						console.log('Message sent: ' + info.response);
+				});
+			});
+
 		}
 	});
 
