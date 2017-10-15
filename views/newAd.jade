@@ -25,7 +25,7 @@ block content
                         .title Preview
                         .description Your ad will look like this.
 
-            .ui.segment.no-segment
+            .ui.segment.no-segment.test
                 .ui.dimmer(ng-class="loadingBufferData ? 'active': ''")
                     .ui.text.loader Loading
 
@@ -128,33 +128,33 @@ block content
 
                         .clearfix
 
-            div#preview(ng-show="steps.preview", ng-cloak)
-                h2 {{ newAdForm.title }}
-                h4 {{ newAdForm.price | currency }}
+                div#preview(ng-show="steps.preview", ng-cloak)
+                    h2 {{ newAdForm.title }}
+                    h4 {{ newAdForm.price | currency }}
 
-                .ui.four.cards
-                    .card(ng-repeat='f in newAdForm.files')
-                        .image
-                            a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
-                                i.bookmark.icon
-                            img(
-                                ngf-thumbnail="f.filename ? 'uploads/#{redisId}/{{f.filename}}': f ",
-                                ngf-size="{width:200, height:200, quality:0.6}",
-                                ng-src="img/spinner.gif",
-                                class="upload-photo-thumb"
-                            )
+                    .ui.four.cards
+                        .card(ng-repeat='f in newAdForm.files')
+                            .image
+                                a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
+                                    i.bookmark.icon
+                                img(
+                                    ngf-thumbnail="f.filename ? 'uploads/#{redisId}/{{f.filename}}': f ",
+                                    ngf-size="{width:200, height:200, quality:0.6}",
+                                    ng-src="img/spinner.gif",
+                                    class="upload-photo-thumb"
+                                )
 
-                br
-                span.progress(ng-show='progress >= 0')
-                    div(style='width:{{progress}}%', ng-bind="progress + '%'")
-                |     {{errorMsg}}
-                br
-                br
+                    br
+                    span.progress(ng-show='progress >= 0')
+                        div(style='width:{{progress}}%', ng-bind="progress + '%'")
+                    |     {{errorMsg}}
+                    br
+                    br
 
-                button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
-                    | Save
-                button.ui.right.floated.secondary.button(ng-click="adInformationTab()", ng-class="{disabled:uploading}")
-                    | Back
+                    button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
+                        | Save
+                    button.ui.right.floated.secondary.button(ng-click="adInformationTab()", ng-class="{disabled:uploading}")
+                        | Back
 
         div(ng-if="adSaveComplete", ng-cloak)
             div.text-center
