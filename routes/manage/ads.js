@@ -7,7 +7,13 @@ let requireLogin = require('./inc/requireLogin.js');
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
-	res.render('manage/ads', { title: 'Ads' });
+	res.render('manage/ads/ads', { title: 'Ads' });
+});
+
+router.get('/edit/:id', requireLogin, (req, res) => {
+	Ads.findById( req.params.id ,(err,result) => {
+		res.render('manage/ads/ad_edit', { title: 'Ad Edit', data: result });
+	});
 });
 
 router.get('/getAllAds', requireLogin, (req, res, next) => {

@@ -1,0 +1,61 @@
+extends ../layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+
+block content
+    div(ng-controller="adsController", ng-init="init()")
+        a.ui.right.floated.button(
+                href="/detail/#{ data.slug }/#{data._id}",
+                target="_blank"
+            )
+            | View In The Detail Page
+
+        .clearfix
+
+        h4 #{ data.title }
+
+        .ui.form
+            .grouped.fields
+                label Do you publish this ad?
+                br
+                .field
+                    .ui.radio.checkbox
+                        input(
+                            type='radio',
+                            ng-model="adEditForm.publish",
+                            name='publish',
+                            id='approve',
+                            value="1",
+                            ng-change='changeStatus()'
+                        )
+                        label(for='approve') Approve
+                .field
+                    .ui.radio.checkbox
+                        input(
+                            type='radio',
+                            ng-model="adEditForm.publish",
+                            name='publish',
+                            id='reject',
+                            value="0",
+                            ng-change='changeStatus()'
+                        )
+                        label(for='reject') Reject
+
+                .field(
+                        ng-show="adEditForm.reasonVisible"
+                    )
+                    label Reason
+                    textarea
+
+                .field
+                    button.ui.button.primary.right.floated Submit
+                    .clearfix
+
+
+
+append javascripts
+    script(src='/dist/js/admin/app/services/adsFactory.min.js')
+    script(src='/dist/js/admin/app/controllers/adsController.min.js')

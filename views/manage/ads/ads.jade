@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
@@ -7,39 +7,28 @@ append stylesheets
 block content
     div(ng-controller="adsController", ng-init="init()")
         .ui.segment.no-segment
-            table.ui.definition.table
+            table.ui.table
                 thead
                     tr
-                        th
                         th Ad Title
                         th Name of Owner
                         th Created At
                         th Status
-                        th Preview
+                        th Detail
                 tbody
                     tr(
                         ng-repeat="ad in ads",
                         ng-class="{warning: !ad.status}"
                     )
-                        td.collapsing
-                            .ui.fitted.slider.checkbox
-                                input(
-                                    type='checkbox',
-                                    ng-checked="ad.status",
-                                    ng-change="changeStatus('{{ad._id}}')",
-                                    ng-model="isChecked"
-                                )
-                                label
                         td {{ ad.title }}
                         td {{ ad.user.name }} {{ ad.user.surname }}
                         td(am-time-ago='ad.createdAt')
                         td {{ ad.status ? 'approved' : 'waiting' }}
                         td.text-right
                             a.ui.button.icon.mini(
-                                href="/detail/{{ ad.slug }}/{{ad._id}}",
-                                target="_blank"
+                                href="ads/edit/{{ad._id}}"
                             )
-                                i.eye.icon
+                                i.edit.icon
             .ui.dimmer(ng-class="{active: loadingAds }")
                 .ui.loader
 
