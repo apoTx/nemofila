@@ -35,14 +35,17 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	};
 
 	$scope.unpublish = () => {
-		$scope.loadingUnpublish = true;
-		adsFactory.unpublish($scope.adEditForm.id).then((response) => {
-			$scope.loadingUnpublish = false;
+		let r = confirm('Are you sure?');
+		if (r === true) {
+			$scope.loadingUnpublish = true;
+			adsFactory.unpublish($scope.adEditForm.id).then((response) => {
+				$scope.loadingUnpublish = false;
 
-			if (response.status === 1){
-				$window.location.reload();
-			}
-		});
+				if (response.status === 1){
+					$window.location.reload();
+				}
+			});
+		}
 	};
 
 }]);
