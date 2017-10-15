@@ -129,6 +129,7 @@ router.get('/logout',  (req,res) => {
 
 router.get('/getIndexAds', (req,res) => {
 	Ads.find({
+		status: 1
 	},{
 		'title': true,
 		'photos': true,

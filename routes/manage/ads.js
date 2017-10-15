@@ -12,8 +12,39 @@ router.get('/', requireLogin, (req, res) => {
 
 router.get('/edit/:id', requireLogin, (req, res) => {
 	Ads.findById( req.params.id ,(err,result) => {
-		res.render('manage/ads/ad_edit', { title: 'Ad Edit', data: result });
+
+		let statusText;
+		if (result.status === 0)
+			statusText = 'Waiting';
+		else if (result.status === 1)
+			statusText = 'Approved';
+		else if (result.status === 2)
+			statusText = 'Rejected';
+		else if(result.statusText === 3)
+			statusText = 'Time Ending';
+		else
+			statusText = 'Another';
+
+
+		res.render('manage/ads/ad_edit', {
+			title: result.title,
+			data: result,
+			statusText: statusText
+		});
 	});
+});
+
+router.post('/publishAd', requireLogin, (req, res) => {
+	let data = req.body;
+	let publishStatus = parseInt(req.body.publishStatus);
+
+	Ads.findByIdAndUpdate(data.id, { status: publishStatus }, (err,result) => {
+		if (!err){
+			console.log(result);
+			res.json({ status: 1 });
+		}
+	});
+
 });
 
 router.get('/getAllAds', requireLogin, (req, res, next) => {

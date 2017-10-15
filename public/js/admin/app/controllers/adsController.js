@@ -1,4 +1,4 @@
-app.controller('adsController', ['$scope', '$http', 'adsFactory', ($scope, $http, adsFactory) => {
+app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($scope, $http, adsFactory, $window) => {
 	$scope.loadingAds = true;
 
 	adsFactory.getAllAds().then((response) => {
@@ -12,7 +12,7 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', ($scope, $http
 
 
 	$scope.adEditForm = { };
-	$scope.adEditForm.publish = '1';
+	$scope.adEditForm.publishStatus = '1';
 	$scope.adEditForm.reasonVisible = false;
 
 	$scope.changeStatus = () => {
@@ -20,6 +20,18 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', ($scope, $http
 			$scope.adEditForm.reasonVisible = true;
 		else
 			$scope.adEditForm.reasonVisible = false;
+	};
+
+	$scope.submitEdit = () => {
+		$scope.loadingEditSubmit = true;
+		adsFactory.publishAd($scope.adEditForm).then((response) => {
+			console.log(response);
+			$scope.loadingEditSubmit = false;
+
+			if (response.status === 1){
+				$window.location.reload();
+			}
+		});
 	};
 
 }]);
