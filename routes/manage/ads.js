@@ -85,7 +85,7 @@ router.post('/publishAd', requireLogin, (req, res) => {
 	});
 });
 
-router.post('/unpublish', requireLogin, (req, res, next) => {
+router.post('/unpublish', requireLogin, (req, res) => {
 	let id = req.body.id;
 
 	Ads.findByIdAndUpdate(id, { status: 4 }, (err) => {

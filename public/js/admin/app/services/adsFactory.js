@@ -26,7 +26,7 @@ app.factory('adsFactory', ['$http', ($http) => {
 		return $http({
 			url: '/manage/ads/unpublish',
 			method: 'POST',
-			data: {id: id},
+			data: { id: id },
 		})
 			.then((response) => {
 				return response.data;
