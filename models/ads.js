@@ -50,7 +50,7 @@ let adSchema = new Schema({
 		type: Date,
 		default: new Date()
 	},
-	listingAt: {
+	listingDate: {
 		type: Date,
 	},
 	ownerId: {

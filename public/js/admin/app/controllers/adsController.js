@@ -16,7 +16,7 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	$scope.adEditForm.reasonVisible = false;
 
 	$scope.changeStatus = () => {
-		if ($scope.adEditForm.publish === '0')
+		if ($scope.adEditForm.publish === '2')
 			$scope.adEditForm.reasonVisible = true;
 		else
 			$scope.adEditForm.reasonVisible = false;

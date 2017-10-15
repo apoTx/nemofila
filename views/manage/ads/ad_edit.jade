@@ -15,8 +15,14 @@ block content
 
         .clearfix
 
-        b Status: 
-        span #{ statusText }
+        table.ui.definition.table
+            tbody
+                tr
+                    td Status
+                    td #{ statusText }
+                tr
+                    td Created At:
+                    td #{ data.createdAt }
 
         br
         br
@@ -49,7 +55,7 @@ block content
                             ng-model="adEditForm.publishStatus",
                             name='publishStatus',
                             id='reject',
-                            value="0",
+                            value="2",
                             ng-change='changeStatus()'
                         )
                         label(for='reject') Reject

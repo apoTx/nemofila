@@ -38,7 +38,15 @@ router.post('/publishAd', requireLogin, (req, res) => {
 	let data = req.body;
 	let publishStatus = parseInt(req.body.publishStatus);
 
-	Ads.findByIdAndUpdate(data.id, { status: publishStatus }, (err,result) => {
+	let updateDate = {
+		status: publishStatus
+	};
+
+	if (publishStatus === 1){
+		Object.assign(updateDate, { listingDate: new Date() });
+	}
+
+	Ads.findByIdAndUpdate(data.id, updateDate, (err,result) => {
 		if (!err){
 			console.log(result);
 			res.json({ status: 1 });
