@@ -16,9 +16,7 @@ router.get('/', requireLogin, (req, res) => {
 });
 
 router.get('/edit/:id', requireLogin, (req, res) => {
-
 	Ads.findById( req.params.id ,(err,result) => {
-
 		let statusText;
 		if (result.status === 0)
 			statusText = 'Waiting';
@@ -26,8 +24,10 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 			statusText = 'Approved';
 		else if (result.status === 2)
 			statusText = 'Rejected';
-		else if(result.statusText === 3)
+		else if (result.status === 3)
 			statusText = 'Time Ending';
+		else if (result.status === 4)
+			statusText = 'Unpublished';
 		else
 			statusText = 'Another';
 
@@ -36,7 +36,6 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 			data: result,
 			statusText: statusText
 		});
-
 	});
 });
 
@@ -82,10 +81,17 @@ router.post('/publishAd', requireLogin, (req, res) => {
 						console.log('Message sent: ' + info.response);
 				});
 			});
-
 		}
 	});
+});
 
+router.post('/unpublish', requireLogin, (req, res, next) => {
+	let id = req.body.id;
+
+	Ads.findByIdAndUpdate(id, { status: 4 }, (err) => {
+		if (!err)
+			res.json({ status: 1 });
+	});
 });
 
 router.get('/getAllAds', requireLogin, (req, res, next) => {

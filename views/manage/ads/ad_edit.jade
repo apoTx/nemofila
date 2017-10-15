@@ -13,6 +13,12 @@ block content
             )
             | View In The Detail Page
 
+        - if ( data.status === 1 )
+            button.ui.right.floated.button.negative(
+                ng-click="unpublish()"
+            )
+                | Unpublish
+
         .clearfix
 
         table.ui.definition.table
@@ -28,53 +34,56 @@ block content
         br
         br
 
-        .ui.form
-            .grouped.fields
-                label Do you publish this ad?
-                br
-                input(
-                    type="hidden",
-                    ng-init="adEditForm.id= '#{data._id}'"
-                    ng-model="adEditForm.id",
-                )
-                .field
-                    .ui.radio.checkbox
-                        input(
-                            type='radio',
-                            ng-model="adEditForm.publishStatus",
-                            name='publishStatus',
-                            id='approve',
-                            value="1",
-                            ng-change='changeStatus()'
-                        )
-                        label(for='approve') Approve
-                .field
-                    .ui.radio.checkbox
-                        input(
-                            type='radio',
-                            ng-model="adEditForm.publishStatus",
-                            name='publishStatus',
-                            id='reject',
-                            value="2",
-                            ng-change='changeStatus()'
-                        )
-                        label(for='reject') Reject
+        input(
+            type="hidden",
+            ng-init="adEditForm.id= '#{data._id}'"
+            ng-model="adEditForm.id",
+        )
 
-                .field(
-                        ng-show="adEditForm.reasonVisible"
-                    )
-                    label Reason
-                    textarea(
-                        ng-model="adEditForm.reason"
-                    )
+        - if ( data.status === 0 )
+            .ui.form
+                .grouped.fields
+                    label Do you publish this ad?
+                    br
 
-                .field
-                    button.ui.button.primary.right.floated(
-                        ng-click="submitEdit()",
-                        ng-class="loadingEditSubmit ? 'loading disabled': ''"
-                    )
-                        | Submit
-                    .clearfix
+                    .field
+                        .ui.radio.checkbox
+                            input(
+                                type='radio',
+                                ng-model="adEditForm.publishStatus",
+                                name='publishStatus',
+                                id='approve',
+                                value="1",
+                                ng-change='changeStatus()'
+                            )
+                            label(for='approve') Approve
+                    .field
+                        .ui.radio.checkbox
+                            input(
+                                type='radio',
+                                ng-model="adEditForm.publishStatus",
+                                name='publishStatus',
+                                id='reject',
+                                value="2",
+                                ng-change='changeStatus()'
+                            )
+                            label(for='reject') Reject
+
+                    .field(
+                            ng-show="adEditForm.reasonVisible"
+                        )
+                        label Reason
+                        textarea(
+                            ng-model="adEditForm.reason"
+                        )
+
+                    .field
+                        button.ui.button.primary.right.floated(
+                            ng-click="submitEdit()",
+                            ng-class="loadingEditSubmit ? 'loading disabled': ''"
+                        )
+                            | Submit
+                        .clearfix
 
 
 

@@ -2,5 +2,6 @@
   "waiting":0,
   "approved":1,
   "rejected":2,
-  "timeFinish":3
+  "timeFinish":3,
+  "unpublished": 4
 }

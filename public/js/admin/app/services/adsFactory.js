@@ -22,8 +22,22 @@ app.factory('adsFactory', ['$http', ($http) => {
 			});
 	};
 
+	let unpublish = (id) => {
+		return $http({
+			url: '/manage/ads/unpublish',
+			method: 'POST',
+			data: {id: id},
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	return {
 		getAllAds: getAllAds,
 		publishAd: publishAd,
+		unpublish: unpublish,
 	};
 }]);
