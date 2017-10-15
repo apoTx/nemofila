@@ -29,7 +29,7 @@ block content
                 .ui.dimmer(ng-class="loadingBufferData ? 'active': ''")
                     .ui.text.loader Loading
 
-                div#adInformation(ng-if="steps.informations", ng-cloak)
+                div#adInformation(ng-show="steps.informations", ng-cloak)
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
                         .fields.two
                             .field.wide.twelve
@@ -128,7 +128,7 @@ block content
 
                         .clearfix
 
-            div#preview(ng-if="steps.preview", ng-cloak)
+            div#preview(ng-show="steps.preview", ng-cloak)
                 h2 {{ newAdForm.title }}
                 h4 {{ newAdForm.price | currency }}
 

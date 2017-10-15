@@ -136,6 +136,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.next = () => {
+		console.log('next');
 
 		if (!$scope.userExists){
 			console.log('uploadAndSaveRedis()');
@@ -145,6 +146,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.previewTab();
 		}
 
+		$scope.$apply();
 	};
 
 	let uploadedFiles = [];
