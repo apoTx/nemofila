@@ -4,7 +4,7 @@ cache:
    directories:
      - node_modules
 node_js:
-  - 8.0.0
+  - 8
 before_install:
   - export NODE_ENV=production
   - npm install -g node-gyp
