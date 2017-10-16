@@ -95,6 +95,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 	// Forgot form validation
 	$('#forgotForm').form( {
 		on: 'blur',
+		closable: false,
 		fields: {
 			name: {
 				identifier: 'email',
@@ -127,7 +128,9 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		if (closeOther){
 			$('#signInModal').modal('show');
 		}
-		$('#forgotModal').modal('show');
+		$('#forgotModal').modal({
+			closable : false
+		}).modal('show');
 	};
 
 	setTimeout(()=>{

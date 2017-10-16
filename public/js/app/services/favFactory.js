@@ -1,4 +1,4 @@
-app.factory('detailFactory', ['$http', ($http) => {
+app.factory('favFactory', ['$http', ($http) => {
 	let addFavourites = (userId, adId) => {
 		return $http({
 			url: '/detail/addFavourites',

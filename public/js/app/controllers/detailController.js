@@ -1,4 +1,4 @@
-app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory', ($scope, detailFactory, messageFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($scope, favFactory, messageFactory) => {
 
 	$('.detail-right-menu a').popup({
 		position: 'bottom center'
@@ -32,7 +32,7 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 
 	$scope.init = (userId, adId, photos, uuid) => {
 		if ( userId !== null ){
-			detailFactory.isFav(userId,adId).then((response) => {
+			favFactory.isFav(userId,adId).then((response) => {
 				$scope.isFav = response.isFav;
 			});
 		}
@@ -48,10 +48,7 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 	};
 
 	$scope.addFavourites = (adId, userId) => {
-		console.log(adId);
-		console.log(userId);
-
-		detailFactory.addFavourites(adId,userId).then((response) => {
+		favFactory.addFavourites(adId,userId).then((response) => {
 			if (response.status){
 				$scope.isFav = true;
 			}
@@ -59,10 +56,7 @@ app.controller('detailController', ['$scope', 'detailFactory', 'messageFactory',
 	};
 
 	$scope.delFavourites = (adId, userId) => {
-		console.log(adId);
-		console.log(userId);
-
-		detailFactory.delFavourites(adId,userId).then((response) => {
+		favFactory.delFavourites(adId,userId).then((response) => {
 			if (response.status){
 				$scope.isFav = false;
 			}
