@@ -1,8 +1,52 @@
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
 h2 My Ads
 .ui.segment.no-segment
+    .ui.divided.items
+        .item
+            .image
+                img(src='https://semantic-ui.com/images/wireframe/image.png')
+            .content
+                a.header 12 Years a Slave
+                .meta
+                    span.cinema Union Square 14
+                .description
+                    p
+                .extra
+                    .ui.label IMAX
+                    .ui.label
+                        i.globe.icon
+                        |  Additional Languages
+        .item
+            .image
+                img(src='https://semantic-ui.com/images/wireframe/image.png')
+            .content
+                a.header My Neighbor Totoro
+                .meta
+                    span.cinema IFC Cinema
+                .description
+                    p
+                .extra
+                    .ui.right.floated.primary.button
+                        | Buy tickets
+                        i.right.chevron.icon
+                    .ui.label Limited
+        .item
+            .image
+                img(src='https://semantic-ui.com/images/wireframe/image.png')
+            .content
+                a.header Watchmen
+                .meta
+                    span.cinema IFC
+                .description
+                    p
+                .extra
+                    .ui.right.floated.primary.button
+                        | Buy tickets
+                        i.right.chevron.icon
+
     table.ui.striped.table
         tbody
             tr(ng-repeat="ad in myAds")
