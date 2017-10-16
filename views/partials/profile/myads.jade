@@ -17,7 +17,10 @@ h2.text-center(ng-if="myAds.length < 1") No Results
                 .description
                     p
                 .extra
-                    .ui.label {{ ad.statusText }}
+                    .ui.label(
+                            ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
+                        )
+                        | {{ ad.statusText }}
                     .ui.right.floated.primary.button
                         | Edit
                         i.right.chevron.icon

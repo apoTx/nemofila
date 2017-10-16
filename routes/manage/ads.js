@@ -84,7 +84,10 @@ router.post('/publishAd', requireLogin, (req, res) => {
 router.post('/unpublish', requireLogin, (req, res) => {
 	let id = req.body.id;
 
-	Ads.findByIdAndUpdate(id, { status: 4 }, (err) => {
+	Ads.findByIdAndUpdate(id, {
+		status: 4,
+		statusText: getAdStatusText(4)
+	}, (err) => {
 		if (!err)
 			res.json({ status: 1 });
 	});
