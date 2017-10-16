@@ -1,17 +1,17 @@
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
 h2(ng-if="myAds.length > 0  ") My Ads
 h2.text-center(ng-if="myAds.length < 1") No Results
 
-.ui.segment.no-segment(ng-if="myAds.length > 0  ")
+.ui.segment.no-segment
     .ui.divided.items
         .item(ng-repeat="ad in myAds")
             a.image(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
                 img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
             .content
-                a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank") {{ ad.title }}
+                a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
+                    | {{ ad.title }}
                 .meta
                     h5.cinema ${{ad.price}}
                 .description
@@ -25,7 +25,7 @@ h2.text-center(ng-if="myAds.length < 1") No Results
                         | Edit
                         i.right.chevron.icon
 
-    .ui.dimmer(ng-class="{active: loadingMyAds }")
-        .ui.loader
+.ui.dimmer(ng-class="{active: loadingMyAds }")
+    .ui.loader
 
 

@@ -1,23 +1,24 @@
-link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
 h2(ng-if="myFavourites.length > 0") My Favourites
 h2.text-center(ng-if="myFavourites.length < 1") No Results
 
-.ui.segment.no-segment(ng-if="myFavourites.length > 0")
-    table.ui.striped.table
-        tbody
-            tr(ng-repeat="fav in myFavourites")
-                td
-                    a.black(
-                        href="/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}",
-                        target="_blank"
-                    )
-                        |  {{ fav.ad.title }}
-                td.right.aligned
-                    a.ui.icon.button.tiny(
-                        href="/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}",
-                        target="_blank"
-                    )
-                        i.eye.icon
+.ui.segment.no-segment
+    .ui.divided.items
+        .item(ng-repeat="fav in myFavourites")
+            a.image(href='/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}', target="_blank")
+                img(ng-src='uploads/{{ fav.ad.uuid }}/{{ fav.ad.photos[fav.ad.photoShowcaseIndex].filename }}')
+            .content
+                a.header(href='/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}' , target="_blank")
+                    | {{ fav.ad.title }}
+                .meta
+                    h5.cinema ${{fav.ad.price}}
+                .description
+                    p
+                .extra
+                    .ui.right.floated.primary.button
+                        | Edit
+                        i.right.chevron.icon
     .ui.dimmer(ng-class="{active: loadingMyFavourites }")
         .ui.loader

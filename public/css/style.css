@@ -127,7 +127,7 @@ form .progress {
     padding:0!important;
     border: none !important;
     box-shadow: none !important;
-    min-height: 60px
+    min-height: 60px !important;
 }
 
 .forgot{

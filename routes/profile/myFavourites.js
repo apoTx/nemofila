@@ -28,7 +28,10 @@ router.get('/getMyFavourites', requireLogin, (req, res) => {
 				'ad.title': 1,
 				'ad.price': 1,
 				'ad.slug': 1,
-				'ad._id': 1
+				'ad._id': 1,
+				'ad.uuid': 1,
+				'ad.photos': 1,
+				'ad.photoShowcaseIndex': 1,
 			},
 		},
 	], (err, result, next)=> {
