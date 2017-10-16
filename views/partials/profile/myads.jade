@@ -8,10 +8,10 @@ h2.text-center(ng-if="myAds.length < 1") No Results
 .ui.segment.no-segment(ng-if="myAds.length > 0  ")
     .ui.divided.items
         .item(ng-repeat="ad in myAds")
-            .image
+            a.image(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
                 img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
             .content
-                a.header {{ ad.title }}
+                a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank") {{ ad.title }}
                 .meta
                     h5.cinema ${{ad.price}}
                 .description
