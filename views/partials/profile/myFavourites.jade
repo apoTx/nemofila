@@ -1,7 +1,9 @@
 link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
 
-h2 My Favourites
-.ui.segment.no-segment
+h2(ng-if="myFavourites.length > 0") My Favourites
+h2.text-center(ng-if="myFavourites.length < 1") No Results
+
+.ui.segment.no-segment(ng-if="myFavourites.length > 0")
     table.ui.striped.table
         tbody
             tr(ng-repeat="fav in myFavourites")

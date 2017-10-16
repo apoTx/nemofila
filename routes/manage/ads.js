@@ -7,6 +7,9 @@ let Users = require('../../models/users');
 
 let requireLogin = require('./inc/requireLogin.js');
 
+// Helper
+let getAdStatusText = require('../../helper/getAdStatusText');
+
 // Mail transporter
 let mailer = require('../../helper/mailer');
 
@@ -15,27 +18,19 @@ router.get('/', requireLogin, (req, res) => {
 	res.render('manage/ads/ads', { title: 'Ads' });
 });
 
-router.get('/edit/:id', requireLogin, (req, res) => {
+router.get('/edit/:id', requireLogin, (req, res, next) => {
 	Ads.findById( req.params.id ,(err,result) => {
-		let statusText;
-		if (result.status === 0)
-			statusText = 'Waiting';
-		else if (result.status === 1)
-			statusText = 'Approved';
-		else if (result.status === 2)
-			statusText = 'Rejected';
-		else if (result.status === 3)
-			statusText = 'Time Ending';
-		else if (result.status === 4)
-			statusText = 'Unpublished';
-		else
-			statusText = 'Another';
+		if (err)
+			next();
 
-		res.render('manage/ads/ad_edit', {
-			title: result.title,
-			data: result,
-			statusText: statusText
-		});
+		if (result)
+			res.render('manage/ads/ad_edit', {
+				title: result.title,
+				data: result,
+				statusText: getAdStatusText(result.status)
+			});
+		else
+			next();
 	});
 });
 
@@ -44,7 +39,8 @@ router.post('/publishAd', requireLogin, (req, res) => {
 	let publishStatus = parseInt(req.body.publishStatus);
 
 	let updateDate = {
-		status: publishStatus
+		status: publishStatus,
+		statusText: getAdStatusText(publishStatus)
 	};
 
 	if (publishStatus === 1){

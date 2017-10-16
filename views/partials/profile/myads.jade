@@ -2,59 +2,29 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
-h2 My Ads
-.ui.segment.no-segment
+h2(ng-if="myAds.length > 0  ") My Ads
+h2.text-center(ng-if="myAds.length < 1") No Results
+
+.ui.segment.no-segment(ng-if="myAds.length > 0  ")
     .ui.divided.items
-        .item
+        .item(ng-repeat="ad in myAds")
             .image
-                img(src='https://semantic-ui.com/images/wireframe/image.png')
+                img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
             .content
-                a.header 12 Years a Slave
+                a.header {{ ad.title }}
                 .meta
-                    span.cinema Union Square 14
+                    h5.cinema ${{ad.price}}
                 .description
                     p
                 .extra
-                    .ui.label IMAX
+                    .ui.label {{ ad.statusText }}
                     .ui.label
                         i.globe.icon
                         |  Additional Languages
-        .item
-            .image
-                img(src='https://semantic-ui.com/images/wireframe/image.png')
-            .content
-                a.header My Neighbor Totoro
-                .meta
-                    span.cinema IFC Cinema
-                .description
-                    p
-                .extra
                     .ui.right.floated.primary.button
-                        | Buy tickets
-                        i.right.chevron.icon
-                    .ui.label Limited
-        .item
-            .image
-                img(src='https://semantic-ui.com/images/wireframe/image.png')
-            .content
-                a.header Watchmen
-                .meta
-                    span.cinema IFC
-                .description
-                    p
-                .extra
-                    .ui.right.floated.primary.button
-                        | Buy tickets
+                        | Edit
                         i.right.chevron.icon
 
-    table.ui.striped.table
-        tbody
-            tr(ng-repeat="ad in myAds")
-                td
-                    |  {{ ad.title }}
-                td.right.aligned
-                    a.ui.icon.button.tiny
-                        i.edit.icon
     .ui.dimmer(ng-class="{active: loadingMyAds }")
         .ui.loader
 
