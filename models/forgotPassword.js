@@ -2,6 +2,10 @@ let mongoose = require('mongoose');
 let Schema	 = mongoose.Schema;
 let moment = require('moment');
 
+let minutesFromNow = function(){
+	return moment().add(10, 'm');
+};
+
 let forgotPasswordSchema = new Schema({
 	userId: Schema.Types.ObjectId,
 	uuid: {
@@ -10,11 +14,11 @@ let forgotPasswordSchema = new Schema({
 	},
 	createdAt: {
 		type: Date,
-		default: new Date(),
+		default: Date.now,
 	},
 	lastValidityTime:{
 		type: Date,
-		default: moment(new Date()).add(10, 'm').toDate()
+		default: minutesFromNow
 	},
 	status: {
 		type: Boolean,

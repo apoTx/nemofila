@@ -33,6 +33,10 @@ let userSchema = new Schema({
 		type: Boolean,
 		default:0
 	},
+	createdAt: {
+		type: Date,
+		default: Date.now
+	},
 	social         : {
 		id           : String,
 		token        : String,

@@ -102,6 +102,7 @@ router.post('/createMessage', requireLogin, (req, res) => {
 		conversationId: data.conversationId,
 		fromUserId: req.session.user._id,
 		message: data.message,
+		createdAt: new Date()
 	});
 
 	message.save((err) => {

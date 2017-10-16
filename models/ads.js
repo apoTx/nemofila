@@ -48,7 +48,7 @@ let adSchema = new Schema({
 	},
 	createdAt: {
 		type: Date,
-		default: new Date()
+		default: Date.now
 	},
 	listingDate: {
 		type: Date,
