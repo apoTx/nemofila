@@ -41,7 +41,7 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 				message: $scope.sendMessageFormData.message,
 				createdAt: new Date(),
 				user: {
-					name: $scope.sendMessageFormData.name,
+					name: $scope.sendMessageFormData.username,
 					surname: $scope.sendMessageFormData.surname
 				}
 			});

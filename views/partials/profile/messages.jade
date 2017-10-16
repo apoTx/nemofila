@@ -6,7 +6,7 @@ append stylesheets
 h2.ui.dividing.header(ng-if="conversations.length > 0") Messages
 h2.text-center(ng-if="conversations.length < 1") No Results
 
-.ui.stackable.two.column.grid(ng-if="conversations.length > 0")
+.ui.stackable.two.column.grid(ng-show="conversations.length > 0")
     .five.wide.column
         .ui.segment.no-segment
             .ui.vertical.menu
@@ -26,7 +26,7 @@ h2.text-center(ng-if="conversations.length < 1") No Results
             .ui.loader
 
     .eleven.wide.column
-        .ui.segment.no-segment(ng-show="visibleMessages", ng-cloak)
+        .ui.segment.no-segment(ng-show="visibleMessages")
             .ui.comments#messageList
                 .comment(ng-repeat="message in messages")
                     .content
