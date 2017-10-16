@@ -1,12 +1,10 @@
 let express = require('express');
 let router = express.Router();
 
+// Models
 let Ads = require('../../models/ads');
 
 let requireLogin = require('../inc/requireLogin.js');
-
-// Helper
-let getAdStatusText = require('../../helper/getAdStatusText');
 
 /* GET users listing. */
 router.get('/getMyAds', requireLogin, (req, res) => {
