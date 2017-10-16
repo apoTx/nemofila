@@ -83,7 +83,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				session: req.session.user
 			};
 
-			if( data.status === false ){
+			if( data.status !== 1){
 				if ( req.session.user ){
 					if (String(data.ownerId) == req.session.user._id || req.session.user.isAdmin)
 						res.render( 'detail', object);

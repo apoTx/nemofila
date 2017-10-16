@@ -21,14 +21,28 @@ block content
 
     div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ data.uuid }' )")
 
-
-
-
-
-        - if (!data.status)
+        - if (data.status === 0)
             .ui.warning.message.margin-bottom-30
                 .header
                     | This ad is in the approval phase
+                |   Only you can view it.
+
+        - if (data.status === 2)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | This ad has been rejected.
+                |   Only you can view it.
+
+        - if (data.status === 3)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | This ad expired.
+                |   Only you can view it.
+
+        - if (data.status === 4)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | This ad has been removed.
                 |   Only you can view it.
 
         .ui.grid
