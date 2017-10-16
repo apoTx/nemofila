@@ -22,6 +22,6 @@ app.config(['$routeProvider', ($routeProvider) => {
 }]).run(['$rootScope', '$location', function($rootScope, $location){
 	let path = function() { return $location.path();};
 	$rootScope.$watch(path, (newVal) => {
-		$rootScope.activetab = newVal;
+		$rootScope.activetab = newVal.split('/')[1];
 	});
 }]);
