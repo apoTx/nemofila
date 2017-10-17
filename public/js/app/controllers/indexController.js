@@ -13,7 +13,6 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 
 		countriesFactory.getCountries().then((response) => {
 			$scope.countries = response;
-			console.log($scope.countries);
 		});
 
 		categoriesFactory.getCategories().then((response) => {

@@ -1,4 +1,4 @@
-app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory', ($scope, $http, $window, layoutFactory) => {
+app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $http, $window, layoutFactory, messageFactory) => {
 
 	// SignUp form validation
 	$('#signUpForm').form({
@@ -195,4 +195,8 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 			}
 		});
 	};
+
+	messageFactory.getUnreadMessages().then((response) => {
+		$scope.messageLength = response.length;
+	});
 }]);

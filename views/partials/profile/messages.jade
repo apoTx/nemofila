@@ -42,6 +42,10 @@ h2.text-center(ng-if="conversations.length < 1") No Results
                 )
                 input(
                     type="hidden",
+                    ng-model="sendMessageFormData.toUserId",
+                )
+                input(
+                    type="hidden",
                     ng-model="sendMessageFormData.username",
                     ng-init="sendMessageFormData.username= '#{user.name}'"
                 )

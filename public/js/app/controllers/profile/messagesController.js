@@ -20,7 +20,8 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 		$scope.loadingMessages = true;
 		messageFactory.getMessages($routeParams.id).then((response) => {
 			$scope.loadingMessages = false;
-			$scope.messages = response;
+			$scope.messages = response.data;
+			$scope.sendMessageFormData.toUserId = response.toUserId;
 			scrollDown();
 		});
 	}
@@ -30,6 +31,7 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 		$scope.sendMessageLoading = true;
 
 		messageFactory.createMessage($scope.sendMessageFormData, $scope.sendMessageFormData.conversationId).then((response) => {
+
 			$scope.sendMessageLoading = false;
 			if (response.status !== 1) {
 				$scope.sendMessageErr = response.error;

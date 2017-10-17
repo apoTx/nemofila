@@ -44,7 +44,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		});
 
 		$scope.imagesa = photoList;
-		console.log($scope.imagesa);
 	};
 
 	$scope.addFavourites = (adId, userId) => {

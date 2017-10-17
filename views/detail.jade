@@ -165,7 +165,6 @@ block content
 
                         form.ui.form#sendMessageForm
                             input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ data.user._id }' ", ng-model="sendMessageFormData.toUserId")
-                            input(type='hidden', ng-init="sendMessageFormData.fromUserId = '#{ sessionId }' ", ng-model="sendMessageFormData.fromUserId")
                             input(type='hidden', ng-init="sendMessageFormData.adId = '#{ data._id }' ", ng-model="sendMessageFormData.adId")
 
                             .fields.ui.grid
@@ -194,5 +193,4 @@ block content
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
-    script(src="/dist/js/app/services/profile/myMessageFactory.min.js")
     script(src="/dist/js/app/controllers/detailController.min.js")

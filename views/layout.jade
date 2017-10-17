@@ -45,9 +45,11 @@ html
                         .ui.simple.dropdown.item
                             a(href="/profile")=user.name
                             i.dropdown.icon
+                            .ui.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                             .menu
                                 a.item(href='/profile#!/myads') My Ads
-                                a.item(href='/profile#!/messages') Messages
+                                a.item(href='/profile#!/messages') Messages &nbsp;
+                                    .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                                 a.item(href='/profile#!/myfavourites') Favourites
                                 a.item(href='/logout') Logout
 
@@ -244,8 +246,14 @@ html
 
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")
+
+        // Factory
+        script(src="/dist/js/app/services/profile/myMessageFactory.min.js")
         script(src="/dist/js/app/services/layoutFactory.min.js")
+
+        // Controller
         script(src="/dist/js/app/controllers/layoutController.min.js")
+
         script(src="/semantic/dist/components/dimmer.min.js")
         script(src="/semantic/dist/components/modal.min.js")
         script(src="/semantic/dist/components/transition.min.js")

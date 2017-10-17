@@ -11,7 +11,7 @@ router.post('/createConversation', requireLogin, (req, res) => {
 	let data = req.body;
 	let object = {
 		'adId': data.adId,
-		'participants.fromUserId': data.fromUserId,
+		'participants.fromUserId': req.session.user._id,
 		'participants.toUserId': data.toUserId,
 	};
 
@@ -88,26 +88,24 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		if (err)
 			return next( err );
 
-		console.log( result );
 		res.json(result);
-
 	});
-
 });
 
 router.post('/createMessage', requireLogin, (req, res) => {
 	let data = req.body;
+	console.log(data);
 
 	let message = new Messages({
 		conversationId: data.conversationId,
 		fromUserId: req.session.user._id,
+		toUserId: data.toUserId,
 		message: data.message,
-		createdAt: new Date()
 	});
 
 	message.save((err) => {
 		if (err)
-			res.json( { error: 'Message cannot sent.' } );
+			res.json( { error: 'Message cannot sent.', err: err } );
 		else
 			res.json( {
 				status: 1,
@@ -137,19 +135,50 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 			}
 		},
 		{ '$unwind': '$user' },
+
+		// User lookup
+		{
+			$lookup: {
+				from: 'conversations',
+				localField: 'conversationId',
+				foreignField: '_id',
+				as: 'conversation'
+			}
+		},
+		{ '$unwind': '$conversation' },
 		{
 			'$project': {
 				'message': 1,
 				'createdAt': 1,
 				'user.name': '$user.name',
 				'user.surname': '$user.surname',
+				'conversation.participants': '$conversation.participants',
 			},
 		},
 	], (err, result)=> {
 		if (err)
 			return next( err );
 
-		console.log( result );
+		let toUserId = String(result[0].conversation.participants.toUserId) != String(req.session.user._id) ? result[0].conversation.participants.toUserId : result[0].conversation.participants.fromUserId;
+
+		res.json({ data: result, toUserId: toUserId });
+	});
+});
+
+router.get('/getUnreadMessages', requireLogin, (req,res,next) => {
+	console.log(req.session.user._id);
+	Messages.aggregate([
+		{
+			'$match': {
+				'toUserId': mongoose.Types.ObjectId(req.session.user._id),
+				'read': false
+			}
+		},
+		{ '$group' : { _id:'$conversationId', count:{ $sum:1 } } }
+	], (err, result)=> {
+		if (err)
+			return next( err );
+
 		res.json(result);
 	});
 });

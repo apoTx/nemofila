@@ -33,7 +33,7 @@ app.factory('messageFactory', ['$http', ($http) => {
 			url: '/profile/myMessages/createMessage',
 			method:'POST',
 			data: {
-				fromUserId: data.fromUserId,
+				toUserId: data.toUserId,
 				message: data.message,
 				conversationId: conversationId,
 			}
@@ -58,10 +58,23 @@ app.factory('messageFactory', ['$http', ($http) => {
 			});
 	};
 
+	let getUnreadMessages = () => {
+		return $http({
+			url: '/profile/myMessages/getUnreadMessages',
+			method:'GET',
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	return {
 		createConversation: createConversation,
 		getConversations: getConversations,
 		createMessage: createMessage,
-		getMessages: getMessages
+		getMessages: getMessages,
+		getUnreadMessages: getUnreadMessages
 	};
 }]);
