@@ -70,11 +70,25 @@ app.factory('messageFactory', ['$http', ($http) => {
 			});
 	};
 
+	let markAsRead = (conversationId, toUserId) => {
+		return $http({
+			url: '/profile/myMessages/markAsRead',
+			method:'GET',
+			params: { conversationId: conversationId, toUserId: toUserId }
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	return {
 		createConversation: createConversation,
 		getConversations: getConversations,
 		createMessage: createMessage,
 		getMessages: getMessages,
-		getUnreadMessages: getUnreadMessages
+		getUnreadMessages: getUnreadMessages,
+		markAsRead: markAsRead
 	};
 }]);

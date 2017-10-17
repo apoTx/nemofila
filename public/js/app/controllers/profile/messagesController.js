@@ -23,6 +23,10 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 			$scope.messages = response.data;
 			$scope.sendMessageFormData.toUserId = response.toUserId;
 			scrollDown();
+
+			messageFactory.markAsRead($routeParams.id, $scope.sendMessageFormData.toUserId).then((response) => {
+				console.log(response);
+			});
 		});
 	}
 
