@@ -11,7 +11,14 @@ let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
 
 let getObject = (data, req) => {
+
+	// For category
 	let childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
+
+	// For location
+	let cityObj = (data.locationObj.cities).find(x => String(x._id) === String(data.location.cityId));
+	let cityName = cityObj.name;
+	let districtName = (cityObj.districts).find(x => String(x._id) === String(data.location.districtId)).name;
 
 	return {
 		title: data.title,
@@ -21,7 +28,13 @@ let getObject = (data, req) => {
 		session: req.session.user,
 		category: {
 			name: data.categoryObj.name,
-			childCategoryName: childCategoryName
+			childCategoryName: childCategoryName,
+			districtName: districtName
+		},
+		location: {
+			name: data.locationObj.name,
+			cityName: cityName,
+			districtName: districtName
 		}
 	};
 };
@@ -63,6 +76,17 @@ router.get('/:slug/:id', (req, res, next) => {
 		},
 		{ '$unwind': '$categoryObj' },
 
+		// countries collection
+		{
+			$lookup: {
+				from: 'countries',
+				localField: 'location.districtId',
+				foreignField: 'cities.districts._id',
+				as: 'locationObj'
+			}
+		},
+		{ '$unwind': '$locationObj' },
+
 		{ $limit: 1 },
 		{
 			'$project': {
@@ -75,13 +99,14 @@ router.get('/:slug/:id', (req, res, next) => {
 				'status': 1,
 				'photoShowcaseIndex': 1,
 				'photos': 1,
-				'location': 1,
 				'user.name': 1,
 				'user._id': 1,
 				'user.surname': 1,
 				'user.phone': 1,
 				'category': 1,
-				'categoryObj': '$categoryObj'
+				'categoryObj': '$categoryObj',
+				'location': 1,
+				'locationObj': '$locationObj'
 			},
 		},
 	], (err, result)=>{
@@ -94,6 +119,8 @@ router.get('/:slug/:id', (req, res, next) => {
 		}else{
 
 			let data = result[0];
+
+			console.log(data);
 
 			if( data.status !== 1){
 				if ( req.session.user ){
