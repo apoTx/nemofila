@@ -7,6 +7,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='ngWig/dist/css/ng-wig.min.css')
 
 
 block content
@@ -43,8 +44,10 @@ block content
                                         | USD
                         .field
                             label Description
-                            textarea(name='description', ng-model='newAdForm.description')
-
+                            ng-wig(
+                                name='description',
+                                ng-model='newAdForm.description'
+                            )
                         .five.fields(country-and-category-dropdowns)
 
                         .ui.tiny.stacked.segment

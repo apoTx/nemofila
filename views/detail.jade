@@ -150,7 +150,7 @@ block content
         h3 Description
         .ui.segment
             p.description
-                | #{ data.description }
+                | #!{ data.description }
 
         - if (sessionId !== null && (sessionId != String(data.user._id)))
             // Send Message Modal
