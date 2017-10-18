@@ -20,6 +20,13 @@ router.get('/:slug/:id', (req, res, next) => {
 
 	Ads.aggregate([
 		{
+			'$match': {
+				'_id': _id,
+			}
+		},
+
+		// User collection
+		{
 			$lookup: {
 				from: 'users',
 				localField: 'ownerId',
@@ -28,21 +35,17 @@ router.get('/:slug/:id', (req, res, next) => {
 			}
 		},
 		{ '$unwind': '$user' },
-		{
-			'$match': {
-				'_id': _id,
-			}
-		},
 
+		// categories collection
 		{
 			$lookup: {
 				from: 'categories',
 				localField: 'category.categoryChildId',
 				foreignField: 'subCategories._id',
-				as: 'category'
+				as: 'categoryObj'
 			}
 		},
-		{ '$unwind': '$category' },
+		{ '$unwind': '$categoryObj' },
 
 		{ $limit: 1 },
 		{
@@ -61,26 +64,32 @@ router.get('/:slug/:id', (req, res, next) => {
 				'user._id': 1,
 				'user.surname': 1,
 				'user.phone': 1,
-				'category': '$category'
+				'category': 1,
+				'categoryObj': '$categoryObj'
 			},
 		},
 	], (err, result)=>{
 		if (err)
 			return next(err);
 
-		console.log(result);
 
 		if(result.length < 1){
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
 
 			let data = result[0];
+			let childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
+
 			let object = {
 				title: data.title,
 				data: data,
 				moment: moment,
 				url: req.protocol + '://' + req.get('host') + req.originalUrl,
-				session: req.session.user
+				session: req.session.user,
+				category: {
+					name: data.categoryObj.name,
+					childCategoryName: childCategoryName
+				}
 			};
 
 			if( data.status !== 1){
