@@ -10,6 +10,22 @@ let requireLogin = require('./inc/requireLogin.js');
 let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
 
+let getObject = (data, req) => {
+	let childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
+
+	return {
+		title: data.title,
+		data: data,
+		moment: moment,
+		url: req.protocol + '://' + req.get('host') + req.originalUrl,
+		session: req.session.user,
+		category: {
+			name: data.categoryObj.name,
+			childCategoryName: childCategoryName
+		}
+	};
+};
+
 router.get('/:slug/:id', (req, res, next) => {
 	let _id;
 	try{
@@ -78,31 +94,18 @@ router.get('/:slug/:id', (req, res, next) => {
 		}else{
 
 			let data = result[0];
-			let childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
-
-			let object = {
-				title: data.title,
-				data: data,
-				moment: moment,
-				url: req.protocol + '://' + req.get('host') + req.originalUrl,
-				session: req.session.user,
-				category: {
-					name: data.categoryObj.name,
-					childCategoryName: childCategoryName
-				}
-			};
 
 			if( data.status !== 1){
 				if ( req.session.user ){
 					if (String(data.ownerId) == req.session.user._id || req.session.user.isAdmin)
-						res.render( 'detail', object);
+						res.render( 'detail', getObject(data,req));
 					else
 						res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}else{
 					res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}
 			}else {
-				res.render( 'detail', object);
+				res.render( 'detail', getObject(data,req));
 			}
 		}
 	});
