@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 let Schema	 = mongoose.Schema;
 let ObjectId = Schema.ObjectId;
 
+
 let adSchema = new Schema({
 	title: {
 		type: String,
@@ -15,7 +16,7 @@ let adSchema = new Schema({
 		// required: true
 	},
 	description: {
-		type: String
+		type: String,
 	},
 	photos: [],
 	photoShowcaseIndex: {
