@@ -296,6 +296,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		let photoList = photos ? photos.concat(uploadedFiles) : null;
 
+		let index;
+		if (photoList !== null)
+			index = photoList.findIndex(img => img.showcase === true);
+		else
+			index = null;
+
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
@@ -303,7 +309,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				data: data,
 				photos: photoList,
 				uuid: uuid,
-				showcaseIndex: $scope.newAdForm.showcaseIndex,
+				showcaseIndex: index,
 				country: {
 					countryId: $scope.countries[$scope.newAdForm.country]._id,
 					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
