@@ -149,6 +149,7 @@ router.get('/searchAd', (req, res) => {
 	let category = JSON.parse(req.query.category);
 
 	Ads.find({
+		status: 1,
 		title: new RegExp(req.query.title, 'i'),
 		'location.countryId': location.countryId ? location.countryId :  { $exists: true },
 		'location.cityId': location.cityId ? location.cityId :  { $exists: true },
