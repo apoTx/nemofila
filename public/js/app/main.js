@@ -6,5 +6,4 @@ let app = angular.module('app',[
 	'thatisuday.ng-image-gallery',
 	'ngWig'
 ]);
-
 /*eslint-enable */
