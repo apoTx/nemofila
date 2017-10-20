@@ -184,11 +184,6 @@ router.get('/getUnreadMessages', requireLogin, (req,res,next) => {
 
 router.get('/markAsRead', requireLogin, (req,res,next) => {
 	let conversationId = req.query.conversationId;
-	let toUserId = req.query.toUserId;
-	console.log(req.query);
-
-	console.log(String(toUserId));
-	console.log(String(req.session.user._id));
 
 	Messages.update({
 		conversationId: conversationId,
