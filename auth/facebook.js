@@ -2,6 +2,8 @@ let passport = require('passport')
 	, FacebookStrategy = require('passport-facebook').Strategy;
 let User = require('../models/users');
 
+let mongoose = require('mongoose');
+
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
 
 passport.use(new FacebookStrategy({
@@ -14,7 +16,7 @@ passport.use(new FacebookStrategy({
 			name: profile.displayName
 		}, {
 			name: profile.displayName,
-			_id: profile.id
+			userid: profile.id
 		}, (err, user) => {
 			if (err) { return done(err); }
 			done(null, user);
