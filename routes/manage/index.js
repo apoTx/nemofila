@@ -3,11 +3,29 @@ let router = express.Router();
 let bcrypt = require('bcryptjs');
 
 let User = require('./../../models/users');
+let Ad = require('./../../models/ads');
 let requireLogin = require('./inc/requireLogin.js');
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
-	res.render('manage/index', { title: 'Dashboard' });
+	Ad.aggregate([
+		{
+			$group: {
+				_id: '$statusText',
+				total: { $sum: 1 },
+			}
+
+		},
+		{
+			$project: {
+				total: 1
+			}
+		}], (err,data) => {
+
+		User.count().then((count) => {
+			res.render('manage/index', { title: 'Dashboard', ads: data, userCount: count });
+		});
+	});
 });
 
 router.get('/login',(req,res) => {

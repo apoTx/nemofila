@@ -1,5 +1,24 @@
 extends layout
 
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/statistic.min.css')
 
 block content
-    | dashboard content
+    h2 Ads
+    .ui.statistics
+        each ad in ads
+            .statistic
+                .value= ad.total
+                .label= ad._id
+
+
+    hr
+
+    h2 Users
+    .ui.statistics
+        .statistic
+            .value
+                | #{ userCount }
+            .label
+                | User
+
