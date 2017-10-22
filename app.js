@@ -21,6 +21,8 @@ let myFavourites = require('./routes/profile/myFavourites');
 let myMessages = require('./routes/profile/myMessages');
 let countries = require('./routes/countries');
 let categories = require('./routes/categories');
+let auth = require('./routes/auth');
+
 
 // Admin Routes
 let manage = require('./routes/manage/index');
@@ -54,6 +56,8 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 // Login sessions
 app.use(sessions({
+	resave: true,
+	saveUninitialized: true,
 	cookieName: 'session',
 	secret: 'asdasjdh19e1djdalsdjasdljDJALSJDLASJDLJSAdkljaslkdj',
 	maxAge: 14 * 24 * 3600000, // 2 weeks
@@ -84,6 +88,7 @@ app.use('/manage/ads', ads);
 app.use('/manage/countries', manage_countries);
 app.use('/manage/categories', manage_categories);
 app.use('/', index);
+app.use('/auth', auth);
 app.use('/newAd', newAd);
 app.use('/detail', detail);
 app.use('/profile', profile);

@@ -48,4 +48,5 @@ let userSchema = new Schema({
 	}
 });
 
+userSchema.statics.findOrCreate = require('find-or-create');
 module.exports = mongoose.model('users', userSchema);
