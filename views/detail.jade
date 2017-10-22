@@ -93,7 +93,8 @@ block content
                     )
                     - if (data.photos !== null)
                         img(
-                            ng-src='/uploads/#{data.uuid}/#{data.photos[data.photoShowcaseIndex].filename}'
+                            ng-init="showcase(#{ JSON.stringify(data.photos) }, #{ data.photoShowcaseIndex })",
+                            ng-src='/uploads/#{data.uuid}/{{ showcase }}'
                         )
                     - else
                         img(ng-src='/img/no-photo.png')
@@ -112,9 +113,9 @@ block content
                             img-bubbles="true",
                         )
 
-                        each photo in data.photos
+                        each photo,k in data.photos
                             img.ui.image.mini(
-                                ng-click='changePhoto()',
+                                ng-click='changePhoto(#{k})',
                                 src='/uploads/#{ data.uuid }/#{ photo.filename }'
                             )
 

@@ -100,8 +100,14 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		$scope.methods.open();
 	};
 
-	$scope.changePhoto = () => {
+	$scope.changePhoto = (index) => {
+		$scope.showcase = $scope.photos[index].filename;
+	};
 
+	$scope.showcase = (data, showcaseIndex) => {
+		$scope.photos = data;
+		$scope.showcaseIndex = showcaseIndex;
+		$scope.showcase = data[$scope.showcaseIndex].filename;
 	};
 
 }]);
