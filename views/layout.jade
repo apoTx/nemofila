@@ -36,12 +36,13 @@ html
             if !user
                 a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") Sign Up
                 a.item(href='javascript:;', ng-click="openSignInModal()") Sign In
-                .item.text-center
-                    a.ui.primary.button(href="/newAd") New Ad
-
             else
-                a(href="/profile")=user.name
+                a.item(href="/profile")=user.name
+                    .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                 a.item(href='/logout') Logout
+
+            .item.text-center
+                a.ui.primary.button(href="/newAd") New Ad
 
         .ui.fixed.inverted.menu
             .ui.container
@@ -69,10 +70,10 @@ html
                         .item
                             a.ui.primary.button.right.floated.right(href="/newAd") New Ad
 
-                .ui.container.mobile.only.grid
-                    .right.menu
-                       a.item(ng-click="toggleSidebar()")
-                            i.sidebar.medium.icon
+            .ui.container.mobile.only.grid
+                .right.menu
+                   a.item(ng-click="toggleSidebar()")
+                        i.sidebar.medium.icon
 
         .pusher
             .ui.main.container.aligned
