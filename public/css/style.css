@@ -138,3 +138,7 @@ form .progress {
 a.black{
     color:#000!important;
 }
+
+.ui.grid.no-grid-padding>*{
+    padding: 0 !important;
+}
