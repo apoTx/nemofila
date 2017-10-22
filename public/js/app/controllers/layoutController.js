@@ -1,4 +1,9 @@
 app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $http, $window, layoutFactory, messageFactory) => {
+	$scope.toggleSidebar = () => {
+		$('.ui.sidebar')
+			.sidebar('setting', 'transition', 'overlay')
+			.sidebar('toggle');
+	};
 
 	// SignUp form validation
 	$('#signUpForm').form({

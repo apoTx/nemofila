@@ -28,9 +28,18 @@ html
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/dimmer.min.css')
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/modal.min.css')
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/transition.min.css')
+            link(rel='stylesheet', type='text/css', href='/semantic/dist/components/sidebar.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
+        .ui.sidebar.inverted.vertical.right.menu
+            a.item
+                | 1
+            a.item
+                | 2
+            a.item
+                | 3
+
         .ui.fixed.inverted.menu
             .ui.container
                 a.header.item(href='/')
@@ -55,9 +64,13 @@ html
 
                     .item
                         a.ui.primary.button.right.floated.right(href="/newAd") New Ad
+                    .item.ui.container.mobile.only.grid(ng-click="toggleSidebar()")
+                        a(href="javascript:;")
+                            i.sidebar.icon
 
-        .ui.main.container.aligned
-            block content
+        .pusher
+            .ui.main.container.aligned
+                block content
 
         .ui.inverted.vertical.footer.segment
             .ui.center.aligned.container
@@ -261,3 +274,4 @@ html
         script(src="/semantic/dist/components/modal.min.js")
         script(src="/semantic/dist/components/transition.min.js")
         script(src="/semantic/dist/components/form.min.js")
+        script(src="/semantic/dist/components/sidebar.min.js")
