@@ -31,3 +31,15 @@ p.description{
     float:none!important;
     display: none!important;
 }
+
+@media only screen and (max-width: 767px) {
+    .ui.stackable.grid > .column:not(.row) {
+        padding: 3px !important;
+    }
+    .ui.stackable.grid > .column:first-child {
+        padding-top: 1rem !important;
+    }
+    .ui.stackable.grid > .column:last-child {
+        padding-bottom: 1rem !important;
+    }
+}
