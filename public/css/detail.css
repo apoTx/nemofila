@@ -29,5 +29,5 @@ p.description{
 }
 .ng-image-gallery .ng-image-gallery-thumbnails .thumb{
     float:none!important;
-    display: inline-block!important;
+    display: none!important;
 }

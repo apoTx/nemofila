@@ -92,7 +92,9 @@ block content
                         href="javascript:;"
                     )
                     - if (data.photos !== null)
-                        img(ng-src='/uploads/#{data.uuid}/#{data.photos[data.photoShowcaseIndex].filename}')
+                        img(
+                            ng-src='/uploads/#{data.uuid}/#{data.photos[data.photoShowcaseIndex].filename}'
+                        )
                     - else
                         img(ng-src='/img/no-photo.png')
 
@@ -109,6 +111,12 @@ block content
                             bubble-size=18,
                             img-bubbles="true",
                         )
+
+                        each photo in data.photos
+                            img.ui.image.mini(
+                                ng-click='changePhoto()',
+                                src='/uploads/#{ data.uuid }/#{ photo.filename }'
+                            )
 
             .ten.wide.column
                 h2 $#{ data.price }

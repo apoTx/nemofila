@@ -100,6 +100,10 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		$scope.methods.open();
 	};
 
+	$scope.changePhoto = () => {
+
+	};
+
 }]);
 
 app.config(['ngImageGalleryOptsProvider', function(ngImageGalleryOptsProvider){
