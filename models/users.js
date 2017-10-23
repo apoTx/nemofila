@@ -37,14 +37,10 @@ let userSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	social         : {
-		id           : String,
-		token        : String,
-		email        : String,
-		name         : String,
-		username     : String,
-		avatar       : String,
-		tip 		 : String
+	social: {
+		id: String,
+		link: String,
+		provider: String
 	}
 });
 
