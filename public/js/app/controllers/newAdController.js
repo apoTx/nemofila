@@ -341,7 +341,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.onDeletePhoto = (index) => {
 		$scope.newAdForm.files.splice(index, 1);
-		if ($scope.newAdForm.showcaseIndex == index){
+		if ($scope.newAdForm.showcaseIndex === index){
 			$scope.newAdForm.files[0].showcase = true;
 			$scope.newAdForm.showcaseIndex = 0;
 		}
