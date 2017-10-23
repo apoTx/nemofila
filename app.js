@@ -56,8 +56,6 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 // Login sessions
 app.use(sessions({
-	resave: true,
-	saveUninitialized: true,
 	cookieName: 'session',
 	secret: 'asdasjdh19e1djdalsdjasdljDJALSJDLASJDLJSAdkljaslkdj',
 	maxAge: 14 * 24 * 3600000, // 2 weeks
@@ -67,6 +65,7 @@ app.use(passport.session());
 
 // User auth
 app.use((req,res,next) => {
+	console.log(req.session)
 	if(req.session && req.session.user){
 		User.findOne({ email:req.session.user.email },(err,user) => {
 			if(user){

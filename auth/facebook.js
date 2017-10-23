@@ -15,9 +15,10 @@ passport.use(new FacebookStrategy({
 	((accessToken, refreshToken, profile, done) => {
 		console.log(profile);
 		User.findOrCreate({
-			name: profile.displayName
+			email: profile.id
 		}, {
 			name: profile._json.first_name,
+			email: profile.id,
 			surname: profile._json.last_name,
 			'social.id': profile.id,
 			'social.link': profile.profileUrl,
