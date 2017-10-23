@@ -12,7 +12,7 @@ passport.use(new FacebookStrategy({
 },
 	((accessToken, refreshToken, profile, done) => {
 		User.findOrCreate({
-			email: profile._json.email
+			'social.id': profile.id
 		}, {
 			name: profile._json.first_name,
 			email: profile._json.email,

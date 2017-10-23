@@ -38,7 +38,6 @@ router.get('/getMyFavourites', requireLogin, (req, res) => {
 		if (err)
 			return next( err );
 
-		console.log(result);
 		res.json(result);
 	});
 });

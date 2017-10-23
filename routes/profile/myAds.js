@@ -25,8 +25,6 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 		if (err)
 			console.log(err);
 
-		console.log(data);
-
 		res.json(data);
 	});
 });
