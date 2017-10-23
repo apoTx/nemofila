@@ -6,10 +6,10 @@ let passportGoogle = require('../auth/google');
 
 /* FACEBOOK ROUTER */
 router.get('/facebook',
-	passportFacebook.authenticate('facebook'));
+	passportFacebook.authenticate('facebook',  { scope: ['email'] }));
 
 router.get('/facebook/callback',
-	passportFacebook.authenticate('facebook', { failureRedirect: '/login',  scope : ['email'] }),
+	passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
 	(req, res) => {
 		// Successful authentication, redirect home.
 		res.redirect('/');
