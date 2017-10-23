@@ -2,6 +2,8 @@ let passport = require('passport')
 	, TwitterStrategy = require('passport-twitter').Strategy;
 let User = require('../models/users');
 
+let mongoose = require('mongoose');
+
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
 
 
@@ -23,11 +25,15 @@ passport.use(new TwitterStrategy({
 	callbackURL: config.twitter.callbackUrl
 },
 	((accessToken, refreshToken, profile, done) => {
+		console.log(profile)
 		User.findOrCreate({
-			name: profile.displayName
+			'social.id': profile.id
 		}, {
 			name: profile.displayName,
-			_id: profile.id
+			email: profile.id,
+			'social.id': profile.id,
+			'social.link': profile.profileUrl,
+			'social.provider': 'Twitter',
 		}, (err, user) => {
 			if (err) {
 				console.log(err);
