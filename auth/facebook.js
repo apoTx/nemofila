@@ -2,8 +2,6 @@ let passport = require('passport')
 	, FacebookStrategy = require('passport-facebook').Strategy;
 let User = require('../models/users');
 
-let mongoose = require('mongoose');
-
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
 
 passport.use(new FacebookStrategy({
