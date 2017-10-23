@@ -124,11 +124,15 @@ html
             .content
                 .ui.grid.stackable.no-margin-bottom
                     .eight.wide.column
-                        button.ui.facebook.button.fluid
+                        a.ui.facebook.button.fluid(href="/auth/facebook")
                             i.facebook.icon
                             |   Sign Up with Facebook
                     .eight.wide.column
-                        button.ui.google.plus.button.fluid
+                        a.ui.twitter.button.fluid(href="/auth/twitter")
+                            i.twitter.icon
+                            |   Sign Up with Twitter
+                    .sixteen.wide.column
+                        a.ui.google.plus.button.fluid(href="/auth/google")
                             i.google.plus.icon
                             |   Sign Up with Google
 
@@ -178,7 +182,7 @@ html
                         a.ui.facebook.button.fluid(href="/auth/facebook")
                             i.facebook.icon
                             |   Sign In with Facebook
-                    .sixteen.wide.column
+                    .sixteen.wide.column.no-padding-top
                         a.ui.twitter.button.fluid(href="/auth/twitter")
                             i.twitter.icon
                             |   Sign In with Twitter
