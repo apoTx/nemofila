@@ -14,11 +14,5 @@ h2.text-center(ng-if="myFavourites.length < 1") No Results
                     | {{ fav.ad.title }}
                 .meta
                     h5.cinema ${{fav.ad.price}}
-                .description
-                    p
-                .extra
-                    .ui.right.floated.primary.button
-                        | Edit
-                        i.right.chevron.icon
     .ui.dimmer(ng-class="{active: loadingMyFavourites }")
         .ui.loader

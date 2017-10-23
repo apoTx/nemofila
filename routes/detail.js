@@ -11,7 +11,7 @@ let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
 
 let getObject = (data, req) => {
-	
+
 	// For category
 	let childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
 
@@ -99,6 +99,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'status': 1,
 				'photoShowcaseIndex': 1,
 				'photos': 1,
+				'listingDate': 1,
 				'user.name': 1,
 				'user._id': 1,
 				'user.surname': 1,

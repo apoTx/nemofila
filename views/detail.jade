@@ -45,7 +45,7 @@ block content
                     | This ad has been removed.
                 |   Only you can view it.
 
-        .ui.grid
+        .ui.stackable.grid
             .ten.wide.column
                 h1 #{data.title}
 
@@ -85,7 +85,7 @@ block content
                         )
                             i.star.icon
 
-        .ui.grid
+        .ui.stackable.grid
             .six.wide.column
                 a.ui.fluid.image(
                         ng-click='openGallery()',
@@ -126,7 +126,7 @@ block content
                             td #{ category.name } / #{ category.childCategoryName }
                         tr
                             td Listing Date
-                            td #{ moment(data.createdAt).format("DD/MM/YYYY") }
+                            td #{ moment(data.listingDate).format("DD/MM/YYYY") }
                         tr
                             td Contact Name
                             td
