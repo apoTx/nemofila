@@ -18,10 +18,10 @@ passport.use(new FacebookStrategy({
 			name: profile._json.first_name,
 			email: profile._json.email ? profile._json.email : profile.id,
 			surname: profile._json.last_name,
+			verify: true,
 			'social.id': profile.id,
 			'social.link': profile.profileUrl,
 			'social.provider': 'Facebook',
-			verify: true
 		}, (err, user) => {
 			if (err) { return done(err); }
 			done(null, user);

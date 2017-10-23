@@ -29,6 +29,7 @@ passport.use(new TwitterStrategy({
 		}, {
 			name: data.name,
 			email: data.email,
+			verify: true,
 			'social.id': data.id,
 			'social.link': data.url,
 			'social.provider': 'Twitter',
