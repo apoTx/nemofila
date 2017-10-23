@@ -2,10 +2,7 @@ let passport = require('passport')
 	, TwitterStrategy = require('passport-twitter').Strategy;
 let User = require('../models/users');
 
-let mongoose = require('mongoose');
-
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
-
 
 passport.serializeUser((user, fn) => {
 	fn(null, user);
@@ -22,17 +19,18 @@ passport.deserializeUser((id, fn) => {
 passport.use(new TwitterStrategy({
 	consumerKey: config.twitter.api_key,
 	consumerSecret: config.twitter.api_secret,
-	callbackURL: config.twitter.callbackUrl
+	callbackURL: config.twitter.callbackUrl,
+	userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
 },
 	((accessToken, refreshToken, profile, done) => {
-		console.log(profile)
+		let data = profile._json;
 		User.findOrCreate({
-			'social.id': profile.id
+			'social.id': data.id
 		}, {
-			name: profile.displayName,
-			email: profile.id,
-			'social.id': profile.id,
-			'social.link': profile.profileUrl,
+			name: data.name,
+			email: data.email,
+			'social.id': data.id,
+			'social.link': data.url,
 			'social.provider': 'Twitter',
 		}, (err, user) => {
 			if (err) {

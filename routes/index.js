@@ -1,7 +1,6 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
-let passport = require('passport');
 
 let router = express.Router();
 

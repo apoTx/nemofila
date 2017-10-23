@@ -64,20 +64,15 @@ app.use(passport.initialize());
 
 // User auth
 app.use((req,res,next) => {
-
-	console.log("PLEASE FIX APP.USE IN APP.JS")
-
+	console.log('PLEASE FIX APP.USE IN APP.JS');
 	if(req.session && (req.session.user || req.session.passport)){
-
 		let findObj;
 		if (req.session.user){
 			findObj = { email: req.session.user.email };
 		}else{
 			findObj = { _id:  req.session.passport.user.doc._id };
 		}
-
 		User.findOne(findObj,(err,user) => {
-			console.log('test');
 			if(user){
 				req.user = user;
 				delete req.user.password;
@@ -86,7 +81,6 @@ app.use((req,res,next) => {
 			}
 			next();
 		});
-
 	}else{
 		next();
 	}
