@@ -17,7 +17,8 @@ passport.use(new GoogleStrategy({
 			'social.id': data.id
 		}, {
 			name: data.name.givenName,
-			email: data.name.familyName,
+			surname: data.name.familyName,
+			email: data.emails[0].value,
 			verify: true,
 			'social.id': data.id,
 			'social.link': data.url,
