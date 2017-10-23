@@ -100,6 +100,11 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		$scope.methods.open();
 	};
 
+	$scope.opened = () => {
+		console.log('ok');
+		return false;
+	};
+
 }]);
 
 app.config(['ngImageGalleryOptsProvider', function(ngImageGalleryOptsProvider){
