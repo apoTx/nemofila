@@ -64,7 +64,6 @@ app.use(passport.initialize());
 
 // User auth
 app.use((req,res,next) => {
-	console.log('PLEASE FIX APP.USE IN APP.JS');
 	if(req.session && (req.session.user || req.session.passport)){
 		let findObj;
 		if (req.session.user){
@@ -80,7 +79,7 @@ app.use((req,res,next) => {
 				res.locals.user = req.user;
 			}
 			next();
-		});
+		}).select({ name: 1, surname:1, _id: 1, isAdmin: true, email: 1 });
 	}else{
 		next();
 	}
