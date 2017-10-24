@@ -1,6 +1,7 @@
 app.controller('accountController',  ['$scope', 'accountFactory',  ($scope, accountFactory) => {
 	// SignUp form validation
 	$('#resetPaswordForm').form({
+		keyboardShortcuts: false,
 		on: 'blur',
 		fields: {
 			password: {

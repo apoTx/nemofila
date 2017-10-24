@@ -10,6 +10,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$(() => {
 		$('#newAdForm').form({
+			keyboardShortcuts: false,
 			on: 'blur',
 			inline : true,
 			fields: {

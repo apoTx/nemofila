@@ -7,6 +7,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 
 	// SignUp form validation
 	$('#signUpForm').form({
+		keyboardShortcuts: false,
 		on: 'blur',
 		fields: {
 			name: {
@@ -68,6 +69,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 
 	// SignIn form validation
 	$('#signInForm').form({
+		keyboardShortcuts: false,
 		on: 'blur',
 		fields: {
 			email: {
@@ -99,6 +101,7 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 
 	// Forgot form validation
 	$('#forgotForm').form( {
+		keyboardShortcuts: false,
 		on: 'blur',
 		closable: false,
 		fields: {

@@ -6,6 +6,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 
 	// Send Message Form validation
 	$('#sendMessageForm').form({
+		keyboardShortcuts: false,
 		on: 'blur',
 		fields: {
 			pw: {
