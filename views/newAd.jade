@@ -32,10 +32,14 @@ block content
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
-                        input(name='policy', ng-init="newAdForm.action= '#{ formdata.action}'", ng-model="newAdForm.action")
+                        input(name='action', ng-init="newAdForm.action= '#{ formdata.action}'", ng-model="newAdForm.action")
                         input(name='policy', ng-init="newAdForm.policy= '#{ formdata.fields.Policy }'", ng-model="newAdForm.policy")
-                        input(name='policy', ng-init="newAdForm.acl= '#{ formdata.fields.acl }'", ng-model="newAdForm.acl")
-                        input(name='policy', ng-init="newAdForm.signature= '#{ formdata.fields['X-Amz-Signature'] }'", ng-model="newAdForm.signature")
+                        input(name='acl', ng-init="newAdForm.acl= '#{ formdata.fields.acl }'", ng-model="newAdForm.acl")
+                        input(name='X-Amz-Signature', ng-init="newAdForm.X_Amz_Signature= '#{ formdata.fields['X-Amz-Signature'] }'", ng-model="newAdForm.X_Amz_Signature")
+                        input(name='X_Amz_Credential', ng-init="newAdForm.X_Amz_Credential= '#{ formdata.fields['X-Amz-Credential'] }'", ng-model="newAdForm.X_Amz_Credential")
+                        input(name='X-Amz-Algorithm', ng-init="newAdForm.X_Amz_Algorithm= '#{ formdata.fields['X-Amz-Algorithm'] }'", ng-model="newAdForm.X_Amz_Algorithm")
+                        input(name='X-Amz-Date', ng-init="newAdForm.X_Amz_Date= '#{ formdata.fields['X-Amz-Date'] }'", ng-model="newAdForm.X_Amz_Date")
+                        input(name='x-amz-meta-uuid', ng-init="newAdForm.x_amz_meta_uuid= '#{ formdata.fields['x-amz-meta-uuid'] }'", ng-model="newAdForm.x_amz_meta_uuid")
 
                         .fields.two
                             .field.wide.twelve

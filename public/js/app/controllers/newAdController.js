@@ -206,21 +206,33 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.uploading = false;
 
 	$scope.uploadFiles = (files, saveRedis/*, uuid*/) => {
+
+		console.log($scope.newAdForm.X_Amz_Signature); // base64-encoded signature based on policy string (see article below)
+		console.log($scope.newAdForm.X_Amz_Credential);
+		console.log($scope.newAdForm.X_Amz_Algorithm);
+		console.log($scope.newAdForm.X_Amz_Date);
+		console.log($scope.newAdForm.x_amz_meta_uuid);
+
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
 			Upload.upload({
 				url: $scope.newAdForm.action,
 				method: 'POST',
-				key: 'test', // the key to store the file on S3, could be file name or customized
-				AWSAccessKeyId: 'AKIAJ5QBSCQVZWV3GTSA',
-				acl: $scope.newAdForm.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
-				policy: $scope.newAdForm.policy, // base64-encoded json policy (see article below)
-				signature: $scope.newAdForm.signature, // base64-encoded signature based on policy string (see article below)
-				'Content-Type': files[0].type != '' ? files.type : 'application/octet-stream', // content type of the file (NotEmpty)
-				filename: files[0].name, // this is needed for Flash polyfill IE8-9
-				file: files[0],
-
+				data: {
+					key: 'test', // the key to store the file on S3, could be file name or customized
+					AWSAccessKeyId: 'AKIAJ5QBSCQVZWV3GTSA',
+					acl: $scope.newAdForm.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
+					Policy: $scope.newAdForm.policy, // base64-encoded json policy (see article below)
+					signature: $scope.newAdForm.X_Amz_Signature, // base64-encoded signature based on policy string (see article below)
+					'X-Amz-Credential': $scope.newAdForm.X_Amz_Credential,
+					'X-Amz-Algorithm': $scope.newAdForm.X_Amz_Algorithm,
+					'X-Amz-Date': $scope.newAdForm.X_Amz_Date,
+					'x-amz-meta-uuid': $scope.newAdForm.x_amz_meta_uuid,
+					'Content-Type': files[0].type != '' ? files.type : 'application/octet-stream', // content type of the file (NotEmpty)
+					filename: files[0].name, // this is needed for Flash polyfill IE8-9
+					file: files[0],
+				}
 			}).then((response) => {
 				$scope.result = response.data;
 				$scope.uploading = false;

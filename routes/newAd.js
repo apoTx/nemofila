@@ -20,8 +20,8 @@ let AwsS3Form = require( 'aws-s3-form' );
 let formGen = new AwsS3Form({
 	accessKeyId:		'AKIAJ5QBSCQVZWV3GTSA',
 	secretAccessKey:	'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',
-	region:				'us-east-2',
-	bucket:				'easyad-mehmet',
+	region:				'eu-central-1',
+	bucket:				'mehmet-easyad-test',
 	redirectUrlTemplate:'http://localhost:3000/redir/<%= filename %>'
 });
 
