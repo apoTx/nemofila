@@ -205,7 +205,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 
-	$scope.uploadFiles = (files, saveRedis, uuid) => {
+	$scope.uploadFiles = (files, saveRedis/*, uuid*/) => {
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
