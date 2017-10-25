@@ -38,7 +38,7 @@ html
                 a.item(href='javascript:;', ng-click="openSignInModal()") Sign In
             else
                 a.item(href="/profile")=user.name
-                    .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
+                    .ui.right.floated.red.label(ng-show="messageLength > 0", ng-cloak, style="display:none") {{ messageLength }}
                 a.item(href='/logout') Logout
 
             .item.text-center
