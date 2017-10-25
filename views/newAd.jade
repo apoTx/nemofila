@@ -32,6 +32,11 @@ block content
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
+                        input(name='policy', ng-init="newAdForm.action= '#{ formdata.action}'", ng-model="newAdForm.action")
+                        input(name='policy', ng-init="newAdForm.policy= '#{ formdata.fields.Policy }'", ng-model="newAdForm.policy")
+                        input(name='policy', ng-init="newAdForm.acl= '#{ formdata.fields.acl }'", ng-model="newAdForm.acl")
+                        input(name='policy', ng-init="newAdForm.signature= '#{ formdata.fields['X-Amz-Signature'] }'", ng-model="newAdForm.signature")
+
                         .fields.two
                             .field.wide.twelve
                                 label Title

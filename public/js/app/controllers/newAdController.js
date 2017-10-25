@@ -13,7 +13,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			keyboardShortcuts: false,
 			on: 'blur',
 			inline : true,
-			fields: {
+			/*fields: {
 				title: {
 					identifier  : 'title',
 					rules: [
@@ -98,7 +98,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				},
-			},
+			},*/
 			onSuccess: () => {
 				$scope.next();
 			}
@@ -210,9 +210,17 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.uploading = true;
 		if (files && files.length) {
 			Upload.upload({
-				url: 'newAd/uploadPhotos/'+ $scope.newAdForm.showcaseIndex +'/'+ uuid,
+				url: $scope.newAdForm.action,
 				method: 'POST',
-				file: files,
+				key: 'test', // the key to store the file on S3, could be file name or customized
+				AWSAccessKeyId: 'AKIAJ5QBSCQVZWV3GTSA',
+				acl: $scope.newAdForm.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
+				policy: $scope.newAdForm.policy, // base64-encoded json policy (see article below)
+				signature: $scope.newAdForm.signature, // base64-encoded signature based on policy string (see article below)
+				'Content-Type': files[0].type != '' ? files.type : 'application/octet-stream', // content type of the file (NotEmpty)
+				filename: files[0].name, // this is needed for Flash polyfill IE8-9
+				file: files[0],
+
 			}).then((response) => {
 				$scope.result = response.data;
 				$scope.uploading = false;

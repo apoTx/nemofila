@@ -15,9 +15,21 @@ let multer  = require('multer');
 // Express router
 let router = express.Router();
 
+let AwsS3Form = require( 'aws-s3-form' );
+
+let formGen = new AwsS3Form({
+	accessKeyId:		'AKIAJ5QBSCQVZWV3GTSA',
+	secretAccessKey:	'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',
+	region:				'us-east-2',
+	bucket:				'easyad-mehmet',
+	redirectUrlTemplate:'http://localhost:3000/redir/<%= filename %>'
+});
+
 /* GET users listing. */
 router.get('/', (req, res) => {
-	res.render( 'newAd', { title: 'New Ad', userExists: req.session.user ? true : false, redisId: req.cookies.newAdRedisId || false });
+	let formdata = formGen.create( 'AKIAJ5QBSCQVZWV3GTSA' );
+	console.log(formdata);
+	res.render( 'newAd', { title: 'New Ad', formdata: formdata, userExists: req.session.user ? true : false, redisId: req.cookies.newAdRedisId || false });
 });
 
 router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
