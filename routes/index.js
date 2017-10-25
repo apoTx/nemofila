@@ -14,7 +14,7 @@ let mailer = require('../helper/mailer');
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	res.render('index', { title:'Easy Ads', user: req.session.user });
+	res.render('index', { title:'Home', user: req.session.user });
 });
 
 router.get( '/login', ( req, res ) => {
