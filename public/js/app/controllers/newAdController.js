@@ -203,17 +203,20 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 
+	function guid() {
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000)
+				.toString(16)
+				.substring(1);
+		}
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+			s4() + '-' + s4() + s4() + s4();
+	}
+
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 
 	$scope.uploadFiles = (files, saveRedis/*, uuid*/) => {
-
-		console.log($scope.newAdForm.X_Amz_Signature); // base64-encoded signature based on policy string (see article below)
-		console.log($scope.newAdForm.X_Amz_Credential);
-		console.log($scope.newAdForm.X_Amz_Algorithm);
-		console.log($scope.newAdForm.X_Amz_Date);
-		console.log($scope.newAdForm.x_amz_meta_uuid);
-
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
@@ -222,7 +225,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					url: 'https://mehmet-easyad-test.s3-eu-central-1.amazonaws.com',
 					method: 'POST',
 					data: {
-						key: file.name, // the key to store the file on S3, could be file name or customized
+						key: guid() +'_'+file.name, // the key to store the file on S3, could be file name or customized
 						acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
 						policy: $scope.policy, // base64-encoded json policy (see article below)
 						'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
