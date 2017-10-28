@@ -202,6 +202,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
+	
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 
@@ -217,18 +218,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.uploading = true;
 		if (files && files.length) {
 			Upload.upload({
-				url: $scope.newAdForm.action,
+				url: 'https://mehmet-easyad-test.s3-eu-central-1.amazonaws.com',
 				method: 'POST',
 				data: {
-					key: 'test', // the key to store the file on S3, could be file name or customized
-					AWSAccessKeyId: 'AKIAJ5QBSCQVZWV3GTSA',
-					acl: $scope.newAdForm.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
-					Policy: $scope.newAdForm.policy, // base64-encoded json policy (see article below)
-					signature: $scope.newAdForm.X_Amz_Signature, // base64-encoded signature based on policy string (see article below)
-					'X-Amz-Credential': $scope.newAdForm.X_Amz_Credential,
-					'X-Amz-Algorithm': $scope.newAdForm.X_Amz_Algorithm,
-					'X-Amz-Date': $scope.newAdForm.X_Amz_Date,
-					'x-amz-meta-uuid': $scope.newAdForm.x_amz_meta_uuid,
+					key: 'deneme', // the key to store the file on S3, could be file name or customized
+					acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
+					policy: $scope.policy, // base64-encoded json policy (see article below)
+					'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
+					'X-amz-credential': $scope.x_amz_credential,
+					'X-amz-algorithm': $scope.X_amz_algorithm,
+					'X-amz-date': $scope.X_amz_date,
 					'Content-Type': files[0].type != '' ? files.type : 'application/octet-stream', // content type of the file (NotEmpty)
 					filename: files[0].name, // this is needed for Flash polyfill IE8-9
 					file: files[0],

@@ -13,6 +13,7 @@ append stylesheets
 block content
     div(ng-controller="newAdController")
         div(ng-if="!adSaveComplete", ng-cloak)
+
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' " ng-cloak)
                     i.info.icon
@@ -32,14 +33,25 @@ block content
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
-                        input(name='action', ng-init="newAdForm.action= '#{ formdata.action}'", ng-model="newAdForm.action")
-                        input(name='policy', ng-init="newAdForm.policy= '#{ formdata.fields.Policy }'", ng-model="newAdForm.policy")
-                        input(name='acl', ng-init="newAdForm.acl= '#{ formdata.fields.acl }'", ng-model="newAdForm.acl")
-                        input(name='X-Amz-Signature', ng-init="newAdForm.X_Amz_Signature= '#{ formdata.fields['X-Amz-Signature'] }'", ng-model="newAdForm.X_Amz_Signature")
-                        input(name='X_Amz_Credential', ng-init="newAdForm.X_Amz_Credential= '#{ formdata.fields['X-Amz-Credential'] }'", ng-model="newAdForm.X_Amz_Credential")
-                        input(name='X-Amz-Algorithm', ng-init="newAdForm.X_Amz_Algorithm= '#{ formdata.fields['X-Amz-Algorithm'] }'", ng-model="newAdForm.X_Amz_Algorithm")
-                        input(name='X-Amz-Date', ng-init="newAdForm.X_Amz_Date= '#{ formdata.fields['X-Amz-Date'] }'", ng-model="newAdForm.X_Amz_Date")
-                        input(name='x-amz-meta-uuid', ng-init="newAdForm.x_amz_meta_uuid= '#{ formdata.fields['x-amz-meta-uuid'] }'", ng-model="newAdForm.x_amz_meta_uuid")
+                        input(name='Content-Type', value='')
+                        input(name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
+                        input(name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
+                        | {{ acl }}
+                        input(name='success_action_status', ng-model="success_action_status", ng-init="success_action_status= '#{ formdata.inputs.success_action_status }'" )
+                        | {{ success_action_status }}
+                        input(name='policy', ng-model="policy", ng-init="policy = '#{ formdata.inputs.policy }'")
+                        | {{ policy }}
+                        input(name='X-amz-credential', ng-model="x_amz_credential", ng-init="x_amz_credential= '#{ formdata.inputs['X-amz-credential'] }'")
+                        | {{ x_amz_credential }}
+                        input(name='X-amz-algorithm', ng-model="X_amz_algorithm", ng-init="X_amz_algorithm = '#{ formdata.inputs['X-amz-algorithm'] }'")
+                        | {{ X_amz_algorithm }}
+                        input(name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
+                        | {{ X_amz_date }}
+                        input(name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
+                        | {{ X_amz_expires }}
+                        input(name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
+                        | {{ X_amz_signature }}
+
 
                         .fields.two
                             .field.wide.twelve

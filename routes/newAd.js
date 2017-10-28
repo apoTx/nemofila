@@ -2,6 +2,8 @@ let express = require('express');
 let client = require('../redis/client.js');
 let fs = require('fs');
 let slugify = require('slugify');
+let request = require('request');
+
 
 // Models
 let Ads = require('../models/ads');
@@ -27,9 +29,17 @@ let formGen = new AwsS3Form({
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-	let formdata = formGen.create( 'AKIAJ5QBSCQVZWV3GTSA' );
-	console.log(formdata);
-	res.render( 'newAd', { title: 'New Ad', formdata: formdata, userExists: req.session.user ? true : false, redisId: req.cookies.newAdRedisId || false });
+
+	request('http://localhost/amazon-service.php', (error, response, body) => {
+		res.render( 'newAd', {
+			title: 'New Ad',
+			userExists: req.session.user ? true : false,
+			redisId: req.cookies.newAdRedisId || false,
+			formdata: JSON.parse(body)
+		});
+	});
+
+
 });
 
 router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
