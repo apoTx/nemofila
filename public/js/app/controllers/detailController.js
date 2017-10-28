@@ -31,7 +31,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		},
 	});
 
-	$scope.init = (userId, adId, photos, uuid) => {
+	$scope.init = (userId, adId, photos, amazon_base_url) => {
 		if ( userId !== null ){
 			favFactory.isFav(userId,adId).then((response) => {
 				$scope.isFav = response.isFav;
@@ -40,7 +40,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 
 		let photoList = JSON.parse(photos);
 		photoList.forEach((elem,index)=>{
-			elem.url = '/uploads/'+ uuid +'/'+elem.filename;
+			elem.url = amazon_base_url+'/'+elem.filename;
 			elem.id = index;
 		});
 

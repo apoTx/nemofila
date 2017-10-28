@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
 
 router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
 	const _uuid = req.params.uuid !== 'undefined' && req.params.uuid !=='false' ? req.params.uuid : uuid.v1();
-	const photos = [];
+	let photos = [];
 	let showcaseIndex = req.params.showcaseIndex;
 
 	let storage = multer.diskStorage({

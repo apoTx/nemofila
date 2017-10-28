@@ -4,6 +4,8 @@ let moment = require('moment');
 let mongoose = require('mongoose');
 let ObjectId = mongoose.Types.ObjectId;
 
+let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+
 let requireLogin = require('./inc/requireLogin.js');
 
 // Models
@@ -35,7 +37,8 @@ let getObject = (data, req) => {
 			name: data.locationObj.name,
 			cityName: cityName,
 			districtName: districtName
-		}
+		},
+		amazon_base_url: config.amazon_s3.photo_base_url
 	};
 };
 
@@ -120,8 +123,6 @@ router.get('/:slug/:id', (req, res, next) => {
 		}else{
 
 			let data = result[0];
-
-			console.log(data);
 
 			if( data.status !== 1){
 				if ( req.session.user ){

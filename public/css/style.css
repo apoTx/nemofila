@@ -108,7 +108,8 @@ form .progress {
     background: limegreen;
     width: 30px;
     height: 100%;
-    line-height:110px;
+    display: flex;
+    align-items: center;
     font-size:13px;
     text-align:center
 }

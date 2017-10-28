@@ -220,12 +220,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
+
+			let itemsProcessed = 0;
+			let photos = [];
+
 			angular.forEach(files, (file) => {
+				let photoName = guid() +'_'+file.name;
+
 				file.upload = Upload.upload({
-					url: 'https://mehmet-easyad-test.s3-eu-central-1.amazonaws.com',
+					url: 'https://easyad-static.s3-eu-central-1.amazonaws.com',
 					method: 'POST',
 					data: {
-						key: guid() +'_'+file.name, // the key to store the file on S3, could be file name or customized
+						key: photoName, // the key to store the file on S3, could be file name or customized
 						acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
 						policy: $scope.policy, // base64-encoded json policy (see article below)
 						'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
@@ -240,13 +246,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 				file.upload.then((response) => {
 					$scope.result = response.data;
-					$scope.uploading = false;
 					file.progressFinish = true;
-					if (response.data.status === 1 ){
+
+					itemsProcessed++;
+					photos.push({ filename: photoName });
+
+					if(itemsProcessed === files.length) {
+						$scope.uploading = false;
+
 						if (saveRedis){
 							$scope.saveAdToRedis(response.data.uuid, response.data.photos);
 						}else{ // mongo
-							$scope.onSubmitAd(response.data.uuid, response.data.photos );
+							$scope.onSubmitAd(response.data.uuid, photos );
 						}
 					}
 				}, (response) => {
@@ -324,11 +335,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		let photoList = photos ? photos.concat(uploadedFiles) : null;
 
-		let index;
+		/*let index;
 		if (photoList !== null)
 			index = photoList.findIndex(img => img.showcase === true);
 		else
-			index = null;
+			index = null;*/
 
 		$http({
 			url: '/newAd/create',
@@ -337,7 +348,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				data: data,
 				photos: photoList,
 				uuid: uuid,
-				showcaseIndex: index,
+				showcaseIndex: $scope.newAdForm.showcaseIndex,
 				country: {
 					countryId: $scope.countries[$scope.newAdForm.country]._id,
 					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,

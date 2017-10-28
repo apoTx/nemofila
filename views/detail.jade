@@ -19,7 +19,7 @@ block content
 
     - var photosList = JSON.stringify(data.photos);
 
-    div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ data.uuid }' )")
+    div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ amazon_base_url }' )")
 
         - if (data.status === 0)
             .ui.warning.message.margin-bottom-30
@@ -94,7 +94,7 @@ block content
                     - if (data.photos !== null)
                         img(
                             ng-init="showcase(#{ JSON.stringify(data.photos) }, #{ data.photoShowcaseIndex })",
-                            ng-src='/uploads/#{data.uuid}/{{ showcase }}'
+                            ng-src='#{ amazon_base_url }/{{ showcase }}'
                         )
                     - else
                         img(ng-src='/img/no-photo.png')
@@ -116,7 +116,7 @@ block content
                         each photo,k in data.photos
                             img.ui.image.mini(
                                 ng-click='changePhoto(#{k})',
-                                src='/uploads/#{ data.uuid }/#{ photo.filename }'
+                                src='#{ amazon_base_url }/#{ photo.filename }'
                             )
 
             .ten.wide.column

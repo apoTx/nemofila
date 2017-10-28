@@ -2,6 +2,8 @@ let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
 
+let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+
 let router = express.Router();
 
 // Models
@@ -14,7 +16,7 @@ let mailer = require('../helper/mailer');
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	res.render('index', { title:'Home', user: req.session.user });
+	res.render('index', { title:'Home', user: req.session.user, amazon_base_url: config.amazon_s3.photo_base_url });
 });
 
 router.get( '/login', ( req, res ) => {

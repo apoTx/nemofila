@@ -34,7 +34,7 @@ block content
                 .four.wide.column(ng-repeat="ad in ads")
                     a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
                         .image
-                            img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
+                            img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
                         .content
                             span {{ ad.title | limitTo: 16 }} {{ ad.title.length > 16 ? '...' : ''}}
             .ui.dimmer(ng-class="{ active:indexAdsLoading }")
