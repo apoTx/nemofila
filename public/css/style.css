@@ -92,18 +92,24 @@ form .progress {
 }
 
 .progress {
-    display: inline-block;
+    z-index:9999;
     width: 100%;
     border: 1px groove #ddd;
-    margin-top: 20px;
     height:25px;
+    opacity: .9;
+    position: absolute;
+    left:0;
+    top:0;
+    height: 100%;
+    background-color: gray;
 }
 
 .progress div {
-    background: orange;
+    background: limegreen;
     width: 30px;
-    line-height:23px;
-    font-size:11px;
+    height: 100%;
+    line-height:110px;
+    font-size:13px;
     text-align:center
 }
 

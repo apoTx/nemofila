@@ -241,6 +241,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				file.upload.then((response) => {
 					$scope.result = response.data;
 					$scope.uploading = false;
+					file.progressFinish = true;
 					if (response.data.status === 1 ){
 						if (saveRedis){
 							$scope.saveAdToRedis(response.data.uuid, response.data.photos);
@@ -253,8 +254,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						$scope.errorMsg = response.status + ': ' + response.data;
 					}
 				}, (evt) => {
-					$scope.progress =
-						Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+					file.progress = Math.min(100, parseInt(100.0 *
+						evt.loaded / evt.total));
 				});
 			}); // foreach
 		}

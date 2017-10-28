@@ -33,25 +33,16 @@ block content
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
-                        input(name='Content-Type', value='')
-                        input(name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
-                        input(name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
-                        | {{ acl }}
-                        input(name='success_action_status', ng-model="success_action_status", ng-init="success_action_status= '#{ formdata.inputs.success_action_status }'" )
-                        | {{ success_action_status }}
-                        input(name='policy', ng-model="policy", ng-init="policy = '#{ formdata.inputs.policy }'")
-                        | {{ policy }}
-                        input(name='X-amz-credential', ng-model="x_amz_credential", ng-init="x_amz_credential= '#{ formdata.inputs['X-amz-credential'] }'")
-                        | {{ x_amz_credential }}
-                        input(name='X-amz-algorithm', ng-model="X_amz_algorithm", ng-init="X_amz_algorithm = '#{ formdata.inputs['X-amz-algorithm'] }'")
-                        | {{ X_amz_algorithm }}
-                        input(name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
-                        | {{ X_amz_date }}
-                        input(name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
-                        | {{ X_amz_expires }}
-                        input(name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
-                        | {{ X_amz_signature }}
-
+                        input(type='hidden', name='Content-Type', value='')
+                        input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
+                        input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
+                        input(type='hidden', name='success_action_status', ng-model="success_action_status", ng-init="success_action_status= '#{ formdata.inputs.success_action_status }'" )
+                        input(type='hidden', name='policy', ng-model="policy", ng-init="policy = '#{ formdata.inputs.policy }'")
+                        input(type='hidden', name='X-amz-credential', ng-model="x_amz_credential", ng-init="x_amz_credential= '#{ formdata.inputs['X-amz-credential'] }'")
+                        input(type='hidden', name='X-amz-algorithm', ng-model="X_amz_algorithm", ng-init="X_amz_algorithm = '#{ formdata.inputs['X-amz-algorithm'] }'")
+                        input(type='hidden', name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
+                        input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
+                        input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
 
                         .fields.two
                             .field.wide.twelve
@@ -98,19 +89,6 @@ block content
                             .clearfix &nbsp;
 
                             .ui.four.stackable.cards
-                                button(ngf-select='denemeUpload($files, $invalidFiles)', multiple='', accept='image/*', ngf-max-height='1000', ngf-max-size='1MB')
-                                    | Select Files
-
-                                | Files:
-                                ul
-                                    li(ng-repeat='f in files', style='font:smaller')
-                                        | {{f.name}} {{f.$errorParam}}
-                                        span.progress(ng-show='f.progress >= 0')
-                                            div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
-                                    li(ng-repeat='f in errFiles', style='font:smaller')
-                                        | {{f.name}} {{f.$error}} {{f.$errorParam}}
-                                |   {{errorMsg}}
-
                                 .card(ng-repeat='f in newAdForm.files')
                                     .image
                                         a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
@@ -126,18 +104,18 @@ block content
                                         i.remove.icon
                                         |  Remove
 
+
+
                                     .ui.two.buttons(ng-if="!f.showcase", ng-cloak)
                                         .ui.bottom.attached.button(ng-click="onDeletePhoto($index)")
                                             i.remove.icon.margin-auto
                                         .ui.bottom.attached.button(ng-click="onSelectShowCase($index)")
                                             i.bookmark.icon.margin-auto
 
-                            // button.ui.button.primary(ng-click="uploadFiles(newAdForm.files)")
-                                | Upload
+                                    span.progress(ng-hide="f.progressFinish")
+                                        div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
 
-                            .progress(ng-show='progress >= 0')
-                                    div(style='width:{{progress}}%', ng-bind="progress + '%'")
-                                |     {{errorMsg}}
+                                | {{errorMsg}}
 
                         .field.ui.segment
                             .ui.grid
