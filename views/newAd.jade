@@ -98,6 +98,19 @@ block content
                             .clearfix &nbsp;
 
                             .ui.four.stackable.cards
+                                button(ngf-select='denemeUpload($files, $invalidFiles)', multiple='', accept='image/*', ngf-max-height='1000', ngf-max-size='1MB')
+                                    | Select Files
+
+                                | Files:
+                                ul
+                                    li(ng-repeat='f in files', style='font:smaller')
+                                        | {{f.name}} {{f.$errorParam}}
+                                        span.progress(ng-show='f.progress >= 0')
+                                            div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
+                                    li(ng-repeat='f in errFiles', style='font:smaller')
+                                        | {{f.name}} {{f.$error}} {{f.$errorParam}}
+                                |   {{errorMsg}}
+
                                 .card(ng-repeat='f in newAdForm.files')
                                     .image
                                         a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
