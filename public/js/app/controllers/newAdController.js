@@ -202,7 +202,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-	
+
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 
@@ -217,39 +217,43 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
-			Upload.upload({
-				url: 'https://mehmet-easyad-test.s3-eu-central-1.amazonaws.com',
-				method: 'POST',
-				data: {
-					key: 'deneme', // the key to store the file on S3, could be file name or customized
-					acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
-					policy: $scope.policy, // base64-encoded json policy (see article below)
-					'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
-					'X-amz-credential': $scope.x_amz_credential,
-					'X-amz-algorithm': $scope.X_amz_algorithm,
-					'X-amz-date': $scope.X_amz_date,
-					'Content-Type': files[0].type != '' ? files.type : 'application/octet-stream', // content type of the file (NotEmpty)
-					filename: files[0].name, // this is needed for Flash polyfill IE8-9
-					file: files[0],
-				}
-			}).then((response) => {
-				$scope.result = response.data;
-				$scope.uploading = false;
-				if (response.data.status === 1 ){
-					if (saveRedis){
-						$scope.saveAdToRedis(response.data.uuid, response.data.photos);
-					}else{ // mongo
-						$scope.onSubmitAd(response.data.uuid, response.data.photos );
+			angular.forEach(files, (file) => {
+				file.upload = Upload.upload({
+					url: 'https://mehmet-easyad-test.s3-eu-central-1.amazonaws.com',
+					method: 'POST',
+					data: {
+						key: file.name, // the key to store the file on S3, could be file name or customized
+						acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
+						policy: $scope.policy, // base64-encoded json policy (see article below)
+						'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
+						'X-amz-credential': $scope.x_amz_credential,
+						'X-amz-algorithm': $scope.X_amz_algorithm,
+						'X-amz-date': $scope.X_amz_date,
+						'Content-Type': file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+						filename: file.name, // this is needed for Flash polyfill IE8-9
+						file: file,
 					}
-				}
-			}, (response) => {
-				if (response.status > 0) {
-					$scope.errorMsg = response.status + ': ' + response.data;
-				}
-			}, (evt) => {
-				$scope.progress =
-					Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
+				});
+
+				file.upload.then((response) => {
+					$scope.result = response.data;
+					$scope.uploading = false;
+					if (response.data.status === 1 ){
+						if (saveRedis){
+							$scope.saveAdToRedis(response.data.uuid, response.data.photos);
+						}else{ // mongo
+							$scope.onSubmitAd(response.data.uuid, response.data.photos );
+						}
+					}
+				}, (response) => {
+					if (response.status > 0) {
+						$scope.errorMsg = response.status + ': ' + response.data;
+					}
+				}, (evt) => {
+					$scope.progress =
+						Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+				});
+			}); // foreach
 		}
 	};
 
