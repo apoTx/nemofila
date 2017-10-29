@@ -255,9 +255,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						$scope.uploading = false;
 
 						if (saveRedis){
-							$scope.saveAdToRedis(response.data.uuid, response.data.photos);
+							$scope.saveAdToRedis(photos);
 						}else{ // mongo
-							$scope.onSubmitAd(response.data.uuid, photos );
+							$scope.onSubmitAd( photos );
 						}
 					}
 				}, (response) => {
@@ -273,17 +273,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 
-	$scope.saveAdToRedis = (uuid, photos) => {
+	$scope.saveAdToRedis = ( photos) => {
 		$scope.newAdBtnLoading = true;
 
-		/* eslint-disable */
-		var data;
-		/* eslint-enable */
-		if (uuid !== null){
-			data = 	{ 'data':$scope.newAdForm, 'uuid': uuid, 'photos':photos };
-		}else {
-			data = { 'data':$scope.newAdForm };
-		}
+		let	data = 	{ 'data':$scope.newAdForm, 'photos':photos };
 
 		$http({
 			url: '/newAd/saveAdRedis',
@@ -327,7 +320,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.adSaveComplete = false;
 	$scope.submitBtnLoading = false;
-	$scope.onSubmitAd = (uuid, photos) => {
+	$scope.onSubmitAd = (photos) => {
 		$scope.submitBtnLoading = true;
 
 		let data = Object.assign({}, $scope.newAdForm);
@@ -347,7 +340,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			data: {
 				data: data,
 				photos: photoList,
-				uuid: uuid,
 				showcaseIndex: $scope.newAdForm.showcaseIndex,
 				country: {
 					countryId: $scope.countries[$scope.newAdForm.country]._id,

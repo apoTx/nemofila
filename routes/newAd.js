@@ -4,6 +4,8 @@ let fs = require('fs');
 let slugify = require('slugify');
 let request = require('request');
 
+let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+
 
 // Models
 let Ads = require('../models/ads');
@@ -35,7 +37,8 @@ router.get('/', (req, res) => {
 			title: 'New Ad',
 			userExists: req.session.user ? true : false,
 			redisId: req.cookies.newAdRedisId || false,
-			formdata: JSON.parse(body)
+			formdata: JSON.parse(body),
+			amazon_base_url: config.amazon_s3.photo_base_url
 		});
 	});
 
