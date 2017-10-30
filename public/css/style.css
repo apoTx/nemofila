@@ -47,7 +47,9 @@ body {
 .no-margin-right{
     margin-right:0 !important;
 }
-
+.margin-top-30{
+    margin-top:30px!important;
+}
 .margin-bottom-30{
     margin-bottom:30px!important;
 }

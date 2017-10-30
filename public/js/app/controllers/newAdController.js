@@ -9,6 +9,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.steps.power = false;
 	$scope.steps.preview = false;
 
+	$scope.powerNumber = '1';
 
 	$(() => {
 		// stripe
@@ -20,8 +21,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$('#buttonCheckout').on('click', (ev) => {
 			console.log('asd');
 			checkoutHandler.open({
-				name: 'Sample Store',
-				description: 'Example Purchase',
+				name: 'Easyad',
+				description: 'Power Purchase',
 				token: handleToken
 			});
 		});
@@ -30,7 +31,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			fetch('/charge', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(token)
+				body: JSON.stringify(Object.assign(token, { amount: $('select[name=powernumber]').val() })),
 			})
 				.then(output => {
 					if (output.status === 'succeeded')

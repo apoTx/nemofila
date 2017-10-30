@@ -77,7 +77,9 @@ router.post('/login', (req,res) => {
 });
 
 router.post('/charge', (req, res) => {
-	let amount = 500;
+	let amount = parseInt(req.body.amount) * 1000;
+
+	console.log(amount)
 
 	stripe.customers.create({
 		email: req.body.email,

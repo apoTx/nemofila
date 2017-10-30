@@ -158,12 +158,24 @@ block content
                 div#powerTab(ng-show="steps.power", ng-cloak)
                     div.text-center
                         h1 Power Up!
+
+
+                        .field
+                            | {{ powerNumber }}
+                            select(name='powernumber', ng-model="powerNumber")
+                                option(value='') Please Select
+                                option(value='1') 1
+                                option(value='2') 2
+                                option(value='3') 3
+
+
                         button.ui.primary.button#buttonCheckout Buy Power
 
-                    button.ui.right.floated.primary.button(ng-click="previewTab()")
-                        | Next
-                    button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
-                        | Back
+                    div.padding-30
+                        button.ui.right.floated.primary.button(ng-click="previewTab()")
+                            | Next
+                        button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
+                            | Back
 
 
 
