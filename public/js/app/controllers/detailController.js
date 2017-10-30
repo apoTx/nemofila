@@ -63,6 +63,15 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		});
 	};
 
+	$(() => {
+		$('#sendMessageModal').modal({
+			onHide: function(){
+				$scope.messageSended = false;
+				$scope.sendMessageFormData.message = '';
+			}
+		});
+	});
+
 	$scope.openSendMessageModal = () => {
 		$('#sendMessageModal').modal('show');
 	};
