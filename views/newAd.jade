@@ -21,6 +21,12 @@ block content
                         .title Ad Information
                         .description Please enter your ad informations.
 
+                a.step(ng-class="steps.power ? 'active': 'disabled' " ng-cloak)
+                    i.rocket.icon
+                    .content
+                        .title Buy Power
+                        .description Your ad is in the top row.
+
                 a.step.disabled(ng-class="steps.preview ? 'active':'disabled' " ng-cloak)
                     i.unhide.icon
                     .content
@@ -32,11 +38,6 @@ block content
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
-
-                    div.text-center
-                        h1 Power Up!
-                        a.ui.primary.button(href="./") Buy Power
-
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
@@ -153,6 +154,19 @@ block content
 
                         .clearfix
 
+
+                div#powerTab(ng-show="steps.power", ng-cloak)
+                    div.text-center
+                        h1 Power Up!
+                        button.ui.primary.button#buttonCheckout Buy Power
+
+                    button.ui.right.floated.primary.button(ng-click="previewTab()")
+                        | Next
+                    button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
+                        | Back
+
+
+
                 div#preview(ng-show="steps.preview", ng-cloak)
                     h2 {{ newAdForm.title }}
                     h4 {{ newAdForm.price | currency }}
@@ -182,14 +196,14 @@ block content
 
                     button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | Save
-                    button.ui.right.floated.secondary.button(ng-click="adInformationTab()", ng-class="{disabled:uploading}")
+                    button.ui.right.floated.secondary.button(ng-click="powerTab()", ng-class="{disabled:uploading}")
                         | Back
 
         div(ng-if="adSaveComplete", ng-cloak)
             div.text-center
                 h1 Everything is ok!
                 div.margin-bottom-30 Your ad will be published after it is approved
-
+                a.ui.primary.button(href="./") Home
 
 
 
@@ -198,5 +212,5 @@ append javascripts
     script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="https://checkout.stripe.com/checkout.js")
-    script(src="/dist/js/app/controllers/newAdController.min.js")
+    script(src="/js/app/controllers/newAdController.js")
     script(src="semantic/dist/components/checkbox.min.js")

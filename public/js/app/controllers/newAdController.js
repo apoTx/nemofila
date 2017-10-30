@@ -1,15 +1,12 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
 
-
-
-
-
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
 
 	$scope.steps = {};
 	$scope.steps.informations = true;
+	$scope.steps.power = false;
 	$scope.steps.preview = false;
 
 
@@ -177,8 +174,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			console.log('uploadAndSaveRedis()');
 			$scope.uploadAndSaveRedis();
 		}else{
-			console.log('previewTab()');
-			$scope.previewTab();
+			console.log('powerTab()');
+			$scope.powerTab();
 		}
 
 		$scope.$apply();
@@ -424,17 +421,25 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	let completeSaveAd = () => {
 		$scope.openSignInModal();
-		$scope.previewTab();
+		$scope.powerTab();
 		$scope.nextLoader = false;
 	};
 
 	$scope.previewTab = () => {
 		$scope.steps.informations = false;
+		$scope.steps.power = false;
 		$scope.steps.preview = true;
+	};
+
+	$scope.powerTab = () => {
+		$scope.steps.informations = false;
+		$scope.steps.power = true;
+		$scope.steps.preview = false;
 	};
 
 	$scope.adInformationTab = () => {
 		$scope.steps.informations = true;
+		$scope.steps.power = false;
 		$scope.steps.preview = false;
 	};
 
