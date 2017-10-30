@@ -23,7 +23,7 @@ let router = express.Router();
 /* GET users listing. */
 router.get('/', (req, res) => {
 
-	request('http://localhost/amazon-service.php', (error, response, body) => {
+	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 		res.render( 'newAd', {
 			title: 'New Ad',
 			userExists: req.session.user ? true : false,
