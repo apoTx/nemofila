@@ -44,6 +44,7 @@ html
             .item.text-center
                 a.ui.primary.button(href="/newAd") New Ad
 
+
         .ui.fixed.inverted.menu
             .ui.container
                 a.header.item(href='/')
@@ -68,7 +69,11 @@ html
                                     a.item(href='/logout') Logout
 
                         .item
-                            a.ui.primary.button.right.floated.right(href="/newAd") New Ad
+                            if user
+                                a.ui.primary.button.right.floated.right(href="/newAd") New Ad
+                            else
+                                button.ui.primary.button.right.floated.right(ng-click="openSignInModal()") New Ad
+
 
             .ui.container.mobile.only.grid.no-grid-padding
                 .right.menu
@@ -166,7 +171,7 @@ html
 
             .actions
                 button.ui.left.floated.button(ng-click="openSignInModal()")
-                    | Sign In
+                    | Login
 
                 button.ui.right.icon.button.primary(form="signUpForm", ng-class="registerBtnLoading ? 'loading disabled' : '' ")
                     | Sign Up
@@ -201,6 +206,9 @@ html
                             input(name='email', placeholder='E-mail', ng-model='loginFormData.email')
                         .field.sixteen.wide.column.no-padding-top
                             input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
+                       .field.sixteen.wide.column.no-padding-top
+                           button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading disabled' : '' ")
+                               | Login
                         .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
                             a.forgot(href="#", ng-click="openForgotModal()")
                                 | Forgot password?
@@ -210,10 +218,9 @@ html
 
 
             .actions
-                button.ui.left.floated.button(ng-click="openSignUpModal()")
+                button.ui.button(ng-click="openSignUpModal()")
                     | Sign Up
-                button.ui.right.icon.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading disabled' : '' ")
-                    | Sign In
+
 
 
         // Forgot Modal

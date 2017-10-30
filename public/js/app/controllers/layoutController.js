@@ -118,6 +118,12 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		}
 	});
 
+	$(() => {
+		$('#signInModal').modal({
+			closable: false
+		});
+	});
+
 	$scope.openSignUpModal = (closeOther) => {
 		if (closeOther){
 			$('#signInModal').modal('show');

@@ -63,7 +63,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			keyboardShortcuts: false,
 			on: 'blur',
 			inline : true,
-			/*fields: {
+			fields: {
 				title: {
 					identifier  : 'title',
 					rules: [
@@ -121,15 +121,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				},
-				district: {
-					identifier: 'district',
-					rules: [
-						{
-							type   : 'empty',
-							prompt : 'Please select a district.'
-						}
-					]
-				},
 				category: {
 					identifier: 'category',
 					rules: [
@@ -138,17 +129,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 							prompt : 'Please select a category.'
 						}
 					]
-				},
-				subCategory: {
-					identifier: 'subCategory',
-					rules: [
-						{
-							type   : 'empty',
-							prompt : 'Please select a sub category.'
-						}
-					]
-				},
-			},*/
+				}
+			},
 			onSuccess: () => {
 				$scope.next();
 			}
@@ -216,6 +198,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			try{
 				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
 				uploadedFiles = $scope.newAdForm.files;
+				console.log($scope.newAdForm.files);
 			}catch (e){
 				$scope.newAdForm.files = [];
 			}
@@ -327,6 +310,20 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		let	data = 	{ 'data':$scope.newAdForm, 'photos':photos };
 
+		let district;
+		try{
+			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
+		}catch(e){
+			district = null;
+		}
+
+		let childCategory;
+		try{
+			childCategory = $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id;
+		}catch(e){
+			childCategory = null;
+		}
+
 		$http({
 			url: '/newAd/saveAdRedis',
 			method: 'POST',
@@ -342,7 +339,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						index: $scope.newAdForm.city
 					},
 					district: {
-						id: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id,
+						id: district,
 						index: $scope.newAdForm.district
 					}
 				},
@@ -352,7 +349,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						index: $scope.newAdForm.category
 					},
 					childCategory: {
-						id: $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id,
+						id: childCategory ,
 						index: $scope.newAdForm.categoryChild
 					}
 				}
@@ -383,6 +380,20 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		else
 			index = null;*/
 
+		let district;
+		try{
+			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
+		}catch(e){
+			district = null;
+		}
+
+		let childCategory;
+		try{
+			childCategory = $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id;
+		}catch(e){
+			childCategory = null;
+		}
+
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
@@ -397,11 +408,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				country: {
 					countryId: $scope.countries[$scope.newAdForm.country]._id,
 					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
-					districtId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id
+					districtId: district
 				},
 				category: {
 					categoryId: $scope.categories[$scope.newAdForm.category]._id,
-					childCategoryId: $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id
+					childCategoryId: childCategory
 				}
 			}
 		}).then((response) => {

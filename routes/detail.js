@@ -15,12 +15,23 @@ let Favourites = require('../models/favourites');
 let getObject = (data, req) => {
 
 	// For category
-	let childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
+	let childCategoryName;
+	try{
+		childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
+	}catch(e){
+		childCategoryName = null;
+	}
 
 	// For location
 	let cityObj = (data.locationObj.cities).find(x => String(x._id) === String(data.location.cityId));
 	let cityName = cityObj.name;
-	let districtName = (cityObj.districts).find(x => String(x._id) === String(data.location.districtId)).name;
+
+	let districtName;
+	try{
+		districtName = (cityObj.districts).find(x => String(x._id) === String(data.location.districtId)).name;
+	}catch (e){
+		districtName = null;
+	}
 
 	return {
 		title: data.title,
@@ -31,7 +42,6 @@ let getObject = (data, req) => {
 		category: {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
-			districtName: districtName
 		},
 		location: {
 			name: data.locationObj.name,
@@ -72,8 +82,8 @@ router.get('/:slug/:id', (req, res, next) => {
 		{
 			$lookup: {
 				from: 'categories',
-				localField: 'category.categoryChildId',
-				foreignField: 'subCategories._id',
+				localField: 'category.categoryId',
+				foreignField: '_id',
 				as: 'categoryObj'
 			}
 		},
@@ -83,8 +93,8 @@ router.get('/:slug/:id', (req, res, next) => {
 		{
 			$lookup: {
 				from: 'countries',
-				localField: 'location.districtId',
-				foreignField: 'cities.districts._id',
+				localField: 'location.cityId',
+				foreignField: 'cities._id',
 				as: 'locationObj'
 			}
 		},

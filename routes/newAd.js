@@ -4,6 +4,8 @@ let fs = require('fs');
 let slugify = require('slugify');
 let request = require('request');
 
+let requireLogin = require('./inc/requireLogin.js');
+
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 // Models
@@ -20,8 +22,7 @@ let router = express.Router();
 
 
 /* GET users listing. */
-router.get('/', (req, res) => {
-
+router.get('/', requireLogin, (req, res) => {
 	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 		res.render( 'newAd', {
 			title: 'New Ad',
@@ -31,11 +32,9 @@ router.get('/', (req, res) => {
 			amazon_base_url: config.amazon_s3.photo_base_url
 		});
 	});
-
-
 });
 
-router.post('/uploadPhotos/:showcaseIndex/:uuid?', (req,res) => {
+router.post('/uploadPhotos/:showcaseIndex/:uuid?',  (req,res) => {
 	const _uuid = req.params.uuid !== 'undefined' && req.params.uuid !=='false' ? req.params.uuid : uuid.v1();
 	let photos = [];
 	let showcaseIndex = req.params.showcaseIndex;
@@ -104,7 +103,7 @@ router.post('/saveAdRedis', (req,res) => {
 
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', requireLogin, (req, res) => {
 	let data = req.body.data;
 	let power = req.body.power;
 	let photos = req.body.photos;
