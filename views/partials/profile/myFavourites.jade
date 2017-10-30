@@ -8,7 +8,7 @@ h2.text-center(ng-if="myFavourites.length < 1") No Results
     .ui.divided.items
         .item(ng-repeat="fav in myFavourites")
             a.image(href='/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}', target="_blank")
-                img(ng-src='uploads/{{ fav.ad.uuid }}/{{ fav.ad.photos[fav.ad.photoShowcaseIndex].filename }}')
+                img(ng-src='{{ amazon_base_url }}/{{ fav.ad.photos[fav.ad.photoShowcaseIndex].filename }}')
             .content
                 a.header(href='/detail/{{ fav.ad.slug }}/{{ fav.ad._id }}' , target="_blank")
                     | {{ fav.ad.title }}

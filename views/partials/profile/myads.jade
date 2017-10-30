@@ -8,7 +8,7 @@ h2.text-center(ng-if="myAds.length < 1") No Results
     .ui.divided.items
         .item(ng-repeat="ad in myAds")
             a.image(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
-                img(ng-src='uploads/{{ ad.uuid }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
+                img(ng-src='{{ amazon_base_url }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
             .content
                 a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
                     | {{ ad.title }}

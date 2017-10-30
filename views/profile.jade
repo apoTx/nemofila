@@ -9,7 +9,8 @@ append stylesheets
 
 
 block content
-    div(ng-controller="profileController")
+
+    div(ng-controller="profileController", ng-init="amazon_base_url='#{ amazon_base_url }'")
         .ui.pointing.menu
             a.item(
                 href="#!myads",
