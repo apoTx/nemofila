@@ -1,4 +1,9 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
+
+
+
+
+
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
@@ -9,6 +14,35 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 
 	$(() => {
+		// stripe
+		let checkoutHandler = StripeCheckout.configure({
+			key: 'pk_test_1JpsNdtqXNvY0n3aKdDZxYap',
+			locale: 'auto'
+		});
+
+		$('#buttonCheckout').on('click', (ev) => {
+			console.log('asd');
+			checkoutHandler.open({
+				name: 'Sample Store',
+				description: 'Example Purchase',
+				token: handleToken
+			});
+		});
+
+		function handleToken(token) {
+			fetch('/charge', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(token)
+			})
+				.then(output => {
+					if (output.status === 'succeeded')
+						document.getElementById('shop').innerHTML = '<p>Purchase complete!</p>';
+				});
+		}
+
+		// # stripe
+
 		$('#newAdForm').form({
 			keyboardShortcuts: false,
 			on: 'blur',

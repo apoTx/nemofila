@@ -14,6 +14,11 @@ let forgotPasswords = require('../models/forgotPassword');
 // Mail transporter
 let mailer = require('../helper/mailer');
 
+const keyPublishable = 'pk_test_1JpsNdtqXNvY0n3aKdDZxYap';
+const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
+
+const stripe = require('stripe')(keySecret);
+
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', { title:'Home', user: req.session.user, amazon_base_url: config.amazon_s3.photo_base_url });
@@ -69,6 +74,27 @@ router.post('/login', (req,res) => {
 			}
 		}
 	});
+});
+
+router.post('/charge', (req, res) => {
+	let amount = 500;
+
+	stripe.customers.create({
+		email: req.body.email,
+		card: req.body.id
+	})
+		.then(customer =>
+			stripe.charges.create({
+				amount,
+				description: 'Buy Power',
+				currency: 'usd',
+				customer: customer.id
+			}))
+		.then(charge => res.send(charge))
+		.catch(err => {
+			console.log('Error:', err);
+			res.status(500).send({ error: 'Purchase Failed' });
+		});
 });
 
 router.post('/forgotPassword',  (req,res) => {

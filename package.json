@@ -46,6 +46,7 @@
     "request": "^2.83.0",
     "serve-favicon": "~2.4.2",
     "slugify": "^1.2.1",
+    "stripe": "^5.2.0",
     "uuid": "^3.1.0"
   },
   "devDependencies": {

@@ -6,6 +6,11 @@ let request = require('request');
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
+const keyPublishable = 'pk_test_1JpsNdtqXNvY0n3aKdDZxYap';
+const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
+
+const stripe = require('stripe')(keySecret);
+
 
 // Models
 let Ads = require('../models/ads');

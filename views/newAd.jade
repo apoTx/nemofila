@@ -32,6 +32,11 @@ block content
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
+
+                    div.text-center
+                        h1 Power Up!
+                        a.ui.primary.button(href="./") Buy Power
+
                     form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
@@ -184,12 +189,14 @@ block content
             div.text-center
                 h1 Everything is ok!
                 div.margin-bottom-30 Your ad will be published after it is approved
-                a.ui.primary.button(href="./") Home
+
+
 
 
 append javascripts
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
+    script(src="https://checkout.stripe.com/checkout.js")
     script(src="/dist/js/app/controllers/newAdController.min.js")
     script(src="semantic/dist/components/checkbox.min.js")
