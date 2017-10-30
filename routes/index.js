@@ -14,9 +14,7 @@ let forgotPasswords = require('../models/forgotPassword');
 // Mail transporter
 let mailer = require('../helper/mailer');
 
-const keyPublishable = 'pk_test_1JpsNdtqXNvY0n3aKdDZxYap';
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
-
 const stripe = require('stripe')(keySecret);
 
 /* GET home page. */
@@ -78,8 +76,6 @@ router.post('/login', (req,res) => {
 
 router.post('/charge', (req, res) => {
 	let amount = parseInt(req.body.amount) * 1000;
-
-	console.log(amount);
 
 	stripe.customers.create({
 		email: req.body.email,

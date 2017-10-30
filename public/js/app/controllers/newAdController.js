@@ -15,7 +15,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.buyPowerLoader = false;
 
 	$scope.updatePowerNumber = (number) => {
-		console.log(number);
 		$scope.powerNumber = number;
 	};
 
@@ -26,13 +25,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			locale: 'auto'
 		});
 
-		$('#buttonCheckout').on('click', (ev) => {
-			console.log('asd');
-			checkoutHandler.open({
-				name: 'Easyad',
-				description: 'Power Purchase',
-				token: handleToken
-			});
+		$('#buttonCheckout').on('click', () => {
+			if(parseInt($scope.powerNumber) > 0)
+				checkoutHandler.open({
+					name: 'Easyad',
+					description: 'Power Purchase',
+					token: handleToken
+				});
 		});
 
 		$('.powerNumber').on('change', () => {
@@ -40,7 +39,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 
 		function handleToken(token) {
-			console.log('test')
+			console.log('test');
 			$scope.buyPowerLoader = true;
 			$scope.$apply();
 			fetch('/charge', {

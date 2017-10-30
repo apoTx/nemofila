@@ -159,28 +159,32 @@ block content
                     div.text-center
                         h1 Power Up!
 
+                        div(ng-show="buyPowerStatus")
+                            .ui.success.message
+                                .header
+                                    | You Bought Power
+                                    
                         .ui.segment.no-segment
                             form.ui.form(ng-show="!buyPowerStatus")
-                                .two.fields
-                                    .field
-                                        select.powerNumber(
+                                .field.text-center
+                                    select.powerNumber(
+                                        style="width:50%; display:inline-block",
                                         name='powernumber',
                                         ng-model="powerNumber",
                                         ng-change="update(id);",
-                                        )
-                                            option(value='0') Please Select
-                                            option(value='1') 1
-                                            option(value='2') 2
-                                            option(value='3') 3
+                                    )
+                                        option(value='0') Please Select
+                                        option(value='1') 1
+                                        option(value='2') 2
+                                        option(value='3') 3
 
-                                    .field
-                                        button.ui.primary.button#buttonCheckout Buy Power
+                                    .clearfix
+                                    button.ui.primary.button.margin-top-10#buttonCheckout Buy Power
 
                             .ui.dimmer(ng-class="{ active: buyPowerLoader }")
                                 .ui.loader
 
-                        div(ng-show="buyPowerStatus")
-                            h3 POWER SATIN ALDINIZ
+
                     div.padding-30
                         button.ui.right.floated.primary.button(ng-click="previewTab()")
                             | Next
