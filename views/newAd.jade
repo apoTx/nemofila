@@ -159,18 +159,28 @@ block content
                     div.text-center
                         h1 Power Up!
 
+                        .ui.segment.no-segment
+                            form.ui.form(ng-show="!buyPowerStatus")
+                                .two.fields
+                                    .field
+                                        select.powerNumber(
+                                        name='powernumber',
+                                        ng-model="powerNumber",
+                                        ng-change="update(id);",
+                                        )
+                                            option(value='0') Please Select
+                                            option(value='1') 1
+                                            option(value='2') 2
+                                            option(value='3') 3
 
-                        .field
-                            | {{ powerNumber }}
-                            select(name='powernumber', ng-model="powerNumber")
-                                option(value='') Please Select
-                                option(value='1') 1
-                                option(value='2') 2
-                                option(value='3') 3
+                                    .field
+                                        button.ui.primary.button#buttonCheckout Buy Power
 
+                            .ui.dimmer(ng-class="{ active: buyPowerLoader }")
+                                .ui.loader
 
-                        button.ui.primary.button#buttonCheckout Buy Power
-
+                        div(ng-show="buyPowerStatus")
+                            h3 POWER SATIN ALDINIZ
                     div.padding-30
                         button.ui.right.floated.primary.button(ng-click="previewTab()")
                             | Next

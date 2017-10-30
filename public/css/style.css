@@ -80,6 +80,9 @@ body {
 .text-right{
     text-align: right!important;
 }
+.text-left{
+    text-align: left!important;
+}
 .item-title{
     color:#000;
     margin-left: .4em !important;

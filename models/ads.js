@@ -22,6 +22,10 @@ let adSchema = new Schema({
 	photoShowcaseIndex: {
 		type: Number
 	},
+	power: {
+		powerStatus: Boolean,
+		powerNumber: Number
+	},
 	uuid: {
 		type: String
 	},

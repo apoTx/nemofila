@@ -9,7 +9,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.steps.power = false;
 	$scope.steps.preview = false;
 
-	$scope.powerNumber = '1';
+	$scope.powerList = ['1', '2', '3'];
+	$scope.powerNumber = '0';
+	$scope.buyPowerStatus = false;
+	$scope.buyPowerLoader = false;
+
+	$scope.updatePowerNumber = (number) => {
+		console.log(number);
+		$scope.powerNumber = number;
+	};
 
 	$(() => {
 		// stripe
@@ -27,15 +35,26 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 		});
 
+		$('.powerNumber').on('change', () => {
+			$scope.powerNumber = $('.powerNumber').val();
+		});
+
 		function handleToken(token) {
+			console.log('test')
+			$scope.buyPowerLoader = true;
+			$scope.$apply();
 			fetch('/charge', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(Object.assign(token, { amount: $('select[name=powernumber]').val() })),
+				body: JSON.stringify(Object.assign(token, { amount: parseInt($scope.powerNumber) })),
 			})
 				.then(output => {
-					if (output.status === 'succeeded')
-						document.getElementById('shop').innerHTML = '<p>Purchase complete!</p>';
+					console.log(output);
+					if (output.statusText === 'OK') {
+						$scope.buyPowerStatus = true;
+						$scope.buyPowerLoader = false;
+						$scope.$apply();
+					}
 				});
 		}
 
@@ -370,6 +389,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			method: 'POST',
 			data: {
 				data: data,
+				power: {
+					powerStatus: $scope.buyPowerStatus,
+					powerNumber: $scope.powerNumber,
+				},
 				photos: photoList,
 				showcaseIndex: $scope.newAdForm.showcaseIndex,
 				country: {

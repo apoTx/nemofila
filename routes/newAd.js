@@ -112,14 +112,12 @@ router.post('/saveAdRedis', (req,res) => {
 
 router.post('/create', (req, res) => {
 	let data = req.body.data;
+	let power = req.body.power;
 	let photos = req.body.photos;
 	let _uuid = req.body.uuid  || uuid.v1();
 	let showcaseIndex = req.body.showcaseIndex;
 	let country = req.body.country;
 	let category = req.body.category;
-
-	console.log(req.body.country);
-	console.log(req.body.category);
 
 	let ad = new Ads({
 		title: data.title,
@@ -128,6 +126,10 @@ router.post('/create', (req, res) => {
 		description: data.description,
 		photos: photos,
 		photoShowcaseIndex: showcaseIndex,
+		power: {
+			powerStatus: power.powerStatus,
+			powerNumber: power.powerStatus ? power.powerNumber : 0
+		},
 		uuid: _uuid,
 		location: {
 			countryId: country.countryId,
