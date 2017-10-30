@@ -163,9 +163,13 @@ block content
                             .ui.success.message
                                 .header
                                     | You Bought Power
-                                    
-                        .ui.segment.no-segment
-                            form.ui.form(ng-show="!buyPowerStatus")
+
+                        .ui.segment.no-segment(ng-show="!buyPowerStatus")
+                            p
+                                | For show your ad in the best place you can buy power.
+                                br
+                                | Each power price is 10 Euro
+                            form.ui.form
                                 .field.text-center
                                     select.powerNumber(
                                         style="width:50%; display:inline-block",
@@ -177,6 +181,9 @@ block content
                                         option(value='1') 1
                                         option(value='2') 2
                                         option(value='3') 3
+
+                                    div.margin-top-10(ng-show="powerNumber > 0")
+                                        h3 {{ powerNumber * 10 }} EUR
 
                                     .clearfix
                                     button.ui.primary.button.margin-top-10#buttonCheckout Buy Power

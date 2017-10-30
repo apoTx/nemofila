@@ -85,7 +85,7 @@ router.post('/charge', (req, res) => {
 			stripe.charges.create({
 				amount,
 				description: 'Buy Power',
-				currency: 'usd',
+				currency: 'eur',
 				customer: customer.id
 			}))
 		.then(charge => res.send(charge))
