@@ -194,14 +194,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-	$scope.uploadAndSaveMongo = (uuid) => {
-		if ($scope.newAdForm.files && $scope.newAdForm.files.length  > 0 ){
-			$scope.uploadFiles($scope.newAdForm.files, false, uuid);
+	$scope.uploadAndSaveMongo = (redisId) => {
+		if ( redisId === 'false' ){
+			$scope.uploadFiles($scope.newAdForm.files, false, redisId);
 		}else{
-			$scope.onSubmitAd(null, null);
+			$scope.onSubmitAd($scope.photos);
 		}
 	};
-
 
 	function guid() {
 		function s4() {
@@ -215,6 +214,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.nextLoader = false;
 	$scope.uploading = false;
+	$scope.photos = [];
 
 	$scope.uploadFiles = (files, saveRedis/*, uuid*/) => {
 		$scope.nextLoader = true;
@@ -222,7 +222,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (files && files.length) {
 
 			let itemsProcessed = 0;
-			let photos = [];
 
 			angular.forEach(files, (file) => {
 				let photoName = guid() +'_'+file.name;
@@ -249,15 +248,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					file.progressFinish = true;
 
 					itemsProcessed++;
-					photos.push({ filename: photoName });
+					$scope.photos.push({ filename: photoName });
 
 					if(itemsProcessed === files.length) {
 						$scope.uploading = false;
 
 						if (saveRedis){
-							$scope.saveAdToRedis(photos);
+							$scope.saveAdToRedis($scope.photos);
 						}else{ // mongo
-							$scope.onSubmitAd( photos );
+							$scope.onSubmitAd( $scope.photos );
 						}
 					}
 				}, (response) => {

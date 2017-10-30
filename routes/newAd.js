@@ -19,15 +19,6 @@ let multer  = require('multer');
 // Express router
 let router = express.Router();
 
-let AwsS3Form = require( 'aws-s3-form' );
-
-let formGen = new AwsS3Form({
-	accessKeyId:		'AKIAJ5QBSCQVZWV3GTSA',
-	secretAccessKey:	'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',
-	region:				'eu-central-1',
-	bucket:				'mehmet-easyad-test',
-	redirectUrlTemplate:'http://localhost:3000/redir/<%= filename %>'
-});
 
 /* GET users listing. */
 router.get('/', (req, res) => {
@@ -96,6 +87,7 @@ router.post('/saveAdRedis', (req,res) => {
 	// redis save
 	client.hmset(_uuid, {
 		title: data.title || '',
+		showcaseIndex: data.showcaseIndex || '',
 		description: data.description || '',
 		price: data.price || '',
 		country: JSON.stringify(countries) || '',

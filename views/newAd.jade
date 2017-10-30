@@ -104,7 +104,11 @@ block content
                                             div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
 
 
-                                    .ui.bottom.attached.button(ng-click="onDeletePhoto($index)", ng-if="f.showcase", ng-cloak)
+                                    .ui.bottom.attached.button(
+                                        ng-click="onDeletePhoto($index)",
+                                        ng-if="f.showcase",
+                                        ng-cloak
+                                    )
                                         i.remove.icon
                                         |  Remove
 
