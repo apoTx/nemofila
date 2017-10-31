@@ -281,7 +281,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					file.progressFinish = true;
 
 					itemsProcessed++;
-					$scope.photos.push({ filename: photoName });
+
+					if (file.showcase)
+						$scope.photos.push({ filename: photoName, showcase: true });
+					else
+						$scope.photos.push({ filename: photoName });
 
 					if(itemsProcessed === files.length) {
 						$scope.uploading = false;
@@ -373,12 +377,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		delete data.files;
 
 		let photoList = photos ? photos.concat(uploadedFiles) : null;
-
-		/*let index;
-		if (photoList !== null)
-			index = photoList.findIndex(img => img.showcase === true);
-		else
-			index = null;*/
+		let showcaseIndex = photoList.findIndex(x => x.showcase === true);
+		console.log(showcaseIndex);
+		console.log(photoList);
 
 		let district;
 		try{
@@ -404,7 +405,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					powerNumber: $scope.powerNumber,
 				},
 				photos: photoList,
-				showcaseIndex: $scope.newAdForm.showcaseIndex,
+				showcaseIndex: showcaseIndex,
 				country: {
 					countryId: $scope.countries[$scope.newAdForm.country]._id,
 					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
