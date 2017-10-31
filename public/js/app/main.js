@@ -4,6 +4,7 @@ let app = angular.module('app',[
 	'ngFileUpload',
 	'angularMoment',
 	'thatisuday.ng-image-gallery',
-	'ngWig'
+	'ngWig',
+	'ngSanitize'
 ]);
 /*eslint-enable */

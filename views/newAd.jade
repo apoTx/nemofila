@@ -3,7 +3,6 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/breadcrumb.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
@@ -68,6 +67,7 @@ block content
                                 name='description',
                                 ng-model='newAdForm.description'
                             )
+
                         .five.fields(country-and-category-dropdowns)
 
                         .ui.tiny.stacked.segment
@@ -223,15 +223,14 @@ block content
 
                     .ui.stackable.grid
                         .sixteen.wide.column
-                            .ui.breadcrumb.tiny
-                                .active.section {{ countries[newAdForm.country].name }}
-                                .divider  /
-                                .active.section {{ countries[newAdForm.country].cities[newAdForm.city].name }}
-                                .divider  /
-                                .active.section {{ countries[newAdForm.country].cities[newAdForm.city].districts[newAdForm.district].name }}
-
                             table.ui.definition.table
                                 tbody
+                                    tr
+                                        td Location
+                                        td
+                                            | {{ countries[newAdForm.country].name }} /
+                                            | {{ countries[newAdForm.country].cities[newAdForm.city].name }} /
+                                            | {{ countries[newAdForm.country].cities[newAdForm.city].districts[newAdForm.district].name }}
                                     tr
                                         td Category
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
@@ -248,15 +247,7 @@ block content
 
                     h3 Description
                     .ui.segment
-                        p.description
-                            | {{ newAdForm.description }}
-
-
-
-
-
-
-
+                        p.description(ng-bind-html="newAdForm.description")
 
                     button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | Save

@@ -32,7 +32,7 @@ html
             link(rel='old stylesheet', href='/dist/css/style.css')
 
     body(ng-app="app" ng-controller="layoutController")
-        
+
 
         .ui.sidebar.inverted.vertical.right.menu.rightSidebar
             if !user
@@ -286,6 +286,9 @@ html
 
         // ng-wig
         script(src="/ngWig/dist/ng-wig.min.js")
+
+        // angular-sanitize
+        script(src="/angular-sanitize/angular-sanitize.min.js")
 
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")
