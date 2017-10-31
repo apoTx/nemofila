@@ -26,7 +26,7 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 			console.log(err);
 
 		res.json(data);
-	});
+	}).sort({ createdAt: -1 });
 });
 
 module.exports = router;

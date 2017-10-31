@@ -153,9 +153,10 @@ block content
                             td Contact Number
                             td
                                 a.phone-number(href="tel:#{ data.user.phone }")
-                                    | #{ data.user.phone }
-
-
+                                    - if (!data.anotherContact)
+                                        | #{ data.user.phone }
+                                    - else
+                                        div #{ data.anotherContact.phone }
 
 
         h3 Description
