@@ -53,6 +53,8 @@ let getObject = (data, req) => {
 };
 
 router.get('/:slug/:id', (req, res, next) => {
+	res.end(process.env.NODE_ENV);
+
 	let _id;
 	try{
 		_id = new ObjectId(req.params.id);

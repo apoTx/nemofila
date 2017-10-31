@@ -4,7 +4,7 @@ describe('Redis Server', () => {
 		let redis = require('redis');
 
 		let client;
-		if (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'test' ){
+		if (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'staging' ){
 			let rtg   = require('url').parse(config.redis.URI);
 			client = redis.createClient(rtg.port, rtg.hostname);
 			client.auth(rtg.auth.split(':')[1]);
