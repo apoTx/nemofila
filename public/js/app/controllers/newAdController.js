@@ -195,9 +195,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.files = [];
 			}
 
-			/*
-			let country = response.data.country;
-			$scope.newAdForm.country = country.country.index;
+
+			let country = response.data.location;
+			console.log(country);
+			/*$scope.newAdForm.country = country.country.index;
 			$scope.newAdForm.city = country.city.index;
 			$scope.newAdForm.district = country.district.index;
 */
@@ -205,7 +206,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			setTimeout(() => {
 				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
 				$scope.newAdForm.categoryChild = (($scope.categories[$scope.newAdForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
-				console.log($scope.newAdForm.categoryChild);
+
+				$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
+				$scope.newAdForm.city = (($scope.countries[$scope.newAdForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
+				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
+				console.log($scope.newAdForm.district);
 			});
 
 
