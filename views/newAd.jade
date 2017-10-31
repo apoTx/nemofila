@@ -224,29 +224,27 @@ block content
                     .ui.stackable.grid
                         .sixteen.wide.column
                             .ui.breadcrumb.tiny
-                                .active.section Turkey
+                                .active.section {{ countries[newAdForm.country].name }}
                                 .divider  /
-                                .active.section istanbul
+                                .active.section {{ countries[newAdForm.country].cities[newAdForm.city].name }}
                                 .divider  /
-                                .active.section atasehir
-
+                                .active.section {{ countries[newAdForm.country].cities[newAdForm.city].districts[newAdForm.district].name }}
 
                             table.ui.definition.table
                                 tbody
                                     tr
                                         td Category
-                                        td kategor / alt kategori
+                                        td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
                                     tr
                                         td Listing Date
-                                        td 10.10.1990
+                                        td xx.xx.xxxx
                                     tr
                                         td Contact Name
-                                        td ahmet vural
-                                    tr
-                                        td Contact Number
-                                        td 123
-
-
+                                        td
+                                            span(ng-show="newAdForm.anotherContact.checked")
+                                                | {{ newAdForm.anotherContact.name }}
+                                            span(ng-hide="newAdForm.anotherContact.checked")
+                                                | #{ user.name } #{ user.surname }
 
                     h3 Description
                     .ui.segment
