@@ -203,10 +203,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 */
 			let category = response.data.category;
 			setTimeout(() => {
-				console.log($scope.categories);
-				console.log(category);
 				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
-				$scope.newAdForm.categoryChild = ($scope.categories.subCategories).findIndex(x => String(x._id) === String(category.categoryChildId));
+				$scope.newAdForm.categoryChild = (($scope.categories[$scope.newAdForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
 				console.log($scope.newAdForm.categoryChild);
 			});
 

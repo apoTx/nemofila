@@ -16,6 +16,7 @@ let getObject = (data, req) => {
 
 	// For category
 	let childCategoryName;
+	console.log(data.categoryObj);
 	try{
 		childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
 	}catch(e){
