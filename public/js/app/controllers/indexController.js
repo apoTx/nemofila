@@ -63,6 +63,10 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	};
 
 	$scope.advancedSearch = () => {
-		$scope.advancedSearchVisible = true;
+		if (!$scope.advancedSearchVisible){
+			$scope.advancedSearchVisible = true;
+		}else{
+			$scope.advancedSearchVisible = false;
+		}
 	};
 }]);

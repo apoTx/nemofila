@@ -8,9 +8,7 @@ append stylesheets
 
 block content
 
-
     div(ng-controller="indexController" ng-init="init()")
-
         .searchForm
             form.ui.form.fluid(ng-submit="onSubmit()")
                 .field
@@ -18,11 +16,11 @@ block content
                         i.search.icon
                         input(ng-model='searchForm.title', placeholder='Search...', )
 
-                div.advancedSearch(ng-show="!advancedSearchVisible", ng-cloak)
+                div.advancedSearch
                     a(href="javascript:;" ng-click="advancedSearch()")
-                        | Advanced search
+                        | Filter
 
-                div(ng-show="advancedSearchVisible", ng-cloak)
+                div.searchFormBottom(ng-show="advancedSearchVisible", ng-cloak)
                     .five.fields(country-and-category-dropdowns)
 
                     .field.text-right
