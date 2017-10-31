@@ -152,9 +152,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 	});
 
-	$scope.init = (uuid, userExists) => {
-		if (uuid !== 'false'){
-			$scope.getAdBuffer(uuid);
+	$scope.init = (id, userExists) => {
+
+		if (id !== 'false'){
+			$scope.getAd(id);
 		}
 
 		$scope.userExists =  (userExists == 'true');
@@ -169,48 +170,41 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.next = () => {
-		console.log('next');
-
-		if (!$scope.userExists){
-			console.log('uploadAndSaveRedis()');
-			$scope.uploadAndSaveRedis();
-		}else{
-			console.log('powerTab()');
-			$scope.powerTab();
-		}
-
+		$scope.powerTab();
 		$scope.$apply();
 	};
 
 	let uploadedFiles = [];
-	$scope.getAdBuffer = (uuid) => {
+	$scope.getAd = (id) => {
 		$scope.loadingBufferData = true;
 		$http( {
-			url: '/newAd/getAdBuffer/' + uuid,
+			url: '/newAd/getEditAd/' + id,
 			method: 'GET',
 		}).then( (response) => {
 
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
 			$scope.newAdForm.price = response.data.price || '';
-			$scope.newAdForm.anotherContact = JSON.parse(response.data.anotherContact);
+			$scope.newAdForm.anotherContact = response.data.anotherContact;
 
 			try{
-				$scope.newAdForm.files = JSON.parse(response.data.photos) || '';
+				$scope.newAdForm.files = response.data.photos || '';
 				uploadedFiles = $scope.newAdForm.files;
 				console.log($scope.newAdForm.files);
 			}catch (e){
 				$scope.newAdForm.files = [];
 			}
 
-			let country = JSON.parse(response.data.country);
+			/*
+			let country = response.data.country;
 			$scope.newAdForm.country = country.country.index;
 			$scope.newAdForm.city = country.city.index;
 			$scope.newAdForm.district = country.district.index;
 
-			let category = JSON.parse(response.data.category);
+			let category = response.data.category;
 			$scope.newAdForm.category = category.category.index;
 			$scope.newAdForm.categoryChild = category.childCategory.index;
+			*/
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
@@ -227,12 +221,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-	$scope.uploadAndSaveMongo = (redisId) => {
-		if ( redisId === 'false' ){
-			$scope.uploadFiles($scope.newAdForm.files, false, redisId);
-		}else{
-			$scope.onSubmitAd($scope.photos);
-		}
+	$scope.uploadAndSaveMongo = () => {
+		$scope.uploadFiles($scope.newAdForm.files, false);
 	};
 
 	function guid() {
@@ -378,7 +368,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		let photoList = photos ? photos.concat(uploadedFiles) : null;
 		let showcaseIndex = photoList.findIndex(x => x.showcase === true);
-		console.log(showcaseIndex);
+		console.log(photos);
 		console.log(photoList);
 
 		let district;

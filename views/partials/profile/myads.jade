@@ -21,7 +21,7 @@ h2.text-center(ng-if="myAds.length < 1") No Results
                             ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
                         )
                         | {{ ad.statusText }}
-                    .ui.right.floated.primary.button
+                    a.ui.right.floated.primary.button(href="./newAd?id={{ ad._id }}")
                         | Edit
                         i.right.chevron.icon
 

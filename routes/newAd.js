@@ -3,6 +3,7 @@ let client = require('../redis/client.js');
 let fs = require('fs');
 let slugify = require('slugify');
 let request = require('request');
+let mongoose = require('mongoose')
 
 let requireLogin = require('./inc/requireLogin.js');
 
@@ -22,12 +23,12 @@ let router = express.Router();
 
 
 /* GET users listing. */
-router.get('/', requireLogin, (req, res) => {
+router.get('/:id?', requireLogin, (req, res) => {
 	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 		res.render( 'newAd', {
 			title: 'New Ad',
 			userExists: req.session.user ? true : false,
-			redisId: req.cookies.newAdRedisId || false,
+			id: req.query.id ? req.query.id : 'false',
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url
 		});
@@ -156,10 +157,13 @@ router.post('/create', requireLogin, (req, res) => {
 	});
 });
 
-router.get('/getAdBuffer/:uuid', (req,res) => {
-	let uuid = req.params.uuid;
-	client.hgetall(uuid,  (err, reply) => {
-		res.json(reply);
+router.get('/getEditAd/:id', requireLogin, (req,res) => {
+	Ads.findById( req.params.id, (err,data) => {
+		if (err)
+			throw new Error();
+
+		console.log(data);
+		res.json(data);
 	});
 });
 

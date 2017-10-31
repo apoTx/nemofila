@@ -39,7 +39,7 @@ block content
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
-                    form.ui.form.fluid#newAdForm(ng-init="init('#{ redisId }','#{userExists}')")
+                    form.ui.form.fluid#newAdForm(ng-init="init('#{ id }')")
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
                         input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
@@ -249,7 +249,7 @@ block content
                     .ui.segment
                         p.description(ng-bind-html="newAdForm.description")
 
-                    button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
+                    button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo()", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | Save
                     button.ui.right.floated.secondary.button(ng-click="powerTab()", ng-class="{disabled:uploading}")
                         | Back
