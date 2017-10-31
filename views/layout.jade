@@ -42,7 +42,10 @@ html
                 a.item(href='/logout') Logout
 
             .item.text-center
-                a.ui.primary.button(href="/newAd") New Ad
+                if user
+                    a.ui.primary.button(href="/newAd") New Ad
+                else
+                    button.ui.primary.button(ng-click="openSignInModal()") New Ad
 
 
         .ui.fixed.inverted.menu
