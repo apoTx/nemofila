@@ -16,7 +16,16 @@
 }
 .advancedSearch{
     text-align: right;
+    display: block!important;
+    margin-top:0!important;
+    margin-bottom: 0!important;
 }
 .searchFormBottom{
     padding-bottom: 60px
+}
+.sidebarFilterForm{
+    padding:15px;
+}
+.sidebarFilterForm .field label{
+    color: #fff!important;
 }

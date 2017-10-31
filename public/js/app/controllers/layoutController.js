@@ -1,6 +1,6 @@
 app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $http, $window, layoutFactory, messageFactory) => {
 	$scope.toggleSidebar = () => {
-		$('.ui.sidebar')
+		$('.rightSidebar')
 			.sidebar('setting', 'transition', 'overlay')
 			.sidebar('toggle');
 	};

@@ -9,6 +9,14 @@ append stylesheets
 block content
 
     div(ng-controller="indexController" ng-init="init()")
+        .ui.sidebar.inverted.vertical.left.menu.filterSidebar
+            form.ui.form.sidebarFilterForm
+                .five.fields(country-and-category-dropdowns)
+
+                .field.text-right
+                    .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                        | Search
+
         .searchForm
             form.ui.form.fluid(ng-submit="onSubmit()")
                 .field
@@ -16,9 +24,14 @@ block content
                         i.search.icon
                         input(ng-model='searchForm.title', placeholder='Search...', )
 
-                div.advancedSearch
+
+                div.advancedSearch.ui.container.computer.tablet.only.grid
                     a(href="javascript:;" ng-click="advancedSearch()")
                         | Filter
+
+                div.advancedSearch.ui.container.mobile.only.grid
+                    a(href="javascript:;" ng-click="toggleFilterSidebar()")
+                        | Filterss
 
                 div.searchFormBottom(ng-show="advancedSearchVisible", ng-cloak)
                     .five.fields(country-and-category-dropdowns)
@@ -48,14 +61,8 @@ block content
                         | Prev
                     a.active.item
                         | 1
-                    a.item
-                        | 2
                     .disabled.item
                         | ...
-                    a.item
-                        | 10
-                    a.item
-                        | 11
                     a.item
                         | 12
                     a.item

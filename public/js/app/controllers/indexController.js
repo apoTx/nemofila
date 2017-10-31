@@ -1,5 +1,11 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countriesFactory', 'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
 
+	$scope.toggleFilterSidebar = () => {
+		$('.filterSidebar')
+			.sidebar('setting', 'transition', 'overlay')
+			.sidebar('toggle');
+	};
+
 	$scope.newAdForm = {};
 
 	$scope.init = () => {
