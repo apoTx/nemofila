@@ -200,11 +200,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.country = country.country.index;
 			$scope.newAdForm.city = country.city.index;
 			$scope.newAdForm.district = country.district.index;
-
+*/
 			let category = response.data.category;
-			$scope.newAdForm.category = category.category.index;
-			$scope.newAdForm.categoryChild = category.childCategory.index;
-			*/
+			setTimeout(() => {
+				console.log($scope.categories);
+				console.log(category);
+				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
+				$scope.newAdForm.categoryChild = ($scope.categories.subCategories).findIndex(x => String(x._id) === String(category.categoryChildId));
+				console.log($scope.newAdForm.categoryChild);
+			});
+
+
+			//$scope.newAdForm.categoryChild = category.childCategory.index;
+
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional

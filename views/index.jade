@@ -24,21 +24,20 @@ block content
                         i.search.icon
                         input(ng-model='searchForm.title', placeholder='Search...', )
 
-
-                div.advancedSearch.ui.container.computer.only.grid
-                    a.ui.button.white(href="javascript:;" ng-click="advancedSearch()")
-                        | Filter
-
                 div.advancedSearch.ui.container.mobile.tablet.only.grid
-                    a.ui.button.primary(href="javascript:;" ng-click="toggleFilterSidebar()")
+                    a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
                         | Filter
+                    .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                        | Search
 
-                div.searchFormBottom(ng-show="advancedSearchVisible", ng-cloak)
+                div.searchFormBottom.ui.container.computer.only.grid
                     .five.fields(country-and-category-dropdowns)
 
                     .field.text-right
                         .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                             | Search
+
+                    .clearfix
 
         .ui.segment.list-segment
             .ui.grid.stackable.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)

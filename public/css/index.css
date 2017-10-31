@@ -21,7 +21,8 @@
     margin-bottom: 0!important;
 }
 .searchFormBottom{
-    padding-bottom: 60px
+    padding-bottom: 60px;
+    display: block!important;
 }
 .sidebarFilterForm{
     padding:15px;
