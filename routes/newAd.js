@@ -3,7 +3,6 @@ let client = require('../redis/client.js');
 let fs = require('fs');
 let slugify = require('slugify');
 let request = require('request');
-let mongoose = require('mongoose')
 
 let requireLogin = require('./inc/requireLogin.js');
 
