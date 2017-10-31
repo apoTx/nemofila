@@ -3,7 +3,9 @@ extends layout
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/breadcrumb.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
@@ -202,7 +204,7 @@ block content
 
                 div#preview(ng-show="steps.preview", ng-cloak)
                     h2 {{ newAdForm.title }}
-                    h4 {{ newAdForm.price | currency }}
+                    h3 {{ newAdForm.price | currency }}
 
                     .ui.four.stackable.cards
                         .card(ng-repeat='f in newAdForm.files')
@@ -219,13 +221,44 @@ block content
                                 span.progress(ng-hide="f.progressFinish", ng-if="f.progress >= 0")
                                     div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
 
+                    .ui.stackable.grid
+                        .sixteen.wide.column
+                            .ui.breadcrumb.tiny
+                                .active.section Turkey
+                                .divider  /
+                                .active.section istanbul
+                                .divider  /
+                                .active.section atasehir
 
-                    br
-                    span.progress(ng-show='progress >= 0')
-                        div(style='width:{{progress}}%', ng-bind="progress + '%'")
-                    |     {{errorMsg}}
-                    br
-                    br
+
+                            table.ui.definition.table
+                                tbody
+                                    tr
+                                        td Category
+                                        td kategor / alt kategori
+                                    tr
+                                        td Listing Date
+                                        td 10.10.1990
+                                    tr
+                                        td Contact Name
+                                        td ahmet vural
+                                    tr
+                                        td Contact Number
+                                        td 123
+
+
+
+                    h3 Description
+                    .ui.segment
+                        p.description
+                            | {{ newAdForm.description }}
+
+
+
+
+
+
+
 
                     button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ redisId }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | Save
