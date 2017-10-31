@@ -111,6 +111,7 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 				'title': 1,
 				'status': 1,
 				'slug': 1,
+				'power': 1,
 				'createdAt': 1,
 				'user.name': 1,
 				'user.surname': 1,

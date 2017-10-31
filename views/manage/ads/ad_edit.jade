@@ -29,6 +29,12 @@ block content
                 tr
                     td Created At:
                     td #{ data.createdAt }
+                tr
+                    td Power Status
+                    td #{ data.power.powerStatus }
+                tr(ng-show="#{ data.power.powerStatus }")
+                    td Power
+                    td #{ data.power.powerNumber }
 
         br
         br

@@ -25,6 +25,8 @@ block content
                         td(am-time-ago='ad.createdAt')
                         td {{ ad.status == 0 ? 'waiting' : '' || ad.status == 2 ? 'rejected' :'' || ad.status == 4 ? 'unpublished' :'' }}
                         td.text-right
+                            span(ng-show="ad.power.powerStatus")
+                                i.icon.orange.rocket
                             a.ui.button.icon.mini(
                                 href="ads/edit/{{ad._id}}"
                             )
