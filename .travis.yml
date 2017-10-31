@@ -12,7 +12,7 @@ before_script:
   - npm install
   - bower install
 after_script:
-   - export NODE_ENV=staging
+   - export process.env.NODE_ENV=staging
 script:
   - npm run lint
   - npm run test
