@@ -191,7 +191,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
 			if (!$scope.newAdForm.anotherContact){
 				$scope.newAdForm.anotherContact =  { };
-
 				$scope.newAdForm.anotherContact.checked = false;
 			}
 
@@ -203,13 +202,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.files = [];
 			}
 
-
 			let country = response.data.location;
-			console.log(country);
-			/*$scope.newAdForm.country = country.country.index;
-			$scope.newAdForm.city = country.city.index;
-			$scope.newAdForm.district = country.district.index;
-*/
 			let category = response.data.category;
 			setTimeout(() => {
 				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
@@ -220,10 +213,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
 				console.log($scope.newAdForm.district);
 			});
-
-
-			//$scope.newAdForm.categoryChild = category.childCategory.index;
-
 
 			$scope.loadingBufferData = false;
 		}, () => { // optional
@@ -266,6 +255,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			let itemsProcessed = 0;
 
+			let totalNewFiles = files.filter((x) => { return x.name; }).length;
+
+			if (totalNewFiles < 1){
+				$scope.uploading = false;
+				$scope.onSubmitAd( files, id );
+			}
+
 			files.forEach((file) => {
 				let photoName = guid() +'_'+file.name;
 
@@ -302,8 +298,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					else
 						$scope.photos.push({ filename: photoName });
 
-					console.log(files.length);
-					console.log(itemsProcessed + oldPhotos);
 					if(itemsProcessed + oldPhotos === files.length) {
 						$scope.uploading = false;
 						$scope.onSubmitAd( $scope.photos, id );
