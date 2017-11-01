@@ -211,7 +211,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
 				$scope.newAdForm.city = (($scope.countries[$scope.newAdForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
 				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
-				console.log($scope.newAdForm.district);
 			});
 
 			$scope.loadingBufferData = false;
@@ -259,7 +258,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			if (totalNewFiles < 1){
 				$scope.uploading = false;
-				$scope.onSubmitAd( files, id );
+				$scope.onSubmitAd( files, id, false );
 			}
 
 			files.forEach((file) => {
@@ -316,13 +315,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.adSaveComplete = false;
 	$scope.submitBtnLoading = false;
-	$scope.onSubmitAd = (photos, id) => {
+	$scope.onSubmitAd = (photos, id, newPhotos) => {
 		$scope.submitBtnLoading = true;
 
 		let data = Object.assign({}, $scope.newAdForm);
 		delete data.files;
 
-		let photoList = photos ? photos.concat(uploadedFiles) : null;
+		let photoList;
+		if (newPhotos === false){
+			photoList = photos;
+		}else{
+			photoList = photos ? photos.concat(uploadedFiles) : null;
+		}
+
 		let showcaseIndex = photoList.findIndex(x => x.showcase === true);
 		console.log(photos);
 		console.log(photoList);
