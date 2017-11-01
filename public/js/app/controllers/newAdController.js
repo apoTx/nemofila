@@ -327,10 +327,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (newPhotos === false){
 			photoList = photos;
 		}else{
-			if($scope.uploadedFiles !== null)
+			console.log($scope.uploadedFiles);
+			if($scope.uploadedFiles){
+				console.log('test');
 				photoList = photos ? photos.concat($scope.uploadedFiles) : null;
-			else
+			}else {
 				photoList = photos;
+			}
 		}
 
 		let showcaseIndex;
