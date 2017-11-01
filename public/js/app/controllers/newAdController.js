@@ -39,7 +39,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 
 		function handleToken(token) {
-			console.log('test');
 			$scope.buyPowerLoader = true;
 			$scope.$apply();
 			fetch('/charge', {
@@ -48,7 +47,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				body: JSON.stringify(Object.assign(token, { amount: parseInt($scope.powerNumber) })),
 			})
 				.then(output => {
-					console.log(output);
 					if (output.statusText === 'OK') {
 						$scope.buyPowerStatus = true;
 						$scope.buyPowerLoader = false;
@@ -198,7 +196,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			try{
 				$scope.newAdForm.files = response.data.photos || '';
 				$scope.uploadedFiles = $scope.newAdForm.files;
-				console.log($scope.newAdForm.files);
 			}catch (e){
 				$scope.newAdForm.files = [];
 			}
@@ -230,7 +227,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.uploadAndSaveMongo = (id) => {
-		if($scope.newAdForm.files){
+		if($scope.newAdForm.files && $scope.newAdForm.files.length > 0){
 			$scope.uploadFiles($scope.newAdForm.files, id);
 		} else {
 			$scope.onSubmitAd( null, id, false );
@@ -330,7 +327,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (newPhotos === false){
 			photoList = photos;
 		}else{
-			photoList = photos ? photos.concat($scope.uploadedFiles) : null;
+			if($scope.uploadedFiles !== null)
+				photoList = photos ? photos.concat($scope.uploadedFiles) : null;
+			else
+				photoList = photos;
 		}
 
 		let showcaseIndex;
