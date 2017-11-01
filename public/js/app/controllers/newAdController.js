@@ -159,6 +159,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		if (id !== 'false'){
 			$scope.getAd(id);
+			$scope.isEdit = true;
 		}
 
 		$scope.userExists =  (userExists == 'true');
@@ -386,8 +387,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
-		if ($scope.newAdForm.files.length > 0)
-			$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+		if ($scope.isEdit){
+			if ($scope.uploadFiles < 1)
+				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+		}else{
+			if ($scope.newAdForm.files.length > 0)
+				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+		}
 	};
 
 	$scope.onDeletePhoto = (index) => {
