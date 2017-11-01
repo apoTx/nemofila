@@ -39,6 +39,7 @@ block content
 
                     .clearfix
 
+        h2(ng-show="isSearch && resultNumber > 0", ng-cloak) We found {{ resultNumber }} results.
         .ui.segment.list-segment
             .ui.grid.stackable.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
                 .four.wide.column(ng-repeat="ad in ads")

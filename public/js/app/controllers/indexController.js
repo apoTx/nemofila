@@ -27,6 +27,8 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	};
 
 	$scope.searchForm = { };
+	$scope.isSearch = false;
+	$scope.resultNumber = 0;
 	$scope.onSubmit = () => {
 		$scope.indexAdsLoading = true;
 
@@ -65,6 +67,9 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 		indexFactory.searchAd($scope.searchForm.title, location, category).then((response) => {
 			$scope.indexAdsLoading = false;
 			$scope.ads = response;
+			$scope.isSearch = true;
+			$scope.resultNumber = response.length;
+			$scope.toggleFilterSidebar();
 		});
 	};
 
