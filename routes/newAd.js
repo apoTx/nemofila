@@ -133,7 +133,7 @@ router.post('/create', requireLogin, (req, res) => {
 			}
 		} );
 	}else {
-		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0 }), { upsert:true }, (err, doc) => {
+		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0 }), { upsert:true }, (err) => {
 			if (err)
 				throw new Error(err);
 

@@ -178,7 +178,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.$apply();
 	};
 
-	let uploadedFiles = [];
+	$scope.uploadedFiles = [];
 	$scope.getAd = (id) => {
 		$scope.loadingBufferData = true;
 		$http( {
@@ -197,7 +197,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			try{
 				$scope.newAdForm.files = response.data.photos || '';
-				uploadedFiles = $scope.newAdForm.files;
+				$scope.uploadedFiles = $scope.newAdForm.files;
 				console.log($scope.newAdForm.files);
 			}catch (e){
 				$scope.newAdForm.files = [];
@@ -230,7 +230,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.uploadAndSaveMongo = (id) => {
-		$scope.uploadFiles($scope.newAdForm.files, id);
+		if($scope.newAdForm.files){
+			$scope.uploadFiles($scope.newAdForm.files, id);
+		} else {
+			$scope.onSubmitAd( null, id, false );
+		}
 	};
 
 	function guid() {
@@ -326,12 +330,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (newPhotos === false){
 			photoList = photos;
 		}else{
-			photoList = photos ? photos.concat(uploadedFiles) : null;
+			photoList = photos ? photos.concat($scope.uploadedFiles) : null;
 		}
 
-		let showcaseIndex = photoList.findIndex(x => x.showcase === true);
-		console.log(photos);
-		console.log(photoList);
+		let showcaseIndex;
+		try {
+			showcaseIndex = photoList.findIndex(x => x.showcase === true);
+		}catch (e){
+			showcaseIndex = null;
+		}
 
 		let district;
 		try{
@@ -388,7 +395,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
 		if ($scope.isEdit){
-			if ($scope.uploadFiles < 1)
+			if ($scope.uploadedFiles < 1)
 				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
 		}else{
 			if ($scope.newAdForm.files.length > 0)
@@ -415,11 +422,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$('input[type="file"]').trigger('click');
 	};
 
-	let completeSaveAd = () => {
+	/*let completeSaveAd = () => {
 		$scope.openSignInModal();
 		$scope.powerTab();
 		$scope.nextLoader = false;
-	};
+	};*/
 
 	$scope.previewTab = () => {
 		$scope.steps.informations = false;
