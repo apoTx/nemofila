@@ -75,34 +75,6 @@ router.post('/uploadPhotos/:showcaseIndex/:uuid?',  (req,res) => {
 	});
 });
 
-router.post('/saveAdRedis', (req,res) => {
-	let data = req.body.data.data;
-	let countries = req.body.country;
-	let categories = req.body.category;
-
-	let _uuid = req.body.data.uuid || uuid.v1();
-
-	// redis save
-	client.hmset(_uuid, {
-		title: data.title || '',
-		showcaseIndex: data.showcaseIndex || '',
-		description: data.description || '',
-		price: data.price || '',
-		country: JSON.stringify(countries) || '',
-		category: JSON.stringify(categories) || '',
-		anotherContact: JSON.stringify(data.anotherContact) || '',
-		photos: JSON.stringify(req.body.data.photos) || ''
-	}, (err) => {
-		if(err){
-			throw err;
-		}else {
-			res.cookie('newAdRedisId', _uuid, { expires: new Date(Date.now() + 1200000), httpOnly: true }); // 20 min expires
-			res.json( { status: 1 } );
-		}
-	});
-
-});
-
 router.post('/create', requireLogin, (req, res) => {
 	let data = req.body.data;
 	let power = req.body.power;
@@ -111,8 +83,11 @@ router.post('/create', requireLogin, (req, res) => {
 	let showcaseIndex = req.body.showcaseIndex;
 	let country = req.body.country;
 	let category = req.body.category;
+	let isEdit = req.body.isEdit;
+	let editId = req.body.editId;
 
-	let ad = new Ads({
+
+	let obj = {
 		title: data.title,
 		slug: slugify(data.title, { lower:true }),
 		price: data.price,
@@ -139,21 +114,32 @@ router.post('/create', requireLogin, (req, res) => {
 			phone: data.anotherContact.phone
 		},
 		ownerId: req.session.user._id
-	});
+	};
 
-	ad.save((err) => {
-		if (err){
-			res.send(err);
-		}else{
-			client.del(_uuid, (err) => {
-				if (err)
-					console.log(err);
-			});
+	if (!isEdit) {
+		let ad = new Ads(obj);
 
-			res.clearCookie('newAdRedisId');
-			res.send({ 'status': 1 });
-		}
-	});
+		ad.save( (err) => {
+			if (err) {
+				res.send( err );
+			} else {
+				client.del( _uuid, (err) => {
+					if (err)
+						console.log( err );
+				} );
+
+				res.clearCookie( 'newAdRedisId' );
+				res.send( { 'status': 1 } );
+			}
+		} );
+	}else {
+		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0 }), { upsert:true }, (err, doc) => {
+			if (err)
+				throw new Error(err);
+
+			res.send( { 'status': 1 } );
+		});
+	}
 });
 
 router.get('/getEditAd/:id', requireLogin, (req,res) => {

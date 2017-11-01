@@ -136,20 +136,23 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 		});
 
-		$('.ui.checkbox').checkbox({
-			onChecked: () => {
-				$scope.newAdForm.anotherContact.checked = true;
-				setTimeout( () => {
-					$('input[name="anotherContactName"]').focus();
-				},20);
-			},
-			onUnchecked: () => {
-				$scope.newAdForm.anotherContact.checked = false;
-			},
-			onChange: () => {
-				$scope.$apply();
-			}
+		$(() => {
+			$('.ui.checkbox').checkbox({
+				onChecked: () => {
+					$scope.newAdForm.anotherContact.checked = true;
+					setTimeout( () => {
+						$('input[name="anotherContactName"]').focus();
+					},20);
+				},
+				onUnchecked: () => {
+					$scope.newAdForm.anotherContact.checked = false;
+				},
+				onChange: () => {
+					$scope.$apply();
+				}
+			});
 		});
+
 	});
 
 	$scope.init = (id, userExists) => {
@@ -186,6 +189,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.description = response.data.description || '';
 			$scope.newAdForm.price = response.data.price || '';
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
+			if (!$scope.newAdForm.anotherContact){
+				$scope.newAdForm.anotherContact =  { };
+
+				$scope.newAdForm.anotherContact.checked = false;
+			}
 
 			try{
 				$scope.newAdForm.files = response.data.photos || '';
@@ -232,8 +240,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-	$scope.uploadAndSaveMongo = () => {
-		$scope.uploadFiles($scope.newAdForm.files, false);
+	$scope.uploadAndSaveMongo = (id) => {
+		$scope.uploadFiles($scope.newAdForm.files, id);
 	};
 
 	function guid() {
@@ -249,16 +257,22 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 	$scope.photos = [];
+	let oldPhotos = 0;
 
-	$scope.uploadFiles = (files, saveRedis/*, uuid*/) => {
+	$scope.uploadFiles = (files, id) => {
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
 
 			let itemsProcessed = 0;
 
-			angular.forEach(files, (file) => {
+			files.forEach((file) => {
 				let photoName = guid() +'_'+file.name;
+
+				if (!file.name) {
+					oldPhotos++;
+					return true;
+				}
 
 				file.upload = Upload.upload({
 					url: 'https://easyad-static.s3-eu-central-1.amazonaws.com',
@@ -288,14 +302,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					else
 						$scope.photos.push({ filename: photoName });
 
-					if(itemsProcessed === files.length) {
+					console.log(files.length);
+					console.log(itemsProcessed + oldPhotos);
+					if(itemsProcessed + oldPhotos === files.length) {
 						$scope.uploading = false;
-
-						if (saveRedis){
-							$scope.saveAdToRedis($scope.photos);
-						}else{ // mongo
-							$scope.onSubmitAd( $scope.photos );
-						}
+						$scope.onSubmitAd( $scope.photos, id );
 					}
 				}, (response) => {
 					if (response.status > 0) {
@@ -309,69 +320,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-
-	$scope.saveAdToRedis = ( photos) => {
-		$scope.newAdBtnLoading = true;
-
-		let	data = 	{ 'data':$scope.newAdForm, 'photos':photos };
-
-		let district;
-		try{
-			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
-		}catch(e){
-			district = null;
-		}
-
-		let childCategory;
-		try{
-			childCategory = $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id;
-		}catch(e){
-			childCategory = null;
-		}
-
-		$http({
-			url: '/newAd/saveAdRedis',
-			method: 'POST',
-			data: {
-				data: data,
-				country: {
-					country: {
-						id: $scope.countries[$scope.newAdForm.country]._id,
-						index: $scope.newAdForm.country
-					},
-					city: {
-						id: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
-						index: $scope.newAdForm.city
-					},
-					district: {
-						id: district,
-						index: $scope.newAdForm.district
-					}
-				},
-				category: {
-					category: {
-						id: $scope.categories[$scope.newAdForm.category]._id,
-						index: $scope.newAdForm.category
-					},
-					childCategory: {
-						id: childCategory ,
-						index: $scope.newAdForm.categoryChild
-					}
-				}
-			}
-		}).then((response) => {
-			$scope.newAdBtnLoading = false;
-			if (response.data.status === 1) {
-				completeSaveAd();
-			}
-		}, () => { // optional
-			console.log('fail');
-		});
-	};
-
 	$scope.adSaveComplete = false;
 	$scope.submitBtnLoading = false;
-	$scope.onSubmitAd = (photos) => {
+	$scope.onSubmitAd = (photos, id) => {
 		$scope.submitBtnLoading = true;
 
 		let data = Object.assign({}, $scope.newAdForm);
@@ -396,11 +347,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			childCategory = null;
 		}
 
+		let isEdit = id !== 'false' ? true : false;
+
 		$http({
 			url: '/newAd/create',
 			method: 'POST',
 			data: {
 				data: data,
+				isEdit: isEdit,
+				editId: id,
 				power: {
 					powerStatus: $scope.buyPowerStatus,
 					powerNumber: $scope.powerNumber,

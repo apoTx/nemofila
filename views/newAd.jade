@@ -249,7 +249,7 @@ block content
                     .ui.segment
                         p.description(ng-bind-html="newAdForm.description")
 
-                    button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo()", ng-class="{loading:submitBtnLoading, disabled:uploading}")
+                    button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ id }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | Save
                     button.ui.right.floated.secondary.button(ng-click="powerTab()", ng-class="{disabled:uploading}")
                         | Back
