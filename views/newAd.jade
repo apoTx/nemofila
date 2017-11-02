@@ -206,8 +206,8 @@ block content
                     h3 {{ newAdForm.price | currency }}
 
                     .ui.four.stackable.cards
-                        .card(ng-repeat='f in newAdForm.files')
-                            .image
+                        .card.photoList(ng-repeat='f in newAdForm.files')
+                            .image.photoListImage
                                 a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                     i.bookmark.icon
                                 img(
