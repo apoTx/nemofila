@@ -157,3 +157,12 @@ a.black{
 .ui.grid.no-grid-padding>*{
     padding: 0 !important;
 }
+
+.modal{
+    position: absolute !important;
+}
+
+.ios11-input-bug-fixer{
+    position:fixed;
+    width:100%
+}

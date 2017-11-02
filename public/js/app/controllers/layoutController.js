@@ -119,8 +119,13 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 	});
 
 	$(() => {
-		$('#signInModal').modal({
-			closable: false
+		$('#signInModal,#signUpModal, #forgotModal').modal({
+			onShow: () => {
+				$('body').addClass('ios11-input-bug-fixer');
+			},
+			onHide: () => {
+				$('body').removeClass('ios11-input-bug-fixer');
+			}
 		});
 	});
 
