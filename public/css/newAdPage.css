@@ -1,0 +1,17 @@
+.photoList{
+    border-radius:0 !important;
+}
+.photoListImage{
+    height:90px!important;
+    display: inherit!important;
+    overflow: hidden;
+}
+.photoListImage img{
+    max-width: 161px!important;
+    width: auto!important;
+    margin:auto!important;
+    border-radius:0 !important;
+}
+.noRadius{
+    border-radius:0 !important;
+}

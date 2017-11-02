@@ -8,6 +8,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
 
@@ -97,8 +98,8 @@ block content
                             .clearfix &nbsp;
 
                             .ui.four.stackable.cards
-                                .card(ng-repeat='f in newAdForm.files')
-                                    .image
+                                .card.photoList(ng-repeat='f in newAdForm.files')
+                                    .image.photoListImage
                                         a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                             i.bookmark.icon
                                         img(
@@ -112,7 +113,7 @@ block content
                                             div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
 
 
-                                    .ui.bottom.attached.button(
+                                    .ui.bottom.attached.button.noRadius(
                                         ng-click="onDeletePhoto($index)",
                                         ng-if="f.showcase",
                                         ng-cloak
@@ -122,9 +123,9 @@ block content
 
 
                                     .ui.two.buttons(ng-if="!f.showcase", ng-cloak)
-                                        .ui.bottom.attached.button(ng-click="onDeletePhoto($index)")
+                                        .ui.bottom.attached.button.noRadius(ng-click="onDeletePhoto($index)")
                                             i.remove.icon.margin-auto
-                                        .ui.bottom.attached.button(ng-click="onSelectShowCase($index)")
+                                        .ui.bottom.attached.button.noRadius(ng-click="onSelectShowCase($index)")
                                             i.bookmark.icon.margin-auto
 
 
