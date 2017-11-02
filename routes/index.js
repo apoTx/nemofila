@@ -161,11 +161,12 @@ router.get('/getIndexAds', (req,res) => {
 		'photos': true,
 		'uuid': true,
 		'slug': true,
+		'power': true,
 		'photoShowcaseIndex': true
 	},(err, data)=>{
 		if (err)
 			console.log(err);
-
+		console.log(data);
 		res.json(data);
 	}).sort({ '$natural': -1 }).limit(8);
 });
