@@ -10,6 +10,9 @@
 .showcaseImage{
     height:253px!important;
     overflow: hidden;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
 }
 .phone-number{
     color:#000!important;
