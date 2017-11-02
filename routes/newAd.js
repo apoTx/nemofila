@@ -107,17 +107,19 @@ router.post('/create', requireLogin, (req, res) => {
 		category: {
 			categoryId: category.categoryId,
 			categoryChildId: category.childCategoryId
-		},
-		anotherContact: {
+		}
+	};
+
+	if (data.anotherContact.checked){
+		Object.assign( obj,  {
 			checked: data.anotherContact.checked,
 			name: data.anotherContact.name,
 			phone: data.anotherContact.phone
-		},
-		ownerId: req.session.user._id
-	};
+		});
+	}
 
 	if (!isEdit) {
-		let ad = new Ads(obj);
+		let ad = new Ads(Object.assign(obj, { ownerId: req.session.user._id }));
 
 		ad.save( (err) => {
 			if (err) {

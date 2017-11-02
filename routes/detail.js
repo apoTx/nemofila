@@ -134,6 +134,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		}else{
 
 			let data = result[0];
+			console.log(data);
 
 			if( data.status !== 1){
 				if ( req.session.user ){
