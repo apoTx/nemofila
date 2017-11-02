@@ -1,8 +1,15 @@
 .detail-photo-list{
     margin-top: 10px !important;
+    height: 30px !important;
+    overflow: hidden;
 }
 .detail-photo-list img{
     cursor:pointer;
+    vertical-align: text-top!important;
+}
+.showcaseImage{
+    height:253px!important;
+    overflow: hidden;
 }
 .phone-number{
     color:#000!important;
