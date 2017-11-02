@@ -47,7 +47,8 @@ block content
                                 .ui.left.corner.orange.label(ng-show="ad.power.powerStatus")
                                     .cardPowerNumber
                                         | {{ ad.power.powerNumber }}
-                                img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}')
+                                img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                                img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
                             .content
                                 span {{ ad.title | limitTo: 16 }} {{ ad.title.length > 16 ? '...' : ''}}
             .ui.dimmer(ng-class="{ active:indexAdsLoading }")
