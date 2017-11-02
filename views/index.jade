@@ -14,21 +14,18 @@ block content
                 country-and-category-dropdowns
 
                 .field.text-right.margin-top-10
-                    .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                    .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                         | Search
 
         .searchForm
             form.ui.form.fluid(ng-submit="onSubmit()")
-                .field
-                    .ui.icon.input
-                        i.search.icon
-                        input(ng-model='searchForm.title', placeholder='Search...', )
+                .ui.action.input.fluid
+                    input(type='text', ng-model='searchForm.title', placeholder='Search...')
+                    button.ui.button.primary(type="submit", ng-class="indexAdsLoading ? 'loading disabled' : '' ") Search
 
-                div.advancedSearch.ui.container.mobile.tablet.only.grid
+                .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
                     a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
                         | Filter
-                    .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                        | Search
 
                 div.searchFormBottom.ui.container.computer.only.grid
                     .five.fields(country-and-category-dropdowns)

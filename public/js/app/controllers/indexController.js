@@ -29,7 +29,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	$scope.searchForm = { };
 	$scope.isSearch = false;
 	$scope.resultNumber = 0;
-	$scope.onSubmit = () => {
+	$scope.onSubmit = (toggleSidebar) => {
 		$scope.indexAdsLoading = true;
 
 		let location = { };
@@ -69,7 +69,8 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 			$scope.ads = response;
 			$scope.isSearch = true;
 			$scope.resultNumber = response.length;
-			$scope.toggleFilterSidebar();
+			if (toggleSidebar)
+				$scope.toggleFilterSidebar();
 		});
 	};
 
