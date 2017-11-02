@@ -40,10 +40,10 @@ block content
         h2(ng-show="isSearch && resultNumber > 0", ng-cloak) We found {{ resultNumber }} results.
         .ui.segment.list-segment
             .ui.grid.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
-                .doubling.eight.column.row
-                    .column(ng-repeat="ad in ads")
+                .doubling.four.column.row
+                    .column.margin-bottom-10(ng-repeat="ad in ads")
                         a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
-                            .image
+                            .image.cardListImage
                                 .ui.left.corner.orange.label(ng-show="ad.power.powerStatus")
                                     .cardPowerNumber
                                         | {{ ad.power.powerNumber }}

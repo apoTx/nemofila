@@ -37,3 +37,7 @@
     line-height: 28px!important;
     text-align: center!important;
 }
+.cardListImage{
+    height: 159px!important;
+    overflow: hidden;
+}
