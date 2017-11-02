@@ -178,14 +178,12 @@ block content
                                         name='powernumber',
                                         ng-model="powerNumber",
                                         ng-change="update(id);",
+                                        ng-options="n for n in []  | range:1:101"
                                     )
                                         option(value='0') Please Select
-                                        option(value='1') 1
-                                        option(value='2') 2
-                                        option(value='3') 3
 
                                     div.margin-top-10(ng-show="powerNumber > 0")
-                                        h3 {{ powerNumber * 10 }} EUR
+                                        h3 {{ powerNumber * 10 | number:2 }} EUR
 
                                     .clearfix
                                     button.ui.primary.button.margin-top-10#buttonCheckout Buy Power

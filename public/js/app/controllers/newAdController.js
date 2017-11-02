@@ -26,6 +26,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 
 		$('#buttonCheckout').on('click', () => {
+			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];
+			console.log($scope.powerNumber);
 			if(parseInt($scope.powerNumber) > 0)
 				checkoutHandler.open({
 					name: 'Easyad',
@@ -450,3 +452,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 }]);
+
+
+app.filter('range', () => {
+	return function(input, min, max) {
+		min = parseInt(min); //Make string input int
+		max = parseInt(max);
+		for (let i=min; i<max; i++)
+			input.push(i);
+		return input;
+	};
+});
