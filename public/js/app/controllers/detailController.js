@@ -68,6 +68,10 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 			onHide: function(){
 				$scope.messageSended = false;
 				$scope.sendMessageFormData.message = '';
+				$('body').removeClass('ios11-input-bug-fixer');
+			},
+			onShow: () => {
+				$('body').addClass('ios11-input-bug-fixer');
 			}
 		});
 	});
