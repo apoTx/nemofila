@@ -1,6 +1,7 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
+let moment = require('moment');
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
@@ -190,7 +191,7 @@ router.get('/getIndexAds', (req,res) => {
 					$push: '$power'
 				},
 				totalPower: {
-					$sum: '$power.powerNumber'
+					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
 				}
 			}
 		},
@@ -208,6 +209,7 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
+		console.log(moment('2016-10-03T21:45:15.271Z').format('YYYY'));
 		console.log(data);
 		res.json(data);
 	});
