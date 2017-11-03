@@ -34,13 +34,21 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 router.post('/unpublish', requireLogin, (req, res) => {
 	let id = req.body.id;
 
-	Ads.findByIdAndUpdate(id, {
-		status: 4,
-		statusText: getAdStatusText(4)
-	}, (err) => {
-		if (!err)
+
+	Ads.findById(id, (err, data) => {
+		if (data.status === 1) {
+			Ads.findByIdAndUpdate(id, {
+				status: 4,
+				statusText: getAdStatusText(4)
+			}, (err) => {
+				if (!err)
+					res.json({ status: 1 });
+			});
+		}else{
 			res.json({ status: 1 });
+		}
 	});
+
 });
 
 module.exports = router;
