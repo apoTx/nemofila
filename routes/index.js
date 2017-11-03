@@ -154,6 +154,65 @@ router.get('/logout',  (req,res) => {
 });
 
 router.get('/getIndexAds', (req,res) => {
+	Ads.aggregate([
+		{
+			'$match': {
+				'status': 1,
+			}
+		},
+
+		// Power collection
+		{
+			$lookup: {
+				from: 'powers',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'power'
+			}
+		},
+		{
+			$unwind: {
+				path: '$power',
+				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					title: '$title',
+					photos: '$photos',
+					photoShowcaseIndex: '$photoShowcaseIndex',
+				},
+				power: {
+					$push: '$power'
+				},
+				totalPower: {
+					$sum: '$power.powerNumber'
+				}
+			}
+		},
+		{
+			$project: {
+				_id: '$_id._id',
+				title: '$_id.title',
+				photos: '$_id.photos',
+				photoShowcaseIndex: '$_id.photoShowcaseIndex',
+				powers: '$power',
+				totalPower: 1
+			}
+		}
+	], (err, data) => {
+		if (err)
+			throw new Error(err);
+
+		console.log(data);
+		res.json(data);
+	});
+
+	/*
 	Ads.find({
 		status: 1
 	},{
@@ -169,6 +228,8 @@ router.get('/getIndexAds', (req,res) => {
 		console.log(data);
 		res.json(data);
 	}).sort({ '$natural': -1 }).limit(8);
+	*/
+
 });
 
 router.get('/searchAd', (req, res) => {

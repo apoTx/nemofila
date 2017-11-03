@@ -44,9 +44,9 @@ block content
                     .column.margin-bottom-10(ng-repeat="ad in ads")
                         a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
                             .image.cardListImage
-                                .ui.left.corner.orange.label(ng-show="ad.power.powerStatus")
+                                .ui.left.corner.orange.label(ng-show="ad.totalPower > 0")
                                     .cardPowerNumber
-                                        | {{ ad.power.powerNumber }}
+                                        | {{ ad.totalPower }}
                                 img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                                 img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
                             .content
