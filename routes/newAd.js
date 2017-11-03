@@ -1,28 +1,44 @@
 let express = require('express');
-let client = require('../redis/client.js');
-let fs = require('fs');
 let slugify = require('slugify');
 let request = require('request');
+let uuid = require('uuid');
+let router = express.Router();
 
 let requireLogin = require('./inc/requireLogin.js');
-
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 let getAdStatusText = require('../helper/getAdStatusText');
 
 // Models
 let Ads = require('../models/ads');
 
-// uuid
-let uuid = require('uuid');
+// Mail transporter
+let mailer = require('../helper/mailer');
 
-// Multer
-let multer  = require('multer');
+let sendMail = (title, id) => {
+	// send email
+	let to_email = 'mehmetseven0@gmail.com';
+	let subject = 'There\'s a new ad that is pending approval';
+	let mailOptions = {
+		from: mailer.config.defaultFromAddress,
+		to: to_email,
+		subject: subject,
+		template: 'admin/new-ad-alert',
+		context: {
+			siteUrl: mailer.siteUrl,
+			adTitle: title,
+			id: id,
+			subject: subject,
+		}
+	};
 
-// Express router
-let router = express.Router();
+	mailer.transporter.sendMail(mailOptions, (error, info) => {
+		if(error)
+			console.log(error);
+		else
+			console.log('Message sent: ' + info.response);
+	});
+}
 
-
-/* GET users listing. */
 router.get('/:id?', requireLogin, (req, res) => {
 	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 		res.render( 'newAd', {
@@ -32,47 +48,6 @@ router.get('/:id?', requireLogin, (req, res) => {
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url
 		});
-	});
-});
-
-router.post('/uploadPhotos/:showcaseIndex/:uuid?',  (req,res) => {
-	const _uuid = req.params.uuid !== 'undefined' && req.params.uuid !=='false' ? req.params.uuid : uuid.v1();
-	let photos = [];
-	let showcaseIndex = req.params.showcaseIndex;
-
-	let storage = multer.diskStorage({
-		destination: function (req, file, cb) {
-			const dir = 'public/uploads/'+ _uuid +'/';
-
-			if (!fs.existsSync(dir)){
-				fs.mkdir(dir, err => cb(err, dir));
-			}else{
-				cb(null, dir);
-			}
-		},
-		filename: function (req, file, cb) {
-			console.log(file);
-			let extArray = file.mimetype.split('/');
-			let extension = extArray[extArray.length - 1];
-			let filename = file.originalname.split('.')[0] + '-' + Date.now()+ '.' +extension;
-
-			if (file.fieldname === 'file['+ showcaseIndex +']' )
-				photos.push({ filename: filename, showcase: true });
-			else
-				photos.push({ filename: filename });
-
-			cb(null, filename);
-		}
-	});
-
-	let upload = multer({ storage: storage }).any();
-
-	upload(req,res, (err) => {
-		if (err){
-			throw err;
-		}else {
-			res.json({ status: 1, uuid: _uuid, photos: photos });
-		}
 	});
 });
 
@@ -86,7 +61,6 @@ router.post('/create', requireLogin, (req, res) => {
 	let category = req.body.category;
 	let isEdit = req.body.isEdit;
 	let editId = req.body.editId;
-
 
 	let obj = {
 		title: data.title,
@@ -122,16 +96,11 @@ router.post('/create', requireLogin, (req, res) => {
 	if (!isEdit) {
 		let ad = new Ads(Object.assign(obj, { ownerId: req.session.user._id }));
 
-		ad.save( (err) => {
+		ad.save((err, data) => {
 			if (err) {
 				res.send( err );
 			} else {
-				client.del( _uuid, (err) => {
-					if (err)
-						console.log( err );
-				} );
-
-				res.clearCookie( 'newAdRedisId' );
+				sendMail(data.title, data._id);
 				res.send( { 'status': 1 } );
 			}
 		} );
@@ -150,7 +119,6 @@ router.get('/getEditAd/:id', requireLogin, (req,res) => {
 		if (err)
 			throw new Error();
 
-		console.log(data);
 		res.json(data);
 	});
 });
