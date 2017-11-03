@@ -95,6 +95,8 @@ router.post('/unpublish', requireLogin, (req, res) => {
 
 router.get('/getAllAds', requireLogin, (req, res, next) => {
 	Ads.aggregate([
+
+		// User collection
 		{
 			$lookup: {
 				from: 'users',
@@ -104,23 +106,61 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 			}
 		},
 		{ '$unwind': '$user' },
-		{ $sort : { _id : -1 } },
+
+		// Power collection
+		{
+			$lookup: {
+				from: 'powers',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'power'
+			}
+		},
+		{
+			$unwind: {
+				path: '$power',
+				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					title: '$title',
+					status: '$status',
+					statusText: '$statusText',
+					slug: '$slug',
+					createdAt: '$createdAt',
+					user: '$user'
+				},
+				power: {
+					$push: '$power'
+				},
+				totalPower: {
+					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
+				}
+			}
+		},
+
 		{
 			'$project': {
-				'_id': 1,
-				'title': 1,
-				'status': 1,
-				'slug': 1,
-				'power': 1,
-				'createdAt': 1,
-				'user.name': 1,
-				'user.surname': 1,
+				'_id': '$_id._id',
+				'title': '$_id.title',
+				'status': '$_id.status',
+				'statusText': '$_id.statusText',
+				'slug': '$_id.slug',
+				'createdAt': '$_id.createdAt',
+				'user': '$_id.user'
 			},
 		},
+		{ $sort : { _id : -1 } },
 	], (err, result)=>{
 		if (err)
 			return next(err);
 
+		console.log(result);
 		res.json(result);
 	});
 });

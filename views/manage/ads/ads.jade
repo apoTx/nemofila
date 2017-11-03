@@ -23,7 +23,7 @@ block content
                         td {{ ad.title }}
                         td {{ ad.user.name }} {{ ad.user.surname }}
                         td(am-time-ago='ad.createdAt')
-                        td {{ ad.status == 0 ? 'waiting' : '' || ad.status == 2 ? 'rejected' :'' || ad.status == 4 ? 'unpublished' :'' }}
+                        td {{ ad.statusText }}
                         td.text-right
                             span(ng-show="ad.power.powerStatus")
                                 i.icon.orange.rocket
