@@ -16,7 +16,7 @@ let mailer = require('../helper/mailer');
 
 let sendMail = (title, id) => {
 	// send email
-	let to_email = 'mehmetseven0@gmail.com';
+	let to_email = mailer.config.new_ad_alert_to_email;
 	let subject = 'There\'s a new ad that is pending approval';
 	let mailOptions = {
 		from: mailer.config.defaultFromAddress,
@@ -37,7 +37,7 @@ let sendMail = (title, id) => {
 		else
 			console.log('Message sent: ' + info.response);
 	});
-}
+};
 
 router.get('/:id?', requireLogin, (req, res) => {
 	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
@@ -105,10 +105,11 @@ router.post('/create', requireLogin, (req, res) => {
 			}
 		} );
 	}else {
-		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0, statusText: getAdStatusText(0) }), { upsert:true }, (err) => {
+		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0, statusText: getAdStatusText(0) }), { upsert:true }, (err, data) => {
 			if (err)
 				throw new Error(err);
 
+			sendMail(data.title, data._id);
 			res.send( { 'status': 1 } );
 		});
 	}
