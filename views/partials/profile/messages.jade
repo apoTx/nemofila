@@ -27,58 +27,55 @@ h2.text-center(ng-if="conversations.length < 1") No Results
             .ui.loader
 
     .eleven.wide.column
-        .ui.items
-            .item
-                .image
-                    img(src='https://s3.eu-central-1.amazonaws.com/easyad-static/bcbd555b-a1cf-088f-4950-c75d91c5fa01_technics-q-c-640-480-6.jpg')
-                .content
-                    a.header Header
-                    .meta
-                        span Description
-                    .description
-                        p
-                    .extra
-                        | Additional Details
-        hr
-        .ui.segment.no-segment(ng-show="visibleMessages")
-            .ui.comments#messageList
-                .comment(ng-repeat="message in messages")
+        div(ng-show="visibleMessages")
+            .ui.items
+                .item
+                    a.image(href="./detail/{{ ad.slug }}/{{ ad.id }}", target="_blank")
+                        img(src='{{ amazon_base_url }}/{{ ad.showcasePhoto }}')
                     .content
-                        a.author {{ message.user.name }} {{ message.user.surname }}
-                        .metadata
-                            span.date(am-time-ago='message.createdAt')
-                        .text
-                            | {{ message.message }}
-            form.ui.reply.form
-                input(
-                    type="hidden",
-                    ng-model="sendMessageFormData.conversationId",
-                )
-                input(
-                    type="hidden",
-                    ng-model="sendMessageFormData.toUserId",
-                )
-                input(
-                    type="hidden",
-                    ng-model="sendMessageFormData.username",
-                    ng-init="sendMessageFormData.username= '#{user.name}'"
-                )
-                input(
-                    type="hidden",
-                    ng-model="sendMessageFormData.surname",
-                    ng-init="sendMessageFormData.surname= '#{user.surname}'"
-                )
-
-                .field
-                    textarea(
-                        ng-model="sendMessageFormData.message"
+                        a.header(href="./detail/{{ ad.slug }}/{{ ad.id }}", target="_blank") {{ ad.title }}
+                        .meta
+                            span {{ ad.price | currency }}
+            hr(style="border:solid 1px #f1f1f1")
+            .ui.segment.no-segment
+                .ui.comments#messageList
+                    .comment(ng-repeat="message in messages")
+                        .content
+                            a.author {{ message.user.name }} {{ message.user.surname }}
+                            .metadata
+                                span.date(am-time-ago='message.createdAt')
+                            .text
+                                | {{ message.message }}
+                form.ui.reply.form
+                    input(
+                        type="hidden",
+                        ng-model="sendMessageFormData.conversationId",
                     )
-                .ui.right.floated.primary.submit.button(
-                    form="sendMessageForm",
-                    ng-class="sendMessageLoading ? 'loading disabled' : '' ",
-                    ng-click="sendMessage()"
-                )
-                    |  Submit
+                    input(
+                        type="hidden",
+                        ng-model="sendMessageFormData.toUserId",
+                    )
+                    input(
+                        type="hidden",
+                        ng-model="sendMessageFormData.username",
+                        ng-init="sendMessageFormData.username= '#{user.name}'"
+                    )
+                    input(
+                        type="hidden",
+                        ng-model="sendMessageFormData.surname",
+                        ng-init="sendMessageFormData.surname= '#{user.surname}'"
+                    )
+
+                    .field
+                        textarea(
+                            ng-model="sendMessageFormData.message"
+                        )
+                    .ui.right.floated.primary.submit.button(
+                        form="sendMessageForm",
+                        ng-class="sendMessageLoading ? 'loading disabled' : '' ",
+                        ng-click="sendMessage()"
+                    )
+                        |  Submit
 
     .ui.dimmer(ng-class="{ active: loadingMessages }")
         .ui.loader

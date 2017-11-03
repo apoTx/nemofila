@@ -83,6 +83,9 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 				'user.surname': 1,
 				'ad.title': 1,
 				'ad.photos': 1,
+				'ad.price': 1,
+				'ad.slug': 1,
+				'ad._id': 1,
 				'ad.photoShowcaseIndex': 1
 			},
 		},
@@ -90,7 +93,6 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		if (err)
 			return next( err );
 
-		console.log(result);
 		res.json(result);
 	});
 });
@@ -164,6 +166,7 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 
 		let toUserId = String(result[0].conversation.participants.toUserId) != String(req.session.user._id) ? result[0].conversation.participants.toUserId : result[0].conversation.participants.fromUserId;
 
+		console.log(result);
 		res.json({ data: result, toUserId: toUserId });
 	});
 });

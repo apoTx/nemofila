@@ -11,14 +11,25 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 	messageFactory.getConversations().then((response) => {
 		$scope.loadingConversations = false;
 		$scope.conversations = response;
-		console.log(response);
+
+		if ($routeParams.id){
+			let ad = ($scope.conversations).find(x => String(x._id) === String($routeParams.id)).ad;
+			console.log(ad);
+			$scope.ad.title = ad.title;
+			$scope.ad.price = ad.price;
+			$scope.ad.slug = ad.slug;
+			$scope.ad.id = ad._id;
+			$scope.ad.showcasePhoto = ad.photos[ad.photoShowcaseIndex].filename;
+		}
 	});
 
 
+	$scope.ad = { };
 	if ($routeParams.id){
 		$scope.sendMessageFormData.conversationId = $routeParams.id;
 		$scope.visibleMessages = true;
 		$scope.loadingMessages = true;
+
 		messageFactory.getMessages($routeParams.id).then((response) => {
 			$scope.loadingMessages = false;
 			$scope.messages = response.data;
