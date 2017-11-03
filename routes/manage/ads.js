@@ -133,7 +133,10 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 					statusText: '$statusText',
 					slug: '$slug',
 					createdAt: '$createdAt',
-					user: '$user'
+					user: {
+						name: '$user.name',
+						surname: '$user.surname'
+					}
 				},
 				power: {
 					$push: '$power'
@@ -152,7 +155,8 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 				'statusText': '$_id.statusText',
 				'slug': '$_id.slug',
 				'createdAt': '$_id.createdAt',
-				'user': '$_id.user'
+				'user': '$_id.user',
+				totalPower: 1
 			},
 		},
 		{ $sort : { _id : -1 } },
