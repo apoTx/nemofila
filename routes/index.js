@@ -204,12 +204,13 @@ router.get('/getIndexAds', (req,res) => {
 				powers: '$power',
 				totalPower: 1
 			}
-		}
+		},
+		{ $sort:{ 'totalPower':-1 } }
 	], (err, data) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(moment('2016-10-03T21:45:15.271Z').format('YYYY'));
+		console.log(new Date());
 		console.log(data);
 		res.json(data);
 	});
