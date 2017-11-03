@@ -210,7 +210,6 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(new Date());
 		console.log(data);
 		res.json(data);
 	});
