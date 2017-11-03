@@ -11,6 +11,7 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 	messageFactory.getConversations().then((response) => {
 		$scope.loadingConversations = false;
 		$scope.conversations = response;
+		console.log(response);
 	});
 
 

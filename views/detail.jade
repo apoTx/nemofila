@@ -141,19 +141,20 @@ block content
                         tr
                             td Contact Name
                             td
-                                - if (!data.anotherContact)
+                                - if (!data.anotherContact || !data.anotherContact.checked)
                                     div.contact-name #{ data.user.name } #{ data.user.surname }
 
                                     - if (sessionId !== null && (sessionId != String(data.user._id)))
                                         button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
                                 - else
+                                    | test
                                     div #{ data.anotherContact.name }
                                 .clearfix
                         tr
                             td Contact Number
                             td
                                 a.phone-number(href="tel:#{ data.user.phone }")
-                                    - if (!data.anotherContact)
+                                    - if (!data.anotherContact || !data.anotherContact.checked)
                                         | #{ data.user.phone }
                                     - else
                                         div #{ data.anotherContact.phone }

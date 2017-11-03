@@ -79,15 +79,18 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		{
 			'$project': {
 				'participants': 1,
-				'user.name': '$user.name',
-				'user.surname': '$user.surname',
-				'ad.title': '$ad.title'
+				'user.name': 1,
+				'user.surname': 1,
+				'ad.title': 1,
+				'ad.photos': 1,
+				'ad.photoShowcaseIndex': 1
 			},
 		},
 	], (err, result)=> {
 		if (err)
 			return next( err );
 
+		console.log(result);
 		res.json(result);
 	});
 });
