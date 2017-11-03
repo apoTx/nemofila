@@ -198,6 +198,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			try{
 				$scope.newAdForm.files = response.data.photos || '';
 				$scope.uploadedFiles = $scope.newAdForm.files;
+				$scope.newAdForm.showcaseIndex = response.data.photoShowcaseIndex;
 			}catch (e){
 				$scope.newAdForm.files = [];
 			}
@@ -417,7 +418,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.onSelectShowCase = (index) => {
-		console.log(index);
 		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = false;
 
 		$scope.newAdForm.showcaseIndex = index;

@@ -12,7 +12,7 @@ app.controller('myAdsController', ['$scope', 'myAdsFactory', '$window', function
 
 	$scope.unpublish = (id) => {
 		console.log(id);
-		
+
 		let r = confirm('Are you sure?');
 		if (r === true) {
 			$scope.loadingUnpublish = true;

@@ -7,6 +7,7 @@ let request = require('request');
 let requireLogin = require('./inc/requireLogin.js');
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+let getAdStatusText = require('../helper/getAdStatusText');
 
 // Models
 let Ads = require('../models/ads');
@@ -135,7 +136,7 @@ router.post('/create', requireLogin, (req, res) => {
 			}
 		} );
 	}else {
-		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0 }), { upsert:true }, (err) => {
+		Ads.findOneAndUpdate({ '_id': editId }, Object.assign(obj, { status: 0, statusText: getAdStatusText(0) }), { upsert:true }, (err) => {
 			if (err)
 				throw new Error(err);
 
