@@ -10,6 +10,7 @@ let getAdStatusText = require('../helper/getAdStatusText');
 
 // Models
 let Ads = require('../models/ads');
+let Power = require('../models/powers');
 
 // Mail transporter
 let mailer = require('../helper/mailer');
@@ -53,7 +54,7 @@ router.get('/:id?', requireLogin, (req, res) => {
 
 router.post('/create', requireLogin, (req, res) => {
 	let data = req.body.data;
-	let power = req.body.power;
+	let powerData = req.body.power;
 	let photos = req.body.photos;
 	let _uuid = req.body.uuid  || uuid.v1();
 	let showcaseIndex = req.body.showcaseIndex;
@@ -69,10 +70,6 @@ router.post('/create', requireLogin, (req, res) => {
 		description: data.description,
 		photos: photos,
 		photoShowcaseIndex: showcaseIndex,
-		power: {
-			powerStatus: power.powerStatus,
-			powerNumber: power.powerStatus ? power.powerNumber : 0
-		},
 		uuid: _uuid,
 		location: {
 			countryId: country.countryId,
@@ -98,9 +95,23 @@ router.post('/create', requireLogin, (req, res) => {
 
 		ad.save((err, data) => {
 			if (err) {
-				res.send( err );
+				throw new Error( err );
 			} else {
 				sendMail(data.title, data._id);
+
+				if (powerData.powerStatus){
+					let power = new Power ({
+						adId: data._id,
+						powerNumber: powerData.powerNumber,
+						price: powerData.powerNumber * 10,
+					});
+
+					power.save((err) => {
+						if (err)
+							throw new Error( err );
+					});
+				}
+
 				res.send( { 'status': 1 } );
 			}
 		} );
