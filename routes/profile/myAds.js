@@ -5,6 +5,8 @@ let router = express.Router();
 let Ads = require('../../models/ads');
 
 let requireLogin = require('../inc/requireLogin.js');
+let getAdStatusText = require('../../helper/getAdStatusText');
+
 
 /* GET users listing. */
 router.get('/getMyAds', requireLogin, (req, res) => {
@@ -27,6 +29,18 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 
 		res.json(data);
 	}).sort({ createdAt: -1 });
+});
+
+router.post('/unpublish', requireLogin, (req, res) => {
+	let id = req.body.id;
+
+	Ads.findByIdAndUpdate(id, {
+		status: 4,
+		statusText: getAdStatusText(4)
+	}, (err) => {
+		if (!err)
+			res.json({ status: 1 });
+	});
 });
 
 module.exports = router;

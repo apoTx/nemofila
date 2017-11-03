@@ -1,5 +1,5 @@
 /*eslint-disable */
-app.controller('myAdsController', ['$scope', 'myAdsFactory', function($scope, myAdsFactory){
+app.controller('myAdsController', ['$scope', 'myAdsFactory', '$window', function($scope, myAdsFactory, $window){
 /*eslint-enable */
 	$scope.loadingMyAds = true;
 
@@ -9,4 +9,21 @@ app.controller('myAdsController', ['$scope', 'myAdsFactory', function($scope, my
 		$scope.loadingMyAds = false;
 		$scope.myAds = response;
 	});
+
+	$scope.unpublish = (id) => {
+		console.log(id);
+		
+		let r = confirm('Are you sure?');
+		if (r === true) {
+			$scope.loadingUnpublish = true;
+			myAdsFactory.unpublish(id).then((response) => {
+				$scope.loadingUnpublish = false;
+
+				if (response.status === 1){
+					$window.location.reload();
+				}
+			});
+		}
+	};
+
 }]);

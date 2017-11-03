@@ -22,9 +22,20 @@ h2.text-center(ng-if="myAds.length < 1") No Results
                             ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
                         )
                         | {{ ad.statusText }}
-                    a.ui.right.floated.primary.button(href="./newAd?id={{ ad._id }}")
-                        | Edit
-                        i.right.chevron.icon
+
+                    .ui.simple.dropdown.right.floated.item
+                        | Preferences
+                        i.dropdown.icon
+                        .menu
+                            a.item(href="./newAd?id={{ ad._id }}")
+                                i.edit.icon
+                                | Edit
+                            a.item
+                                i.rocket.icon
+                                |Buy Power
+                            a.item(href="javascript:;", ng-click="unpublish('{{ ad._id }}')")
+                                i.trash.icon
+                                | Unpublish
 
 .ui.dimmer(ng-class="{active: loadingMyAds }")
     .ui.loader
