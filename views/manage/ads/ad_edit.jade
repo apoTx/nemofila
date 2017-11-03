@@ -6,7 +6,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
 
 block content
-    div(ng-controller="adsController", ng-init="init()")
+    div(ng-controller="adsEditController", ng-init="init()")
         a.ui.right.floated.button(
                 href="/detail/#{ data.slug }/#{data._id}",
                 target="_blank"
@@ -95,4 +95,4 @@ block content
 
 append javascripts
     script(src='/dist/js/admin/app/services/adsFactory.min.js')
-    script(src='/dist/js/admin/app/controllers/adsController.min.js')
+    script(src='/dist/js/admin/app/controllers/adsEditController.min.js')
