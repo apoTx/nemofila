@@ -1,3 +1,4 @@
+/*
 describe('Redis Server', () => {
 	it('Redis server connection', (done)=> {
 		let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
@@ -18,3 +19,4 @@ describe('Redis Server', () => {
 
 	});
 });
+*/
