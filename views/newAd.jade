@@ -8,6 +8,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
@@ -92,10 +93,14 @@ block content
                                     ngf-multiple='true',
                                     ngf-keep='true',
                                     ngf-keep-distinct='true',
-                                    ngf-max-files="10"
+                                    ngf-max-files="10",
+                                    ngf-model-invalid="invalidFiles"
                                 )
 
                             .clearfix &nbsp;
+                            .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
+                                .header
+                                    | Photos may be a maximum of 2MB.
 
                             .ui.four.stackable.cards
                                 .card.photoList(ng-repeat='f in newAdForm.files')
