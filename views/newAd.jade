@@ -89,7 +89,7 @@ block content
                                     class='hidden'
                                     ngf-pattern="'image/*'",
                                     ngf-accept="'image/*'",
-                                    ngf-max-size='2MB',
+                                    ngf-max-size='4MB',
                                     ngf-multiple='true',
                                     ngf-keep='true',
                                     ngf-keep-distinct='true',
@@ -101,7 +101,7 @@ block content
                             .clearfix &nbsp;
                             .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
                                 .header
-                                    | Photos may be a maximum of 2MB.
+                                    | Photos may be a maximum of 4MB.
 
                             .ui.four.stackable.cards
                                 .card.photoList(ng-repeat='f in newAdForm.files')
