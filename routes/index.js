@@ -183,6 +183,7 @@ router.get('/getIndexAds', (req,res) => {
 				_id: {
 					_id: '$_id',
 					title: '$title',
+					slug: '$slug',
 					photos: '$photos',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 				},
@@ -198,6 +199,7 @@ router.get('/getIndexAds', (req,res) => {
 			$project: {
 				_id: '$_id._id',
 				title: '$_id.title',
+				slug: '$_id.slug',
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
