@@ -1,7 +1,6 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
-let moment = require('moment');
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
