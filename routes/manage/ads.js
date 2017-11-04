@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-let moment = require('moment')
+let moment = require('moment');
 // Models
 let Ads = require('../../models/ads');
 let Users = require('../../models/users');
@@ -19,7 +19,7 @@ router.get('/', requireLogin, (req, res) => {
 	res.render('manage/ads/ads', { title: 'Ads' });
 });
 
-router.get('/edit/:id', requireLogin, (req, res, next) => {
+router.get('/edit/:id', requireLogin, (req, res) => {
 	Ads.aggregate([
 		{
 			'$match': {
