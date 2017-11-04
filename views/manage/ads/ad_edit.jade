@@ -29,14 +29,39 @@ block content
                 tr
                     td Created At:
                     td #{ data.createdAt }
-                tr
-                    td Power Status
-                    td #{ data.power.powerStatus }
-                tr(ng-show="#{ data.power.powerStatus }")
-                    td Power
-                    td #{ data.power.powerNumber }
 
-        br
+        div(ng-show="#{ data.power.length } > 0")
+            h2 Powers
+            table.ui.celled.padded.table
+                thead
+                    tr
+                        th.ui.center.aligned Active Power
+                        th.ui.center.aligned Ending Power
+                        th.ui.center.aligned Total Power
+                tbody
+                    tr
+                        td
+                            h3.ui.center.aligned.header #{ data.totalActivePower }
+                        td.single.line
+                            h3.ui.center.aligned.header #{ data.totalEndingPower }
+                        td
+                            h3.ui.center.aligned.header #{ data.totalPower }
+
+            table.ui.celled.table
+                thead
+                    tr.ui.center.aligned
+                        th Power Number
+                        th Price
+                        th Created At
+                        th Ending At
+                tbody
+                    each power, i in data.power
+                        tr.ui.center.aligned
+                            td= power.powerNumber
+                            td= power.price
+                            td= moment(power.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+                            td= moment(power.endingAt).format('MMMM Do YYYY, h:mm:ss a')
+
         br
         br
 
