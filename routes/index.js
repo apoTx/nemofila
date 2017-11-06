@@ -214,45 +214,78 @@ router.get('/getIndexAds', (req,res) => {
 		console.log(data);
 		res.json(data);
 	});
-
-	/*
-	Ads.find({
-		status: 1
-	},{
-		'title': true,
-		'photos': true,
-		'uuid': true,
-		'slug': true,
-		'power': true,
-		'photoShowcaseIndex': true
-	},(err, data)=>{
-		if (err)
-			console.log(err);
-		console.log(data);
-		res.json(data);
-	}).sort({ '$natural': -1 }).limit(8);
-	*/
-
 });
 
 router.get('/searchAd', (req, res) => {
 	let location = JSON.parse(req.query.location);
 	let category = JSON.parse(req.query.category);
 
-	Ads.find({
-		status: 1,
-		title: new RegExp(req.query.title, 'i'),
-		'location.countryId': location.countryId ? location.countryId :  { $exists: true },
-		'location.cityId': location.cityId ? location.cityId :  { $exists: true },
-		'location.districtId': location.districtId ? location.districtId :  { $exists: true },
-		'category.categoryId': category.categoryId ? category.categoryId :  { $exists: true },
-		'category.categoryChildId': category.categoryChildId ? category.categoryChildId :  { $exists: true },
-	}, (err, data) => {
-		if (err)
-			throw(err);
+	Ads.aggregate([
+		{
+			'$match': {
+				status: 1,
+				title: new RegExp(req.query.title, 'i'),
+				'location.countryId': location.countryId ? location.countryId :  { $exists: true },
+				'location.cityId': location.cityId ? location.cityId :  { $exists: true },
+				'location.districtId': location.districtId ? location.districtId :  { $exists: true },
+				'category.categoryId': category.categoryId ? category.categoryId :  { $exists: true },
+				'category.categoryChildId': category.categoryChildId ? category.categoryChildId :  { $exists: true },
+			}
+		},
 
+		// Power collection
+		{
+			$lookup: {
+				from: 'powers',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'power'
+			}
+		},
+		{
+			$unwind: {
+				path: '$power',
+				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					title: '$title',
+					slug: '$slug',
+					photos: '$photos',
+					photoShowcaseIndex: '$photoShowcaseIndex',
+				},
+				power: {
+					$push: '$power'
+				},
+				totalPower: {
+					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
+				}
+			}
+		},
+		{
+			$project: {
+				_id: '$_id._id',
+				title: '$_id.title',
+				slug: '$_id.slug',
+				photos: '$_id.photos',
+				photoShowcaseIndex: '$_id.photoShowcaseIndex',
+				powers: '$power',
+				totalPower: 1
+			}
+		},
+		{ $sort:{ 'totalPower':-1 } }
+	], (err, data) => {
+		if (err)
+			throw new Error(err);
+
+		console.log(data);
 		res.json(data);
-	}).sort({ '$natural': -1 }).limit(16);
+	});
 });
 
 // Get angular partials
