@@ -21,6 +21,9 @@ router.get('/', requireLogin, (req, res) => {
 			messages: {
 				title: res.__('messages'),
 				search: res.__('searchPlaceholder'),
+			},
+			favourites: {
+				title: res.__('favourites')
 			}
 		},
 	});

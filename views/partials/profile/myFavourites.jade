@@ -1,8 +1,8 @@
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
-h2(ng-if="myFavourites.length > 0") My Favourites
-h2.text-center(ng-if="myFavourites.length < 1") No Results
+h2(ng-if="myFavourites.length > 0") {{ i18n_favTitle }}
+h2.text-center(ng-if="myFavourites.length < 1") {{ i18n_no_results }}
 
 .ui.segment.no-segment
     .ui.divided.items

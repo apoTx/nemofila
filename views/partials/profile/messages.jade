@@ -4,8 +4,8 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/item.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/messages.css')
 
-h2.ui.dividing.header(ng-if="conversations.length > 0") {{ i18n_messagesTitle }}
-h2.text-center(ng-if="conversations.length < 1") No Results
+h2.ui.dividing.header(ng-if="conversations.length > 0") {{ i18n_favTitle }}
+h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
 
 .ui.stackable.two.column.grid(ng-show="conversations.length > 0")
     .five.wide.column

@@ -13,6 +13,8 @@ app.controller('profileController', ['$scope', ($scope) => {
 
 		$scope.i18n_messagesTitle = profile_locale.messages.title;
 		$scope.i18n_searchPlaceholder = profile_locale.messages.search;
+
+		$scope.i18n_favTitle = profile_locale.favourites.title;
 	};
 }]);
 
