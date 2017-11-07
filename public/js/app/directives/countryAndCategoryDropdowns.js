@@ -31,6 +31,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 		'</select>\n' +
 		'</div>',
 
+
 		link: function($scope) {
 			// Select option Countries
 			$scope.visiblesCountries = {

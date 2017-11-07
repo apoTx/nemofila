@@ -21,20 +21,20 @@ block content
                 a.step(ng-class="steps.informations ? 'active': 'disabled' " ng-cloak)
                     i.info.icon
                     .content
-                        .title Ad Information
-                        .description Please enter your ad informations.
+                        .title #{ i18n.__("newAd_tab_ad_information") }
+                        .description #{ i18n.__("newAd_tab_ad_information_message")}
 
                 a.step(ng-class="steps.power ? 'active': 'disabled' " ng-cloak)
                     i.rocket.icon
                     .content
-                        .title Buy Power
-                        .description Your ad is in the top row.
+                        .title #{ i18n.__("newAd_tab_buy_power") }
+                        .description #{ i18n.__("newAd_tab_buy_power_message") }
 
                 a.step.disabled(ng-class="steps.preview ? 'active':'disabled' " ng-cloak)
                     i.unhide.icon
                     .content
-                        .title Preview
-                        .description Your ad will look like this.
+                        .title #{ i18n.__("newAd_tab_preview") }
+                        .description #{ i18n.__("newAd_tab_preview_message") }
 
             .ui.segment.no-segment.test
                 .ui.dimmer(ng-class="loadingBufferData ? 'active': ''")
@@ -55,16 +55,16 @@ block content
 
                         .fields.two
                             .field.wide.twelve
-                                label Title
-                                input(name='title', placeholder='Title',  ng-model="newAdForm.title")
+                                label #{ i18n.__("title") }
+                                input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newAdForm.title")
                             .field.wide.four
-                                label Price
+                                label #{ i18n.__("price") }
                                 .ui.right.labeled.input
-                                    input(type='text', name="price", placeholder='Price', ng-model="newAdForm.price")
+                                    input(type='text', name="price", placeholder='#{ i18n.__("price") }', ng-model="newAdForm.price")
                                     .ui.basic.label
                                         | USD
                         .field
-                            label Description
+                            label #{ i18n.__("description") }
                             ng-wig(
                                 name='description',
                                 ng-model='newAdForm.description'
@@ -77,7 +77,7 @@ block content
                                 .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
                                     .ui.button
                                         i.upload.icon
-                                        |  Upload Photos
+                                        |  #{ i18n.__("upload_photos") }
                                     a.ui.basic.label
                                         | {{ newAdForm.files.length > 0 ? newAdForm.files.length : '0'  }}
                                 input(
@@ -101,7 +101,7 @@ block content
                             .clearfix &nbsp;
                             .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
                                 .header
-                                    | Photos may be a maximum of 4MB.
+                                    | #{ i18n.__("photo_size_limit") }
 
                             .ui.four.stackable.cards
                                 .card.photoList(ng-repeat='f in newAdForm.files')
@@ -125,7 +125,7 @@ block content
                                         ng-cloak
                                     )
                                         i.remove.icon
-                                        |  Remove
+                                        |  #{ i18n.__("remove") }
 
 
                                     .ui.two.buttons(ng-if="!f.showcase", ng-cloak)
@@ -142,13 +142,13 @@ block content
                                 .sixteen.wide.column
                                     .ui.checked.checkbox
                                         input.hidden(type='checkbox', checked="", tabindex='0', name='anotherContactChecked', ng-model='newAdForm.anotherContact.checked')
-                                        label Use another person tel number and name
+                                        label #{ i18n.__("use_another_person") }
                                 .sixteen.wide.column.no-padding-top#anotherContact(ng-if="newAdForm.anotherContact.checked",  ng-cloak)
                                     .fields.two
                                         .field.wide.eight
-                                            input(name='anotherContactName', placeholder='Contact Name', ng-model='newAdForm.anotherContact.name')
+                                            input(name='anotherContactName', placeholder='#{ i18n.__("contact_name") }', ng-model='newAdForm.anotherContact.name')
                                         .field.wide.eight
-                                            input(name='anotherContactPhone', placeholder='Contact Phone Number', ng-model='newAdForm.anotherContact.phone')
+                                            input(name='anotherContactPhone', placeholder='#{ i18n.__("contact_number") }', ng-model='newAdForm.anotherContact.phone')
 
 
                         .ui.error.message
@@ -159,7 +159,7 @@ block content
                                 form="newAdForm",
                                 ng-class="uploading ? 'loading disabled' : '' "
                             )
-                            | Next
+                            | #{ i18n.__("next_btn") }
 
                         .clearfix
 
@@ -171,13 +171,13 @@ block content
                         div(ng-show="buyPowerStatus")
                             .ui.success.message
                                 .header
-                                    | You Bought Power
+                                    | #{ i18n.__("bought_power_message") }
 
                         .ui.segment.no-segment(ng-show="!buyPowerStatus")
                             p
-                                | For show your ad in the best place you can buy power.
+                                | #{ i18n.__("power_up_text1") }
                                 br
-                                | Each power price is 10 Euro
+                                | #{ i18n.__("power_up_text2") }
                             form.ui.form
                                 .field.text-center
                                     select.powerNumber(
@@ -187,13 +187,13 @@ block content
                                         ng-change="update(id);",
                                         ng-options="n for n in []  | range:1:101"
                                     )
-                                        option(value='0') Please Select
+                                        option(value='0') #{ i18n.__("please_select") }
 
                                     div.margin-top-10(ng-show="powerNumber > 0")
                                         h3 {{ powerNumber * 10 | number:2 }} EUR
 
                                     .clearfix
-                                    button.ui.primary.button.margin-top-10#buttonCheckout Buy Power
+                                    button.ui.primary.button.margin-top-10#buttonCheckout #{ i18n.__("buy_power") }
 
                             .ui.dimmer(ng-class="{ active: buyPowerLoader }")
                                 .ui.loader
@@ -201,9 +201,9 @@ block content
 
                     div.padding-30
                         button.ui.right.floated.primary.button(ng-click="previewTab()")
-                            | Next
+                            | #{ i18n.__("next_btn") }
                         button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
-                            | Back
+                            | #{ i18n.__("back_btn") }
 
 
 
@@ -231,36 +231,36 @@ block content
                             table.ui.definition.table
                                 tbody
                                     tr
-                                        td Location
+                                        td #{ i18n.__("location") }
                                         td
                                             | {{ countries[newAdForm.country].name }} /
                                             | {{ countries[newAdForm.country].cities[newAdForm.city].name }} /
                                             | {{ countries[newAdForm.country].cities[newAdForm.city].districts[newAdForm.district].name }}
                                     tr
-                                        td Category
+                                        td #{ i18n.__("category") }
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
                                     tr
-                                        td Contact Name
+                                        td #{ i18n.__("contact_name") }
                                         td
                                             span(ng-show="newAdForm.anotherContact.checked")
                                                 | {{ newAdForm.anotherContact.name }}
                                             span(ng-hide="newAdForm.anotherContact.checked")
                                                 | #{ user.name } #{ user.surname }
 
-                    h3 Description
+                    h3 #{ i18n.__("description") }
                     .ui.segment
                         p.description(ng-bind-html="newAdForm.description")
 
                     button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ id }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
-                        | Save
+                        | #{ i18n.__("save_btn") }
                     button.ui.right.floated.secondary.button(ng-click="powerTab()", ng-class="{disabled:uploading}")
-                        | Back
+                        | #{ i18n.__("back_btn") }
 
         div(ng-if="adSaveComplete", ng-cloak)
             div.text-center
-                h1 Everything is ok!
-                div.margin-bottom-30 Your ad will be published after it is approved
-                a.ui.primary.button(href="./") Home
+                h1 #{ i18n.__("new_ad_successful_title") }
+                div.margin-bottom-30 #{ i18n.__("new_ad_successful_info") }
+                a.ui.primary.button(href="./") #{ i18n.__("index_title") }
 
 
 

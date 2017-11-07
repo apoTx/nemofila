@@ -47,7 +47,8 @@ router.get('/:id?', requireLogin, (req, res) => {
 			userExists: req.session.user ? true : false,
 			id: req.query.id ? req.query.id : 'false',
 			formdata: JSON.parse(body),
-			amazon_base_url: config.amazon_s3.photo_base_url
+			amazon_base_url: config.amazon_s3.photo_base_url,
+			i18n: res
 		});
 	});
 });
