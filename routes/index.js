@@ -3,6 +3,7 @@ let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+let requireLogin = require('./inc/requireLogin.js');
 
 let router = express.Router();
 
@@ -74,7 +75,7 @@ router.post('/login', (req,res) => {
 	});
 });
 
-router.post('/charge', (req, res) => {
+router.post('/charge', requireLogin,  (req, res) => {
 	let amount = parseInt(req.body.amount) * 1000;
 
 	stripe.customers.create({

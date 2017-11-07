@@ -35,7 +35,7 @@ h2.text-center(ng-if="myAds.length < 1") No Results
                             a.item(href="./newAd?id={{ ad._id }}")
                                 i.edit.icon
                                 | Edit
-                            a.item
+                            a.item(href="#!buypower/{{ ad._id }}", ng-show="ad.status === 1")
                                 i.rocket.icon
                                 |Buy Power
                             a.item(href="javascript:;", ng-click="unpublish(ad._id)", ng-show="ad.status === 1")
