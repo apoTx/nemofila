@@ -24,6 +24,13 @@ router.get('/', requireLogin, (req, res) => {
 			},
 			favourites: {
 				title: res.__('favourites')
+			},
+			buyPower: {
+				title: res.__('buy_power'),
+				power_up_text1: res.__('power_up_text1'),
+				power_up_text2: res.__('power_up_text2'),
+				buy_power_btn: res.__('buy_power_btn'),
+				bought_power_message: res.__('bought_power_message')
 			}
 		},
 	});

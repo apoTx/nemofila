@@ -15,6 +15,12 @@ app.controller('profileController', ['$scope', ($scope) => {
 		$scope.i18n_searchPlaceholder = profile_locale.messages.search;
 
 		$scope.i18n_favTitle = profile_locale.favourites.title;
+
+		$scope.i18n_buyPower_title = profile_locale.buyPower.title;
+		$scope.i18n_power_up_text1 = profile_locale.buyPower.power_up_text1;
+		$scope.i18n_power_up_text2 = profile_locale.buyPower.power_up_text2;
+		$scope.i18n_buy_power_btn = profile_locale.buyPower.buy_power_btn;
+		$scope.i18n_bought_power_message = profile_locale.buyPower.bought_power_message;
 	};
 }]);
 

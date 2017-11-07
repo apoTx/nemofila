@@ -28,5 +28,9 @@
 	"settings": "Settings",
 	"edit": "Edit",
 	"buy_power": "Buy Power",
-	"unpublish": "Unpublish"
+	"unpublish": "Unpublish",
+    "power_up_text1": "For show your ad in the best place you can buy power.",
+    "power_up_text2": "Each power price is 10 Euro",
+    "buy_power_btn": "Buy Power",
+    "bought_power_message": "You have successfully purchased power."
 }

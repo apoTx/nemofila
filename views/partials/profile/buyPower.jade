@@ -1,7 +1,7 @@
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
-h2 Buy Power
+h2 {{ i18n_buyPower_title }}
 
 .ui.segment.no-segment
     .ui.divided.items
@@ -33,13 +33,13 @@ h2 Buy Power
         div(ng-show="buyPowerStatus")
             .ui.success.message
                 .header
-                    | You Bought Power
+                    | {{ i18n_bought_power_message }}
 
         .ui.segment.no-segment(ng-show="!buyPowerStatus")
             p
-                | For show your ad in the best place you can buy power.
+                | {{ i18n_power_up_text1 }}
                 br
-                | Each power price is 10 Euro
+                | {{ i18n_power_up_text2 }}
             form.ui.form
                 .field.text-center
                     select.powerNumber(
@@ -54,7 +54,7 @@ h2 Buy Power
                         h3 {{ powerNumber * 10 | number:2 }} EUR
 
                     .clearfix
-                    button.ui.primary.button.margin-top-10#buttonCheckout Buy Power
+                    button.ui.primary.button.margin-top-10#buttonCheckout {{ i18n_buy_power_btn }}
 
             .ui.dimmer(ng-class="{ active: buyPowerLoader }")
                 .ui.loader

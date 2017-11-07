@@ -29,5 +29,8 @@
 	"edit": "edit",
 	"buy_power": "buy_power",
 	"unpublish": "unpublish",
-	"search": "search"
+	"search": "search",
+	"power_up_text1": "power_up_text1",
+	"power_up_text2": "power_up_text2",
+	"buy_power_btn": "buy_power_btn"
 }
