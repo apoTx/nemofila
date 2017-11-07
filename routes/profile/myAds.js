@@ -12,7 +12,74 @@ let getAdStatusText = require('../../helper/getAdStatusText');
 router.get('/getMyAds', requireLogin, (req, res) => {
 	let _id = req.session.user._id;
 
-	Ads.find({
+	Ads.aggregate([
+		{
+			'$match': {
+				'ownerId': _id,
+			}
+		},
+
+		// Power collection
+		{
+			$lookup: {
+				from: 'powers',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'power'
+			}
+		},
+		{
+			$unwind: {
+				path: '$power',
+				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					title: '$title',
+					slug: '$slug',
+					price: '$price',
+					status: '$status',
+					statusText: '$statusText',
+					photos: '$photos',
+					photoShowcaseIndex: '$photoShowcaseIndex',
+				},
+				power: {
+					$push: '$power'
+				},
+				totalActivePower: {
+					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
+				},
+			}
+		},
+		{
+			$project: {
+				_id: '$_id._id',
+				title: '$_id.title',
+				slug: '$_id.slug',
+				price: '$_id.price',
+				status: '$_id.status',
+				statusText: '$_id.statusText',
+				photos: '$_id.photos',
+				photoShowcaseIndex: '$_id.photoShowcaseIndex',
+				powers: '$power',
+				totalActivePower: 1
+			}
+		},
+		{ $sort:{ 'createdAt': -1 } }
+	], (err, data) => {
+		if (err)
+			throw new Error(err);
+
+		console.log(data);
+		res.json(data);
+	});
+
+	/*Ads.find({
 		'ownerId': _id,
 	},{
 		'title': 1,
@@ -28,7 +95,7 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 			console.log(err);
 
 		res.json(data);
-	}).sort({ createdAt: -1 });
+	}).sort({ createdAt: -1 });*/
 });
 
 router.post('/unpublish', requireLogin, (req, res) => {

@@ -18,24 +18,26 @@ block content
                     .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                         | Search
 
-        .searchForm
-            form.ui.form.fluid(ng-submit="onSubmit()")
-                .ui.action.input.fluid
-                    input(type='text', ng-model='searchForm.title', placeholder='Search...')
-                    button.ui.button.primary(type="submit", ng-class="indexAdsLoading ? 'loading disabled' : '' ") Search
+        .search
+            .fixer
+            .searchForm
+                form.ui.form.fluid(ng-submit="onSubmit()")
+                    .ui.action.input.fluid
+                        input(type='text', ng-model='searchForm.title', placeholder='Search...')
+                        button.ui.button.primary(type="submit", ng-class="indexAdsLoading ? 'loading disabled' : '' ") Search
 
-                .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
-                    a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
-                        | Filter
+                    .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
+                        a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
+                            | Filter
 
-                div.searchFormBottom.ui.container.computer.only.grid
-                    .five.fields(country-and-category-dropdowns)
+                    div.searchFormBottom.ui.container.computer.only.grid
+                        .five.fields(country-and-category-dropdowns)
 
-                    .field.text-right
-                        .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                            | Search
+                        .field.text-right
+                            .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                                | Search
 
-                    .clearfix
+                        .clearfix
 
         h2(ng-show="isSearch && resultNumber > 0", ng-cloak) We found {{ resultNumber }} results.
         .ui.segment.list-segment

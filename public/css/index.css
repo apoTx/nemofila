@@ -10,9 +10,18 @@
     box-shadow: none !important;
     min-height: 300px
 }
-.searchForm{
-    padding: 10px;
+.search{
+    height:300px;
     background: url('/img/search-bg.jpg') !important;
+    background-size: cover;
+}
+
+.searchForm{
+    padding: 10px 80px;
+}
+.fixer{
+    padding-top:118px;
+    display: block;
 }
 .advancedSearch{
     text-align: right;

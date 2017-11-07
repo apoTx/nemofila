@@ -23,6 +23,11 @@ h2.text-center(ng-if="myAds.length < 1") No Results
                         )
                         | {{ ad.statusText }}
 
+                    div.margin-top-10(ng-show="ad.totalActivePower > 0")
+                        h4
+                            i.ui.rocket.icon
+                            | {{ ad.totalActivePower }}
+
                     .ui.simple.dropdown.right.floated.item
                         | Settings
                         i.dropdown.icon
