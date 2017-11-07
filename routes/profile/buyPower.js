@@ -95,7 +95,7 @@ router.post('/savePower', requireLogin, (req, res) => {
 		if (err)
 			throw new Error( err );
 
-		res.json({'status': 1});
+		res.json({ 'status': 1 });
 	});
 });
 
