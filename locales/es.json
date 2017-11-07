@@ -1,5 +1,12 @@
 {
-  "Welcome": "speciallliattte",
-  "Language": "Please choose your language",
-  "Contact Information" : "1 Elf rd, Unicorn Village, Wonderland, Earth"
+	"sign_in": "Registrarse",
+	"index_title": "Casa",
+	"logout": "logout",
+	"newAdBtn": "newAdBtn",
+	"my_ads": "my_ads",
+	"messages": "messages",
+	"favourites": "favourites",
+	"searchPlaceholder": "searchPlaceholder",
+	"searchBtn": "searchBtn",
+	"filterBtn": "filterBtn"
 }

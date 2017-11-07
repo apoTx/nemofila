@@ -49,7 +49,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 i18n.configure({
-	locales:['en', 'es'],
+	locales:['en', 'es', 'tr'],
 	directory: __dirname + '/locales',
 	defaultLocale: 'en',
 	cookie: 'i18n'

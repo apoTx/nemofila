@@ -37,18 +37,18 @@ html
 
         .ui.sidebar.inverted.vertical.right.menu.rightSidebar
             if !user
-                a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") Sign Up
-                a.item(href='javascript:;', ng-click="openSignInModal()") Sign In
+                a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") #{i18n.__("sign_up")}
+                a.item(href='javascript:;', ng-click="openSignInModal()") #{i18n.__("sign_in")}
             else
                 a.item(href="/profile")=user.name
                     .ui.right.floated.red.label(ng-show="messageLength > 0", ng-cloak, style="display:none") {{ messageLength }}
-                a.item(href='/logout') Logout
+                a.item(href='/logout') #{i18n.__("logout")}
 
             .item.text-center
                 if user
-                    a.ui.primary.button(href="/newAd") New Ad
+                    a.ui.primary.button(href="/newAd") #{i18n.__("newAdBtn")}
                 else
-                    button.ui.primary.button(ng-click="openSignInModal()") New Ad
+                    button.ui.primary.button(ng-click="openSignInModal()") #{i18n.__("newAdBtn")}
 
 
         .ui.fixed.inverted.menu
@@ -63,33 +63,36 @@ html
                             | Language
                             i.dropdown.icon
                             .menu
-                                a.item(href="./en")
+                                a.item(href="/en")
                                     i.gb.flag
                                     |  English
-                                a.item(href="./es")
+                                a.item(href="/tr")
+                                    i.tr.flag
+                                    |  English
+                                a.item(href="/es")
                                     i.spain.flag
                                     |  Spanish
 
                         if !user
-                            a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") Sign Up
-                            a.item(href='javascript:;', ng-click="openSignInModal()") Sign In
+                            a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") #{i18n.__("sign_up")}
+                            a.item(href='javascript:;', ng-click="openSignInModal()") #{i18n.__("sign_in")}
                         else
                             .ui.simple.dropdown.item
                                 a(href="/profile")=user.name
                                 i.dropdown.icon
                                 .ui.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                                 .menu
-                                    a.item(href='/profile#!/myads') My Ads
-                                    a.item(href='/profile#!/messages') Messages &nbsp;
+                                    a.item(href='/profile#!/myads') #{i18n.__("my_ads")}
+                                    a.item(href='/profile#!/messages') #{i18n.__("messages")} &nbsp;
                                         .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
-                                    a.item(href='/profile#!/myfavourites') Favourites
-                                    a.item(href='/logout') Logout
+                                    a.item(href='/profile#!/myfavourites') #{i18n.__("favourites")}
+                                    a.item(href='/logout') #{i18n.__("logout")}
 
                         .item
                             if user
-                                a.ui.primary.button.right.floated.right(href="/newAd") New Ad
+                                a.ui.primary.button.right.floated.right(href="/newAd") #{i18n.__("newAdBtn")}
                             else
-                                button.ui.primary.button.right.floated.right(ng-click="openSignInModal()") New Ad
+                                button.ui.primary.button.right.floated.right(ng-click="openSignInModal()") #{i18n.__("newAdBtn")}
 
 
             .ui.container.mobile.only.grid.no-grid-padding

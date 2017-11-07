@@ -1,5 +1,13 @@
 {
-  "Welcome": "Hi, welcome to our site",
-  "Language": "Please choose your language",
-  "Contact Information" : "1 Elf rd, Unicorn Village, Wonderland, Earth"
+	"sign_in": "Sign In",
+	"sign_up": "Sign Up",
+	"index_title": "Home",
+	"newAdBtn": "New Ad",
+	"searchPlaceholder": "Search",
+	"searchBtn": "Search",
+	"filterBtn": "Filter",
+	"logout": "Logout",
+	"my_ads": "My Ads",
+	"messages": "Messages",
+	"favourites": "Favourites"
 }

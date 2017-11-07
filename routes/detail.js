@@ -12,7 +12,7 @@ let requireLogin = require('./inc/requireLogin.js');
 let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
 
-let getObject = (data, req) => {
+let getObject = (data, req, res) => {
 
 	// For category
 	let childCategoryName;
@@ -49,7 +49,8 @@ let getObject = (data, req) => {
 			cityName: cityName,
 			districtName: districtName
 		},
-		amazon_base_url: config.amazon_s3.photo_base_url
+		amazon_base_url: config.amazon_s3.photo_base_url,
+		i18n: res,
 	};
 };
 
@@ -139,14 +140,14 @@ router.get('/:slug/:id', (req, res, next) => {
 			if( data.status !== 1){
 				if ( req.session.user ){
 					if (String(data.ownerId) == req.session.user._id || req.session.user.isAdmin)
-						res.render( 'detail', getObject(data,req));
+						res.render( 'detail', getObject(data,req, res));
 					else
 						res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}else{
 					res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}
 			}else {
-				res.render( 'detail', getObject(data,req));
+				res.render( 'detail', getObject(data,req ,res));
 			}
 		}
 	});
