@@ -1,8 +1,8 @@
 append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
-h2(ng-if="myAds.length > 0  ") {{ myAdsTitle }}
-h2.text-center(ng-if="myAds.length < 1") {{ no_results }}
+h2(ng-if="myAds.length > 0  ") {{ i18n_myAdsTitle }}
+h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
 
 .ui.segment.no-segment
     .ui.divided.items
@@ -29,18 +29,18 @@ h2.text-center(ng-if="myAds.length < 1") {{ no_results }}
                             | {{ ad.totalActivePower }}
 
                     .ui.simple.dropdown.right.floated.item
-                        | {{ settings }}
+                        | {{ i18n_settings }}
                         i.dropdown.icon
                         .menu
                             a.item(href="./newAd?id={{ ad._id }}")
                                 i.edit.icon
-                                | {{ edit }}
+                                | {{ i18n_edit }}
                             a.item(href="#!buypower/{{ ad._id }}", ng-show="ad.status === 1")
                                 i.rocket.icon
-                                | {{ buy_power }}
+                                | {{ i18n_buy_power }}
                             a.item(href="javascript:;", ng-click="onUnpublish(ad._id)", ng-show="ad.status === 1")
                                 i.trash.icon
-                                | {{ unpublish }}
+                                | {{ i18n_unpublish }}
 
 .ui.dimmer(ng-class="{active: loadingMyAds, active:loadingUnpublish }")
     .ui.loader

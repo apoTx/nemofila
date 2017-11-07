@@ -23,5 +23,11 @@
 	"only_you": "only_you",
 	"status_unpublished": "status_unpublished",
 	"status_rejected": "status_rejected",
-	"status_expired": "status_expired"
+	"status_expired": "status_expired",
+	"no_results": "no_results",
+	"settings": "settings",
+	"edit": "edit",
+	"buy_power": "buy_power",
+	"unpublish": "unpublish",
+	"search": "search"
 }

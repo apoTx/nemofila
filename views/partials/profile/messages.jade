@@ -4,7 +4,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/item.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/messages.css')
 
-h2.ui.dividing.header(ng-if="conversations.length > 0") Messages
+h2.ui.dividing.header(ng-if="conversations.length > 0") {{ i18n_messagesTitle }}
 h2.text-center(ng-if="conversations.length < 1") No Results
 
 .ui.stackable.two.column.grid(ng-show="conversations.length > 0")
@@ -13,7 +13,7 @@ h2.text-center(ng-if="conversations.length < 1") No Results
             .ui.vertical.menu
                 .item
                     .ui.transparent.icon.input
-                        input(type='text', placeholder='Search', ng-model='search')
+                        input(type='text', placeholder='{{ i18n_searchPlaceholder }}', ng-model='search')
                         i.search.icon
 
                 a.item(

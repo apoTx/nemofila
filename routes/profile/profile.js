@@ -17,6 +17,10 @@ router.get('/', requireLogin, (req, res) => {
 				edit: res.__('edit'),
 				buy_power: res.__('buy_power'),
 				unpublish: res.__('unpublish')
+			},
+			messages: {
+				title: res.__('messages'),
+				search: res.__('searchPlaceholder'),
 			}
 		},
 	});

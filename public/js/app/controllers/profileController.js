@@ -3,13 +3,16 @@ app.controller('profileController', ['$scope', ($scope) => {
 		$scope.amazon_base_url = amazon_base_url;
 
 		let profile_locale = JSON.parse(profile_locales);
-		console.log(profile_locale);
-		$scope.myAdsTitle = profile_locale.myAds.title;
-		$scope.no_results = profile_locale.myAds.no_results;
-		$scope.settings = profile_locale.myAds.settings;
-		$scope.edit = profile_locale.myAds.edit;
-		$scope.buy_power = profile_locale.myAds.buy_power;
-		$scope.unpublish = profile_locale.myAds.unpublish;
+
+		$scope.i18n_myAdsTitle = profile_locale.myAds.title;
+		$scope.i18n_no_results = profile_locale.myAds.no_results;
+		$scope.i18n_settings = profile_locale.myAds.settings;
+		$scope.i18n_edit = profile_locale.myAds.edit;
+		$scope.i18n_buy_power = profile_locale.myAds.buy_power;
+		$scope.i18n_unpublish = profile_locale.myAds.unpublish;
+
+		$scope.i18n_messagesTitle = profile_locale.messages.title;
+		$scope.i18n_searchPlaceholder = profile_locale.messages.search;
 	};
 }]);
 
