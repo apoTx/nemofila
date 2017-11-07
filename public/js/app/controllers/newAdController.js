@@ -9,15 +9,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.steps.power = false;
 	$scope.steps.preview = false;
 
-	$scope.powerList = ['1', '2', '3'];
 	$scope.powerNumber = '0';
 	$scope.buyPowerStatus = false;
 	$scope.buyPowerLoader = false;
 
 	$(() => {
 		// stripe
-
-
 		$('#buttonCheckout').on('click', () => {
 			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];
 			console.log($scope.powerNumber);
