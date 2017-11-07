@@ -6,8 +6,6 @@ let router = express.Router();
 let Ads = require('../../models/ads');
 
 let requireLogin = require('../inc/requireLogin.js');
-let getAdStatusText = require('../../helper/getAdStatusText');
-
 
 /* GET users listing. */
 router.get('/getAdById', requireLogin, (req, res) => {
