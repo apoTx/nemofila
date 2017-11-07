@@ -24,26 +24,26 @@ block content
         - if (data.status === 0)
             .ui.warning.message.margin-bottom-30
                 .header
-                    | This ad is in the approval phase
-                |   Only you can view it.
+                    | #{i18n.__("status_approvel")}
+                |   #{i18n.__("only_you")}
 
         - if (data.status === 2)
             .ui.negative.message.margin-bottom-30
                 .header
-                    | This ad has been rejected.
-                |   Only you can view it.
+                    | #{i18n.__("status_rejected")}
+                |   #{i18n.__("only_you")}
 
         - if (data.status === 3)
             .ui.negative.message.margin-bottom-30
                 .header
-                    | This ad expired.
-                |   Only you can view it.
+                    | #{i18n.__("status_expired")}
+                |   #{i18n.__("only_you")}
 
         - if (data.status === 4)
             .ui.negative.message.margin-bottom-30
                 .header
-                    | This ad has been unpublished.
-                |   Only you can view it.
+                    | #{i18n.__("status_unpublished")}
+                |   #{i18n.__("only_you")}
 
         .ui.stackable.grid
             .ten.wide.column
@@ -52,15 +52,15 @@ block content
             .six.wide.column.text-right.detail-right-menu
                 .ui.right.floated.main.menu
                     a.music.popup.icon.item(
-                            data-content='Share with Facebook',
+                            data-content='#{i18n.__("share_facebook")}',
                             target="_blank",
                             onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
                             href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
                         )
                         i.facebook.icon
-                    a.music.popup.icon.item(data-content='Share with Twitter')
+                    a.music.popup.icon.item(data-content='#{i18n.__("share_twitter")}')
                         i.twitter.icon
-                    a.music.popup.icon.item(data-content='Share with Google+')
+                    a.music.popup.icon.item(data-content='#{i18n.__("share_google")}')
                         i.google.plus.icon
 
 
@@ -70,7 +70,7 @@ block content
                         ng-cloak
                     )
                         a.music.popup.icon.item(
-                            data-content='Add Favorites',
+                            data-content='#{i18n.__("add_favourites")}',
                             ng-click="addFavourites('#{ session._id }','#{ data._id }')"
                         )
                             i.star.empty.icon
@@ -133,13 +133,13 @@ block content
                 table.ui.definition.table
                     tbody
                         tr
-                            td Category
+                            td #{i18n.__("category")}
                             td #{ category.name } / #{ category.childCategoryName }
                         tr
-                            td Listing Date
+                            td #{i18n.__("listing_date")}
                             td #{ moment(data.listingDate).format("DD/MM/YYYY") }
                         tr
-                            td Contact Name
+                            td #{i18n.__("contact_name")}
                             td
                                 - if (!data.anotherContact || !data.anotherContact.checked)
                                     div.contact-name #{ data.user.name } #{ data.user.surname }
@@ -151,7 +151,7 @@ block content
                                     div #{ data.anotherContact.name }
                                 .clearfix
                         tr
-                            td Contact Number
+                            td #{i18n.__("contact_number")}
                             td
                                 a.phone-number(href="tel:#{ data.user.phone }")
                                     - if (!data.anotherContact || !data.anotherContact.checked)
@@ -160,7 +160,7 @@ block content
                                         div #{ data.anotherContact.phone }
 
 
-        h3 Description
+        h3 #{i18n.__("description")}
         .ui.segment
             p.description
                 | !{ data.description }

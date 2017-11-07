@@ -3,16 +3,12 @@ app.controller('myAdsController', ['$scope', 'myAdsFactory', '$window', function
 /*eslint-enable */
 	$scope.loadingMyAds = true;
 
-	console.log('asd');
-
 	myAdsFactory.getMyAds().then((response) => {
 		$scope.loadingMyAds = false;
 		$scope.myAds = response;
 	});
 
-	$scope.unpublish = (id) => {
-		console.log(id);
-
+	$scope.onUnpublish = (id) => {
 		let r = confirm('Are you sure?');
 		if (r === true) {
 			$scope.loadingUnpublish = true;
@@ -25,5 +21,4 @@ app.controller('myAdsController', ['$scope', 'myAdsFactory', '$window', function
 			});
 		}
 	};
-
 }]);

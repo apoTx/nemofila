@@ -9,5 +9,19 @@
 	"logout": "Çıkış Yap",
 	"my_ads": "İlanlarım",
 	"messages": "Mesajlarım",
-	"favourites": "Favorilerim"
+	"favourites": "Favorilerim",
+	"add_favourites": "add_favourites",
+	"category": "category",
+	"listing_date": "listing_date",
+	"contact_name": "contact_name",
+	"contact_number": "contact_number",
+	"description": "description",
+	"share_facebook": "share_facebook",
+	"share_twitter": "share_twitter",
+	"share_google": "share_google",
+	"status_approvel": "status_approvel",
+	"only_you": "only_you",
+	"status_unpublished": "status_unpublished",
+	"status_rejected": "status_rejected",
+	"status_expired": "status_expired"
 }

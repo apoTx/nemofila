@@ -8,7 +8,10 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
 
 block content
-    div(ng-controller="profileController", ng-init="amazon_base_url='#{ amazon_base_url }'")
+    div(
+        ng-controller="profileController",
+        ng-init="init('#{ amazon_base_url }', '#{ JSON.stringify(profile_locales) }')"
+    )
         .ui.pointing.menu
             a.item(
                 href="#!myads",
