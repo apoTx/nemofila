@@ -164,8 +164,20 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.next = () => {
-		$scope.powerTab();
+		if ( !$scope.isEdit )
+			$scope.powerTab();
+		else
+			$scope.previewTab();
+
 		$scope.$apply();
+	};
+
+	$scope.back = () => {
+		if ( !$scope.isEdit )
+			$scope.powerTab();
+		else
+			$scope.adInformationTab();
+
 	};
 
 	$scope.uploadedFiles = [];

@@ -18,19 +18,19 @@ block content
         div(ng-if="!adSaveComplete", ng-cloak)
 
             .ui.steps.fluid(class="margin-bottom-30")
-                a.step(ng-class="steps.informations ? 'active': 'disabled' " ng-cloak)
+                a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon
                     .content
                         .title #{ i18n.__("newAd_tab_ad_information") }
                         .description #{ i18n.__("newAd_tab_ad_information_message")}
 
-                a.step(ng-class="steps.power ? 'active': 'disabled' " ng-cloak)
+                a.step(ng-class="steps.power ? 'active': 'disabled' ", ng-cloak, ng-hide="isEdit")
                     i.rocket.icon
                     .content
                         .title #{ i18n.__("newAd_tab_buy_power") }
                         .description #{ i18n.__("newAd_tab_buy_power_message") }
 
-                a.step.disabled(ng-class="steps.preview ? 'active':'disabled' " ng-cloak)
+                a.step.disabled(ng-class="steps.preview ? 'active':'disabled' ", ng-cloak)
                     i.unhide.icon
                     .content
                         .title #{ i18n.__("newAd_tab_preview") }
@@ -253,7 +253,7 @@ block content
 
                     button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ id }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | #{ i18n.__("save_btn") }
-                    button.ui.right.floated.secondary.button(ng-click="powerTab()", ng-class="{disabled:uploading}")
+                    button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
                         | #{ i18n.__("back_btn") }
 
         div(ng-if="adSaveComplete", ng-cloak)
