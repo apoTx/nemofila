@@ -16,10 +16,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$(() => {
 		// stripe
-		let checkoutHandler = StripeCheckout.configure({
-			key: 'pk_test_1JpsNdtqXNvY0n3aKdDZxYap',
-			locale: 'auto'
-		});
+
 
 		$('#buttonCheckout').on('click', () => {
 			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];

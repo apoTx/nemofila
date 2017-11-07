@@ -10,6 +10,7 @@
       "app": false,
       "$": false,
       "path": false,
+      "checkoutHandler": false,
       "StripeCheckout": false
     },
     "extends": "eslint:recommended",
