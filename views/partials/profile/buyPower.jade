@@ -1,11 +1,33 @@
 append stylesheets
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
 
 h2 Buy Power
 
 .ui.segment.no-segment
+    .ui.divided.items
+        .item
+            a.image.myAdsList(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
+                img(ng-src='{{ amazon_base_url }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
+            .content
+                a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
+                    | {{ ad.title }}
+                .meta
+                    h5.cinema ${{ad.price}}
+                .description
+                    p
+                .extra
+                    .ui.label(
+                    ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
+                    )
+                        | {{ ad.statusText }}
 
+                    div.margin-top-10(ng-show="ad.totalActivePower > 0")
+                        h4
+                            i.ui.rocket.icon
+                            | {{ ad.totalActivePower }}
 
-.ui.dimmer(ng-class="{active: loadingMyAds, active:loadingUnpublish }")
+.ui.dimmer(ng-class="{active: loadingAd}")
     .ui.loader
 
 
