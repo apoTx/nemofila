@@ -3,7 +3,6 @@ let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-let requireLogin = require('./inc/requireLogin.js');
 
 let router = express.Router();
 
