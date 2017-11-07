@@ -19,7 +19,7 @@ const stripe = require('stripe')(keySecret);
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	res.render('index', { title:'Home', user: req.session.user, amazon_base_url: config.amazon_s3.photo_base_url });
+	res.render('index', { i18n: res, title:'Home', user: req.session.user, amazon_base_url: config.amazon_s3.photo_base_url });
 });
 
 router.get( '/login', ( req, res ) => {
@@ -293,6 +293,18 @@ router.get('/partials/:folder/:filename', (req, res) => {
 	let folder = req.params.folder;
 	let filename = req.params.filename;
 	res.render('partials/'+ folder +'/'+ filename);
+});
+
+
+// localization
+router.get('/es', (req, res) => {
+	res.cookie('i18n', 'es');
+	res.redirect('/');
+});
+
+router.get('/en', (req, res) => {
+	res.cookie('i18n', 'en');
+	res.redirect('/');
 });
 
 module.exports = router;

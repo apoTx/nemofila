@@ -6,6 +6,8 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let sessions = require('client-sessions');
 let passport = require('passport');
+let i18n = require('i18n');
+
 
 // Development env file
 let config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
@@ -46,14 +48,29 @@ let app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
+i18n.configure({
+	locales:['en', 'es'],
+	directory: __dirname + '/locales',
+	defaultLocale: 'en',
+	cookie: 'i18n'
+});
+
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('i18n_localization'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
+
+app.use(sessions({
+	secret: 'i18n_localization',
+	resave: true,
+	saveUninitialized: true,
+	cookie: { maxAge: 60000 }
+}));
+
+app.use(i18n.init);
 
 // Login sessions
 app.use(sessions({
