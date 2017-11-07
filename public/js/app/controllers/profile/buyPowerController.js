@@ -13,8 +13,8 @@ app.controller('buyPowerController', ['$scope', 'buyPowerFactory', '$window', '$
 	}
 
 	$scope.powerNumber = '0';
-	$scope.buyPowerStatus = false;
 	$scope.buyPowerLoader = false;
+	$scope.buyPowerStatus = false;
 
 	$(() => {
 		// stripe
@@ -43,13 +43,13 @@ app.controller('buyPowerController', ['$scope', 'buyPowerFactory', '$window', '$
 			})
 				.then(output => {
 					if (output.statusText === 'OK') {
-						$scope.buyPowerStatus = true;
-						$scope.buyPowerLoader = false;
-						$scope.$apply();
+						buyPowerFactory.savePower($routeParams.id, $scope.powerNumber).then((result) => {
+							$scope.buyPowerLoader = false;
+							$scope.buyPowerStatus = true;
+						});
 					}
 				});
 		}
-
 		// # stripe
 	});
 
