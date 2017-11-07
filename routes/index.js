@@ -75,7 +75,7 @@ router.post('/login', (req,res) => {
 	});
 });
 
-router.post('/charge', requireLogin,  (req, res) => {
+router.post('/charge',  (req, res) => {
 	let amount = parseInt(req.body.amount) * 1000;
 
 	stripe.customers.create({
