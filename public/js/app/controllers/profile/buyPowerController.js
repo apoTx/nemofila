@@ -43,7 +43,7 @@ app.controller('buyPowerController', ['$scope', 'buyPowerFactory', '$window', '$
 			})
 				.then(output => {
 					if (output.statusText === 'OK') {
-						buyPowerFactory.savePower($routeParams.id, $scope.powerNumber).then((result) => {
+						buyPowerFactory.savePower($routeParams.id, $scope.powerNumber).then(() => {
 							$scope.buyPowerLoader = false;
 							$scope.buyPowerStatus = true;
 						});
