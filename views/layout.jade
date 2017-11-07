@@ -60,7 +60,19 @@ html
                 .ui.container.computer.tablet.only.grid
                     .right.menu
                         .ui.simple.dropdown.item
-                            | Language
+
+                            div(ng-show=" '#{locale}' == 'en' ", ng-cloak)
+                                i.gb.flag
+                                | English
+
+                            div(ng-show=" '#{locale}' == 'tr' ", ng-cloak)
+                                i.tr.flag
+                                | Türkçe
+
+                            div(ng-show=" '#{locale}' == 'es' ", ng-cloak)
+                                i.spain.flag
+                                | Español
+
                             i.dropdown.icon
                             .menu
                                 a.item(href="/en")

@@ -17,17 +17,17 @@ block content
                 href="#!myads",
                 ng-class="{active: activetab=='myads'}"
             )
-                | My Ads
+                | #{i18n.__("my_ads")}
             a.item(
                 href="#!messages",
                 ng-class="{active: activetab=='messages'}"
             )
-                | Messages
+                | #{i18n.__("messages")}
             a.item(
                 href="#!myfavourites",
                 ng-class="{active: activetab=='myfavourites'}"
             )
-                | Favourites
+                | #{i18n.__("favourites")}
 
         div.contentArea(ng-view='')
 
