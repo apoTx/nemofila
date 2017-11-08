@@ -11,10 +11,6 @@ let adSchema = new Schema({
 	slug: {
 		type: String
 	},
-	price: {
-		type: Number,
-		// required: true
-	},
 	description: {
 		type: String,
 	},
@@ -68,7 +64,15 @@ let adSchema = new Schema({
 	statusText: {
 		type: String,
 		default: 'Waiting'
-	}
+	},
+	phone: {
+		type: String,
+	},
+	mobile_phone: {
+		type: String,
+	},
+	address:String,
+	website: String,
 });
 
 module.exports = mongoose.model('ads', adSchema);

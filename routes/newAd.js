@@ -63,15 +63,23 @@ router.post('/create', requireLogin, (req, res) => {
 	let category = req.body.category;
 	let isEdit = req.body.isEdit;
 	let editId = req.body.editId;
+	let phone = data.phone;
+	let mobile_phone = data.mobile_phone;
+	let address = data.address;
+	let website = data.website;
+
 
 	let obj = {
 		title: data.title,
 		slug: slugify(data.title, { lower:true }),
-		price: data.price,
 		description: data.description,
 		photos: photos,
 		photoShowcaseIndex: showcaseIndex,
 		uuid: _uuid,
+		phone: phone,
+		mobile_phone: mobile_phone,
+		address: address,
+		website: website,
 		location: {
 			countryId: country.countryId,
 			cityId: country.cityId,

@@ -13,8 +13,6 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
             .content
                 a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
                     | {{ ad.title }}
-                .meta
-                    h5.cinema ${{ad.price}}
                 .description
                     p
                 .extra

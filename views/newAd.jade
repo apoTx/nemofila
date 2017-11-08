@@ -53,16 +53,10 @@ block content
                         input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
                         input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
 
-                        .fields.two
-                            .field.wide.twelve
-                                label #{ i18n.__("title") }
-                                input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newAdForm.title")
-                            .field.wide.four
-                                label #{ i18n.__("price") }
-                                .ui.right.labeled.input
-                                    input(type='text', name="price", placeholder='#{ i18n.__("price") }', ng-model="newAdForm.price")
-                                    .ui.basic.label
-                                        | USD
+                        .field
+                            label #{ i18n.__("title") }
+                            input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newAdForm.title")
+
                         .field
                             label #{ i18n.__("description") }
                             ng-wig(
@@ -71,6 +65,23 @@ block content
                             )
 
                         .five.fields(country-and-category-dropdowns)
+
+
+                        .fields.two
+                            .field.wide.eight
+                                label #{ i18n.__( "phone" ) }
+                                input(name='phone', placeholder='#{ i18n.__( "phone" ) }',  ng-model="newAdForm.phone")
+                            .field.wide.eight
+                                label #{ i18n.__( "mobile_phone" ) }
+                                input(name="mobile_phone", placeholder='#{ i18n.__( "mobile_phone" ) }', ng-model="newAdForm.mobile_phone")
+
+                        .field
+                            label #{ i18n.__( "address" ) }
+                            input(name='address', placeholder='#{ i18n.__( "address" ) }',  ng-model="newAdForm.address")
+
+                        .field
+                            label #{ i18n.__( "website" ) }
+                            input(name='website', placeholder='#{ i18n.__( "website" ) }',  ng-model="newAdForm.website")
 
                         .ui.tiny.stacked.segment
                             .text-center
@@ -209,7 +220,6 @@ block content
 
                 div#preview(ng-show="steps.preview", ng-cloak)
                     h2 {{ newAdForm.title }}
-                    h3 {{ newAdForm.price | currency }}
 
                     .ui.four.stackable.cards
                         .card.photoList(ng-repeat='f in newAdForm.files')

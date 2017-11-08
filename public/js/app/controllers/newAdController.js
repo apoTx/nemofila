@@ -67,16 +67,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				},
-				price: {
-					identifier  : 'price',
+				mobile_phone: {
+					identifier  : 'mobile_phone',
 					rules: [
 						{
 							type   : 'empty',
-							prompt : 'Please enter a price.'
-						},
-						{
-							type   : 'decimal',
-							prompt : 'Please enter a valid price.'
+							prompt : 'Please enter a mobile phone.'
 						}
 					]
 				},
@@ -190,7 +186,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
-			$scope.newAdForm.price = response.data.price || '';
+			$scope.newAdForm.phone = response.data.phone || '';
+			$scope.newAdForm.mobile_phone = response.data.mobile_phone || '';
+			$scope.newAdForm.address = response.data.address || '';
+			$scope.newAdForm.website = response.data.website || '';
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
 			if (!$scope.newAdForm.anotherContact){
 				$scope.newAdForm.anotherContact =  { };
@@ -326,6 +325,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.submitBtnLoading = true;
 
 		let data = Object.assign({}, $scope.newAdForm);
+
 		delete data.files;
 
 		let photoList;
@@ -404,7 +404,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.onPhotoSelect = () => {
 		if ($scope.isEdit){
 			if ($scope.uploadedFiles < 1)
-				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+				$scope.newAdForm.files[0].showcase = true;
 		}else{
 			if ($scope.newAdForm.files.length > 0)
 				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
