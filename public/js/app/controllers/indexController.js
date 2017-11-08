@@ -8,11 +8,11 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 
 	$scope.newAdForm = {};
 
-	$scope.init = () => {
+	$scope.init = (page) => {
 		$scope.indexAdsLoading = true;
 		$scope.advancedSearchVisible = false;
 
-		indexFactory.getIndexAds().then((response) => {
+		indexFactory.getIndexAds(page).then((response) => {
 			$scope.indexAdsLoading = false;
 			$scope.ads = response;
 		});

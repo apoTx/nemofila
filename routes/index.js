@@ -20,6 +20,7 @@ const stripe = require('stripe')(keySecret);
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', {
+		page: req.query.page || 1,
 		i18n: res,
 		title: res.__('index_title'),
 		user: req.session.user,
@@ -160,6 +161,17 @@ router.get('/logout',  (req,res) => {
 });
 
 router.get('/getIndexAds', (req,res) => {
+	let pattern = /^[1-9]+$/;
+
+	let page;
+	if (!pattern.test(req.query.page))
+		page = 1;
+	else
+		page = Math.abs(parseInt(req.query.page));
+
+	let adPerPage = 4;
+	let lastAd = (page -1) * adPerPage;
+
 	Ads.aggregate([
 		{
 			'$match': {
@@ -212,7 +224,9 @@ router.get('/getIndexAds', (req,res) => {
 				totalPower: 1
 			}
 		},
-		{ $sort:{ 'totalPower':-1 } }
+		{ $sort: { 'totalPower':-1 } },
+		{ $skip: lastAd },
+		{ $limit: adPerPage }
 	], (err, data) => {
 		if (err)
 			throw new Error(err);

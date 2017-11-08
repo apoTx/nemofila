@@ -9,7 +9,7 @@ append stylesheets
 
 block content
 
-    div(ng-controller="indexController" ng-init="init()")
+    div(ng-controller="indexController" ng-init="init(#{ page })")
         .ui.sidebar.inverted.vertical.left.menu.filterSidebar
             form.ui.form.sidebarFilterForm
                 country-and-category-dropdowns

@@ -1,6 +1,10 @@
 app.factory('indexFactory', ['$http', ($http) => {
-	let getIndexAds = () => {
-		return $http.get('/getIndexAds')
+	let getIndexAds = (page) => {
+		return $http({
+			url: '/getIndexAds',
+			method: 'get',
+			params: { page: page }
+		})
 			.then((response) => {
 				return response.data;
 			}, () => {
