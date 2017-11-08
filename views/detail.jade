@@ -120,8 +120,6 @@ block content
                             )
 
             .ten.wide.column
-                h2 $#{ data.price }
-
                 .ui.breadcrumb.tiny
                     .active.section #{ location.name }
                     .divider  /
@@ -147,17 +145,33 @@ block content
                                     - if (sessionId !== null && (sessionId != String(data.user._id)))
                                         button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
                                 - else
-                                    | test
                                     div #{ data.anotherContact.name }
                                 .clearfix
                         tr
-                            td #{i18n.__("contact_number")}
+                            td #{i18n.__("mobile_phone")}
                             td
-                                a.phone-number(href="tel:#{ data.user.phone }")
+                                a.phone-number
                                     - if (!data.anotherContact || !data.anotherContact.checked)
-                                        | #{ data.user.phone }
+                                        | #{ data.mobile_phone }
                                     - else
                                         div #{ data.anotherContact.phone }
+
+                        tr(ng-show="#{ data.phone !== '' }", ng-cloak)
+                            td #{i18n.__( "phone" )}
+                            td
+                                a.phone-number
+                                    | 1232
+
+                        tr(ng-show="#{ data.website != '' }", ng-cloak)
+                            td #{i18n.__( "website" )}
+                            td
+                                a(href="#{ data.website }", ng-cloak)
+                                    | #{ data.website }
+
+                        tr(ng-show="#{ data.address != '' }", ng-cloak)
+                            td #{i18n.__( "address" )}
+                            td
+                                | #{ data.address }
 
 
         h3 #{i18n.__("description")}

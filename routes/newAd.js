@@ -91,11 +91,15 @@ router.post('/create', requireLogin, (req, res) => {
 		}
 	};
 
+	console.log(data.anotherContact);
+	console.log(data.anotherContact.checked);
 	if (data.anotherContact.checked){
 		Object.assign( obj,  {
-			checked: data.anotherContact.checked,
-			name: data.anotherContact.name,
-			phone: data.anotherContact.phone
+			anotherContact: {
+				checked: data.anotherContact.checked,
+				name: data.anotherContact.name,
+				phone: data.anotherContact.phone
+			}
 		});
 	}
 

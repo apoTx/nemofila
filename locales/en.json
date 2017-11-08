@@ -57,8 +57,8 @@
 	"remove": "Remove",
 	"new_ad_successful_title": "Everything is ok!",
 	"new_ad_successful_info": "Your ad will be published after it is approved",
-	"phone": "phone",
-	"mobile_phone": "mobile_phone",
-	"address": "address",
-	"website": "website"
+	"phone": "Phone",
+	"mobile_phone": "Mobile Phone",
+	"address": "Address",
+	"website": "Website"
 }
