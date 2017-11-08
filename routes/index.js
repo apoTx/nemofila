@@ -231,8 +231,11 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(data);
-		res.json(data);
+		Ads.count({ status: 1 }, (err, count) => {
+			let result = Object.assign(data, { totalPage: Math.ceil(count / adPerPage)  });
+			console.log(result);
+			res.json(result);
+		});
 	});
 });
 
