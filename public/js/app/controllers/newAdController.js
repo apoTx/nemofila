@@ -52,7 +52,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			keyboardShortcuts: false,
 			on: 'blur',
 			inline : true,
-			fields: {
+			/*fields: {
 				title: {
 					identifier  : 'title',
 					rules: [
@@ -115,7 +115,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				}
-			},
+			},*/
 			onSuccess: () => {
 				$scope.next();
 			}
@@ -443,18 +443,21 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.steps.informations = false;
 		$scope.steps.power = false;
 		$scope.steps.preview = true;
+		$window.scrollTo(0, 0);
 	};
 
 	$scope.powerTab = () => {
 		$scope.steps.informations = false;
 		$scope.steps.power = true;
 		$scope.steps.preview = false;
+		$window.scrollTo(0, 0);
 	};
 
 	$scope.adInformationTab = () => {
 		$scope.steps.informations = true;
 		$scope.steps.power = false;
 		$scope.steps.preview = false;
+		$window.scrollTo(0, 0);
 	};
 
 }]);
