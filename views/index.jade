@@ -59,21 +59,18 @@ block content
             h1.text-center(ng-show="ads.length < 1", ng-cloak)
                 | No results.
 
-
-
         .ui.grid.stackable
             .eighteen.wide.column.center.aligned
-                .ui.pagination.menu
-                    a.item
-                        | Prev
-                    a.active.item
-                        | 1
-                    .disabled.item
-                        | ...
-                    a.item
-                        | 12
-                    a.item
-                        | Next
+                paging(
+                    page= 'currentPage',
+                    page-size='adPerPage',
+                    total='adCount',
+                    pg-href="?page={page}",
+                    show-prev-next='true',
+                    show-first-last='true',
+                    text-prev="Prev",
+                    text-next="Next"
+                )
 
         .clearfix
 

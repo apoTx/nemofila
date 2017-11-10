@@ -14,7 +14,10 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 
 		indexFactory.getIndexAds(page).then((response) => {
 			$scope.indexAdsLoading = false;
-			$scope.ads = response;
+			$scope.ads = response.data;
+			$scope.adPerPage = response.adPerPage;
+			$scope.adCount = response.adCount;
+			$scope.currentPage = response.page;
 		});
 
 		countriesFactory.getCountries().then((response) => {

@@ -5,6 +5,7 @@ let app = angular.module('app',[
 	'angularMoment',
 	'thatisuday.ng-image-gallery',
 	'ngWig',
-	'ngSanitize'
+	'ngSanitize',
+	'bw.paging'
 ]);
 /*eslint-enable */
