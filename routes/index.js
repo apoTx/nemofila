@@ -2,6 +2,7 @@ let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
 
+let ObjectId = require('mongoose').Types.ObjectId;
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 let router = express.Router();
@@ -16,6 +17,9 @@ let mailer = require('../helper/mailer');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
+
+let adPerPage = 48;
+
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
@@ -169,7 +173,6 @@ router.get('/getIndexAds', (req,res) => {
 	else
 		page = Math.abs(parseInt(req.query.page));
 
-	let adPerPage = 4;
 	let lastAd = (page -1) * adPerPage;
 
 	Ads.aggregate([
@@ -234,7 +237,7 @@ router.get('/getIndexAds', (req,res) => {
 		Ads.count({ status: 1 }, (err, count) => {
 			let d = { data: data };
 			let result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
-			console.log(result);
+
 			res.json(result);
 		});
 	});
@@ -244,16 +247,27 @@ router.get('/searchAd', (req, res) => {
 	let location = JSON.parse(req.query.location);
 	let category = JSON.parse(req.query.category);
 
+	let pattern = /^[1-9]+$/;
+
+	let page;
+	if (!pattern.test(req.query.page))
+		page = 1;
+	else
+		page = Math.abs(parseInt(req.query.page));
+
+	let lastAd = (page -1) * adPerPage;
+
+
 	Ads.aggregate([
 		{
 			'$match': {
 				status: 1,
 				title: new RegExp(req.query.title, 'i'),
-				'location.countryId': location.countryId ? location.countryId :  { $exists: true },
-				'location.cityId': location.cityId ? location.cityId :  { $exists: true },
-				'location.districtId': location.districtId ? location.districtId :  { $exists: true },
-				'category.categoryId': category.categoryId ? category.categoryId :  { $exists: true },
-				'category.categoryChildId': category.categoryChildId ? category.categoryChildId :  { $exists: true },
+				'location.countryId': location.countryId ? ObjectId(location.countryId) :  { $exists: true },
+				'location.cityId': location.cityId ? ObjectId(location.cityId) :  { $exists: true },
+				'location.districtId': location.districtId ? ObjectId(location.districtId) :  { $exists: true },
+				'category.categoryId': category.categoryId ? ObjectId(category.categoryId) :  { $exists: true },
+				'category.categoryChildId': category.categoryChildId ? ObjectId(category.categoryChildId) :  { $exists: true },
 			}
 		},
 
@@ -302,13 +316,19 @@ router.get('/searchAd', (req, res) => {
 				totalPower: 1
 			}
 		},
-		{ $sort:{ 'totalPower':-1 } }
+		{ $sort: { 'totalPower':-1 } },
+		{ $skip: lastAd },
+		{ $limit: adPerPage }
 	], (err, data) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(data);
-		res.json(data);
+		Ads.count({ status: 1 }, (err, count) => {
+			let d = { data: data };
+			let result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
+
+			res.json(result);
+		});
 	});
 });
 

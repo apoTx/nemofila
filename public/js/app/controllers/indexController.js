@@ -69,9 +69,12 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 
 		indexFactory.searchAd($scope.searchForm.title, location, category).then((response) => {
 			$scope.indexAdsLoading = false;
-			$scope.ads = response;
+			$scope.ads = response.data;
 			$scope.isSearch = true;
 			$scope.resultNumber = response.length;
+			$scope.adPerPage = response.adPerPage;
+			$scope.adCount = response.adCount;
+			$scope.currentPage = response.page;
 			if (toggleSidebar)
 				$scope.toggleFilterSidebar();
 		});
