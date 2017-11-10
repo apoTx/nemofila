@@ -7,6 +7,36 @@ let Messages = require('../../models/messages');
 
 let requireLogin = require('../inc/requireLogin.js');
 
+// Models
+let User = require('../../models/users');
+
+// Mail transporter
+let mailer = require('../../helper/mailer');
+
+let sendMail = (toEmail, conversationId, message) => {
+	let to_email = toEmail;
+	let subject = 'New Message';
+	let mailOptions = {
+		from: mailer.config.defaultFromAddress,
+		to: to_email,
+		subject: subject,
+		template: 'new-message',
+		context: {
+			siteUrl: mailer.siteUrl,
+			message: message,
+			conversationId: conversationId,
+			subject: subject,
+		}
+	};
+
+	mailer.transporter.sendMail(mailOptions, (error, info) => {
+		if(error)
+			console.log(error);
+		else
+			console.log('Message sent: ' + info.response);
+	});
+};
+
 router.post('/createConversation', requireLogin, (req, res) => {
 	let data = req.body;
 	let object = {
@@ -99,7 +129,6 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 
 router.post('/createMessage', requireLogin, (req, res) => {
 	let data = req.body;
-	console.log(data);
 
 	let message = new Messages({
 		conversationId: data.conversationId,
@@ -109,13 +138,20 @@ router.post('/createMessage', requireLogin, (req, res) => {
 	});
 
 	message.save((err) => {
-		if (err)
+		if (err){
 			res.json( { error: 'Message cannot sent.', err: err } );
-		else
-			res.json( {
-				status: 1,
-				message: 'Message created.'
-			} );
+		}else{
+
+			User.findById(data.toUserId, 'email', (err, findResult) => {
+				sendMail(findResult.email, data.conversationId, data.message);
+
+				res.json( {
+					status: 1,
+					message: 'Message created.'
+				});
+
+			});
+		}
 	});
 });
 
@@ -164,10 +200,14 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 		if (err)
 			return next( err );
 
-		let toUserId = String(result[0].conversation.participants.toUserId) != String(req.session.user._id) ? result[0].conversation.participants.toUserId : result[0].conversation.participants.fromUserId;
+		let toUserId;
+		if (result[0] !== undefined){
+			toUserId = String(result[0].conversation.participants.toUserId) != String(req.session.user._id) ? result[0].conversation.participants.toUserId : result[0].conversation.participants.fromUserId;
+			res.json({ data: result, toUserId: toUserId });
+		}else{
+			res.status(404).json({ message: 'Not Found' });
+		}
 
-		console.log(result);
-		res.json({ data: result, toUserId: toUserId });
 	});
 });
 
