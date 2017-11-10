@@ -1,0 +1,43 @@
+.ui.modal.mini#signInModal
+    i.close.icon
+    .header
+        | Sign In
+    .content
+        .ui.grid.stackable.no-margin-bottom
+            .sixteen.wide.column
+                a.ui.facebook.button.fluid(href="/auth/facebook")
+                    i.facebook.icon
+                    |   Sign In with Facebook
+            .sixteen.wide.column.no-padding-top
+                a.ui.twitter.button.fluid(href="/auth/twitter")
+                    i.twitter.icon
+                    |   Sign In with Twitter
+            .sixteen.wide.column.no-padding-top
+                a.ui.google.plus.button.fluid(href="/auth/google")
+                    i.google.plus.icon
+                    |   Sign In with Google
+
+        .ui.horizontal.divider
+            | Or
+
+        form.ui.form#signInForm
+            .fields.ui.grid
+                .field.sixteen.wide.column
+                    //label E-mail
+                    input(name='email', placeholder='E-mail', ng-model='loginFormData.email', autocapitalize="none")
+                .field.sixteen.wide.column.no-padding-top
+                    input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
+            .field.sixteen.wide.column.no-padding-top
+                button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading disabled' : '' ")
+                    | Login
+            .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
+                a.forgot(href="#", ng-click="openForgotModal()")
+                    | Forgot password?
+            .ui.error.message
+            .backendErr.ui.red.message(ng-if="signInErr")
+                | {{ signInErr }}
+
+
+    .actions
+        button.ui.button(ng-click="openSignUpModal()")
+            | Sign Up

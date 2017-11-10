@@ -1,0 +1,38 @@
+.ui.inverted.vertical.footer.segment
+    .ui.center.aligned.container
+        .ui.stackable.inverted.divided.grid
+            .three.wide.column
+                h4.ui.inverted.header Language
+                .ui.inverted.link.list
+                    a.item(href='/en')
+                        i.gb.flag
+                        | English
+                    a.item(href='/tr')
+                        i.tr.flag
+                        | Türkçe
+                    a.item(href='/es')
+                        i.es.flag
+                        | Español
+            .three.wide.column
+                h4.ui.inverted.header Group 2
+                .ui.inverted.link.list
+                    a.item(href='#') Link One
+                    a.item(href='#') Link Two
+                    a.item(href='#') Link Three
+                    a.item(href='#') Link Four
+            .three.wide.column
+                h4.ui.inverted.header Group 3
+                .ui.inverted.link.list
+                    a.item(href='#') Link One
+                    a.item(href='#') Link Two
+                    a.item(href='#') Link Three
+                    a.item(href='#') Link Four
+            .seven.wide.column
+                h4.ui.inverted.header #{i18n.__( "subscribe_paragraph" )}
+                button.ui.button#subscribe(ng-click="openSubscribeModal()") #{i18n.__( "subscribe" )}
+
+        .ui.inverted.section.divider
+        img.ui.centered.mini.image(src='/img/logo.png')
+        .ui.horizontal.inverted.small.divided.link.list
+            a.item(href='#') Contact Us
+            a.item(href='#') Terms and Conditions

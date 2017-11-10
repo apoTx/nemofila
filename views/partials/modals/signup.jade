@@ -1,0 +1,53 @@
+.ui.modal.tiny#signUpModal
+    i.close.icon
+    .header
+        | Sign Up
+    .content
+        .ui.grid.stackable.no-margin-bottom
+            .eight.wide.column
+                a.ui.facebook.button.fluid(href="/auth/facebook")
+                    i.facebook.icon
+                    |   Sign Up with Facebook
+            .eight.wide.column
+                a.ui.twitter.button.fluid(href="/auth/twitter")
+                    i.twitter.icon
+                    |   Sign Up with Twitter
+            .sixteen.wide.column
+                a.ui.google.plus.button.fluid(href="/auth/google")
+                    i.google.plus.icon
+                    |   Sign Up with Google
+
+        .ui.horizontal.divider
+            | Or
+
+        form.ui.form#signUpForm
+            .two.fields
+                .field
+                    //label Name
+                    input(name='name', placeholder='Name', ng-model='signupForm.name')
+                .field
+                    //label Surname
+                    input(name='surname', placeholder='Surname', ng-model='signupForm.surname')
+            .two.fields
+                .field
+                    //label E-mail
+                    input(name='email',  placeholder='E-mail', ng-model='signupForm.email', autocapitalize="none")
+                .field
+                    //label Phone Number
+                    input(name='number', placeholder='Phone Number', ng-model="signupForm.phone")
+            .two.fields
+                .field
+                    input(name='password', type='password', placeholder='Password', ng-model='signupForm.password')
+                .field
+                    input(name='passwordConfirm', type='password', placeholder='Confirm Password', ng-model="signupForm.passwordConfirm")
+            .ui.error.message
+            .backendErr.ui.red.message(ng-if="signUpErr")
+                | {{ signUpErr }}
+
+
+    .actions
+        button.ui.left.floated.button(ng-click="openSignInModal()")
+            | Login
+
+        button.ui.right.icon.button.primary(form="signUpForm", ng-class="registerBtnLoading ? 'loading disabled' : '' ")
+            | Sign Up
