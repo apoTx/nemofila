@@ -60,7 +60,6 @@ html
                 .ui.container.computer.tablet.only.grid
                     .right.menu
                         .ui.simple.dropdown.item
-
                             div(ng-show=" '#{locale}' == 'en' ", ng-cloak)
                                 i.gb.flag
                                 | English
@@ -94,11 +93,19 @@ html
                                 i.dropdown.icon
                                 .ui.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                                 .menu
-                                    a.item(href='/profile#!/myads') #{i18n.__("my_ads")}
-                                    a.item(href='/profile#!/messages') #{i18n.__("messages")} &nbsp;
+                                    a.item(href='/profile#!/myads')
+                                        i.icon.block.layout
+                                        | #{i18n.__("my_ads")}
+                                    a.item(href='/profile#!/messages')
+                                        i.icon.comments
+                                        | #{i18n.__("messages")} &nbsp;
                                         .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
-                                    a.item(href='/profile#!/myfavourites') #{i18n.__("favourites")}
-                                    a.item(href='/logout') #{i18n.__("logout")}
+                                    a.item(href='/profile#!/myfavourites')
+                                        i.icon.star
+                                        | #{i18n.__("favourites")}
+                                    a.item(href='/logout')
+                                        i.icon.sign.out
+                                        | #{i18n.__("logout")}
 
                         .item
                             if user
