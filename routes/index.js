@@ -362,6 +362,28 @@ router.get('/partials/:folder/:filename', (req, res) => {
 });
 
 
+// Static pages
+router.get('/services', (req, res) => {
+	res.render('services', {
+		i18n: res,
+		title: res.__('services_page_title'),
+	});
+});
+
+router.get('/contact', (req, res) => {
+	res.render('contact', {
+		i18n: res,
+		title: res.__('contact_page_title'),
+	});
+});
+
+router.get('/terms', (req, res) => {
+	res.render('terms', {
+		i18n: res,
+		title: res.__('terms_page_title'),
+	});
+});
+
 // localization
 router.get('/es', (req, res) => {
 	res.cookie('locale', 'es');

@@ -64,5 +64,8 @@
 	"terms": "By clicking Next, you agree to our Terms.",
 	"subscribe_paragraph": "Subscribe news",
 	"subscribe": "Subscribe",
-	"language": "Language"
+	"language": "Language",
+	"services_page_title": "services_page_title",
+	"contact_page_title": "contact_page_title",
+	"terms_page_title": "terms_page_title"
 }
