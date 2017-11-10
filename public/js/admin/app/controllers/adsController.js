@@ -53,14 +53,14 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	$(() => {
 		$('#startDate').calendar({
 			type: 'date',
-			onChange:  (date,text) => {
+			onChange:  (date) => {
 				$scope.searchForm.startDate = date;
 			},
 		});
 
 		$('#endDate').calendar({
 			type: 'date',
-			onChange:  (date,text) => {
+			onChange:  (date) => {
 				$scope.searchForm.endDate = date;
 			},
 		});
