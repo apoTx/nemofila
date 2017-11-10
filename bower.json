@@ -25,7 +25,7 @@
     "angular-paging": "^2.2.2"
   },
   "resolutions": {
-    "angular": "~1.6.x",
-    "angular-sanitize": "~1.6.x"
+    "angular": "~1.6.6",
+    "angular-sanitize": "~1.6.6"
   }
 }
