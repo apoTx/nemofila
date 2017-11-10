@@ -48,4 +48,33 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 		}
 	};
 
+
+	// Report
+	$(() => {
+		$('#startDate').calendar({
+			type: 'date',
+			onChange:  (date,text) => {
+				$scope.searchForm.startDate = date;
+			},
+		});
+
+		$('#endDate').calendar({
+			type: 'date',
+			onChange:  (date,text) => {
+				$scope.searchForm.endDate = date;
+			},
+		});
+	});
+
+	$scope.toggleAdvanceSearch = () => {
+		$scope.advanceSearchVisible = true;
+	};
+
+	$scope.searchForm = { };
+	$scope.advanceSearch = () => {
+		adsFactory.advanceSearch($scope.searchForm).then((response) => {
+			console.log(response);
+		});
+	};
+
 }]);

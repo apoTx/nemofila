@@ -248,4 +248,10 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 	});
 });
 
+router.get('/advanceSearch', requireLogin, (req, res, next) => {
+	let data = req.query.data;
+
+	res.json({ 'asd': data });
+});
+
 module.exports = router;

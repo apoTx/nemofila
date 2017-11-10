@@ -1,11 +1,41 @@
 extends ../layout
 
 append stylesheets
+    link(rel='stylesheet', href='/semantic-ui-calendar/dist/calendar.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
 
 block content
     div(ng-controller="adsController", ng-init="init()")
+
+        button.ui.button.right.floated(ng-click="toggleAdvanceSearch()") Advance Search
+        .clearfix
+        div.ui.segment(ng-show="!advanceSearchVisible", ng-cloak)
+            form.ui.form
+                .three.fields
+                    .field
+                        label Email
+                        input(name='email', ng-model="searchForm.email", placeholder='Email')
+                    .field
+                        label Start Date
+                        .ui.calendar#startDate
+                            .ui.input.left.icon
+                                i.calendar.icon
+                                input(placeholder='Start Date', ng-model="searchForm.startDate")
+
+                    .field
+                        label End Date
+                        .ui.calendar#endDate
+                            .ui.input.left.icon
+                                i.calendar.icon
+                                input(placeholder='End Date', ng-model="searchForm.endDate")
+
+                button.ui.button.primary.right.floated(
+                    ng-click="advanceSearch()",
+                    ng-class="{ loading: loadingSearch, disabled: loadingSearch }") Search
+                .clearfix
+
+
         .ui.segment.no-segment
             table.ui.table
                 thead
@@ -35,5 +65,6 @@ block content
                 .ui.loader
 
 append javascripts
+    script(src='/semantic-ui-calendar/dist/calendar.min.js')
     script(src='/dist/js/admin/app/services/adsFactory.min.js')
     script(src='/dist/js/admin/app/controllers/adsController.min.js')

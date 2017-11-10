@@ -35,9 +35,23 @@ app.factory('adsFactory', ['$http', ($http) => {
 			});
 	};
 
+	let advanceSearch = (data) => {
+		return $http({
+			url: '/manage/ads/advanceSearch',
+			method: 'GET',
+			params: { data: data },
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	return {
 		getAllAds: getAllAds,
 		publishAd: publishAd,
 		unpublish: unpublish,
+		advanceSearch: advanceSearch
 	};
 }]);
