@@ -257,6 +257,30 @@ block content
                                             span(ng-hide="newAdForm.anotherContact.checked")
                                                 | #{ user.name } #{ user.surname }
 
+                                    tr(ng-hide="newAdForm.anotherContact.checked")
+                                        td #{ i18n.__( "phone" ) }
+                                        td
+                                            span
+                                                | {{ newAdForm.phone }}
+
+                                    tr
+                                        td #{ i18n.__( "mobile_phone" ) }
+                                        td
+                                            span(ng-show="newAdForm.anotherContact.checked")
+                                                | {{ newAdForm.anotherContact.phone }}
+                                            span(ng-hide="newAdForm.anotherContact.checked")
+                                                | {{ newAdForm.mobile_phone }}
+
+                                    tr
+                                        td #{ i18n.__( "website" ) }
+                                        td
+                                            | {{ newAdForm.website }}
+
+                                    tr
+                                        td #{ i18n.__( "address" ) }
+                                        td
+                                            | {{ newAdForm.address }}
+
                     h3 #{ i18n.__("description") }
                     .ui.segment
                         p.description(ng-bind-html="newAdForm.description")
