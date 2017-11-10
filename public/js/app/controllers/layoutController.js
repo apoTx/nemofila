@@ -118,6 +118,25 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		}
 	});
 
+	// Forgot form validation
+	$('#subscribeForm').form( {
+		keyboardShortcuts: false,
+		on: 'blur',
+		closable: false,
+		fields: {
+			name: {
+				identifier: 'email',
+				rules: [{
+					type: 'email',
+					prompt: 'Please enter a valid e-mail'
+				}]
+			},
+		},
+		onSuccess: () => {
+			$scope.subscribe();
+		}
+	});
+
 	$(() => {
 		$('#signInModal,#signUpModal, #forgotModal').modal({
 			onShow: () => {
@@ -150,6 +169,10 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 		$('#forgotModal').modal({
 			closable : false
 		}).modal('show');
+	};
+
+	$scope.openSubscribeModal = () => {
+		$('#subscribeModal').modal('show');
 	};
 
 	setTimeout(()=>{
@@ -211,6 +234,24 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 				$scope.emailSended = true;
 			}else {
 				$scope.forgotErr = response.error;
+			}
+		});
+	};
+
+	// Subscribe
+	$scope.subscribeFormData = { };
+	$scope.subscribe = () => {
+		$scope.subscribeBtnLoading = true;
+		$scope.successSubscribe = false;
+
+		layoutFactory.subscribe($scope.subscribeFormData.email).then((response) => {
+			$scope.subscribeBtnLoading = false;
+			console.log(response);
+			if (response.status === 1){
+				$scope.successSubscribe = true;
+				$scope.subscribeErr = null;
+			}else {
+				$scope.subscribeErr = response.error;
 			}
 		});
 	};

@@ -35,9 +35,22 @@ app.factory('layoutFactory', ['$http', ($http) => {
 		});
 	};
 
+	let subscribe = (email) => {
+		return $http({
+			url: '/subscribe',
+			method: 'POST',
+			data: { 'email' : email }
+		}).then((response) => {
+			return response.data;
+		}, () => { // optional
+			console.log('fail');
+		});
+	};
+
 	return {
 		signIn: signIn,
 		signUp: signUp,
-		forgotPassword: forgotPassword
+		forgotPassword: forgotPassword,
+		subscribe: subscribe
 	};
 }]);

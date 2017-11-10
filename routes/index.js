@@ -11,6 +11,7 @@ let router = express.Router();
 let User = require('../models/users');
 let Ads = require('../models/ads');
 let forgotPasswords = require('../models/forgotPassword');
+let Subscribe = require('../models/subscribes');
 
 // Mail transporter
 let mailer = require('../helper/mailer');
@@ -155,6 +156,27 @@ router.post('/forgotPassword',  (req,res) => {
 					res.json({ status: 1 });
 				}
 			});
+		}
+	});
+});
+
+router.post('/subscribe',  (req, res) => {
+	let email = req.body.email;
+
+	let subscribe = new Subscribe({
+		email: email
+	});
+
+	Subscribe.findOne({ email: email }, (err, data) => {
+		if (data === null) {
+			subscribe.save((err) => {
+				if (err)
+					res.json({ error: 'Email was not saved.' });
+
+				res.json({ status: 1 });
+			});
+		}else{
+			res.json({ error: 'Your email address allready saved.' });
 		}
 	});
 });

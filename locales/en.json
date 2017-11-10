@@ -61,5 +61,7 @@
 	"mobile_phone": "Mobile Phone",
 	"address": "Address",
 	"website": "Website",
-	"terms": "By clicking Next, you agree to our Terms."
+	"terms": "By clicking Next, you agree to our Terms.",
+	"subscribe_paragraph": "subscribe_paragraph",
+	"subscribe": "subscribe"
 }

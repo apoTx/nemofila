@@ -153,9 +153,9 @@ html
                             a.item(href='#') Link Three
                             a.item(href='#') Link Four
                     .seven.wide.column
-                        h4.ui.inverted.header Footer Header
-                        p
-                            | Extra space for a call to action inside the footer that could help re-engage users.
+                        h4.ui.inverted.header #{i18n.__( "subscribe_paragraph" )}
+                        button.ui.button#subscribe(ng-click="openSubscribeModal()") #{i18n.__( "subscribe" )}
+
                 .ui.inverted.section.divider
                 img.ui.centered.mini.image(src='/img/logo.png')
                 .ui.horizontal.inverted.small.divided.link.list
@@ -303,6 +303,41 @@ html
                     ng-show="!emailSended"
                 )
                     | Submit
+
+
+        // subscribe Modal
+        .ui.modal.tiny#subscribeModal
+            i.close.icon
+            .header
+                | Subscribe
+            .content
+                div(ng-show="!emailSended" ng-cloak)
+                    form.ui.form#subscribeForm
+                        .fields.ui.grid
+                            .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                                //label E-mail
+                                input(name='email', placeholder='E-mail', ng-model='subscribeFormData.email', autocapitalize="none")
+                        .ui.error.message
+                        .backendErr.ui.red.message(ng-if="subscribeErr")
+                            | {{ subscribeErr }}
+
+                div(ng-show="successSubscribe" ng-cloak)
+                    .ui.success.message
+                        .header
+                            | Success!
+                        p
+                            | We've sent an email to
+                            b {{ forgotFormData.email }}.
+
+
+            .actions
+                button.ui.right.icon.button.primary(
+                    form="subscribeForm",
+                    ng-class="subscribeBtnLoading ? 'loading disabled' : '' "
+                )
+                    | Submit
+
+
 
     block javascripts
         script(src="/angular/angular.min.js")

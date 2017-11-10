@@ -52,7 +52,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			keyboardShortcuts: false,
 			on: 'blur',
 			inline : true,
-			/*fields: {
+			fields: {
 				title: {
 					identifier  : 'title',
 					rules: [
@@ -115,7 +115,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				}
-			},*/
+			},
 			onSuccess: () => {
 				$scope.next();
 			}
