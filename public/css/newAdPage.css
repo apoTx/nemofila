@@ -15,3 +15,7 @@
 .noRadius{
     border-radius:0 !important;
 }
+.terms{
+    font-size:12px;
+    padding:10px 0
+}

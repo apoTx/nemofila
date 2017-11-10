@@ -17,7 +17,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		// stripe
 		$('#buttonCheckout').on('click', () => {
 			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];
-			console.log($scope.powerNumber);
 			if(parseInt($scope.powerNumber) > 0)
 				checkoutHandler.open({
 					name: 'Easyad',
@@ -123,7 +122,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 
 		$(() => {
-			$('.ui.checkbox').checkbox({
+			$('#terms').on('click', () => {
+				console.log('asd');
+				$('#termsModal').modal('show');
+			});
+
+			$('#anotherPerson').checkbox({
 				onChecked: () => {
 					$scope.newAdForm.anotherContact.checked = true;
 					setTimeout( () => {
@@ -138,7 +142,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				}
 			});
 		});
-
 	});
 
 	$scope.init = (id, userExists) => {
