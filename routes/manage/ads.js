@@ -251,10 +251,11 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 router.get('/advanceSearch', requireLogin, (req, res) => {
 	let data = JSON.parse(req.query.data);
 
+	let dateMatch;
+
 	let startDate = moment(data.startDate).format('YYYY-MM-DD');
-	let endDate = moment(data.endDate).format('YYYY-MM-DD');
-	console.log(startDate);
-	console.log(endDate);
+	let endDate = moment(data.endDate).add(1, 'days').format('YYYY-MM-DD');
+
 
 	Ads.aggregate([
 		{
