@@ -264,9 +264,20 @@ router.get('/advanceSearch', requireLogin, (req, res) => {
 		{
 			'$match': {
 				'status': data.status ? status : { $exists: true },
-				'createdAt': { '$gte':   new Date(startDate), '$lte': new Date(endDate) }
+				'createdAt': { '$gte':   new Date(startDate), '$lte': new Date(endDate) },
 			}
 		},
+
+		// User collection
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'ownerId',
+				foreignField: '_id',
+				as: 'user'
+			}
+		},
+		{ '$unwind': '$user' },
 
 		// Power collection
 		{
@@ -325,6 +336,7 @@ router.get('/advanceSearch', requireLogin, (req, res) => {
 		if (err)
 			throw new Error(err);
 
+		console.log(data);
 		res.json(data);
 	});
 });

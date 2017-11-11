@@ -62,6 +62,7 @@ block content
                 tbody
                     tr(
                         ng-repeat="ad in ads",
+                        ng-hide="(searchForm.power == 1 && ad.totalPower < 1) || (searchForm.power == 2 && ad.totalPower > 0)",
                         ng-class="{ warning: ad.status == 0,  negative: ad.status == 2 || ad.status == 4}"
                     )
                         td {{ ad.title }}
