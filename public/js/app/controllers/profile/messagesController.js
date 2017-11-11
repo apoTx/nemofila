@@ -14,7 +14,6 @@ app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', 
 
 		if ($routeParams.id){
 			let ad = ($scope.conversations).find(x => String(x._id) === String($routeParams.id)).ad;
-			console.log(ad);
 			$scope.ad.title = ad.title;
 			$scope.ad.price = ad.price;
 			$scope.ad.slug = ad.slug;
@@ -22,7 +21,6 @@ app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', 
 			$scope.ad.showcasePhoto = ad.photos[ad.photoShowcaseIndex].filename;
 		}
 	});
-
 
 	$scope.ad = { };
 	if ($routeParams.id){
@@ -36,15 +34,12 @@ app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', 
 			$scope.sendMessageFormData.toUserId = response.toUserId;
 			scrollDown();
 
-			messageFactory.markAsRead($routeParams.id, $scope.sendMessageFormData.toUserId).then((response) => {
+			messageFactory.markAsRead($routeParams.id, $scope.sendMessageFormData.toUserId).then(() => {
 				messageFactory.getUnreadMessages().then((response) => {
 					$rootScope.messageLength = response.length;
-					console.log($rootScope.messageLength);
 				});
 			});
 		});
-
-
 	}
 
 	$scope.messageSended = false;
