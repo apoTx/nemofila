@@ -7,10 +7,7 @@ append stylesheets
 
 block content
     div(ng-controller="adsController", ng-init="init()")
-
-        button.ui.button.right.floated(ng-click="toggleAdvanceSearch()") Advance Search
-        .clearfix
-        div.ui.segment(ng-show="!advanceSearchVisible", ng-cloak)
+        div.ui.segment
             form.ui.form
                 .two.fields
                     .field

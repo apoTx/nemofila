@@ -96,10 +96,6 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 		});
 	});
 
-	$scope.toggleAdvanceSearch = () => {
-		$scope.advanceSearchVisible = true;
-	};
-
 	$scope.searchForm = { };
 	$scope.advanceSearch = () => {
 		$scope.loadingAds = true;
