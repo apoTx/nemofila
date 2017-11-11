@@ -1,4 +1,4 @@
-app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $http, $window, layoutFactory, messageFactory) => {
+app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory) => {
 	$scope.toggleSidebar = () => {
 		$('.rightSidebar')
 			.sidebar('setting', 'transition', 'overlay')
@@ -257,6 +257,6 @@ app.controller('layoutController', ['$scope', '$http', '$window', 'layoutFactory
 	};
 
 	messageFactory.getUnreadMessages().then((response) => {
-		$scope.messageLength = response.length;
+		$rootScope.messageLength = response.length;
 	});
 }]);

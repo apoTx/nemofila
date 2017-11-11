@@ -1,5 +1,5 @@
 /*eslint-disable */
-app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams', function($scope, messageFactory, $routeParams){
+app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', '$routeParams', function($scope, $rootScope, messageFactory, $routeParams){
 /*eslint-enable */
 
 	let objDiv = document.getElementById('messageList');
@@ -37,9 +37,14 @@ app.controller('messagesController', ['$scope', 'messageFactory', '$routeParams'
 			scrollDown();
 
 			messageFactory.markAsRead($routeParams.id, $scope.sendMessageFormData.toUserId).then((response) => {
-				console.log(response);
+				messageFactory.getUnreadMessages().then((response) => {
+					$rootScope.messageLength = response.length;
+					console.log($rootScope.messageLength);
+				});
 			});
 		});
+
+
 	}
 
 	$scope.messageSended = false;
