@@ -21,11 +21,6 @@ const stripe = require('stripe')(keySecret);
 
 let adPerPage = 48;
 
-
-router.get( '/env', ( req, res ) => {
-	res.json({ env:  process.env.NODE_ENV });
-});
-
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', {
@@ -36,6 +31,10 @@ router.get( '/', ( req, res ) => {
 		locale: req.cookies.locale || 'en',
 		amazon_base_url: config.amazon_s3.photo_base_url
 	});
+});
+
+router.get( '/env', ( req, res ) => {
+	res.json({ env:  process.env.NODE_ENV });
 });
 
 router.get( '/login', ( req, res ) => {
