@@ -1,0 +1,48 @@
+extends layout
+
+append stylesheets
+    link(rel='stylesheet', href='/semantic-ui-calendar/dist/calendar.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+
+block content
+    div(ng-controller="usersController", ng-init="init()")
+        div.ui.segment
+            form.ui.form
+                .field
+                    label Email
+                    input(placeholder='Email', ng-model="userData.email")
+
+                .two.fields
+                    .field
+                        label Users with more than x ads
+                        input(placeholder='Number', ng-model="userData.adLength")
+
+                button.ui.button.primary.right.floated(
+                    ng-click="advanceSearch()",
+                    ng-class="{ loading: loadingSearch, disabled: loadingSearch }") Search
+                .clearfix
+
+
+        .ui.segment.no-segment
+            table.ui.table
+                thead
+                    tr
+                        th Ad
+                        th Email
+                        th Ads
+                tbody
+                    tr(
+                        ng-hide="(userData.adLength != '' && user.ads.length < userData.adLength)",
+                        ng-repeat="user in users | filter:userData.email",
+                    )
+                        td {{ user.name }} {{ user.surname }}
+                        td {{ user.email }}
+                        td {{ user.ads.length }}
+            .ui.dimmer(ng-class="{active: loadingAds }")
+                .ui.loader
+
+append javascripts
+    script(src='/semantic-ui-calendar/dist/calendar.min.js')
+    script(src='/dist/js/admin/app/services/usersFactory.min.js')
+    script(src='/dist/js/admin/app/controllers/usersController.min.js')

@@ -6,11 +6,6 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 		$scope.ads = response;
 	});
 
-	$scope.changeStatus = (id) => {
-		console.log(id);
-	};
-
-
 	$scope.adEditForm = { };
 	$scope.adEditForm.publishStatus = '1';
 	$scope.adEditForm.reasonVisible = false;

@@ -30,6 +30,7 @@ let auth = require('./routes/auth');
 // Admin Routes
 let manage = require('./routes/manage/index');
 let ads = require('./routes/manage/ads');
+let users = require('./routes/manage/users');
 let manage_countries = require('./routes/manage/countries');
 let manage_categories = require('./routes/manage/categories');
 
@@ -105,6 +106,7 @@ app.use((req,res,next) => {
 
 app.use('/manage/', manage);
 app.use('/manage/ads', ads);
+app.use('/manage/users', users);
 app.use('/manage/countries', manage_countries);
 app.use('/manage/categories', manage_categories);
 app.use('/', index);
