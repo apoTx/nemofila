@@ -23,7 +23,7 @@ let adPerPage = 48;
 
 
 router.get( '/env', ( req, res ) => {
-	res.json({ env:  process.env.NODE_ENV});
+	res.json({ env:  process.env.NODE_ENV });
 });
 
 /* GET home page. */
