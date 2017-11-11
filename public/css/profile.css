@@ -4,7 +4,6 @@
 .myAdsList{
     height: 159px!important;
     overflow: hidden!important;
-    display:flex!important;
     align-items:center!important;
     justify-content:center!important;
 }

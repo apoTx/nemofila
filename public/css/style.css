@@ -270,3 +270,11 @@ a.black{
     border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;
 }
+
+.cardPowerNumber{
+    width: 65%;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    line-height: 28px!important;
+    text-align: center!important;
+}

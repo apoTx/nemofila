@@ -8,6 +8,9 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
     .ui.divided.items
         .item(ng-repeat="ad in myAds")
             a.image.myAdsList(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
+                .ui.left.corner.orange.label(ng-show="ad.totalActivePower > 0")
+                    .cardPowerNumber
+                        | {{ ad.totalActivePower }}
                 img(ng-src='{{ amazon_base_url }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                 img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
             .content
@@ -20,11 +23,6 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
                             ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
                         )
                         | {{ ad.statusText }}
-
-                    div.margin-top-10(ng-show="ad.totalActivePower > 0")
-                        h4
-                            i.ui.rocket.icon
-                            | {{ ad.totalActivePower }}
 
                     .ui.simple.dropdown.right.floated.item
                         | {{ i18n_settings }}

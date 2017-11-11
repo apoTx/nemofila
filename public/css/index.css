@@ -39,13 +39,7 @@
 .sidebarFilterForm .field label{
     color: #fff!important;
 }
-.cardPowerNumber{
-    width: 65%;
-    font-size: 13px !important;
-    font-weight: bold !important;
-    line-height: 28px!important;
-    text-align: center!important;
-}
+
 .cardListImage{
     height: 159px!important;
     overflow: hidden!important;
