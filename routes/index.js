@@ -22,6 +22,10 @@ const stripe = require('stripe')(keySecret);
 let adPerPage = 48;
 
 
+router.get( '/env', ( req, res ) => {
+	res.json({ env:  process.env.NODE_ENV});
+});
+
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', {
