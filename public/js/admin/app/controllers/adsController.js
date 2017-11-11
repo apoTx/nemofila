@@ -53,6 +53,21 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	$(() => {
 		$('#startDate').calendar({
 			type: 'date',
+			formatter: {
+				date: function (date) {
+					if (!date) return '';
+					let day = date.getDate() + '';
+					if (day.length < 2) {
+						day = '0' + day;
+					}
+					let month = (date.getMonth() + 1) + '';
+					if (month.length < 2) {
+						month = '0' + month;
+					}
+					let year = date.getFullYear();
+					return year + '-' + month + '-' + day;
+				}
+			},
 			onChange:  (date) => {
 				$scope.searchForm.startDate = date;
 			},
@@ -60,6 +75,21 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 
 		$('#endDate').calendar({
 			type: 'date',
+			formatter: {
+				date: function (date) {
+					if (!date) return '';
+					let day = date.getDate() + '';
+					if (day.length < 2) {
+						day = '0' + day;
+					}
+					let month = (date.getMonth() + 1) + '';
+					if (month.length < 2) {
+						month = '0' + month;
+					}
+					let year = date.getFullYear();
+					return year + '-' + month + '-' + day;
+				}
+			},
 			onChange:  (date) => {
 				$scope.searchForm.endDate = date;
 			},
@@ -72,7 +102,10 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 
 	$scope.searchForm = { };
 	$scope.advanceSearch = () => {
+		$scope.loadingAds = true;
 		adsFactory.advanceSearch($scope.searchForm).then((response) => {
+			$scope.loadingAds = false;
+			$scope.ads = response;
 			console.log(response);
 		});
 	};

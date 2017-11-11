@@ -238,7 +238,7 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 				totalPower: 1
 			},
 		},
-		{ $sort : { _id : -1 } },
+		{ $sort : { createdAt : -1 } },
 	], (err, result) => {
 		if (err)
 			return next(err);
@@ -249,9 +249,79 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 });
 
 router.get('/advanceSearch', requireLogin, (req, res) => {
-	let data = req.query.data;
+	let data = JSON.parse(req.query.data);
 
-	res.json({ 'asd': data });
+	let startDate = moment(data.startDate).format('YYYY-MM-DD');
+	let endDate = moment(data.endDate).format('YYYY-MM-DD');
+	console.log(startDate);
+	console.log(endDate);
+
+	Ads.aggregate([
+		{
+			'$match': {
+				'createdAt': { '$gte':   new Date(startDate), '$lte': new Date(endDate) }
+			}
+		},
+
+		// Power collection
+		{
+			$lookup: {
+				from: 'powers',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'power'
+			}
+		},
+		{
+			$unwind: {
+				path: '$power',
+				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					title: '$title',
+					status: '$status',
+					statusText: '$statusText',
+					slug: '$slug',
+					createdAt: '$createdAt',
+					user: {
+						name: '$user.name',
+						surname: '$user.surname'
+					}
+				},
+				power: {
+					$push: '$power'
+				},
+				totalPower: {
+					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
+				}
+			}
+		},
+
+		{
+			'$project': {
+				'_id': '$_id._id',
+				'title': '$_id.title',
+				'status': '$_id.status',
+				'statusText': '$_id.statusText',
+				'slug': '$_id.slug',
+				'createdAt': '$_id.createdAt',
+				'user': '$_id.user',
+				totalPower: 1
+			},
+		},
+		{ $sort : { createdAt : -1 } },
+	], (err, data) => {
+		if (err)
+			throw new Error(err);
+
+		res.json(data);
+	});
 });
 
 module.exports = router;
