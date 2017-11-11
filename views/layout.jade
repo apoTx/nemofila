@@ -57,7 +57,7 @@ html
                     img.logo(src='/img/logo.png')
                     | &nbsp; &nbsp;  &nbsp; &nbsp; Easy Ads
 
-                .ui.container.computer.tablet.only.grid
+                .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item
                             div(ng-show=" '#{locale}' == 'en' ", ng-cloak)
@@ -89,6 +89,7 @@ html
                             a.item(href='javascript:;', ng-click="openSignInModal()") #{i18n.__("sign_in")}
                         else
                             .ui.simple.dropdown.item
+                                i.icon.user.layout
                                 a(href="/profile")=user.name
                                 i.dropdown.icon
                                 .ui.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
@@ -98,8 +99,8 @@ html
                                         | #{i18n.__("my_ads")}
                                     a.item(href='/profile#!/messages')
                                         i.icon.comments
-                                        | #{i18n.__("messages")} &nbsp;
-                                        .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
+                                        | #{i18n.__("messages")} &nbsp;&nbsp;
+                                        .ui.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                                     a.item(href='/profile#!/myfavourites')
                                         i.icon.star
                                         | #{i18n.__("favourites")}
