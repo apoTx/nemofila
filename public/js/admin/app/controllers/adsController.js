@@ -103,6 +103,7 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	$scope.searchForm = { };
 	$scope.advanceSearch = () => {
 		$scope.loadingAds = true;
+		console.log($scope.searchForm);
 		adsFactory.advanceSearch($scope.searchForm).then((response) => {
 			$scope.loadingAds = false;
 			$scope.ads = response;

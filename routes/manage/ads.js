@@ -251,7 +251,9 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 router.get('/advanceSearch', requireLogin, (req, res) => {
 	let data = JSON.parse(req.query.data);
 
-	let dateMatch;
+	if(!data.startDate){
+		data.startDate = '2016-01-01'; // for if startDate empty, get all data.
+	}
 
 	let startDate = moment(data.startDate).format('YYYY-MM-DD');
 	let endDate = moment(data.endDate).add(1, 'days').format('YYYY-MM-DD');

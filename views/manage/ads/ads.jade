@@ -12,10 +12,7 @@ block content
         .clearfix
         div.ui.segment(ng-show="!advanceSearchVisible", ng-cloak)
             form.ui.form
-                .three.fields
-                    .field
-                        label Email
-                        input(name='email', ng-model="searchForm.email", placeholder='Email')
+                .two.fields
                     .field
                         label Start Date
                         .ui.calendar#startDate
@@ -29,6 +26,21 @@ block content
                             .ui.input.left.icon
                                 i.calendar.icon
                                 input(placeholder='End Date')
+
+                .two.fields
+                    .field
+                        label Power
+                        select(ng-model="searchForm.power")
+                            option(value="") All
+                            option(value="1") Powerd ads
+                            option(value="2") Free ads
+
+                    .field
+                        label Status
+                        select(ng-model="searchForm.status")
+                            option(value="") All
+                            option(value="0") Waiting for Approve
+                            option(value="4") Unpublished
 
                 button.ui.button.primary.right.floated(
                     ng-click="advanceSearch()",
