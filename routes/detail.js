@@ -50,7 +50,6 @@ let getObject = (data, req, res) => {
 			districtName: districtName
 		},
 		amazon_base_url: config.amazon_s3.photo_base_url,
-		i18n: res,
 	};
 };
 

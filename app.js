@@ -25,6 +25,9 @@ let myMessages = require('./routes/profile/myMessages');
 let countries = require('./routes/countries');
 let categories = require('./routes/categories');
 let auth = require('./routes/auth');
+let services = require('./routes/services');
+let contact = require('./routes/contact');
+let terms = require('./routes/terms');
 
 
 // Admin Routes
@@ -112,6 +115,8 @@ app.use((req, res, next) => {
 	res.locals = {
 		recaptcha_site_key: settings.recapcha.site_key,
 		locale: req.cookies.locale || 'en',
+		i18n: res,
+		user: req.session.user,
 	};
 	next();
 });
@@ -133,7 +138,9 @@ app.use('/profile/myMessages', myMessages);
 app.use('/account', account);
 app.use('/countries', countries);
 app.use('/categories', categories);
-
+app.use('/services', services);
+app.use('/contact', contact);
+app.use('/terms', terms);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

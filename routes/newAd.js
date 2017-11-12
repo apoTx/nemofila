@@ -51,8 +51,6 @@ router.get('/:id?', requireLogin, (req, res) => {
 			id: req.query.id ? req.query.id : 'false',
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url,
-			i18n: res,
-			recaptcha_site_key: settings.recapcha.site_key
 		});
 	});
 });

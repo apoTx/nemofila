@@ -8,7 +8,6 @@ router.get('/', requireLogin, (req, res) => {
 	res.render( 'profile', {
 		title: 'Profile',
 		amazon_base_url: config.amazon_s3.photo_base_url,
-		i18n: res,
 		profile_locales: {
 			myAds: {
 				title: res.__('my_ads'),
