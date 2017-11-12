@@ -385,21 +385,6 @@ router.get('/partials/:folder/:filename', (req, res) => {
 	res.render('partials/'+ folder +'/'+ filename);
 });
 
-
-// Static pages
-
-router.get('/contact', (req, res) => {
-	res.render('contact', {
-		title: res.__('contact_page_title'),
-	});
-});
-
-router.get('/terms', (req, res) => {
-	res.render('terms', {
-		title: res.__('terms_page_title'),
-	});
-});
-
 // localization
 router.get('/es', (req, res) => {
 	res.cookie('locale', 'es');
