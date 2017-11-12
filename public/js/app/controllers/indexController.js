@@ -71,7 +71,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 			$scope.indexAdsLoading = false;
 			$scope.ads = response.data;
 			$scope.isSearch = true;
-			$scope.resultNumber = response.length;
+			$scope.resultNumber = response.data.length;
 			$scope.adPerPage = response.adPerPage;
 			$scope.adCount = response.adCount;
 			$scope.currentPage = response.page;
