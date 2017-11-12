@@ -225,14 +225,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		});
 	};
 
-	$scope.uploadAndSaveRedis = () => {
-		if ($scope.newAdForm.files && $scope.newAdForm.files.length  > 0 ){
-			$scope.uploadFiles($scope.newAdForm.files, true);
-		}else{
-			$scope.saveAdToRedis(null, null);
-		}
-	};
-
 	$scope.uploadAndSaveMongo = (id) => {
 		if($scope.newAdForm.files && $scope.newAdForm.files.length > 0){
 			$scope.uploadFiles($scope.newAdForm.files, id);
@@ -260,9 +252,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
-
 			let itemsProcessed = 0;
-
 			let totalNewFiles = files.filter((x) => { return x.name; }).length;
 
 			if (totalNewFiles < 1){
@@ -335,7 +325,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (newPhotos === false){
 			photoList = photos;
 		}else{
-			console.log($scope.uploadedFiles);
 			if($scope.uploadedFiles){
 				console.log('test');
 				photoList = photos ? photos.concat($scope.uploadedFiles) : null;
@@ -371,7 +360,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			url: '/newAd/create',
 			method: 'POST',
 			data: {
-				recaptcha: document.getElementById("g-recaptcha-response").value,
+				recaptcha: document.getElementById('g-recaptcha-response').value,
 				data: data,
 				isEdit: isEdit,
 				editId: id,
