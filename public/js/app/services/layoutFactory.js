@@ -11,11 +11,11 @@ app.factory('layoutFactory', ['$http', ($http) => {
 		});
 	};
 
-	let signUp = (data) => {
+	let signUp = (data, recaptcha) => {
 		return $http({
 			url: '/register',
 			method: 'POST',
-			data: { 'data' : data }
+			data: { 'data' : data, 'recaptcha': recaptcha }
 		}).then((response) => {
 			return response.data;
 		}, () => { // optional

@@ -16,6 +16,7 @@ let Subscribe = require('../models/subscribes');
 
 // helpers
 let mailer = require('../helper/mailer');
+let verifyRecaptcha = require('../helper/recaptcha');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
@@ -44,26 +45,34 @@ router.get( '/login', ( req, res ) => {
 });
 
 router.post( '/register', ( req, res ) => {
-	let data = req.body.data;
+	verifyRecaptcha(req.body.recaptcha, (success) => {
+		if (success) {
+			let data = req.body.data;
 
-	// Password hash
-	const saltRounds = 10;
-	bcrypt.hash(req.body.data.password, saltRounds).then((hash) => {
-		let user = new User({
-			'name': data.name,
-			'surname': data.surname,
-			'email': data.email,
-			'phone': data.phone,
-			'password': hash
-		});
+			// Password hash
+			const saltRounds = 10;
+			bcrypt.hash(req.body.data.password, saltRounds).then((hash) => {
+				let user = new User({
+					'name': data.name,
+					'surname': data.surname,
+					'email': data.email,
+					'phone': data.phone,
+					'password': hash
+				});
 
-		user.save((err) => {
-			if (err)
-				res.send(err);
-			else
-				res.send({ 'status': 1 });
-		});
+				user.save((err) => {
+					if (err)
+						res.send(err);
+					else
+						res.send({ 'status': 1 });
+				});
+			});
+		}else{
+			console.log('err');
+			res.end('captcha err');
+		}
 	});
+
 });
 
 router.post('/login', (req,res) => {

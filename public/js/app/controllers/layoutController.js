@@ -187,7 +187,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	$scope.signUp = () => {
 		$scope.registerBtnLoading = true;
 
-		layoutFactory.signUp($scope.signupForm).then((response) => {
+		layoutFactory.signUp($scope.signupForm, document.getElementById('g-recaptcha-response').value).then((response) => {
 			if (response.status === 1){
 				// auto login
 				layoutFactory.signIn({ email: $scope.signupForm.email }, true).then((response) => {
