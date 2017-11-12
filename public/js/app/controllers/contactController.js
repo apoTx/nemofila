@@ -27,6 +27,19 @@ app.controller('contactController',  ['$scope', 'contactFactory',  ($scope, cont
 					}
 				]
 			},
+			subject: {
+				identifier  : 'subject',
+				rules: [
+					{
+						type   : 'empty',
+						prompt : 'Please enter a subject.'
+					},
+					{
+						type   : 'maxLength[300]',
+						prompt : 'Subject can be up to {ruleValue} characters long.'
+					}
+				]
+			},
 			message: {
 				identifier  : 'message',
 				rules: [
@@ -48,9 +61,17 @@ app.controller('contactController',  ['$scope', 'contactFactory',  ($scope, cont
 
 	$scope.contactForm = { };
 	$scope.onSubmit = () => {
-		contactFactory.sendMessage($scope.contactForm).then((response) => {
+		$scope.loadingContact = true;
+		contactFactory.sendMessage(Object.assign($scope.contactForm, { 'recaptcha': $scope.recaptchaResponse } )).then((response) => {
 			console.log(response);
+			$scope.loadingContact = false;
 		});
+	};
+
+	$scope.activeSubmitBtn = false;
+	$scope.successCaptcha = (response) => {
+		$scope.recaptchaResponse = response;
+		$scope.activeSubmitBtn = true;
 	};
 
 }]);

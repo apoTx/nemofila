@@ -12,15 +12,21 @@ block content
                 .field
                     label #{i18n.__("email")}
                     input(name='email', ng-model="contactForm.email", placeholder='#{i18n.__("email")}')
+
+            .field
+                label #{i18n.__( "subject" )}
+                input(name='subject', ng-model="contactForm.subject", placeholder='#{i18n.__( "subject" )}')
             .field
                 label #{i18n.__("your_message")}
                 textarea(name='message', ng-model="contactForm.message", placeholder='#{i18n.__("your_message")}')
             .g-recaptcha(
                 vc-recaptcha,
                 key="'#{ recaptcha_site_key }'",
-                on-success="successCaptcha()"
+                on-success="successCaptcha(response)"
             )
-            button.ui.primary.right.floated.button Submit
+            button.ui.primary.right.floated.button(
+                ng-class="{ loading: loadingContact, disabled: loadingContact, disabled: !activeSubmitBtn }"
+            ) Submit
             .clearfix
 append javascripts
     script(src="/dist/js/app/services/contactFactory.min.js")
