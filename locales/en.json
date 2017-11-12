@@ -71,5 +71,7 @@
 	"email": "Email",
 	"your_message": "Your Message",
 	"full_name": "Full Name",
-	"subject": "subject"
+	"subject": "Subject",
+	"your_message_sended": "Your message has been sent.",
+	"we_will_contact_you": "We will contact you as soon as possible."
 }

@@ -4,7 +4,15 @@ append stylesheets
 
 block content
     div(ng-controller="contactController")
-        form.ui.form#contactForm
+        .ui.icon.positive.message.margin-30#message(ng-show="messageSended", ng-cloak)
+            i.send.icon
+            .content
+                .header
+                    | #{i18n.__("your_message_sended")}
+                p
+                    | #{i18n.__("we_will_contact_you")}
+
+        form.ui.form#contactForm(ng-hide="messageSended")
             .ui.two.fields
                 .field
                     label #{i18n.__("full_name")}

@@ -63,7 +63,7 @@ app.controller('contactController',  ['$scope', 'contactFactory',  ($scope, cont
 	$scope.onSubmit = () => {
 		$scope.loadingContact = true;
 		contactFactory.sendMessage(Object.assign($scope.contactForm, { 'recaptcha': $scope.recaptchaResponse } )).then((response) => {
-			console.log(response);
+			$scope.messageSended = true;
 			$scope.loadingContact = false;
 		});
 	};
@@ -73,5 +73,4 @@ app.controller('contactController',  ['$scope', 'contactFactory',  ($scope, cont
 		$scope.recaptchaResponse = response;
 		$scope.activeSubmitBtn = true;
 	};
-
 }]);

@@ -18,6 +18,7 @@ router.post( '/', ( req, res) => {
 				from: mailer.config.defaultFromAddress,
 				to: to_email,
 				subject: 'Contact message: '+ subject,
+				replyTo: req.body.email,
 				template: 'contact',
 				context: {
 					siteUrl: mailer.siteUrl,
