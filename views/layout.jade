@@ -117,7 +117,9 @@ html
             .ui.container.mobile.only.grid.no-grid-padding
                 .right.menu
                     if (user)
-                        a.item.no-before(href="/profile")=user.name
+                        a.item.no-before(href="/profile")
+                            i.icon.user.layout
+                            !{ user.name }
                     a.item.no-before(ng-click="toggleSidebar()")
                         i.sidebar.medium.icon
 
