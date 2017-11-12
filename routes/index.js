@@ -29,7 +29,6 @@ router.get( '/', ( req, res ) => {
 		i18n: res,
 		title: res.__('index_title'),
 		user: req.session.user,
-		locale: req.cookies.locale || 'en',
 		amazon_base_url: config.amazon_s3.photo_base_url,
 	});
 });
