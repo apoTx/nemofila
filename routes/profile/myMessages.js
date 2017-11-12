@@ -136,10 +136,12 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 				unreadMessageCount: {
 					$sum: {
 						'$cond': [
-							{ '$and': [
-								{ '$eq': [ '$message.read', false ] },
-								{ '$eq': [ '$message.toUserId', sessionId ] }
-							] },
+							{
+								'$and': [
+									{ '$eq': [ '$message.read', false ] },
+									{ '$eq': [ '$message.toUserId', sessionId ] }
+								]
+							},
 							1,
 							0
 						]
@@ -161,7 +163,6 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 				'ad._id': '$_id.ad._id',
 				'ad.photoShowcaseIndex': '$_id.ad.photoShowcaseIndex',
 				unreadMessageCount: 1,
-				messages: 1
 			},
 		},
 		{ $sort: { 'unreadMessageCount':-1 } },
