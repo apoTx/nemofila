@@ -289,7 +289,7 @@ block content
                     .ui.segment
                         p.description(ng-bind-html="newAdForm.description")
 
-                    .g-recaptcha(data-sitekey='6LeZSjgUAAAAAOYgPWAAOsI3pMstMAK5HmBhpA5_')
+                    .g-recaptcha(data-sitekey='6LeZSjgUAAAAAOYgPWAAOsI3pMstMAK5HmBhpA5_', data-callback="recaptchaCallback")
 
                     button.ui.right.floated.primary.button(ng-click="uploadAndSaveMongo('#{ id }')", ng-class="{loading:submitBtnLoading, disabled:uploading}")
                         | #{ i18n.__("save_btn") }
@@ -324,8 +324,9 @@ append javascripts
     script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="https://checkout.stripe.com/checkout.js")
-    script(src="https://www.google.com/recaptcha/api.js")
+    script(src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit")
     script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
     script(src="/dist/js/app/controllers/newAdController.min.js")
     script(src="semantic/dist/components/checkbox.min.js")
+

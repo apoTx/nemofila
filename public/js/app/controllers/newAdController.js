@@ -248,6 +248,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.photos = [];
 	let oldPhotos = 0;
 
+
+
+
 	$scope.uploadFiles = (files, id) => {
 		$scope.nextLoader = true;
 		$scope.uploading = true;
