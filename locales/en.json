@@ -65,7 +65,10 @@
 	"subscribe_paragraph": "Subscribe news",
 	"subscribe": "Subscribe",
 	"language": "Language",
-	"services_page_title": "services_page_title",
-	"contact_page_title": "contact_page_title",
-	"terms_page_title": "terms_page_title"
+	"services_page_title": "Services",
+	"contact_page_title": "Contact",
+	"terms_page_title": "Terms and Conditions",
+	"email": "Email",
+	"your_message": "Your Message",
+	"full_name": "Full Name"
 }

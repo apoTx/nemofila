@@ -1,4 +1,27 @@
 extends layout
 
+append stylesheets
+
 block content
-    div Contact
+    div(ng-controller="contactController")
+        form.ui.form#contactForm
+            .ui.two.fields
+                .field
+                    label #{i18n.__("full_name")}
+                    input(name='name', ng-model="contactForm.name", placeholder='#{i18n.__("full_name")}')
+                .field
+                    label #{i18n.__("email")}
+                    input(name='email', ng-model="contactForm.email", placeholder='#{i18n.__("email")}')
+            .field
+                label #{i18n.__("your_message")}
+                textarea(name='message', ng-model="contactForm.message", placeholder='#{i18n.__("your_message")}')
+            .g-recaptcha(
+                vc-recaptcha,
+                key="'#{ recaptcha_site_key }'",
+                on-success="successCaptcha()"
+            )
+            button.ui.primary.right.floated.button Submit
+            .clearfix
+append javascripts
+    script(src="/dist/js/app/services/contactFactory.min.js")
+    script(src="dist/js/app/controllers/contactController.min.js")
