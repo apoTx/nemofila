@@ -41,7 +41,9 @@ html
             else
                 a.item(href="/profile")=user.name
                     .ui.right.floated.red.label(ng-show="messageLength > 0", ng-cloak, style="display:none") {{ messageLength }}
-                a.item(href='/logout') #{i18n.__("logout")}
+                a.item(href='/logout')
+                    i.icon.sign.out
+                    | #{i18n.__("logout")}
 
             .item.text-center
                 if user
@@ -52,9 +54,8 @@ html
 
         .ui.fixed.inverted.menu
             .ui.container
-                a.header.item(href='/')
+                a.header.item.no-before(href='/')
                     img.logo(src='/img/logo.png')
-                    | &nbsp; &nbsp;  &nbsp; &nbsp; Easy Ads
                 .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item
@@ -115,7 +116,9 @@ html
 
             .ui.container.mobile.only.grid.no-grid-padding
                 .right.menu
-                   a.item.no-before(ng-click="toggleSidebar()")
+                    if (user)
+                        a.item.no-before(href="/profile")=user.name
+                    a.item.no-before(ng-click="toggleSidebar()")
                         i.sidebar.medium.icon
 
         .pusher
