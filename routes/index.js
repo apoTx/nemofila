@@ -6,7 +6,6 @@ let router = express.Router();
 let ObjectId = require('mongoose').Types.ObjectId;
 
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-let settings = require('../config/settings.json');
 
 // Models
 let User = require('../models/users');
@@ -32,7 +31,6 @@ router.get( '/', ( req, res ) => {
 		user: req.session.user,
 		locale: req.cookies.locale || 'en',
 		amazon_base_url: config.amazon_s3.photo_base_url,
-		recaptcha_site_key: settings.recapcha.site_key
 	});
 });
 

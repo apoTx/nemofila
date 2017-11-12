@@ -104,6 +104,17 @@ app.use((req,res,next) => {
 	}
 });
 
+
+// global variables
+let settings = require('./config/settings.json');
+
+app.use((req, res, next) => {
+	res.locals = {
+		recaptcha_site_key: settings.recapcha.site_key,
+	};
+	next();
+});
+
 app.use('/manage/', manage);
 app.use('/manage/ads', ads);
 app.use('/manage/users', users);

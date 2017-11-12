@@ -34,7 +34,6 @@ html
 
     body(ng-app="app" ng-controller="layoutController")
 
-
         .ui.sidebar.inverted.vertical.right.menu.rightSidebar
             if !user
                 a.item.no-before(href='javascript:;', ng-click="openSignUpModal()") #{i18n.__("sign_up")}
@@ -172,7 +171,7 @@ html
         script(src="/angular-sanitize/angular-sanitize.min.js")
 
         // recaptcha
-        script(src="angular-recaptcha/release/angular-recaptcha.min.js")
+        script(src="/angular-recaptcha/release/angular-recaptcha.min.js")
 
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")
