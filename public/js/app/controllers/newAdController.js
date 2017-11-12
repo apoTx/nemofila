@@ -145,7 +145,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	});
 
 	$scope.init = (id, userExists) => {
-
 		if (id !== 'false'){
 			$scope.getAd(id);
 			$scope.isEdit = true;
@@ -176,7 +175,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.powerTab();
 		else
 			$scope.adInformationTab();
-
 	};
 
 	$scope.uploadedFiles = [];
@@ -247,9 +245,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.uploading = false;
 	$scope.photos = [];
 	let oldPhotos = 0;
-
-
-
 
 	$scope.uploadFiles = (files, id) => {
 		$scope.nextLoader = true;
@@ -451,6 +446,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.steps.power = false;
 		$scope.steps.preview = false;
 		$window.scrollTo(0, 0);
+	};
+
+
+	// recaptcha
+	$scope.activeSaveBtn = false;
+	$scope.successCaptcha = () => {
+		$scope.activeSaveBtn = true;
 	};
 
 }]);

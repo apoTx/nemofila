@@ -6,6 +6,7 @@ let app = angular.module('app',[
 	'thatisuday.ng-image-gallery',
 	'ngWig',
 	'ngSanitize',
-	'bw.paging'
+	'bw.paging',
+	'vcRecaptcha'
 ]);
 /*eslint-enable */
