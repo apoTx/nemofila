@@ -2,10 +2,11 @@ let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
 
-let ObjectId = require('mongoose').Types.ObjectId;
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-
 let router = express.Router();
+let ObjectId = require('mongoose').Types.ObjectId;
+
+let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+let settings = require('../config/settings.json');
 
 // Models
 let User = require('../models/users');
@@ -13,7 +14,7 @@ let Ads = require('../models/ads');
 let forgotPasswords = require('../models/forgotPassword');
 let Subscribe = require('../models/subscribes');
 
-// Mail transporter
+// helpers
 let mailer = require('../helper/mailer');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
@@ -29,7 +30,8 @@ router.get( '/', ( req, res ) => {
 		title: res.__('index_title'),
 		user: req.session.user,
 		locale: req.cookies.locale || 'en',
-		amazon_base_url: config.amazon_s3.photo_base_url
+		amazon_base_url: config.amazon_s3.photo_base_url,
+		recaptcha_site_key: settings.recapcha.site_key
 	});
 });
 

@@ -259,4 +259,10 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	messageFactory.getUnreadMessages().then((response) => {
 		$rootScope.messageLength = response.length;
 	});
+
+	// recaptcha
+	$scope.activeRegisterBtn = false;
+	$scope.successSignUpCaptcha = () => {
+		$scope.activeRegisterBtn = true;
+	};
 }]);

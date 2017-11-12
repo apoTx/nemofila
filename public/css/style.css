@@ -278,3 +278,8 @@ a.black{
     line-height: 28px!important;
     text-align: center!important;
 }
+.g-recaptcha > div {
+    width: auto!important;
+    text-align: right!important;
+    margin-bottom: 15px!important;
+}

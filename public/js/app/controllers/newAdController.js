@@ -454,7 +454,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.successCaptcha = () => {
 		$scope.activeSaveBtn = true;
 	};
-
 }]);
 
 

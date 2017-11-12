@@ -5,9 +5,8 @@ let uuid = require('uuid');
 
 let router = express.Router();
 
-let requireLogin = require('./inc/requireLogin.js');
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-let getAdStatusText = require('../helper/getAdStatusText');
+let settings = require('../config/settings.json');
 
 // Models
 let Ads = require('../models/ads');
@@ -16,6 +15,8 @@ let Power = require('../models/powers');
 // Mail transporter
 let mailer = require('../helper/mailer');
 let verifyRecaptcha = require('../helper/recaptcha');
+let getAdStatusText = require('../helper/getAdStatusText');
+let requireLogin = require('./inc/requireLogin.js');
 
 let sendMail = (title, id) => {
 	// send email
@@ -42,8 +43,6 @@ let sendMail = (title, id) => {
 	});
 };
 
-
-
 router.get('/:id?', requireLogin, (req, res) => {
 	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 		res.render( 'newAd', {
@@ -52,7 +51,8 @@ router.get('/:id?', requireLogin, (req, res) => {
 			id: req.query.id ? req.query.id : 'false',
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url,
-			i18n: res
+			i18n: res,
+			recaptcha_site_key: settings.recapcha.site_key
 		});
 	});
 });
