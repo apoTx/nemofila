@@ -201,6 +201,8 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 				}else {
 					$scope.signUpErr = 'There was an unexpected problem.';
 				}
+
+				$scope.registerBtnLoading = false;
 			}
 		});
 	};

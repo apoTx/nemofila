@@ -76,35 +76,43 @@ router.post( '/register', ( req, res ) => {
 });
 
 router.post('/login', (req,res) => {
-	verifyRecaptcha(req.body.recaptcha, (success) => {
-		if (success) {
-			let data = req.body.data;
-			let autoLogin = req.body.autoLogin;
+	let process = () => {
+		let data = req.body.data;
+		let autoLogin = req.body.autoLogin;
 
-			User.findOne({ email: data.email },(err,user) => {
-				if(!user){
-					res.json({ error: 'Email or password is did not match' });
+		User.findOne({ email: data.email },(err,user) => {
+			if(!user){
+				res.json({ error: 'Email or password is did not match' });
+			}else{
+				if (autoLogin){
+					req.session.user = user;
+					res.json({ status: 1 });
 				}else{
-					if (autoLogin){
-						req.session.user = user;
-						res.json({ status: 1 });
-					}else{
-						bcrypt.compare(data.password, user.password, (err, r) => {
-							if (r) {
-								req.session.user = user;
-								res.json({ status: 1 });
-							}else{
-								res.json({ error: 'Email or password is did not match' });
-							}
-						});
-					}
+					bcrypt.compare(data.password, user.password, (err, r) => {
+						if (r) {
+							req.session.user = user;
+							res.json({ status: 1 });
+						}else{
+							res.json({ error: 'Email or password is did not match' });
+						}
+					});
 				}
-			});
-		}else{
-			console.log('err');
-			res.end('captcha err');
-		}
-	});
+			}
+		});
+	};
+
+	if (req.body.autoLogin){
+		process();
+	}else{
+		verifyRecaptcha(req.body.recaptcha, (success) => {
+			if (success) {
+				process();
+			}else{
+				console.log('err');
+				res.json({ error: 'Captcha error.' });
+			}
+		});
+	}
 });
 
 router.post('/charge',  (req, res) => {
