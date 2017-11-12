@@ -19,3 +19,8 @@
     font-size:12px;
     padding:10px 0
 }
+.g-recaptcha > div {
+    width: auto!important;
+    text-align: right!important;
+    margin-bottom: 15px!important;
+}

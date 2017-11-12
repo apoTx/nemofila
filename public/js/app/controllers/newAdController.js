@@ -371,6 +371,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			url: '/newAd/create',
 			method: 'POST',
 			data: {
+				recaptcha: document.getElementById("g-recaptcha-response").value,
 				data: data,
 				isEdit: isEdit,
 				editId: id,
