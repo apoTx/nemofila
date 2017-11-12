@@ -44,7 +44,7 @@
             .g-recaptcha(
                 vc-recaptcha,
                 key="'#{ recaptcha_site_key }'",
-                on-success="successSignUpCaptcha()"
+                on-success="successSignUpCaptcha(response)"
             )
             .ui.error.message
             .backendErr.ui.red.message(ng-if="signUpErr")
@@ -57,6 +57,6 @@
 
         button.ui.right.icon.button.primary(
             form="signUpForm",
-            ng-class="{ loading:registerBtnLoading, disabled: registerBtnLoading, disabled: !activeRegisterBtn  }"
+            ng-class="{ loading:registerBtnLoading, disabled: registerBtnLoading }"
         )
             | Sign Up

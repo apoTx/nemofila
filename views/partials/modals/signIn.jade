@@ -27,7 +27,13 @@
                     input(name='email', placeholder='E-mail', ng-model='loginFormData.email', autocapitalize="none")
                 .field.sixteen.wide.column.no-padding-top
                     input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
+
             .field.sixteen.wide.column.no-padding-top
+                .g-recaptcha(
+                    vc-recaptcha,
+                    key="'#{ recaptcha_site_key }'",
+                    on-success="successSignInCaptcha(response)"
+                )
                 button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading disabled' : '' ")
                     | Login
             .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
