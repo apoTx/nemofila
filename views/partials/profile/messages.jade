@@ -18,7 +18,6 @@ h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
 
                 a.item(
                         ng-repeat="conversation in conversations | filter:search",
-                        ng-class="{ active: conversation.unreadMessageCount > 0 }"
                         href="#!/messages/{{ conversation._id }}"
                     )
                     | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
