@@ -34,7 +34,7 @@
                     key="'#{ recaptcha_site_key }'",
                     on-success="successSignInCaptcha(response)"
                 )
-                button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="signInBtnLoading ? 'loading disabled' : '' ")
+                button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="{ loading:signInBtnLoading, disabled: signInBtnLoading, disabled: !activeLoginBtn  }")
                     | Login
             .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
                 a.forgot(href="#", ng-click="openForgotModal()")

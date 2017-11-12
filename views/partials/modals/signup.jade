@@ -57,6 +57,6 @@
 
         button.ui.right.icon.button.primary(
             form="signUpForm",
-            ng-class="{ loading:registerBtnLoading, disabled: registerBtnLoading }"
+            ng-class="{ loading:registerBtnLoading, disabled: registerBtnLoading, disabled: !activeRegisterBtn  }"
         )
             | Sign Up

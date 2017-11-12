@@ -263,12 +263,16 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 
 	// recaptcha
 	// signup
+	$scope.activeRegisterBtn = false;
 	$scope.successSignUpCaptcha = (response) => {
+		$scope.activeRegisterBtn = true;
 		$scope.signUpRecaptchaResponse = response;
 	};
 
 	// signin
+	$scope.activeLoginBtn = false;
 	$scope.successSignInCaptcha = (response) => {
 		$scope.signInRecaptchaResponse = response;
+		$scope.activeLoginBtn = true;
 	};
 }]);
