@@ -282,7 +282,10 @@ a.black{
     text-align: center!important;
 }
 .g-recaptcha > div {
-    width: auto!important;
     text-align: right!important;
     margin-bottom: 15px!important;
+    transform:scale(0.95)!important;
+    -webkit-transform:scale(0.95)!important;
+    transform-origin:0 0!important;
+    -webkit-transform-origin:0 0!important;
 }
