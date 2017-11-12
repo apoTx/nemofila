@@ -5,8 +5,8 @@ let uuid = require('uuid');
 
 let router = express.Router();
 
+// settings
 let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-let settings = require('../config/settings.json');
 
 // Models
 let Ads = require('../models/ads');

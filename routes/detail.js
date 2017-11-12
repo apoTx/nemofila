@@ -12,7 +12,7 @@ let requireLogin = require('./inc/requireLogin.js');
 let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
 
-let getObject = (data, req, res) => {
+let getObject = (data, req) => {
 
 	// For category
 	let childCategoryName;

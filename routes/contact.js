@@ -30,14 +30,14 @@ router.post( '/', ( req, res) => {
 			mailer.transporter.sendMail(mailOptions, (error, info) => {
 				if(error) {
 					console.log( error );
-					res.json({ 'err': 'mail error.' });
+					res.json({ 'error': res.__('error_sending_mail') });
 				}else {
 					console.log( 'Message sent: ' + info.response );
 					res.json({ status: 1 });
 				}
 			});
 		}else{
-			res.json({ 'err': 'captcha error.' });
+			res.json({ 'error': res.__('captcha_error') });
 		}
 	});
 });

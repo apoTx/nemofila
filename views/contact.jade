@@ -4,13 +4,15 @@ append stylesheets
 
 block content
     div(ng-controller="contactController")
-        .ui.icon.positive.message.margin-30#message(ng-show="messageSended", ng-cloak)
+        .ui.icon.positive.message.margin-30(ng-show="messageSended", ng-cloak)
             i.send.icon
             .content
                 .header
                     | #{i18n.__("your_message_sended")}
                 p
                     | #{i18n.__("we_will_contact_you")}
+
+
 
         form.ui.form#contactForm(ng-hide="messageSended")
             .ui.two.fields
@@ -35,7 +37,12 @@ block content
             button.ui.primary.right.floated.button(
                 ng-class="{ loading: loadingContact, disabled: loadingContact, disabled: !activeSubmitBtn }"
             ) Submit
+
             .clearfix
+            .ui.icon.negative.message.margin-30(ng-show="error", ng-cloak)
+                .content
+                    .header
+                        | {{ error }}
 append javascripts
     script(src="/dist/js/app/services/contactFactory.min.js")
     script(src="dist/js/app/controllers/contactController.min.js")

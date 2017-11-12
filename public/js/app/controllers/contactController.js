@@ -63,7 +63,13 @@ app.controller('contactController',  ['$scope', 'contactFactory',  ($scope, cont
 	$scope.onSubmit = () => {
 		$scope.loadingContact = true;
 		contactFactory.sendMessage(Object.assign($scope.contactForm, { 'recaptcha': $scope.recaptchaResponse } )).then((response) => {
-			$scope.messageSended = true;
+			console.log(response);
+			if (response.status === 1){
+				$scope.messageSended = true;
+			}else{
+				$scope.error = response.error;
+			}
+
 			$scope.loadingContact = false;
 		});
 	};
