@@ -25,6 +25,10 @@ app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', 
 
 	$scope.ad = { };
 	if ($routeParams.id){
+		setInterval(() => {
+			$('#'+ $routeParams.id).hide(); // red circle
+		}, 1200);
+
 		$scope.sendMessageFormData.conversationId = $routeParams.id;
 		$scope.visibleMessages = true;
 		$scope.loadingMessages = true;

@@ -24,7 +24,7 @@ h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
                     .header
                         | {{ conversation.user.name }} {{ conversation.user.surname }}
                     | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
-                    i.ui.icon.red.circle(ng-show="conversation.unreadMessageCount > 0")
+                    i.ui.icon.red.circle(ng-show="conversation.unreadMessageCount > 0", id="{{ conversation._id }}")
         .ui.dimmer(ng-class="{ active: loadingConversations }")
             .ui.loader
 
