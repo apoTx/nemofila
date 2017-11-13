@@ -12,8 +12,6 @@ app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', 
 		$scope.loadingConversations = false;
 		$scope.conversations = response;
 
-		console.log(response);
-
 		if ($routeParams.id){
 			let ad = ($scope.conversations).find(x => String(x._id) === String($routeParams.id)).ad;
 			$scope.activeConversationId = $routeParams.id;

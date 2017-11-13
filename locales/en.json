@@ -75,5 +75,7 @@
 	"your_message_sended": "Your message has been sent.",
 	"we_will_contact_you": "We will contact you as soon as possible.",
 	"error_sending_mail": "Error sending mail.",
-	"captcha_error": "Captcha error."
+	"captcha_error": "Captcha error.",
+	"success": "Success",
+	"added_mail_description": "Your email address has been added to mail list."
 }

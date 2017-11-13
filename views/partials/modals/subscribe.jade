@@ -16,10 +16,9 @@
         div(ng-show="successSubscribe" ng-cloak)
             .ui.success.message
                 .header
-                    | Success!
+                    | #{i18n.__("success")}
                 p
-                    | We've sent an email to
-                    b {{ forgotFormData.email }}.
+                    | #{i18n.__("added_mail_description")}
 
 
     .actions
