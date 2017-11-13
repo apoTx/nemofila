@@ -24,7 +24,7 @@ app.controller('myAdsController', ['$scope', 'myAdsFactory', '$window', function
 
 	$scope.update = (id) => {
 		$scope.loading = true;
-		myAdsFactory.update(id).then((response) => {
+		myAdsFactory.update(id).then(() => {
 			$scope.loading = false;
 			$window.location.reload();
 		});
