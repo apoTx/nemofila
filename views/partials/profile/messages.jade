@@ -8,7 +8,7 @@ h2.ui.dividing.header(ng-if="conversations.length > 0") {{ i18n_messagesTitle }}
 h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
 
 .ui.stackable.two.column.grid(ng-show="conversations.length > 0")
-    .five.wide.column
+    .five.wide.column(style="width: auto!important;")
         .ui.segment.no-segment
             .ui.vertical.pointing.menu
                 .item
@@ -40,7 +40,7 @@ h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
                             span {{ ad.price | currency }}
             hr(style="border:solid 1px #f1f1f1")
             .ui.segment.no-segment
-                .ui.comments#messageList
+                .ui.comments#messageList(style="max-width:1000px")
                     .comment(ng-repeat="message in messages")
                         .content
                             a.author {{ message.user.name }} {{ message.user.surname }}
