@@ -212,7 +212,6 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 				'conversationId': mongoose.Types.ObjectId(conversationId) ,
 			}
 		},
-		{ $sort: { createdAt: 1 } },
 
 		// User lookup
 		{
@@ -225,7 +224,7 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 		},
 		{ '$unwind': '$user' },
 
-		// User lookup
+		// Conversations lookup
 		{
 			$lookup: {
 				from: 'conversations',
@@ -244,6 +243,8 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 				'conversation.participants': '$conversation.participants',
 			},
 		},
+
+		{ $sort: { createdAt: 1 } },
 	], (err, result)=> {
 		if (err)
 			return next( err );
