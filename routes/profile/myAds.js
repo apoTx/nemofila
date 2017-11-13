@@ -1,4 +1,5 @@
 let express = require('express');
+let moment = require('moment');
 let router = express.Router();
 
 // Models
@@ -101,7 +102,6 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 router.post('/unpublish', requireLogin, (req, res) => {
 	let id = req.body.id;
 
-
 	Ads.findById(id, (err, data) => {
 		if (data.status === 1) {
 			Ads.findByIdAndUpdate(id, {
@@ -115,7 +115,19 @@ router.post('/unpublish', requireLogin, (req, res) => {
 			res.json({ status: 1 });
 		}
 	});
+});
 
+router.post('/update', requireLogin, (req, res) => {
+	let id = req.body.id;
+
+	let endDate = moment(new Date()).subtract(2, 'days').format();
+
+	Ads.findOne({
+		'_id': id,
+		'updateAt': { '$lt' : new Date(endDate) }
+	}, (err, result) => {
+		console.log(result);
+	});
 });
 
 module.exports = router;

@@ -54,6 +54,10 @@ let adSchema = new Schema({
 	listingDate: {
 		type: Date,
 	},
+	updateAt: { // for sorting. not edit date.
+		type: Date,
+		default: Date.now
+	},
 	ownerId: {
 		type: ObjectId
 	},

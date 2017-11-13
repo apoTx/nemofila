@@ -21,4 +21,10 @@ app.controller('myAdsController', ['$scope', 'myAdsFactory', '$window', function
 			});
 		}
 	};
+
+	$scope.update = (id) => {
+		myAdsFactory.update(id).then((response) => {
+			console.log(response);
+		});
+	};
 }]);

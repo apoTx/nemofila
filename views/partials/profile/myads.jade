@@ -24,6 +24,9 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
                         )
                         | {{ ad.statusText }}
 
+                    br
+                    .ui.button(ng-click="update(ad._id)") Update
+
                     .ui.simple.dropdown.right.floated.item
                         | {{ i18n_settings }}
                         i.dropdown.icon

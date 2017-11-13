@@ -296,7 +296,7 @@ block content
                     )
                     button.ui.right.floated.primary.button(
                         ng-click="uploadAndSaveMongo('#{ id }')",
-                        ng-class="{loading:submitBtnLoading, disabled:uploading, disabled: !activeSaveBtn}"
+                        ng-class="{loading:submitBtnLoading, disabled:uploading || !activeSaveBtn}"
                     )
                         | #{ i18n.__("save_btn") }
                     button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
