@@ -16,6 +16,7 @@ app.controller('messagesController', ['$scope', '$rootScope', 'messageFactory', 
 
 		if ($routeParams.id){
 			let ad = ($scope.conversations).find(x => String(x._id) === String($routeParams.id)).ad;
+			$scope.activeConversationId = $routeParams.id;
 			$scope.ad.title = ad.title;
 			$scope.ad.price = ad.price;
 			$scope.ad.slug = ad.slug;
