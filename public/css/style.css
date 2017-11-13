@@ -59,6 +59,9 @@ body {
 .margin-bottom-30{
     margin-bottom:30px!important;
 }
+.margin-30{
+    margin: 30px 0!important;
+}
 
 .no-padding{
     padding:0!important;
@@ -277,4 +280,12 @@ a.black{
     font-weight: bold !important;
     line-height: 28px!important;
     text-align: center!important;
+}
+.g-recaptcha > div {
+    text-align: right!important;
+    margin-bottom: 15px!important;
+    transform:scale(0.95)!important;
+    -webkit-transform:scale(0.95)!important;
+    transform-origin:0 0!important;
+    -webkit-transform-origin:0 0!important;
 }

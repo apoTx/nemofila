@@ -4,25 +4,27 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/item.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/messages.css')
 
-h2.ui.dividing.header(ng-if="conversations.length > 0") {{ i18n_favTitle }}
+h2.ui.dividing.header(ng-if="conversations.length > 0") {{ i18n_messagesTitle }}
 h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
 
 .ui.stackable.two.column.grid(ng-show="conversations.length > 0")
     .five.wide.column
         .ui.segment.no-segment
-            .ui.vertical.menu
+            .ui.vertical.pointing.menu
                 .item
                     .ui.transparent.icon.input
-                        input(type='text', placeholder='{{ i18n_searchPlaceholder }}', ng-model='search')
+                        input(placeholder='{{ i18n_searchPlaceholder }}', ng-model='search')
                         i.search.icon
 
                 a.item(
                         ng-repeat="conversation in conversations | filter:search",
+                        ng-class="{ active: activeConversationId == conversation._id }"
                         href="#!/messages/{{ conversation._id }}"
                     )
+                    .header
+                        | {{ conversation.user.name }} {{ conversation.user.surname }}
                     | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
-                    br
-                    //| {{ conversation.user.name | limitTo: 20 }} {{ conversation.user.surname }}
+                    i.ui.icon.red.circle(ng-show="conversation.unreadMessageCount > 0", id="{{ conversation._id }}")
         .ui.dimmer(ng-class="{ active: loadingConversations }")
             .ui.loader
 
@@ -38,7 +40,7 @@ h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
                             span {{ ad.price | currency }}
             hr(style="border:solid 1px #f1f1f1")
             .ui.segment.no-segment
-                .ui.comments#messageList
+                .ui.comments#messageList(style="max-width:1000px")
                     .comment(ng-repeat="message in messages")
                         .content
                             a.author {{ message.user.name }} {{ message.user.surname }}

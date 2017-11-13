@@ -95,6 +95,16 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		},
 		{ '$unwind': '$user' },
 
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'participants.fromUserId',
+				foreignField: '_id',
+				as: 'user2'
+			}
+		},
+		{ '$unwind': '$user2' },
+
 		// Ad lookup
 		{
 			$lookup: {
@@ -106,23 +116,77 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		},
 		{ '$unwind': '$ad' },
 
+		// Messages collection
+		{
+			$lookup: {
+				from: 'messages',
+				localField: '_id',
+				foreignField: 'conversationId',
+				as: 'message'
+			}
+		},
+		{
+			$unwind: {
+				path: '$message',
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					participants: '$participants',
+					'ad': '$ad',
+					'user1': '$user',
+					'user2': '$user2'
+				},
+				messages: {
+					$push: '$message'
+				},
+				unreadMessageCount: {
+					$sum: {
+						'$cond': [
+							{
+								'$and': [
+									{ '$eq': [ '$message.read', false ] },
+									{ '$eq': [ '$message.toUserId', sessionId ] }
+								]
+							},
+							1,
+							0
+						]
+					}
+				}
+			}
+		},
+
 		{
 			'$project': {
-				'participants': 1,
-				'user.name': 1,
-				'user.surname': 1,
-				'ad.title': 1,
-				'ad.photos': 1,
-				'ad.price': 1,
-				'ad.slug': 1,
-				'ad._id': 1,
-				'ad.photoShowcaseIndex': 1
+				_id: '$_id._id',
+				'participants': '$_id.participants',
+				'ad.title': '$_id.ad.title',
+				'ad.photos': '$_id.ad.photos',
+				'ad.price': '$_id.ad.price',
+				'ad.slug': '$_id.ad.slug',
+				'ad._id': '$_id.ad._id',
+				'ad.photoShowcaseIndex': '$_id.ad.photoShowcaseIndex',
+				unreadMessageCount: 1,
+				user: {
+					$cond: [
+						{ $eq: ['$_id.user1._id', sessionId] }, // if
+						'$_id.user2', // then
+						'$_id.user1' // else
+					]
+				}
 			},
 		},
+		{ $sort: { 'unreadMessageCount':-1 } },
 	], (err, result)=> {
 		if (err)
 			return next( err );
 
+		console.log(result);
 		res.json(result);
 	});
 });
@@ -164,7 +228,6 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 				'conversationId': mongoose.Types.ObjectId(conversationId) ,
 			}
 		},
-		{ $sort: { createdAt: 1 } },
 
 		// User lookup
 		{
@@ -177,7 +240,7 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 		},
 		{ '$unwind': '$user' },
 
-		// User lookup
+		// Conversations lookup
 		{
 			$lookup: {
 				from: 'conversations',
@@ -196,6 +259,8 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 				'conversation.participants': '$conversation.participants',
 			},
 		},
+
+		{ $sort: { createdAt: 1 } },
 	], (err, result)=> {
 		if (err)
 			return next( err );

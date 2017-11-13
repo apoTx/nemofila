@@ -40,6 +40,12 @@
                     input(name='password', type='password', placeholder='Password', ng-model='signupForm.password')
                 .field
                     input(name='passwordConfirm', type='password', placeholder='Confirm Password', ng-model="signupForm.passwordConfirm")
+
+            .g-recaptcha(
+                vc-recaptcha,
+                key="'#{ recaptcha_site_key }'",
+                on-success="successSignUpCaptcha(response)"
+            )
             .ui.error.message
             .backendErr.ui.red.message(ng-if="signUpErr")
                 | {{ signUpErr }}
@@ -49,5 +55,8 @@
         button.ui.left.floated.button(ng-click="openSignInModal()")
             | Login
 
-        button.ui.right.icon.button.primary(form="signUpForm", ng-class="registerBtnLoading ? 'loading disabled' : '' ")
+        button.ui.right.icon.button.primary(
+            form="signUpForm",
+            ng-class="{ loading:registerBtnLoading, disabled: registerBtnLoading, disabled: !activeRegisterBtn  }"
+        )
             | Sign Up

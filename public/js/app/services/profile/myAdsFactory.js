@@ -19,8 +19,22 @@ app.factory('myAdsFactory', ['$http', ($http) => {
 			});
 	};
 
+	let update = (id) => {
+		return $http({
+			url: 'profile/adsMy/update',
+			method: 'POST',
+			data: { id: id },
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	return {
 		getMyAds: getMyAds,
-		unpublish: unpublish
+		unpublish: unpublish,
+		update: update
 	};
 }]);

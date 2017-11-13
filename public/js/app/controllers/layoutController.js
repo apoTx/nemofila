@@ -186,8 +186,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	$scope.signupForm = {};
 	$scope.signUp = () => {
 		$scope.registerBtnLoading = true;
-
-		layoutFactory.signUp($scope.signupForm).then((response) => {
+		layoutFactory.signUp($scope.signupForm, $scope.signUpRecaptchaResponse).then((response) => {
 			if (response.status === 1){
 				// auto login
 				layoutFactory.signIn({ email: $scope.signupForm.email }, true).then((response) => {
@@ -202,6 +201,8 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 				}else {
 					$scope.signUpErr = 'There was an unexpected problem.';
 				}
+
+				$scope.registerBtnLoading = false;
 			}
 		});
 	};
@@ -211,7 +212,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	$scope.signIn = () => {
 		$scope.signInBtnLoading = true;
 
-		layoutFactory.signIn($scope.loginFormData).then((response) => {
+		layoutFactory.signIn($scope.loginFormData, false, $scope.signInRecaptchaResponse).then((response) => {
 			$scope.signInBtnLoading = false;
 			if (response.status === 1){
 				$window.location.reload();
@@ -259,4 +260,19 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	messageFactory.getUnreadMessages().then((response) => {
 		$rootScope.messageLength = response.length;
 	});
+
+	// recaptcha
+	// signup
+	$scope.activeRegisterBtn = false;
+	$scope.successSignUpCaptcha = (response) => {
+		$scope.activeRegisterBtn = true;
+		$scope.signUpRecaptchaResponse = response;
+	};
+
+	// signin
+	$scope.activeLoginBtn = false;
+	$scope.successSignInCaptcha = (response) => {
+		$scope.signInRecaptchaResponse = response;
+		$scope.activeLoginBtn = true;
+	};
 }]);

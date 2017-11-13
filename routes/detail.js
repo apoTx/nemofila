@@ -12,7 +12,7 @@ let requireLogin = require('./inc/requireLogin.js');
 let Ads = require('../models/ads');
 let Favourites = require('../models/favourites');
 
-let getObject = (data, req, res) => {
+let getObject = (data, req) => {
 
 	// For category
 	let childCategoryName;
@@ -50,7 +50,6 @@ let getObject = (data, req, res) => {
 			districtName: districtName
 		},
 		amazon_base_url: config.amazon_s3.photo_base_url,
-		i18n: res,
 	};
 };
 

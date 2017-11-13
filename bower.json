@@ -23,7 +23,8 @@
     "ngWig": "ng-wig#^3.0.14",
     "angular-sanitize": "^1.6.6",
     "angular-paging": "^2.2.2",
-    "semantic-ui-calendar": "^0.0.8"
+    "semantic-ui-calendar": "^0.0.8",
+    "angular-recaptcha": "^4.1.1"
   },
   "resolutions": {
     "angular": "~1.6.6",

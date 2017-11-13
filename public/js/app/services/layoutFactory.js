@@ -1,9 +1,9 @@
 app.factory('layoutFactory', ['$http', ($http) => {
-	let signIn = (data, autoLogin) => {
+	let signIn = (data, autoLogin, recaptcha) => {
 		return $http({
 			url: '/login',
 			method: 'POST',
-			data: { 'data' : data, 'autoLogin': autoLogin }
+			data: { 'data' : data, 'autoLogin': autoLogin, 'recaptcha': recaptcha }
 		}).then((response) => {
 			return response.data;
 		}, () => { // optional
@@ -11,11 +11,11 @@ app.factory('layoutFactory', ['$http', ($http) => {
 		});
 	};
 
-	let signUp = (data) => {
+	let signUp = (data, recaptcha) => {
 		return $http({
 			url: '/register',
 			method: 'POST',
-			data: { 'data' : data }
+			data: { 'data' : data, 'recaptcha': recaptcha }
 		}).then((response) => {
 			return response.data;
 		}, () => { // optional

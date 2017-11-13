@@ -61,5 +61,8 @@
 	"mobile_phone": "mobile_phone",
 	"address": "address",
 	"website": "website",
-	"terms": "terms"
+	"terms": "terms",
+	"language": "language",
+	"subscribe_paragraph": "subscribe_paragraph",
+	"subscribe": "subscribe"
 }

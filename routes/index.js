@@ -2,10 +2,10 @@ let express = require('express');
 let bcrypt = require('bcryptjs');
 let uuid = require('uuid');
 
-let ObjectId = require('mongoose').Types.ObjectId;
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-
 let router = express.Router();
+let ObjectId = require('mongoose').Types.ObjectId;
+
+let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 // Models
 let User = require('../models/users');
@@ -13,29 +13,26 @@ let Ads = require('../models/ads');
 let forgotPasswords = require('../models/forgotPassword');
 let Subscribe = require('../models/subscribes');
 
-// Mail transporter
+// helpers
 let mailer = require('../helper/mailer');
+let verifyRecaptcha = require('../helper/recaptcha');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
 
 let adPerPage = 48;
 
-
-router.get( '/env', ( req, res ) => {
-	res.json({ env:  process.env.NODE_ENV });
-});
-
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	res.render('index', {
 		page: req.query.page || 1,
-		i18n: res,
 		title: res.__('index_title'),
-		user: req.session.user,
-		locale: req.cookies.locale || 'en',
-		amazon_base_url: config.amazon_s3.photo_base_url
+		amazon_base_url: config.amazon_s3.photo_base_url,
 	});
+});
+
+router.get( '/env', ( req, res ) => {
+	res.json({ env:  process.env.NODE_ENV });
 });
 
 router.get( '/login', ( req, res ) => {
@@ -43,51 +40,74 @@ router.get( '/login', ( req, res ) => {
 });
 
 router.post( '/register', ( req, res ) => {
-	let data = req.body.data;
+	verifyRecaptcha(req.body.recaptcha, (success) => {
+		if (success) {
+			let data = req.body.data;
 
-	// Password hash
-	const saltRounds = 10;
-	bcrypt.hash(req.body.data.password, saltRounds).then((hash) => {
-		let user = new User({
-			'name': data.name,
-			'surname': data.surname,
-			'email': data.email,
-			'phone': data.phone,
-			'password': hash
-		});
+			// Password hash
+			const saltRounds = 10;
+			bcrypt.hash(req.body.data.password, saltRounds).then((hash) => {
+				let user = new User({
+					'name': data.name,
+					'surname': data.surname,
+					'email': data.email,
+					'phone': data.phone,
+					'password': hash
+				});
 
-		user.save((err) => {
-			if (err)
-				res.send(err);
-			else
-				res.send({ 'status': 1 });
-		});
+				user.save((err) => {
+					if (err)
+						res.send(err);
+					else
+						res.send({ 'status': 1 });
+				});
+			});
+		}else{
+			console.log('err');
+			res.end('captcha err');
+		}
 	});
+
 });
 
 router.post('/login', (req,res) => {
-	let data = req.body.data;
-	let autoLogin = req.body.autoLogin;
+	let process = () => {
+		let data = req.body.data;
+		let autoLogin = req.body.autoLogin;
 
-	User.findOne({ email: data.email },(err,user) => {
-		if(!user){
-			res.json({ error: 'Email or password is did not match' });
-		}else{
-			if (autoLogin){
-				req.session.user = user;
-				res.json({ status: 1 });
+		User.findOne({ email: data.email },(err,user) => {
+			if(!user){
+				res.json({ error: 'Email or password is did not match' });
 			}else{
-				bcrypt.compare(data.password, user.password, (err, r) => {
-					if (r) {
-						req.session.user = user;
-						res.json({ status: 1 });
-					}else{
-						res.json({ error: 'Email or password is did not match' });
-					}
-				});
+				if (autoLogin){
+					req.session.user = user;
+					res.json({ status: 1 });
+				}else{
+					bcrypt.compare(data.password, user.password, (err, r) => {
+						if (r) {
+							req.session.user = user;
+							res.json({ status: 1 });
+						}else{
+							res.json({ error: 'Email or password is did not match' });
+						}
+					});
+				}
 			}
-		}
-	});
+		});
+	};
+
+	if (req.body.autoLogin){
+		process();
+	}else{
+		verifyRecaptcha(req.body.recaptcha, (success) => {
+			if (success) {
+				process();
+			}else{
+				console.log('err');
+				res.json({ error: 'Captcha error.' });
+			}
+		});
+	}
 });
 
 router.post('/charge',  (req, res) => {
@@ -232,6 +252,7 @@ router.get('/getIndexAds', (req,res) => {
 					title: '$title',
 					slug: '$slug',
 					photos: '$photos',
+					updateAt: '$updateAt',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 				},
 				power: {
@@ -247,13 +268,14 @@ router.get('/getIndexAds', (req,res) => {
 				_id: '$_id._id',
 				title: '$_id.title',
 				slug: '$_id.slug',
+				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
 				totalPower: 1
 			}
 		},
-		{ $sort: { 'totalPower':-1 } },
+		{ $sort: { 'totalPower':-1, 'updateAt': -1 } },
 		{ $skip: lastAd },
 		{ $limit: adPerPage }
 	], (err, data) => {
@@ -320,6 +342,7 @@ router.get('/searchAd', (req, res) => {
 					_id: '$_id',
 					title: '$title',
 					slug: '$slug',
+					updateAt: '$updateAt',
 					photos: '$photos',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 				},
@@ -336,13 +359,14 @@ router.get('/searchAd', (req, res) => {
 				_id: '$_id._id',
 				title: '$_id.title',
 				slug: '$_id.slug',
+				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
 				totalPower: 1
 			}
 		},
-		{ $sort: { 'totalPower':-1 } },
+		{ $sort: { 'totalPower':-1, 'updateAt': -1  } },
 		{ $skip: lastAd },
 		{ $limit: adPerPage }
 	], (err, data) => {
@@ -363,29 +387,6 @@ router.get('/partials/:folder/:filename', (req, res) => {
 	let folder = req.params.folder;
 	let filename = req.params.filename;
 	res.render('partials/'+ folder +'/'+ filename);
-});
-
-
-// Static pages
-router.get('/services', (req, res) => {
-	res.render('services', {
-		i18n: res,
-		title: res.__('services_page_title'),
-	});
-});
-
-router.get('/contact', (req, res) => {
-	res.render('contact', {
-		i18n: res,
-		title: res.__('contact_page_title'),
-	});
-});
-
-router.get('/terms', (req, res) => {
-	res.render('terms', {
-		i18n: res,
-		title: res.__('terms_page_title'),
-	});
 });
 
 // localization

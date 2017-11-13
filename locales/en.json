@@ -65,7 +65,17 @@
 	"subscribe_paragraph": "Subscribe news",
 	"subscribe": "Subscribe",
 	"language": "Language",
-	"services_page_title": "services_page_title",
-	"contact_page_title": "contact_page_title",
-	"terms_page_title": "terms_page_title"
+	"services_page_title": "Services",
+	"contact_page_title": "Contact",
+	"terms_page_title": "Terms and Conditions",
+	"email": "Email",
+	"your_message": "Your Message",
+	"full_name": "Full Name",
+	"subject": "Subject",
+	"your_message_sended": "Your message has been sent.",
+	"we_will_contact_you": "We will contact you as soon as possible.",
+	"error_sending_mail": "Error sending mail.",
+	"captcha_error": "Captcha error.",
+	"success": "Success",
+	"added_mail_description": "Your email address has been added to mail list."
 }

@@ -12,8 +12,6 @@ h2 {{ i18n_buyPower_title }}
             .content
                 a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
                     | {{ ad.title }}
-                .meta
-                    h5.cinema ${{ad.price}}
                 .description
                     p
                 .extra
@@ -50,8 +48,8 @@ h2 {{ i18n_buyPower_title }}
                     )
                         option(value='0') Please Select
 
-                    div.margin-top-10(ng-show="powerNumber > 0")
-                        h3 {{ powerNumber * 10 | number:2 }} EUR
+                    div.margin-top-10(ng-show="power > 0")
+                        h3 {{ power * 10 | number:2 }} EUR
 
                     .clearfix
                     button.ui.primary.button.margin-top-10#buttonCheckout {{ i18n_buy_power_btn }}
