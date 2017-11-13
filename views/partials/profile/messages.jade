@@ -10,10 +10,10 @@ h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
 .ui.stackable.two.column.grid(ng-show="conversations.length > 0")
     .five.wide.column
         .ui.segment.no-segment
-            .ui.vertical.menu
+            .ui.vertical.pointing.menu
                 .item
                     .ui.transparent.icon.input
-                        input(type='text', placeholder='{{ i18n_searchPlaceholder }}', ng-model='search')
+                        input(placeholder='{{ i18n_searchPlaceholder }}', ng-model='search')
                         i.search.icon
 
                 a.item(
@@ -21,6 +21,8 @@ h2.text-center(ng-if="conversations.length < 1") {{ i18n_no_results }}
                         ng-class="{ active: activeConversationId == conversation._id }"
                         href="#!/messages/{{ conversation._id }}"
                     )
+                    .header
+                        | {{ conversation.user.name }} {{ conversation.user.surname }}
                     | {{ conversation.ad.title | limitTo: 20 }} {{ conversation.ad.title.length > 20 ? '...' : ''}}
                     i.ui.icon.red.circle(ng-show="conversation.unreadMessageCount > 0")
         .ui.dimmer(ng-class="{ active: loadingConversations }")

@@ -95,6 +95,16 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		},
 		{ '$unwind': '$user' },
 
+		{
+			$lookup: {
+				from: 'users',
+				localField: 'participants.fromUserId',
+				foreignField: '_id',
+				as: 'user2'
+			}
+		},
+		{ '$unwind': '$user2' },
+
 		// Ad lookup
 		{
 			$lookup: {
@@ -128,7 +138,8 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 					_id: '$_id',
 					participants: '$participants',
 					'ad': '$ad',
-					'user': '$user',
+					'user1': '$user',
+					'user2': '$user2'
 				},
 				messages: {
 					$push: '$message'
@@ -154,8 +165,6 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 			'$project': {
 				_id: '$_id._id',
 				'participants': '$_id.participants',
-				'user.name': '$_id.user.name',
-				'user.surname': '$_id.user.surname',
 				'ad.title': '$_id.ad.title',
 				'ad.photos': '$_id.ad.photos',
 				'ad.price': '$_id.ad.price',
@@ -163,6 +172,13 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 				'ad._id': '$_id.ad._id',
 				'ad.photoShowcaseIndex': '$_id.ad.photoShowcaseIndex',
 				unreadMessageCount: 1,
+				user: {
+					$cond: [
+						{ $eq: ['$_id.user1._id', sessionId] }, // if
+						'$_id.user2', // then
+						'$_id.user1' // else
+					]
+				}
 			},
 		},
 		{ $sort: { 'unreadMessageCount':-1 } },
