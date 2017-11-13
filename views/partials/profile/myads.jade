@@ -27,7 +27,8 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
                     br
                     .ui.primary.button(
                         ng-show="ad.totalActivePower === 0 && ad.updateble && ad.status === 1"
-                        ng-click="update(ad._id)"
+                        ng-click="update(ad._id)",
+                        ng-class="{ disabled: loading }"
                     ) Update
 
                     .ui.simple.dropdown.right.floated.item
@@ -44,7 +45,7 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
                                 i.trash.icon
                                 | {{ i18n_unpublish }}
 
-.ui.dimmer(ng-class="{active: loadingMyAds, active:loadingUnpublish }")
+.ui.dimmer(ng-class="{active: loadingMyAds || loadingUnpublish || loading }")
     .ui.loader
 
 
