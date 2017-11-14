@@ -1,0 +1,11 @@
+@media print {
+    .navbar{
+        display: none!important;
+    }
+    #searchAd{
+        display: none!important;
+    }
+    #searchUser{
+        display: none!important;
+    }
+}
