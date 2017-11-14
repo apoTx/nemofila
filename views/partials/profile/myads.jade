@@ -26,9 +26,9 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
 
                     br
                     .ui.primary.button(
-                        ng-show="ad.totalActivePower === 0 && ad.updateble && ad.status === 1"
+                        ng-show="ad.totalActivePower === 0"
                         ng-click="update(ad._id)",
-                        ng-class="{ disabled: loading }"
+                        ng-class="{ disabled: !ad.updateble || ad.status !== 1 || loading }"
                     ) Update
 
                     .ui.text.menu
