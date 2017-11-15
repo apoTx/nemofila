@@ -64,5 +64,7 @@
 	"terms": "terms",
 	"language": "language",
 	"subscribe_paragraph": "subscribe_paragraph",
-	"subscribe": "subscribe"
+	"subscribe": "subscribe",
+	"success": "success",
+	"added_mail_description": "added_mail_description"
 }

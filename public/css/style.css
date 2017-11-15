@@ -289,3 +289,13 @@ a.black{
     transform-origin:0 0!important;
     -webkit-transform-origin:0 0!important;
 }
+.remember{
+    font-weight: normal!important;
+    cursor:pointer!important;
+    margin-top: -10px!important;
+}
+.rememberCheck{
+    vertical-align: middle!important;
+    margin-right:5px !important;
+    margin-top: -3px !important;
+}

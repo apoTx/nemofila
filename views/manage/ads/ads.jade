@@ -1,13 +1,14 @@
 extends ../layout
 
 append stylesheets
-    link(rel='stylesheet', href='/semantic-ui-calendar/dist/calendar.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/admin/print.css')
+    link(rel='stylesheet', type='text/css', href='/semantic-ui-calendar/dist/calendar.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
 
 block content
     div(ng-controller="adsController", ng-init="init()")
-        div.ui.segment
+        div.ui.segment#searchAd
             form.ui.form
                 .two.fields
                     .field

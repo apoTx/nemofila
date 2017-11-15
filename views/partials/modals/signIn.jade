@@ -27,6 +27,10 @@
                     input(name='email', placeholder='E-mail', ng-model='loginFormData.email', autocapitalize="none")
                 .field.sixteen.wide.column.no-padding-top
                     input(name='pw', type='password', placeholder='Password', ng-model='loginFormData.password')
+            .field.text-right
+                label.remember
+                    input.rememberCheck(type="checkbox", name="remember", ng-model="loginFormData.remember")
+                    | Remember Me
 
             .field.sixteen.wide.column.no-padding-top
                 .g-recaptcha(
