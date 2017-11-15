@@ -9,7 +9,6 @@ let sessions = require('client-sessions');
 let passport = require('passport');
 let i18n = require('i18n');
 
-
 // Development env file
 let config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
@@ -29,7 +28,6 @@ let auth = require('./routes/auth');
 let services = require('./routes/services');
 let contact = require('./routes/contact');
 let terms = require('./routes/terms');
-
 
 // Admin Routes
 let manage = require('./routes/manage/index');
@@ -85,6 +83,8 @@ app.use(sessions({
 	maxAge: 14 * 24 * 3600000, // 2 weeks
 }));
 app.use(passport.initialize());
+
+
 
 // User auth
 app.use((req,res,next) => {
@@ -161,5 +161,6 @@ app.use((err, req, res) => {
 	res.status(err.status || 500);
 	res.render('error');
 });
+
 
 module.exports = app;
