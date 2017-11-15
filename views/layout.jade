@@ -119,7 +119,7 @@ html
                     if (user)
                         a.item.no-before(href="/profile")
                             i.icon.user.layout
-                            !{ user.name }
+                            =user.name
                     a.item.no-before(ng-click="toggleSidebar()")
                         i.sidebar.medium.icon
 
