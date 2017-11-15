@@ -1,4 +1,4 @@
-var compression = require('compression')
+let compression = require('compression');
 let express = require('express');
 let path = require('path');
 //var favicon = require('serve-favicon');
@@ -61,7 +61,7 @@ i18n.configure({
 });
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(compression())
+app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
