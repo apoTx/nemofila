@@ -24,7 +24,6 @@ let adPerPage = 48;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	console.log(req.session.user);
 	res.render('index', {
 		page: req.query.page || 1,
 		title: res.__('index_title'),
