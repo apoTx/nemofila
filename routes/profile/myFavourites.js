@@ -1,4 +1,5 @@
 let express = require('express');
+let mongoose = require('mongoose');
 let router = express.Router();
 
 let Favourites = require('../../models/favourites');
@@ -20,7 +21,7 @@ router.get('/getMyFavourites', requireLogin, (req, res) => {
 		{ '$unwind': '$ad' },
 		{
 			'$match': {
-				'userId': _id,
+				'userId': mongoose.Types.ObjectId(_id),
 			}
 		},
 		{

@@ -1,5 +1,5 @@
 function requireLogin(req,res,next) {
-	if(!req.user){
+	if(!req.session.user){
 		res.redirect('/manage/login');
 	}else{
 		next();

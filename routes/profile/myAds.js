@@ -1,5 +1,6 @@
 let express = require('express');
 let moment = require('moment');
+let mongoose = require('mongoose');
 let router = express.Router();
 
 // Models
@@ -16,7 +17,7 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 	Ads.aggregate([
 		{
 			'$match': {
-				'ownerId': _id,
+				'ownerId': mongoose.Types.ObjectId(_id),
 			}
 		},
 

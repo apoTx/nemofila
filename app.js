@@ -87,34 +87,8 @@ app.use(sessions({
 }));
 app.use(passport.initialize());
 
-// User auth
-app.use((req,res,next) => {
-	if(req.session && (req.session.user || req.session.passport)){
-		let findObj;
-		if (req.session.user){
-			findObj = { email: req.session.user.email };
-		}else{
-			findObj = { _id:  req.session.passport.user.doc._id };
-		}
-		User.findOne(findObj,(err,user) => {
-			if(user){
-				req.user = user;
-				delete req.user.password;
-				req.session.user = req.user;
-				res.locals.user = req.user;
-			}
-			next();
-		}).select({ name: 1, surname:1, _id: 1, isAdmin: true, email: 1 });
-	}else{
-		next();
-	}
-});
-
-
 // global variables
 let settings = require('./config/settings.json');
-
-
 app.use((req, res, next) => {
 	console.log("TEEEEEST");
 	res.locals = {
