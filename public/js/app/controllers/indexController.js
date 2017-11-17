@@ -1,4 +1,4 @@
-app.controller('indexController',  ['$scope', '$http', 'indexFactory', ($scope, $http, indexFactory) => {
+app.controller('indexController',  ['$scope', '$http', 'indexFactory','countriesFactory', 'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
 
 	$scope.toggleFilterSidebar = () => {
 		$('.filterSidebar')
@@ -18,6 +18,14 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', ($scope, 
 			$scope.adPerPage = response.adPerPage;
 			$scope.adCount = response.adCount;
 			$scope.currentPage = response.page;
+		});
+
+		countriesFactory.getCountries().then((response) => {
+			$scope.countries = response;
+		});
+
+		categoriesFactory.getCategories().then((response) => {
+			$scope.categories = response;
 		});
 	};
 
