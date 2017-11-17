@@ -19,14 +19,6 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 			$scope.adCount = response.adCount;
 			$scope.currentPage = response.page;
 		});
-
-		countriesFactory.getCountries().then((response) => {
-			$scope.countries = response;
-		});
-
-		categoriesFactory.getCategories().then((response) => {
-			$scope.categories = response;
-		});
 	};
 
 	$scope.searchForm = { };

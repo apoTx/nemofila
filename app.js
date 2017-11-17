@@ -116,6 +116,7 @@ let settings = require('./config/settings.json');
 
 
 app.use((req, res, next) => {
+	console.log("TEEEEEST");
 	res.locals = {
 		recaptcha_site_key: settings.recapcha.site_key,
 		locale: req.cookies.locale || 'en',
