@@ -32,7 +32,7 @@ html
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/flag.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
 
-    body(ng-app="app" ng-controller="layoutController")
+    body(ng-app="app", ng-controller="layoutController", ng-init="init('#{ JSON.stringify(user) }')")
 
         .ui.sidebar.inverted.vertical.right.menu.rightSidebar
             if !user

@@ -1,7 +1,7 @@
 let compression = require('compression');
 let express = require('express');
 let path = require('path');
-//var favicon = require('serve-favicon');
+let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
@@ -36,9 +36,6 @@ let users = require('./routes/manage/users');
 let manage_countries = require('./routes/manage/countries');
 let manage_categories = require('./routes/manage/categories');
 
-// Models
-let User = require('./models/users');
-
 // Mongo connection
 let mongoose = require('mongoose');
 mongoose.connect(config.db.MONGO_URI, {
@@ -47,9 +44,12 @@ mongoose.connect(config.db.MONGO_URI, {
 
 let app = express();
 
+let settings = require('./config/settings.json');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('view cache', config.viewCache);
 
 i18n.configure({
 	locales:['en', 'es', 'tr'],
@@ -58,7 +58,7 @@ i18n.configure({
 	cookie: 'locale'
 });
 
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/img', 'favicon.ico')));
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -84,35 +84,7 @@ app.use(sessions({
 }));
 app.use(passport.initialize());
 
-
-
-// User auth
-app.use((req,res,next) => {
-	if(req.session && (req.session.user || req.session.passport)){
-		let findObj;
-		if (req.session.user){
-			findObj = { email: req.session.user.email };
-		}else{
-			findObj = { _id:  req.session.passport.user.doc._id };
-		}
-		User.findOne(findObj,(err,user) => {
-			if(user){
-				req.user = user;
-				delete req.user.password;
-				req.session.user = req.user;
-				res.locals.user = req.user;
-			}
-			next();
-		}).select({ name: 1, surname:1, _id: 1, isAdmin: true, email: 1 });
-	}else{
-		next();
-	}
-});
-
-
 // global variables
-let settings = require('./config/settings.json');
-
 app.use((req, res, next) => {
 	res.locals = {
 		recaptcha_site_key: settings.recapcha.site_key,
@@ -161,6 +133,5 @@ app.use((err, req, res) => {
 	res.status(err.status || 500);
 	res.render('error');
 });
-
 
 module.exports = app;

@@ -2,16 +2,14 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 
-let Conversations = require('../../models/conversation');
-let Messages = require('../../models/messages');
-
+// Helpers
 let requireLogin = require('../inc/requireLogin.js');
+let mailer = require('../../helper/mailer');
 
 // Models
 let User = require('../../models/users');
-
-// Mail transporter
-let mailer = require('../../helper/mailer');
+let Conversations = require('../../models/conversation');
+let Messages = require('../../models/messages');
 
 let sendMail = (toEmail, conversationId, message) => {
 	let to_email = toEmail;
@@ -78,8 +76,8 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		{
 			'$match': {
 				$or:[
-					{ 'participants.fromUserId': sessionId },
-					{ 'participants.toUserId': sessionId }
+					{ 'participants.fromUserId': mongoose.Types.ObjectId(sessionId) },
+					{ 'participants.toUserId': mongoose.Types.ObjectId(sessionId) }
 				],
 			}
 		},
@@ -186,7 +184,6 @@ router.get('/getConversations', requireLogin, (req, res, next) => {
 		if (err)
 			return next( err );
 
-		console.log(result);
 		res.json(result);
 	});
 });
@@ -205,7 +202,6 @@ router.post('/createMessage', requireLogin, (req, res) => {
 		if (err){
 			res.json( { error: 'Message cannot sent.', err: err } );
 		}else{
-
 			User.findById(data.toUserId, 'email', (err, findResult) => {
 				sendMail(findResult.email, data.conversationId, data.message);
 
@@ -213,7 +209,6 @@ router.post('/createMessage', requireLogin, (req, res) => {
 					status: 1,
 					message: 'Message created.'
 				});
-
 			});
 		}
 	});
@@ -272,7 +267,6 @@ router.get('/getMessages', requireLogin, (req,res,next) => {
 		}else{
 			res.status(404).json({ message: 'Not Found' });
 		}
-
 	});
 });
 

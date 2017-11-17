@@ -16,7 +16,6 @@ let getObject = (data, req) => {
 
 	// For category
 	let childCategoryName;
-	console.log(data.categoryObj);
 	try{
 		childCategoryName = (data.categoryObj.subCategories).find(x => String(x._id) === String(data.category.categoryChildId)).name;
 	}catch(e){
@@ -132,13 +131,10 @@ router.get('/:slug/:id', (req, res, next) => {
 		if (err)
 			return next(err);
 
-
 		if(result.length < 1){
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
-
 			let data = result[0];
-			console.log(data);
 
 			if( data.status !== 1){
 				if ( req.session.user ){
