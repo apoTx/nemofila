@@ -1,14 +1,13 @@
 let compression = require('compression');
 let express = require('express');
 let path = require('path');
-//var favicon = require('serve-favicon');
+let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let sessions = require('client-sessions');
 let passport = require('passport');
 let i18n = require('i18n');
-
 
 // Development env file
 let config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
@@ -30,16 +29,12 @@ let services = require('./routes/services');
 let contact = require('./routes/contact');
 let terms = require('./routes/terms');
 
-
 // Admin Routes
 let manage = require('./routes/manage/index');
 let ads = require('./routes/manage/ads');
 let users = require('./routes/manage/users');
 let manage_countries = require('./routes/manage/countries');
 let manage_categories = require('./routes/manage/categories');
-
-// Models
-let User = require('./models/users');
 
 // Mongo connection
 let mongoose = require('mongoose');
@@ -61,7 +56,7 @@ i18n.configure({
 	cookie: 'locale'
 });
 
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/img', 'favicon.ico')));
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));
