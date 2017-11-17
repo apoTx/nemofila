@@ -257,9 +257,18 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		});
 	};
 
-	messageFactory.getUnreadMessages().then((response) => {
-		$rootScope.messageLength = response.length;
-	});
+	$scope.init = (user) => {
+		try{
+			let data = JSON.parse(user);
+			if(data){
+				messageFactory.getUnreadMessages().then((response) => {
+					$rootScope.messageLength = response.length;
+				});
+			}
+		}catch(e){
+			//
+		}
+	};
 
 	// recaptcha
 	// signup

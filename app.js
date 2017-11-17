@@ -44,10 +44,12 @@ mongoose.connect(config.db.MONGO_URI, {
 
 let app = express();
 
+let settings = require('./config/settings.json');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('view cache', true);
+app.set('view cache', config.viewCache);
 
 i18n.configure({
 	locales:['en', 'es', 'tr'],
@@ -83,7 +85,6 @@ app.use(sessions({
 app.use(passport.initialize());
 
 // global variables
-let settings = require('./config/settings.json');
 app.use((req, res, next) => {
 	console.log('TEEEEEST');
 	res.locals = {
