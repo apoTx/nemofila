@@ -32,7 +32,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 	});
 
 	$scope.init = (userId, adId, photos, amazon_base_url) => {
-		if ( userId !== null ){
+		if ( userId !== 'null' ){
 			favFactory.isFav(userId,adId).then((response) => {
 				$scope.isFav = response.isFav;
 			});
