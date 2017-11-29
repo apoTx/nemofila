@@ -60,7 +60,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		_id = '';
 	}
 
-	
+
 	Ads.aggregate([
 		{
 			'$match': {
