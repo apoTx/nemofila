@@ -6,11 +6,10 @@ cache:
 node_js:
   - 8
 before_install:
-  - export NODE_ENV=staging
-  - npm install -g node-gyp
-  - npm install -g --dev
-before_script:
   - npm install
+  - npm install -g node-gyp
+  - export NODE_ENV=staging
+before_script:
   - bower install
 script:
   - npm run lint
