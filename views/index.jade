@@ -28,7 +28,7 @@ block content
                             .item
                                 | #{i18n.__("if_your_business_is_not_here")}
 
-                    button.ui.orange.button #{i18n.__("how_it_work")}
+                    button.ui.orange.button(ng-click="openHowItWorkModal()") #{i18n.__("how_it_work")}
 
                 .clearfix
 
@@ -98,6 +98,8 @@ block content
                     )
 
             .clearfix
+
+    include partials/modals/index/howItWork
 
 append javascripts
     script(src="/semantic/dist/components/dropdown.min.js")

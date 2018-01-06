@@ -89,4 +89,9 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 			$scope.advancedSearchVisible = false;
 		}
 	};
+
+	$scope.openHowItWorkModal = () => {
+		$('#howItWorkModal').modal('show');
+	};
+
 }]);
