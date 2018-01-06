@@ -9,6 +9,8 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	$scope.newAdForm = {};
 
 	$scope.init = (page) => {
+		$('.dropdown').dropdown();
+
 		$scope.indexAdsLoading = true;
 		$scope.advancedSearchVisible = false;
 
