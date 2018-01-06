@@ -78,3 +78,16 @@
     text-align: center;
     padding: 2em 0
 }
+
+@media only screen and (max-width: 768px){
+    .ui.container.indexHead {
+        width: 100%!important;
+        margin-left: 0!important;
+        margin-right: 0!important;
+    }
+    .ui.container.containerParent {
+        width: 100%!important;
+        margin-left: 0!important;
+        margin-right: 0!important;
+    }
+}
