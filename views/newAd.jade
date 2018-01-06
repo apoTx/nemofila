@@ -14,10 +14,8 @@ append stylesheets
 
 
 block content
-    div(ng-controller="newAdController")
-
+    div.ui.main.container.subPage(ng-controller="newAdController")
         div(ng-if="!adSaveComplete", ng-cloak)
-
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon

@@ -45,7 +45,7 @@ block content
 
                 .search
                     .searchForm
-                        form.ui.form.fluid(ng-submit="onSubmit()")
+                        form.ui.form.fluid(action="/search")
                             .ui.action.input.fluid.filterInput
                                 input(type='text', ng-model='searchForm.title', placeholder='#{i18n.__("searchPlaceholder")}...')
                                 button.ui.button.primary(type="submit", ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
@@ -58,7 +58,7 @@ block content
                                 .five.fields(country-and-category-dropdowns)
 
                                 .field.text-right
-                                    .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                                    button.ui.button.primary(type="submit", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                                         | Search
 
                                 .clearfix

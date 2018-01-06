@@ -3,7 +3,7 @@ extends layout
 append stylesheets
 
 block content
-    div(ng-controller="contactController")
+    div.ui.main.container.subPage(ng-controller="contactController")
         .ui.icon.positive.message.margin-30(ng-show="messageSended", ng-cloak)
             i.send.icon
             .content

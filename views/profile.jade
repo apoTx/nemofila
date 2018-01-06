@@ -8,7 +8,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
 
 block content
-    div(
+    .ui.main.container.subPage(
         ng-controller="profileController",
         ng-init="init('#{ amazon_base_url }', '#{ JSON.stringify(profile_locales) }')"
     )

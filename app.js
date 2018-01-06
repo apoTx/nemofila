@@ -14,6 +14,7 @@ let config = require('./config/env.json')[process.env.NODE_ENV || 'development']
 
 //Routes
 let index = require('./routes/index');
+let search = require('./routes/search');
 let newAd = require('./routes/newAd');
 let detail = require('./routes/detail');
 let profile = require('./routes/profile/profile');
@@ -102,6 +103,7 @@ app.use('/manage/users', users);
 app.use('/manage/countries', manage_countries);
 app.use('/manage/categories', manage_categories);
 app.use('/', index);
+app.use('/search', search);
 app.use('/auth', auth);
 app.use('/newAd', newAd);
 app.use('/detail', detail);

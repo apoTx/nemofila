@@ -19,7 +19,7 @@ block content
 
     - var photosList = JSON.stringify(data.photos);
 
-    div.detailContainer(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ amazon_base_url }' )")
+    div.detailContainer.ui.main.container.subPage(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ amazon_base_url }' )")
 
         - if (data.status === 0)
             .ui.warning.message.margin-bottom-30
