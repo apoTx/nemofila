@@ -11,7 +11,8 @@
       "$": false,
       "path": false,
       "checkoutHandler": false,
-      "StripeCheckout": false
+      "StripeCheckout": false,
+      "google": false
     },
     "extends": "eslint:recommended",
     "parserOptions": {

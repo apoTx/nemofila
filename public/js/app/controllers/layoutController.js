@@ -1,7 +1,7 @@
 app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory) => {
 
 	function initializeGooglePlace() {
-		const acInputs = document.getElementsByClassName("autocompletePlace");
+		const acInputs = document.getElementsByClassName('autocompletePlace');
 		for (let i = 0; i < acInputs.length; i++) {
 			let autocomplete = new google.maps.places.Autocomplete(acInputs[i]);
 			autocomplete.inputId = acInputs[i].id;
@@ -9,6 +9,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	}
 
 	initializeGooglePlace();
+
 
 	$scope.toggleSidebar = () => {
 		$('.rightSidebar')
