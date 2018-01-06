@@ -73,3 +73,8 @@
     background-color: rgba(0, 0, 0, 0.4);
     font-size:38px
 }
+
+.indexBestInTitle{
+    text-align: center;
+    padding: 2em 0
+}
