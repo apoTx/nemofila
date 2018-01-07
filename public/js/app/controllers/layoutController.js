@@ -1,10 +1,16 @@
 app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory) => {
 
+	// Google place autocomplete input
 	function initializeGooglePlace() {
-		const acInputs = document.getElementsByClassName('autocompletePlace');
+		let acInputs = document.getElementsByClassName('autocompletePlace');
+		let autocomplete;
 		for (let i = 0; i < acInputs.length; i++) {
-			let autocomplete = new google.maps.places.Autocomplete(acInputs[i]);
+			autocomplete = new google.maps.places.Autocomplete(acInputs[i]);
 			autocomplete.inputId = acInputs[i].id;
+			autocomplete.addListener('place_changed', () => {
+				let place = autocomplete.getPlace();
+				console.log(place.place_id);
+			});
 		}
 	}
 
