@@ -1,5 +1,5 @@
 app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory) => {
-
+/*
 	// Google place autocomplete input
 	function initializeGooglePlace() {
 		let acInputs = document.getElementsByClassName('autocompletePlace');
@@ -14,7 +14,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		}
 	}
 
-	initializeGooglePlace();
+	initializeGooglePlace();*/
 
 
 	$scope.toggleSidebar = () => {

@@ -15,7 +15,7 @@ append stylesheets
 
 block content
     div.ui.main.container.subPage(ng-controller="newAdController")
-        div(ng-if="!adSaveComplete", ng-cloak)
+        div(ng-show="!adSaveComplete", ng-cloak)
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon
@@ -63,7 +63,12 @@ block content
                                 ng-model='newAdForm.description'
                             )
 
-                        .five.fields(country-and-category-dropdowns)
+                        .two.fields
+                            .field
+                                label Location
+                                input(ng-model='chosenPlace', googleplace='')
+                            .field
+                                .two.fields(country-and-category-dropdowns)
 
 
                         .fields.two
@@ -327,10 +332,15 @@ block content
 append javascripts
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/services/countriesFactory.min.js")
+    // Google places API
+    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places&language=en&v=3' )
+    script(src="/dist/js/app/directives/googleplace.min.js")
+
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="https://checkout.stripe.com/checkout.js")
     script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
     script(src="/dist/js/app/controllers/newAdController.min.js")
     script(src="semantic/dist/components/checkbox.min.js")
+
 
