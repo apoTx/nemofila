@@ -14,8 +14,11 @@ append stylesheets
 
 
 block content
+
     div.ui.main.container.subPage(ng-controller="newAdController")
-        div(ng-show="!adSaveComplete", ng-cloak)
+
+        div(ng-if="!adSaveComplete", ng-cloak)
+
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon
@@ -66,7 +69,7 @@ block content
                         .two.fields
                             .field
                                 label Location
-                                input(ng-model='chosenPlace', googleplace='')
+                                input(ng-model='location', googleplace='')
                             .field
                                 .two.fields(country-and-category-dropdowns)
 
@@ -250,10 +253,7 @@ block content
                                 tbody
                                     tr
                                         td #{ i18n.__("location") }
-                                        td
-                                            | {{ countries[newAdForm.country].name }} /
-                                            | {{ countries[newAdForm.country].cities[newAdForm.city].name }} /
-                                            | {{ countries[newAdForm.country].cities[newAdForm.city].districts[newAdForm.district].name }}
+                                        td {{ location }}
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
@@ -330,17 +330,15 @@ block content
             | Velit euismod in pellentesque massa placerat duis ultricies lacus. Tortor id aliquet lectus proin nibh. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat. Sollicitudin nibh sit amet commodo nulla facilisi. Eu mi bibendum neque egestas congue quisque. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Tellus molestie nunc non blandit. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum. Cursus euismod quis viverra nibh cras. Elementum facilisis leo vel fringilla est. At elementum eu facilisis sed odio morbi. Sed egestas egestas fringilla phasellus faucibus scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien nec.
 
 append javascripts
-    script(src="/dist/js/app/services/categoriesFactory.min.js")
-    script(src="/dist/js/app/services/countriesFactory.min.js")
-    // Google places API
-    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places&language=en&v=3' )
+    script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
     script(src="/dist/js/app/directives/googleplace.min.js")
 
+    script(src="/dist/js/app/services/categoriesFactory.min.js")
+    script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="https://checkout.stripe.com/checkout.js")
     script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
     script(src="/dist/js/app/controllers/newAdController.min.js")
     script(src="semantic/dist/components/checkbox.min.js")
-
 

@@ -247,8 +247,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	let oldPhotos = 0;
 
 	$scope.uploadFiles = (files, id) => {
-		console.log($scope.gPlace);
-
 		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
@@ -339,13 +337,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}catch (e){
 			showcaseIndex = null;
 		}
-
+/*
 		let district;
 		try{
 			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
 		}catch(e){
 			district = null;
-		}
+		}*/
 
 		let childCategory;
 		try{
@@ -370,11 +368,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				},
 				photos: photoList,
 				showcaseIndex: showcaseIndex,
-				country: {
-					countryId: $scope.countries[$scope.newAdForm.country]._id,
-					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
-					districtId: district
-				},
 				category: {
 					categoryId: $scope.categories[$scope.newAdForm.category]._id,
 					childCategoryId: childCategory

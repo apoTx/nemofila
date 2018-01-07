@@ -84,11 +84,6 @@ router.post('/create', requireLogin, (req, res) => {
 				mobile_phone: mobile_phone,
 				address: address,
 				website: website,
-				location: {
-					countryId: country.countryId,
-					cityId: country.cityId,
-					districtId: country.districtId,
-				},
 				category: {
 					categoryId: category.categoryId,
 					categoryChildId: category.childCategoryId
