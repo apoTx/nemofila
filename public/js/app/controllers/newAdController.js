@@ -337,7 +337,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}catch (e){
 			showcaseIndex = null;
 		}
-/*
+		/*
 		let district;
 		try{
 			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
