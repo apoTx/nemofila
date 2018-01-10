@@ -302,3 +302,15 @@ a.black{
 .subPage{
     margin-top:5em
 }
+.transparent{
+    background: rgba(0,0,0,0.1)!important
+}
+#footer{
+    padding:3em!important;
+}
+#footer #social{
+    padding-bottom:3em
+}
+.no-border{
+    border:none!important;
+}

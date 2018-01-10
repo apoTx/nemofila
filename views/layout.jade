@@ -52,10 +52,10 @@ html
                     button.ui.primary.button(ng-click="openSignInModal()") #{i18n.__("newAdBtn")}
 
 
-        .ui.fixed.inverted.menu
+        .ui.fixed.inverted.menu.transparent
             .ui.container
-                a.header.item.no-before(href='/')
-                    img.logo(src='/img/logo.png')
+                // a.header.item.no-before(href='/')
+                     img.logo(src='/img/logo.png')
                 .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item
@@ -106,7 +106,7 @@ html
                                     a.item(href='/logout')
                                         i.icon.sign.out
                                         | #{i18n.__("logout")}
-
+                    //
                         .item
                             if user
                                 a.ui.primary.button.right.floated.right(href="/newAd") #{i18n.__("newAdBtn")}
