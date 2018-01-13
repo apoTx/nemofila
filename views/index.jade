@@ -7,30 +7,37 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/label.min.css')
     link(rel='stylesheet', type='text/css', href='dist/css/index.css')
 
+
+block top_left
+    .ui.container.computer.tablet.only.grid.no-margin
+        .left.menu
+            .ui.simple.dropdown.item
+                i.map.signs.thin.icon
+                span.text #{i18n.__( "business_owners" )}
+                .menu.businessOwnersMenu
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "how_create_an_ad" )}
+                    .item
+                        a.ui(href="/newAd")
+                            | #{i18n.__( "create_your_ad" )}
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "blog_flor_business_owners" )}
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "business_success_stories" )}
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "if_your_business_is_not_here" )}
+            .item
+                button.ui.orange.button(ng-click="openHowItWorkModal()") #{i18n.__( "how_it_work" )}
+
 block content
-
-
     div(ng-controller="indexController" ng-init="init(#{ page })")
         .ui.main.container.fluid.indexHead
             .ui.main.container
                 .indexHeadTop
-                    .ui.floating.labeled.icon.dropdown.button
-                        i.map.signs.thin.icon
-                        span.text #{i18n.__("business_owners")}
-                        .menu
-                            .item
-                                | #{i18n.__("how_create_an_ad")}
-                            .item
-                                a(href="/newAd")
-                                    | #{i18n.__("create_your_ad")}
-                            .item
-                                | #{i18n.__("blog_flor_business_owners")}
-                            .item
-                                | #{i18n.__("business_success_stories")}
-                            .item
-                                | #{i18n.__("if_your_business_is_not_here")}
-
-                    button.ui.orange.button(ng-click="openHowItWorkModal()") #{i18n.__("how_it_work")}
 
                 .clearfix
 

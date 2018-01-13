@@ -314,3 +314,6 @@ a.black{
 .no-border{
     border:none!important;
 }
+.businessOwnersMenu .item a{
+    color:#000!important;
+}
