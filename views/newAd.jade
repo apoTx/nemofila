@@ -11,14 +11,11 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
-
+    link(rel='stylesheet', type='text/css', href='/angular-google-places-autocomplete/src/autocomplete.css')
 
 block content
-
     div.ui.main.container.subPage(ng-controller="newAdController")
-
         div(ng-if="!adSaveComplete", ng-cloak)
-
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon
@@ -69,7 +66,7 @@ block content
                         .two.fields
                             .field
                                 label Location
-                                input(ng-model='location', googleplace='')
+                                input(g-places-autocomplete='', ng-model='newAdForm.place')
                             .field
                                 .two.fields(country-and-category-dropdowns)
 
@@ -331,8 +328,6 @@ block content
 
 append javascripts
     script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
-    script(src="/dist/js/app/directives/googleplace.min.js")
-
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")

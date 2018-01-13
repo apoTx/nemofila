@@ -25,11 +25,7 @@ let adSchema = new Schema({
 	uuid: {
 		type: String
 	},
-	location:{
-		countryId: ObjectId,
-		cityId: ObjectId,
-		districtId: ObjectId,
-	},
+	place: {},
 	category: {
 		categoryId: ObjectId ,
 		categoryChildId: ObjectId ,

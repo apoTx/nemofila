@@ -72,6 +72,7 @@ router.post('/create', requireLogin, (req, res) => {
 			let mobile_phone = data.mobile_phone;
 			let address = data.address;
 			let website = data.website;
+			let place = data.place;
 
 			let obj = {
 				title: data.title,
@@ -84,6 +85,7 @@ router.post('/create', requireLogin, (req, res) => {
 				mobile_phone: mobile_phone,
 				address: address,
 				website: website,
+				place: place,
 				category: {
 					categoryId: category.categoryId,
 					categoryChildId: category.childCategoryId

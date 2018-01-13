@@ -7,6 +7,7 @@ let app = angular.module('app',[
 	'ngWig',
 	'ngSanitize',
 	'bw.paging',
-	'vcRecaptcha'
+	'vcRecaptcha',
+	'google.places'
 ]);
 /*eslint-enable */

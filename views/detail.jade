@@ -121,11 +121,7 @@ block content
 
             .ten.wide.column
                 .ui.breadcrumb.tiny
-                    .active.section #{ location.name }
-                    .divider  /
-                    .active.section #{ location.cityName }
-                    .divider  /
-                    .active.section #{ location.districtName }
+                    .active.section #{ place.formatted_address }
 
 
                 table.ui.definition.table

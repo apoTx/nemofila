@@ -13,6 +13,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.buyPowerStatus = false;
 	$scope.buyPowerLoader = false;
 
+	$scope.newAdForm.place = null;
+
 	$(() => {
 		// stripe
 		$('#buttonCheckout').on('click', () => {
