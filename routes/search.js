@@ -99,7 +99,7 @@ router.get( '/', ( req, res ) => {
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
-			title: `${i18n.__( "best" )} category in ${location}`
+			title: `${i18n.__( 'best' )} category in ${location}`
 		});
 		console.log(result);
 		res.render('search', result);

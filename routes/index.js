@@ -5,7 +5,7 @@ let uuid = require('uuid');
 let router = express.Router();
 let ObjectId = require('mongoose').Types.ObjectId;
 
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+// let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 // Models
 let User = require('../models/users');
