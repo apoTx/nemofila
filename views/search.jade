@@ -7,23 +7,27 @@ append stylesheets
 
 block content
     .ui.main.container.subPage
-        .ui.segment.list-segment
-            .ui.grid.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
-                .doubling.four.column.row
-                    each ad in data
-                        .column.margin-bottom-10
-                            a.ui.fluid.card.adCard(href="/detail/#{ ad.slug }/#{ ad._id }")
-                                .image.cardListImage
-                                    .ui.left.corner.orange.label(ng-show="ad.totalPower > 0")
-                                        .cardPowerNumber
-                                            | #{ ad.totalPower }
-                                    - if (ad.photos !== null)
-                                        img(ng-src='#{ amazon_base_url }/#{ ad.photos[ad.photoShowcaseIndex].filename }')
-                                    - else
-                                        img(ng-src='/img/no-photo.png')
-                                .content
-                                    span #{ ad.title.substr(0, 26) }
-                                    | #{ ad.title.length > 26 ? '...' : '' }
+        - if (data.length < 1)
+            h2.text-center.padding-top-10 No results.
+        - else
+            .ui.segment.list-segment.margin-top-10
+                .ui.grid.no-margin-bottom
+                    .doubling.four.column.row
+                        each ad in data
+                            .column.margin-bottom-10
+                                a.ui.fluid.card.adCard(href="/detail/#{ ad.slug }/#{ ad._id }")
+                                    .image.cardListImage
+                                        - if (ad.totalPower > 0)
+                                            .ui.left.corner.orange.label
+                                                .cardPowerNumber
+                                                    | #{ ad.totalPower }
+                                        - if (ad.photos !== null)
+                                            img(ng-src='#{ amazon_base_url }/#{ ad.photos[ad.photoShowcaseIndex].filename }')
+                                        - else
+                                            img(ng-src='/img/no-photo.png')
+                                    .content
+                                        span #{ ad.title.substr(0, 26) }
+                                        | #{ ad.title.length > 26 ? '...' : '' }
 
 
 append javascripts
