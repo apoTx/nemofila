@@ -34,7 +34,7 @@ let getObject = (data, req) => {
 	}*/
 
 	return {
-		title: data.title,
+		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
 		data: data,
 		moment: moment,
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,

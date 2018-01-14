@@ -11,7 +11,6 @@ let adPerPage = 48;
 router.get( '/', ( req, res ) => {
 	let location = req.query.place_name;
 	let category = req.query.category;
-	console.log(category);
 
 	let pattern = /^[1-9]+$/;
 
@@ -91,12 +90,17 @@ router.get( '/', ( req, res ) => {
 		if (err)
 			throw new Error(err);
 
-		Ads.count({ status: 1 }, (err, count) => {
-			let d = { data: data };
-			let result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
-			console.log(result);
-			res.render('search', result);
+		console.log('location: '+ location);
+
+		let d = { data: data };
+		let result = Object.assign(d, {
+			adCount: data.length,
+			adPerPage: adPerPage,
+			page: req.query.page,
+			title: `Best category in ${location}`
 		});
+		console.log(result);
+		res.render('search', result);
 	});
 });
 
