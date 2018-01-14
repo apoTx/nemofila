@@ -1,5 +1,7 @@
 let express = require('express');
 let router = express.Router();
+
+let i18n = require('i18n');
 let ObjectId = require('mongoose').Types.ObjectId;
 
 // Models
@@ -97,7 +99,7 @@ router.get( '/', ( req, res ) => {
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
-			title: `Best category in ${location}`
+			title: `${i18n.__( "best" )} category in ${location}`
 		});
 		console.log(result);
 		res.render('search', result);
