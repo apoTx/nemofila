@@ -117,7 +117,7 @@ app.use('/countries', countries);
 app.use('/categories', categories);
 app.use('/services', services);
 app.use('/contact', contact);
-app.use('/terms', terms);
+app.use('/termofuse', terms);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
