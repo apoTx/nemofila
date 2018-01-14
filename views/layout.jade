@@ -31,6 +31,7 @@ html
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/sidebar.min.css')
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/flag.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
+            link(rel='stylesheet', type='text/css', href='/angular-google-places-autocomplete/src/autocomplete.css')
 
     body(ng-app="app", ng-controller="layoutController", ng-init="init('#{ JSON.stringify(user) }')")
 
@@ -181,7 +182,8 @@ html
         script(src="/angular-recaptcha/release/angular-recaptcha.min.js")
 
         // google place
-        script(src="/angular-google-places-autocomplete/dist/autocomplete.min.js")
+        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
+        script(type='text/javascript', src="/angular-google-places-autocomplete/dist/autocomplete.min.js")
 
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")

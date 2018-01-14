@@ -27,7 +27,6 @@ router.get( '/', ( req, res ) => {
 	res.render('index', {
 		page: req.query.page || 1,
 		title: res.__('index_title'),
-		amazon_base_url: config.amazon_s3.photo_base_url,
 	});
 });
 

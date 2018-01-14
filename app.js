@@ -87,12 +87,12 @@ app.use(passport.initialize());
 
 // global variables
 app.use((req, res, next) => {
-	console.log('TEEEEEST');
 	res.locals = {
 		recaptcha_site_key: settings.recapcha.site_key,
 		locale: req.cookies.locale || 'en',
 		i18n: res,
 		user: req.session.user,
+		amazon_base_url: config.amazon_s3.photo_base_url,
 	};
 	next();
 });

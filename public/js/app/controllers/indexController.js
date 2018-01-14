@@ -7,6 +7,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	};
 
 	$scope.newAdForm = {};
+	$scope.place = null;
 
 	$scope.init = (page) => {
 		$('.dropdown').dropdown();

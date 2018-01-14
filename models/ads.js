@@ -16,7 +16,7 @@ let adSchema = new Schema({
 	},
 	photos: [],
 	photoShowcaseIndex: {
-		type: Number
+		type: Number,
 	},
 	power: {
 		powerStatus: Boolean,

@@ -9,7 +9,7 @@ append stylesheets
 
 
 block top_left
-    .ui.container.computer.tablet.only.grid.no-margin(ng-controller="indexController")
+    .ui.container.computer.tablet.only.grid.no-margin()
         .left.menu
             .ui.simple.dropdown.item
                 i.map.signs.thin.icon
@@ -59,7 +59,7 @@ block content
                     .searchForm
                         form.ui.form.fluid(action="/search")
                             .ui.action.input.fluid.filterInput
-                                input(ng-model='searchForm.title', placeholder='#{i18n.__("searchPlaceholder")}...')
+                                input(ng-model='searchForm.title', type="text", name="title", value="{{ searchForm.title }}", placeholder='#{i18n.__("searchPlaceholder")}...')
                                 button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
 
                             .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
@@ -70,7 +70,9 @@ block content
                                 .two.fields
                                     .field
                                         label Location
-                                        input(class="ui input", id="searchLocation", class="autocompletePlace")
+                                        input(g-places-autocomplete='', ng-model='place')
+                                        input(name="place_name", type="hidden", value="{{ place.address_components[0].short_name }}")
+
                                     .field
                                         .two.fields(country-and-category-dropdowns)
 
@@ -96,7 +98,7 @@ block content
                                     img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                                     img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
                                 .content
-                                    span {{ ad.title | limitTo: 16 }} {{ ad.title.length > 16 ? '...' : ''}}
+                                    span {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader
 
