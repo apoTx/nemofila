@@ -13,6 +13,8 @@ let adPerPage = 48;
 router.get( '/', ( req, res ) => {
 	let location = req.query.place_name;
 	let category = req.query.category;
+	let categoryName = req.query.categoryName;
+	let subCategoryName = req.query.subCategoryName;
 
 	let pattern = /^[1-9]+$/;
 
@@ -92,16 +94,17 @@ router.get( '/', ( req, res ) => {
 		if (err)
 			throw new Error(err);
 
-		console.log('location: '+ location);
-
+		const category = subCategoryName !== '' ? subCategoryName : categoryName;
+		const locationTitle = location !== '' ? 'in '+ location : '';
 		let d = { data: data };
+
 		let result = Object.assign(d, {
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
-			title: `${i18n.__( 'best' )} category in ${location}`
+			title: `${i18n.__( 'best' )} ${category} ${locationTitle}`
 		});
-		console.log(result);
+
 		res.render('search', result);
 	});
 });

@@ -2,6 +2,7 @@ extends layout
 
 append stylesheets
     link(rel='stylesheet', type='text/css', href='dist/css/index.css')
+    link(rel='stylesheet', type='text/css', href='dist/css/search.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
 
 
@@ -10,7 +11,8 @@ block content
         - if (data.length < 1)
             h2.text-center.padding-top-10 No results.
         - else
-            .ui.segment.list-segment.margin-top-10
+            h1.text-center.padding-bottom-10 #{ title }
+            .ui.segment.list-segment.searchData
                 .ui.grid.no-margin-bottom
                     .doubling.four.column.row
                         each ad in data
