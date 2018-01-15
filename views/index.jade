@@ -55,12 +55,12 @@ block content
                             .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                                 | Search
 
-                .search
+                .search.ui.container
                     .searchForm
                         form.ui.form.fluid(action="/search")
                             .ui.action.input.fluid.filterInput
                                 input(ng-model='searchForm.title', type="text", name="title", value="{{ searchForm.title }}", placeholder='#{i18n.__("searchPlaceholder")}...')
-                                button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
+                                // button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
 
                             .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
                                 a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")

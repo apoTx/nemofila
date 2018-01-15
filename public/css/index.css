@@ -16,7 +16,8 @@
 
 .searchForm{
     padding: 10px;
-    background-color: rgba(238, 238, 238, 0.3)
+    background-color: rgba(238, 238, 238, 0.3);
+    margin: 0 10%
 }
 .fixer{
     padding-top:118px;
