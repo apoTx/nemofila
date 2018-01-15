@@ -164,11 +164,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.next = () => {
-		if ( !$scope.isEdit )
+		/*if ( !$scope.isEdit )
 			$scope.powerTab();
 		else
 			$scope.previewTab();
-
+		*/
+		$scope.previewTab();
 		$scope.$apply();
 	};
 
