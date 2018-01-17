@@ -40,6 +40,7 @@ let getObject = (data, req) => {
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
 		session: req.session.user,
 		place: data.place,
+		pageView: data.pageView,
 		category: {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
@@ -125,6 +126,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'user.surname': 1,
 				'user.phone': 1,
 				'category': 1,
+				'pageView': 1,
 				'categoryObj': '$categoryObj',
 			},
 		},
@@ -147,6 +149,10 @@ router.get('/:slug/:id', (req, res, next) => {
 					res.status(404).render('error/404', { message: 'Ad Not Found' });
 				}
 			}else {
+
+				// increase page view count
+				Ads.findByIdAndUpdate( mongoose.Types.ObjectId(_id), { $inc: { 'pageView': 1 }	 });
+
 				res.render( 'detail', getObject(data,req ,res));
 			}
 		}

@@ -73,6 +73,10 @@ let adSchema = new Schema({
 	},
 	address:String,
 	website: String,
+	pageView: {
+		type: Number,
+		default: 0
+	}
 });
 
 module.exports = mongoose.model('ads', adSchema);
