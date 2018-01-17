@@ -16,6 +16,7 @@ let config = require('./config/env.json')[process.env.NODE_ENV || 'development']
 let index = require('./routes/index');
 let search = require('./routes/search');
 let newAd = require('./routes/newAd');
+let events = require('./routes/events');
 let detail = require('./routes/detail');
 let profile = require('./routes/profile/profile');
 let account = require('./routes/account');
@@ -106,6 +107,7 @@ app.use('/', index);
 app.use('/search', search);
 app.use('/auth', auth);
 app.use('/newAd', newAd);
+app.use('/events', events);
 app.use('/detail', detail);
 app.use('/profile', profile);
 app.use('/profile/adsMy', myAds);

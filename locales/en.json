@@ -30,6 +30,7 @@
 	"settings": "Settings",
 	"edit": "Edit",
 	"buy_power": "Buy Power",
+	"new_event": "New Event",
 	"unpublish": "Unpublish",
 	"power_up_text1": "For show your ad in the best place you can buy power.",
 	"power_up_text2": "Each power price is 10 Euro",
@@ -95,5 +96,6 @@
 	"privacy_policy": "Privacy Policy",
 	"contact_us": "Contact Us",
 	"best": "Best",
-    "thankyou": "Thank You"
+	"thankyou": "Thank You",
+	"new-event-page-title": "new-event-page-title"
 }

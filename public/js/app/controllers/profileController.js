@@ -8,6 +8,7 @@ app.controller('profileController', ['$scope', ($scope) => {
 		$scope.i18n_no_results = profile_locale.myAds.no_results;
 		$scope.i18n_settings = profile_locale.myAds.settings;
 		$scope.i18n_edit = profile_locale.myAds.edit;
+		$scope.i18n_new_event = profile_locale.myAds.new_event;
 		$scope.i18n_buy_power = profile_locale.myAds.buy_power;
 		$scope.i18n_unpublish = profile_locale.myAds.unpublish;
 
