@@ -11,12 +11,12 @@ let adPerPage = 48;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	let location = req.query.place_name;
+	let location = req.query.location;
 	let category = req.query.category;
 	let categoryName = req.query.categoryName;
 	let subCategoryName = req.query.subCategoryName;
 
-	console.log(categoryName);
+	console.log(location);
 
 	let pattern = /^[1-9]+$/;
 

@@ -6,14 +6,14 @@ app.directive('countryAndCategoryDropdowns', () => {
 		'  <select name="category" ng-model="newAdForm.category" ng-options="index as category.name for (index, category) in categories " ng-change="changeCategory()">' +
 		'<option value="">Please select</option>' +
 		'</select>\n' +
-		'  <input ng-hide="true",  ng-model="categories[newAdForm.category].name" name="categoryName" /> ' +
+		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category].name" name="categoryName" /> ' +
 		'</div>\n' +
 		'<div class="field">\n' +
 		'  <label>Child Category</label>\n' +
 		'  <select name="subCategory" ng-disabled="visiblesCategories.subCategory" ng-model="newAdForm.categoryChild" ng-options="index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories">' +
 		'	<option value="">Please select</option>' +
 		'</select>\n' +
-		'  <input ng-hide="true", ng-model="categories[newAdForm.category].subCategories[newAdForm.categoryChild].name" name="subCategoryName" /> ' +
+		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category].subCategories[newAdForm.categoryChild].name" name="subCategoryName" /> ' +
 		'</div>',
 
 

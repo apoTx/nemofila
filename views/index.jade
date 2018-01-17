@@ -76,7 +76,7 @@ block content
                                     .field
                                         label Location
                                         input(g-places-autocomplete='', ng-model='place')
-                                        input(name="place_name", type="hidden", value="{{ place.address_components[0].short_name }}")
+                                        input(name="location", type="hidden", value="{{ place.address_components[0].short_name }}")
 
                                     .field
                                         .two.fields(country-and-category-dropdowns)
