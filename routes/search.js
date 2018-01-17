@@ -16,6 +16,8 @@ router.get( '/', ( req, res ) => {
 	let categoryName = req.query.categoryName;
 	let subCategoryName = req.query.subCategoryName;
 
+	console.log(categoryName);
+
 	let pattern = /^[1-9]+$/;
 
 	let page;
