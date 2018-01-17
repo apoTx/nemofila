@@ -1,21 +1,4 @@
-app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory) => {
-/*
-	// Google place autocomplete input
-	function initializeGooglePlace() {
-		let acInputs = document.getElementsByClassName('autocompletePlace');
-		let autocomplete;
-		for (let i = 0; i < acInputs.length; i++) {
-			autocomplete = new google.maps.places.Autocomplete(acInputs[i]);
-			autocomplete.inputId = acInputs[i].id;
-			autocomplete.addListener('place_changed', () => {
-				let place = autocomplete.getPlace();
-				console.log(place.place_id);
-			});
-		}
-	}
-
-	initializeGooglePlace();*/
-
+app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', 'vcRecaptchaService', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory, vcRecaptchaService) => {
 
 	$scope.toggleSidebar = () => {
 		$('.rightSidebar')
@@ -226,6 +209,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	};
 
 	// Sign In
+	let widgetId = null;
 	$scope.loginFormData = { };
 	$scope.signIn = () => {
 		$scope.signInBtnLoading = true;
@@ -235,9 +219,14 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 			if (response.status === 1){
 				$window.location.reload();
 			}else {
+				vcRecaptchaService.reload(widgetId);
 				$scope.signInErr = response.error;
 			}
 		});
+	};
+
+	$scope. onWidgetCreate = (_widgetId) => {
+		widgetId = _widgetId;
 	};
 
 	// Forgot Password
