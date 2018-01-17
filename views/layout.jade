@@ -57,8 +57,9 @@ html
             .ui.container
                 block top_left
 
-                // a.header.item.no-before(href='/')
-                     img.logo(src='/img/logo.png')
+                block logo
+                    a.header.item.no-before(href='/')
+                         img.logo(src='/img/logo.png')
                 .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item

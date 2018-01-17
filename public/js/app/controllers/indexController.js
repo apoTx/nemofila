@@ -1,4 +1,4 @@
-app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
+app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory,  categoriesFactory) => {
 
 	$scope.toggleFilterSidebar = () => {
 		$('.filterSidebar')
