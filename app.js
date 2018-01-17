@@ -52,6 +52,7 @@ let settings = require('./config/settings.json');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('view cache', config.viewCache);
+app.set('config', config);
 
 i18n.configure({
 	locales:['en', 'es', 'tr'],

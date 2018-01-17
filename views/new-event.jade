@@ -1,21 +1,21 @@
 extends layout
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/checkbox.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/table.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/step.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/message.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/step.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/message.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
 block content
     div.ui.main.container.subPage(ng-controller="newEventController")
         div(ng-if="!adSaveComplete", ng-cloak)
-            
+
             .ui.segment.no-segment.test
                 .ui.dimmer(ng-class="loadingBufferData ? 'active': ''")
                     .ui.text.loader Loading
@@ -44,29 +44,25 @@ block content
                                 ng-model='newAdForm.description'
                             )
 
-                        .two.fields
+                        .three.fields
                             .field
-                                label Location
-                                input(g-places-autocomplete='', ng-model='newAdForm.place')
+                                label Event Category
+                                select
+                                    option Test
+                                    option Test
+                                    option Test
                             .field
-                                .two.fields(country-and-category-dropdowns)
-
-
-                        .fields.two
-                            .field.wide.eight
-                                label #{ i18n.__( "phone" ) }
-                                input(name='phone', placeholder='#{ i18n.__( "phone" ) }',  ng-model="newAdForm.phone")
-                            .field.wide.eight
-                                label #{ i18n.__( "mobile_phone" ) }
-                                input(name="mobile_phone", placeholder='#{ i18n.__( "mobile_phone" ) }', ng-model="newAdForm.mobile_phone")
-
-                        .field
-                            label #{ i18n.__( "address" ) }
-                            input(name='address', placeholder='#{ i18n.__( "address" ) }',  ng-model="newAdForm.address")
-
-                        .field
-                            label #{ i18n.__( "website" ) }
-                            input(name='website', placeholder='#{ i18n.__( "website" ) }',  ng-model="newAdForm.website")
+                                label Start Date
+                                select
+                                    option Test
+                                    option Test
+                                    option Test
+                            .field
+                                label End Date
+                                select
+                                    option Test
+                                    option Test
+                                    option Test
 
                         .ui.tiny.stacked.segment
                             .text-center
@@ -134,23 +130,6 @@ block content
 
                                 | {{errorMsg}}
 
-                        .field.ui.segment
-                            .ui.grid
-                                .sixteen.wide.column
-                                    .ui.checked.checkbox#anotherPerson
-                                        input.hidden(type='checkbox', checked="", tabindex='0', name='anotherContactChecked', ng-model='newAdForm.anotherContact.checked')
-                                        label #{ i18n.__("use_another_person") }
-                                .sixteen.wide.column.no-padding-top#anotherContact(ng-if="newAdForm.anotherContact.checked",  ng-cloak)
-                                    .fields.two
-                                        .field.wide.eight
-                                            input(name='anotherContactName', placeholder='#{ i18n.__("contact_name") }', ng-model='newAdForm.anotherContact.name')
-                                        .field.wide.eight
-                                            input(name='anotherContactPhone', placeholder='#{ i18n.__("contact_number") }', ng-model='newAdForm.anotherContact.phone')
-
-                        a.text-center.terms#terms(href="javascript:;")
-                            | #{ i18n.__("terms") }
-
-
                         .ui.error.message
                         .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
                             | {{ newAdErr }}
@@ -162,50 +141,6 @@ block content
                             | #{ i18n.__("next_btn") }
 
                         .clearfix
-
-
-                // div#powerTab(ng-show="steps.power", ng-cloak)
-                    div.text-center
-                        h1 Power Up!
-
-                        div(ng-show="buyPowerStatus")
-                            .ui.success.message
-                                .header
-                                    | #{ i18n.__("bought_power_message") }
-
-                        .ui.segment.no-segment(ng-show="!buyPowerStatus")
-                            p
-                                | #{ i18n.__("power_up_text1") }
-                                br
-                                | #{ i18n.__("power_up_text2") }
-                            form.ui.form
-                                .field.text-center
-                                    select.powerNumber(
-                                        style="width:50%; display:inline-block",
-                                        name='powernumber',
-                                        ng-model="powerNumber",
-                                        ng-change="update(id);",
-                                        ng-options="n for n in []  | range:1:101"
-                                    )
-                                        option(value='0') #{ i18n.__("please_select") }
-
-                                    div.margin-top-10(ng-show="powerNumber > 0")
-                                        h3 {{ powerNumber * 10 | number:2 }} EUR
-
-                                    .clearfix
-                                    button.ui.primary.button.margin-top-10#buttonCheckout #{ i18n.__("buy_power") }
-
-                            .ui.dimmer(ng-class="{ active: buyPowerLoader }")
-                                .ui.loader
-
-
-                    div.padding-30
-                        button.ui.right.floated.primary.button(ng-click="previewTab()")
-                            | #{ i18n.__("next_btn") }
-                        button.ui.right.floated.secondary.button(ng-click="adInformationTab()")
-                            | #{ i18n.__("back_btn") }
-
-
 
                 div#preview(ng-show="steps.preview", ng-cloak)
                     h2 {{ newAdForm.title }}
@@ -308,12 +243,4 @@ block content
             | Velit euismod in pellentesque massa placerat duis ultricies lacus. Tortor id aliquet lectus proin nibh. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat. Sollicitudin nibh sit amet commodo nulla facilisi. Eu mi bibendum neque egestas congue quisque. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Tellus molestie nunc non blandit. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum. Cursus euismod quis viverra nibh cras. Elementum facilisis leo vel fringilla est. At elementum eu facilisis sed odio morbi. Sed egestas egestas fringilla phasellus faucibus scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien nec.
 
 append javascripts
-    script(src="/dist/js/app/services/categoriesFactory.min.js")
-    script(src="/dist/js/app/services/countriesFactory.min.js")
-    script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
-    script(src="https://checkout.stripe.com/checkout.js")
-    script(src="/dist/js/app/stripe.min.js")
-    script(src="/dist/js/app/filters/range.min.js")
-    script(src="/dist/js/app/controllers/newAdController.min.js")
-    script(src="semantic/dist/components/checkbox.min.js")
-
+    script(src="/dist/js/app/controllers/newEventController.min.js")
