@@ -16,8 +16,6 @@ router.get( '/', ( req, res ) => {
 	let categoryName = req.query.categoryName;
 	let subCategoryName = req.query.subCategoryName;
 
-	console.log(location);
-
 	let pattern = /^[1-9]+$/;
 
 	let page;
@@ -97,7 +95,8 @@ router.get( '/', ( req, res ) => {
 			throw new Error(err);
 
 		const category = subCategoryName !== '' ? subCategoryName : categoryName;
-		const locationTitle = location !== '' ? 'in '+ location : '';
+		console.log(location);
+		const locationTitle = (location !== '') && (location !== undefined)   ? 'in '+ location : '';
 		let d = { data: data };
 
 		let result = Object.assign(d, {
