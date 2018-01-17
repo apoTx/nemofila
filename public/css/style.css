@@ -302,9 +302,6 @@ a.black{
 .subPage{
     margin-top:5em
 }
-.transparent{
-    background: rgba(0,0,0,0.1)!important
-}
 #footer{
     padding:3em!important;
 }
