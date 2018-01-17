@@ -179,6 +179,7 @@ block content
         .text-center
             h3 #{ pageView }
             | page view
+
         - if (sessionId !== null && (sessionId != String(data.user._id)))
             // Send Message Modal
             .ui.modal.tiny#sendMessageModal

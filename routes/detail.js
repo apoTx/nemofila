@@ -1,18 +1,20 @@
-let express = require('express');
-let router = express.Router();
-let moment = require('moment');
-let mongoose = require('mongoose');
-let ObjectId = mongoose.Types.ObjectId;
+const express = require('express');
+const router = express.Router();
+const moment = require('moment');
+const mongoose = require('mongoose');
+const numeral = require('numeral');
 
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const ObjectId = mongoose.Types.ObjectId;
 
-let requireLogin = require('./inc/requireLogin.js');
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+
+const requireLogin = require('./inc/requireLogin.js');
 
 // Models
-let Ads = require('../models/ads');
-let Favourites = require('../models/favourites');
+const Ads = require('../models/ads');
+const Favourites = require('../models/favourites');
 
-let getObject = (data, req) => {
+const getObject = (data, req) => {
 
 	// For category
 	let childCategoryName;
@@ -40,7 +42,7 @@ let getObject = (data, req) => {
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
 		session: req.session.user,
 		place: data.place,
-		pageView: data.pageView,
+		pageView: numeral(data.pageView).format('0a'),
 		category: {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
@@ -151,7 +153,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			}else {
 
 				Ads.findByIdAndUpdate(
-					mongoose.Types.ObjectId(_id),
+					ObjectId(_id),
 					{ $inc: { 'pageView': 1 } },
 					(err) => {
 						if (err)
@@ -159,7 +161,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					}
 				);
 
-				res.render( 'detail', getObject(data,req ,res));
+				res.render( 'detail', getObject(data, req ,res));
 			}
 		}
 	});
