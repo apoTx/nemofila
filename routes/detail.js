@@ -150,8 +150,14 @@ router.get('/:slug/:id', (req, res, next) => {
 				}
 			}else {
 
-				// increase page view count
-				Ads.findByIdAndUpdate( mongoose.Types.ObjectId(_id), { $inc: { 'pageView': 1 }	 });
+				Ads.findByIdAndUpdate(
+					mongoose.Types.ObjectId(_id),
+					{ $inc: { 'pageView': 1 } },
+					(err) => {
+						if (err)
+							throw new Error(err);
+					}
+				);
 
 				res.render( 'detail', getObject(data,req ,res));
 			}
