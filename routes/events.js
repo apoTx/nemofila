@@ -13,8 +13,8 @@ router.get( '/new/:adId', ( req, res) => {
 	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 		res.render( 'new-event', {
 			title: res.__('new-event-page-title'),
-			userExists: req.session.user ? true : false,
-			id: req.query.id ? req.query.id : 'false',
+			userExists: !!req.session.user,
+			id: req.params.adId ? req.params.adId : 'false',
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url,
 		});

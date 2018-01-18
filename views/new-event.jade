@@ -1,9 +1,10 @@
 extends layout
 
 append stylesheets
+    link(rel='stylesheet', type='text/css', href='/dist/css/profile.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/item.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/step.min.css')
@@ -13,15 +14,40 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
 block content
-    div.ui.main.container.subPage(ng-controller="newEventController")
-        div(ng-if="!adSaveComplete", ng-cloak)
+    div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }')")
+        .ui.segment.no-segment
+            .ui.divided.items
+                .item
+                    a.image.myAdsList(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
+                        img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                        img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
+                    .content
+                        a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}', ng-cloak, target="_blank")
+                            | {{ ad.title }}
+                        .description
+                            p
+                        .extra
+                            .ui.label(
+                                ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}",
+                                ng-cloak
+                            )
+                                | {{ ad.statusText }}
 
+                            div.margin-top-10(ng-show="ad.totalActivePower > 0")
+                                h4
+                                    i.ui.rocket.icon
+                                    | {{ ad.totalActivePower }}
+            .ui.dimmer(ng-class="{ active:loadingAd }")
+                .ui.loader
+
+
+        div(ng-if="!adSaveComplete", ng-cloak)
             .ui.segment.no-segment.test
                 .ui.dimmer(ng-class="loadingBufferData ? 'active': ''")
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
-                    form.ui.form.fluid#newAdForm(ng-init="init('#{ id }')")
+                    form.ui.form.fluid#newAdForm
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
                         input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
@@ -243,4 +269,5 @@ block content
             | Velit euismod in pellentesque massa placerat duis ultricies lacus. Tortor id aliquet lectus proin nibh. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat. Sollicitudin nibh sit amet commodo nulla facilisi. Eu mi bibendum neque egestas congue quisque. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Tellus molestie nunc non blandit. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum. Cursus euismod quis viverra nibh cras. Elementum facilisis leo vel fringilla est. At elementum eu facilisis sed odio morbi. Sed egestas egestas fringilla phasellus faucibus scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien nec.
 
 append javascripts
+    script(src="/dist/js/app/services/newEventFactory.min.js")
     script(src="/dist/js/app/controllers/newEventController.min.js")

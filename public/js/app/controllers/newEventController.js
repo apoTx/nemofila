@@ -1,6 +1,6 @@
-app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', ($scope, Upload, $timeout, $http, $window) => {
+app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newEventFactory', ($scope, Upload, $timeout, $http, $window, newEventFactory) => {
 
-	// New Ad Form
+	// New Event Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
 
@@ -14,6 +14,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	$scope.buyPowerLoader = false;
 
 	$scope.newAdForm.place = null;
+
 
 	$(() => {
 		// stripe
@@ -124,13 +125,12 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		});
 	});
 
-	$scope.init = (id, userExists) => {
-		if (id !== 'false'){
-			$scope.getAd(id);
-			$scope.isEdit = true;
-		}
-
-		$scope.userExists =  (userExists == 'true');
+	$scope.init = (id) => {
+		$scope.loadingAd = true;
+		newEventFactory.getAd(id).then((data) => {
+			$scope.loadingAd = false;
+			$scope.ad = data;
+		});
 	};
 
 	$scope.next = () => {
