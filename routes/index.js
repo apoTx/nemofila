@@ -1,29 +1,29 @@
-let express = require('express');
-let bcrypt = require('bcryptjs');
-let mongoose = require('mongoose');
-let uuid = require('uuid');
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+const uuid = require('uuid');
 
-let router = express.Router();
-let ObjectId = require('mongoose').Types.ObjectId;
+const router = express.Router();
+const ObjectId = require('mongoose').Types.ObjectId;
 
-let requireLogin = require('./inc/requireLogin.js');
+const requireLogin = require('./inc/requireLogin.js');
 
 // let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 // Models
-let User = require('../models/users');
-let Ads = require('../models/ads');
-let forgotPasswords = require('../models/forgotPassword');
-let Subscribe = require('../models/subscribes');
+const User = require('../models/users');
+const Ads = require('../models/ads');
+const forgotPasswords = require('../models/forgotPassword');
+const Subscribe = require('../models/subscribes');
 
 // helpers
-let mailer = require('../helper/mailer');
-let verifyRecaptcha = require('../helper/recaptcha');
+const mailer = require('../helper/mailer');
+const verifyRecaptcha = require('../helper/recaptcha');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
 
-let adPerPage = 48;
+const adPerPage = 48;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
@@ -44,7 +44,7 @@ router.get( '/login', ( req, res ) => {
 router.post( '/register', ( req, res ) => {
 	verifyRecaptcha(req.body.recaptcha, (success) => {
 		if (success) {
-			let data = req.body.data;
+			const data = req.body.data;
 
 			// Password hash
 			const saltRounds = 10;
@@ -73,9 +73,9 @@ router.post( '/register', ( req, res ) => {
 });
 
 router.post('/login', (req,res) => {
-	let process = () => {
-		let data = req.body.data;
-		let autoLogin = req.body.autoLogin;
+	const process = () => {
+		const data = req.body.data;
+		const autoLogin = req.body.autoLogin;
 
 		User.findOne({ email: data.email },(err,user) => {
 			if(!user){
@@ -185,7 +185,7 @@ router.get('/getAdById', requireLogin, (req, res) => {
 });
 
 router.post('/charge',  (req, res) => {
-	let amount = parseInt(req.body.amount) * 1000;
+	const amount = parseInt(req.body.amount) * 1000;
 
 	stripe.customers.create({
 		email: req.body.email,
@@ -232,8 +232,8 @@ router.post('/forgotPassword',  (req,res) => {
 			});
 
 			// send email
-			let to_email = req.body.email.trim();
-			let mailOptions = {
+			const to_email = req.body.email.trim();
+			const mailOptions = {
 				from: mailer.config.defaultFromAddress,
 				to: to_email,
 				subject: 'Password reset request',
@@ -259,9 +259,9 @@ router.post('/forgotPassword',  (req,res) => {
 });
 
 router.post('/subscribe',  (req, res) => {
-	let email = req.body.email;
+	const email = req.body.email;
 
-	let subscribe = new Subscribe({
+	const subscribe = new Subscribe({
 		email: email
 	});
 
@@ -285,7 +285,7 @@ router.get('/logout',  (req,res) => {
 });
 
 router.get('/getIndexAds', (req,res) => {
-	let pattern = /^[1-9]+$/;
+	const pattern = /^[1-9]+$/;
 
 	let page;
 	if (!pattern.test(req.query.page))
@@ -293,7 +293,7 @@ router.get('/getIndexAds', (req,res) => {
 	else
 		page = Math.abs(parseInt(req.query.page));
 
-	let lastAd = (page -1) * adPerPage;
+	const lastAd = (page -1) * adPerPage;
 
 	Ads.aggregate([
 		{
@@ -357,8 +357,8 @@ router.get('/getIndexAds', (req,res) => {
 			throw new Error(err);
 
 		Ads.count({ status: 1 }, (err, count) => {
-			let d = { data: data };
-			let result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
+			const d = { data: data };
+			const result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
 			res.json(result);
 		});
@@ -366,10 +366,10 @@ router.get('/getIndexAds', (req,res) => {
 });
 
 router.get('/searchAd', (req, res) => {
-	let location = JSON.parse(req.query.location);
-	let category = JSON.parse(req.query.category);
+	const location = JSON.parse(req.query.location);
+	const category = JSON.parse(req.query.category);
 
-	let pattern = /^[1-9]+$/;
+	const pattern = /^[1-9]+$/;
 
 	let page;
 	if (!pattern.test(req.query.page))
@@ -377,7 +377,7 @@ router.get('/searchAd', (req, res) => {
 	else
 		page = Math.abs(parseInt(req.query.page));
 
-	let lastAd = (page -1) * adPerPage;
+	const lastAd = (page -1) * adPerPage;
 
 
 	Ads.aggregate([
@@ -448,8 +448,8 @@ router.get('/searchAd', (req, res) => {
 			throw new Error(err);
 
 		Ads.count({ status: 1 }, (err, count) => {
-			let d = { data: data };
-			let result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
+			const d = { data: data };
+			const result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
 			res.json(result);
 		});
@@ -458,8 +458,8 @@ router.get('/searchAd', (req, res) => {
 
 // Get angular partials
 router.get('/partials/:folder/:filename', (req, res) => {
-	let folder = req.params.folder;
-	let filename = req.params.filename;
+	const folder = req.params.folder;
+	const filename = req.params.filename;
 	res.render('partials/'+ folder +'/'+ filename);
 });
 
