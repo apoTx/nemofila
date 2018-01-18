@@ -2,54 +2,14 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 	// New Event Form
 	$scope.newEventForm = {};
-	$scope.newEventForm.anotherContact =  { };
 
 	$scope.steps = {};
 	$scope.steps.informations = true;
-	$scope.steps.power = false;
 	$scope.steps.preview = false;
-
-	$scope.powerNumber = '0';
-	$scope.buyPowerStatus = false;
-	$scope.buyPowerLoader = false;
 
 	$scope.newEventForm.place = null;
 
-
 	$(() => {
-		// stripe
-		$('#buttonCheckout').on('click', () => {
-			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];
-			if(parseInt($scope.powerNumber) > 0)
-				checkoutHandler.open({
-					name: 'Easyad',
-					description: 'Power Purchase',
-					token: handleToken
-				});
-		});
-
-		$('.powerNumber').on('change', () => {
-			$scope.powerNumber = $('.powerNumber').val();
-		});
-
-		function handleToken(token) {
-			$scope.buyPowerLoader = true;
-			$scope.$apply();
-			fetch('/charge', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(Object.assign(token, { amount: parseInt($scope.powerNumber) })),
-			})
-				.then(output => {
-					if (output.statusText === 'OK') {
-						$scope.buyPowerStatus = true;
-						$scope.buyPowerLoader = false;
-						$scope.$apply();
-					}
-				});
-		}
-
-		// # stripe
 
 		$('#newEventForm').form({
 			keyboardShortcuts: false,
@@ -69,15 +29,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 						}
 					]
 				},
-				mobile_phone: {
-					identifier  : 'mobile_phone',
-					rules: [
-						{
-							type   : 'empty',
-							prompt : 'Please enter a mobile phone.'
-						}
-					]
-				},
 				description: {
 					identifier  : 'description',
 					rules: [
@@ -91,30 +42,30 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 						}
 					]
 				},
-				country: {
-					identifier: 'country',
-					rules: [
-						{
-							type   : 'empty',
-							prompt : 'Please select a country.'
-						}
-					]
-				},
-				city: {
-					identifier: 'city',
-					rules: [
-						{
-							type   : 'empty',
-							prompt : 'Please select a city.'
-						}
-					]
-				},
 				category: {
 					identifier: 'category',
 					rules: [
 						{
 							type   : 'empty',
 							prompt : 'Please select a category.'
+						}
+					]
+				},
+				startDate: {
+					identifier: 'startDate',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a start date.'
+						}
+					]
+				},
+				endDate: {
+					identifier: 'endDate',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please select a end date.'
 						}
 					]
 				}
@@ -283,7 +234,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		}
 	};
 
-	$scope.adSaveComplete = false;
+	$scope.eventSaveComplete = false;
 	$scope.submitBtnLoading = false;
 	$scope.onSubmitAd = (photos, id, newPhotos) => {
 		$scope.submitBtnLoading = true;
@@ -310,47 +261,29 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		}catch (e){
 			showcaseIndex = null;
 		}
-		/*
-		let district;
-		try{
-			district = $scope.countries[$scope.newEventForm.country].cities[$scope.newEventForm.city].districts[$scope.newEventForm.district]._id;
-		}catch(e){
-			district = null;
-		}*/
-
-		let childCategory;
-		try{
-			childCategory = $scope.categories[$scope.newEventForm.category].subCategories[$scope.newEventForm.categoryChild]._id;
-		}catch(e){
-			childCategory = null;
-		}
 
 		let isEdit = id !== 'false' ? true : false;
 
 		$http({
-			url: '/newAd/create',
+			url: '/events/new',
 			method: 'POST',
 			data: {
 				recaptcha: document.getElementById('g-recaptcha-response').value,
 				data: data,
 				isEdit: isEdit,
-				editId: id,
+				adId: id,
 				power: {
 					powerStatus: $scope.buyPowerStatus,
 					powerNumber: $scope.powerNumber,
 				},
 				photos: photoList,
 				showcaseIndex: showcaseIndex,
-				category: {
-					categoryId: $scope.categories[$scope.newEventForm.category]._id,
-					childCategoryId: childCategory
-				}
 			}
 		}).then((response) => {
 			$scope.submitBtnLoading = false;
 
 			if(response.data.status === 1){
-				$scope.adSaveComplete = true;
+				$scope.eventSaveComplete = true;
 				$window.scrollTo(0, 0);
 			}
 		}, () => { // optional

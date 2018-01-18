@@ -1,9 +1,14 @@
 const express = require('express');
 const request = require('request');
+let slugify = require('slugify');
 const router = express.Router();
 
+// Models
+let Events = require('../models/events');
+
 // settings
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const verifyRecaptcha = require('../helper/recaptcha');
 
 router.get( '/', ( req, res) => {
 	res.send('events');
@@ -18,6 +23,36 @@ router.get( '/new/:adId', ( req, res) => {
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url,
 		});
+	});
+});
+
+router.post( '/new', ( req, res) => {
+	verifyRecaptcha(req.body.recaptcha, (success) => {
+		if (success) {
+
+			const data = req.body.data;
+			const obj = {
+				title: data.title,
+				slug: slugify(data.title, { lower:true }),
+				description: data.description,
+				photos: req.body.photos,
+				photoShowcaseIndex: req.body.showcaseIndex,
+				ownerId: req.session.user._id,
+				adId: req.body.adId
+			};
+			const event = new Events(obj);
+
+			event.save(obj, (err) => {
+				if (err)
+					throw new Error( err );
+
+				res.send( { 'status': 1 } );
+			});
+
+		}else{
+			console.log('err');
+			res.end('captcha err');
+		}
 	});
 });
 

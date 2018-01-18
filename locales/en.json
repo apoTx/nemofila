@@ -97,5 +97,7 @@
 	"contact_us": "Contact Us",
 	"best": "Best",
 	"thankyou": "Thank You",
-	"new-event-page-title": "New Event"
+	"new-event-page-title": "New Event",
+	"upload_photo": "upload_photo",
+	"new_event_successful_info": "new_event_successful_info"
 }
