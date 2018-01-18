@@ -1,9 +1,12 @@
 let express = require('express');
 let bcrypt = require('bcryptjs');
+let mongoose = require('mongoose');
 let uuid = require('uuid');
 
 let router = express.Router();
 let ObjectId = require('mongoose').Types.ObjectId;
+
+let requireLogin = require('./inc/requireLogin.js');
 
 // let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
@@ -107,6 +110,78 @@ router.post('/login', (req,res) => {
 			}
 		});
 	}
+});
+
+router.get('/getAdById', requireLogin, (req, res) => {
+	let id = req.query.id;
+
+	Ads.aggregate([
+		{
+			'$match': {
+				'_id': mongoose.Types.ObjectId(id),
+				'status': 1,
+			}
+		},
+
+		// Power collection
+		{
+			$lookup: {
+				from: 'powers',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'power'
+			}
+		},
+		{
+			$unwind: {
+				path: '$power',
+				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$group: {
+				_id: {
+					_id: '$_id',
+					title: '$title',
+					slug: '$slug',
+					price: '$price',
+					status: '$status',
+					statusText: '$statusText',
+					photos: '$photos',
+					photoShowcaseIndex: '$photoShowcaseIndex',
+				},
+				power: {
+					$push: '$power'
+				},
+				totalActivePower: {
+					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
+				}
+			}
+		},
+		{
+			$project: {
+				_id: '$_id._id',
+				title: '$_id.title',
+				slug: '$_id.slug',
+				price: '$_id.price',
+				status: '$_id.status',
+				statusText: '$_id.statusText',
+				photos: '$_id.photos',
+				photoShowcaseIndex: '$_id.photoShowcaseIndex',
+				powers: '$power',
+				totalActivePower: 1
+			}
+		},
+		{ $limit: 1 }
+	], (err, data) => {
+		if (err)
+			throw new Error(err);
+
+		let result = data[0];
+		res.json(result);
+	});
 });
 
 router.post('/charge',  (req, res) => {

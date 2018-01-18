@@ -1,7 +1,7 @@
 app.factory('buyPowerFactory', ['$http', ($http) => {
 	let getAd = (id) => {
 		return $http({
-			url: 'profile/buyPower/getAdById',
+			url: '/getAdById',
 			method:'GET',
 			params: { id: id }
 		})
