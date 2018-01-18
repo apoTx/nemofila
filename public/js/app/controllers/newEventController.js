@@ -1,8 +1,8 @@
 app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newEventFactory', ($scope, Upload, $timeout, $http, $window, newEventFactory) => {
 
 	// New Event Form
-	$scope.newAdForm = {};
-	$scope.newAdForm.anotherContact =  { };
+	$scope.newEventForm = {};
+	$scope.newEventForm.anotherContact =  { };
 
 	$scope.steps = {};
 	$scope.steps.informations = true;
@@ -13,7 +13,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	$scope.buyPowerStatus = false;
 	$scope.buyPowerLoader = false;
 
-	$scope.newAdForm.place = null;
+	$scope.newEventForm.place = null;
 
 
 	$(() => {
@@ -51,7 +51,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 		// # stripe
 
-		$('#newAdForm').form({
+		$('#newEventForm').form({
 			keyboardShortcuts: false,
 			on: 'blur',
 			inline : true,
@@ -158,35 +158,35 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			method: 'GET',
 		}).then( (response) => {
 
-			$scope.newAdForm.title = response.data.title || '';
-			$scope.newAdForm.description = response.data.description || '';
-			$scope.newAdForm.phone = response.data.phone || '';
-			$scope.newAdForm.mobile_phone = response.data.mobile_phone || '';
-			$scope.newAdForm.address = response.data.address || '';
-			$scope.newAdForm.website = response.data.website || '';
-			$scope.newAdForm.anotherContact = response.data.anotherContact;
-			if (!$scope.newAdForm.anotherContact){
-				$scope.newAdForm.anotherContact =  { };
-				$scope.newAdForm.anotherContact.checked = false;
+			$scope.newEventForm.title = response.data.title || '';
+			$scope.newEventForm.description = response.data.description || '';
+			$scope.newEventForm.phone = response.data.phone || '';
+			$scope.newEventForm.mobile_phone = response.data.mobile_phone || '';
+			$scope.newEventForm.address = response.data.address || '';
+			$scope.newEventForm.website = response.data.website || '';
+			$scope.newEventForm.anotherContact = response.data.anotherContact;
+			if (!$scope.newEventForm.anotherContact){
+				$scope.newEventForm.anotherContact =  { };
+				$scope.newEventForm.anotherContact.checked = false;
 			}
 
 			try{
-				$scope.newAdForm.files = response.data.photos || '';
-				$scope.uploadedFiles = $scope.newAdForm.files;
-				$scope.newAdForm.showcaseIndex = response.data.photoShowcaseIndex;
+				$scope.newEventForm.files = response.data.photos || '';
+				$scope.uploadedFiles = $scope.newEventForm.files;
+				$scope.newEventForm.showcaseIndex = response.data.photoShowcaseIndex;
 			}catch (e){
-				$scope.newAdForm.files = [];
+				$scope.newEventForm.files = [];
 			}
 
 			let country = response.data.location;
 			let category = response.data.category;
 			setTimeout(() => {
-				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
-				$scope.newAdForm.categoryChild = (($scope.categories[$scope.newAdForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
+				$scope.newEventForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
+				$scope.newEventForm.categoryChild = (($scope.categories[$scope.newEventForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
 
-				$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
-				$scope.newAdForm.city = (($scope.countries[$scope.newAdForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
-				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
+				$scope.newEventForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
+				$scope.newEventForm.city = (($scope.countries[$scope.newEventForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
+				$scope.newEventForm.district = (($scope.countries[$scope.newEventForm.country].cities[$scope.newEventForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
 			});
 
 			$scope.loadingBufferData = false;
@@ -197,8 +197,8 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	};
 
 	$scope.uploadAndSaveMongo = (id) => {
-		if($scope.newAdForm.files && $scope.newAdForm.files.length > 0){
-			$scope.uploadFiles($scope.newAdForm.files, id);
+		if($scope.newEventForm.files && $scope.newEventForm.files.length > 0){
+			$scope.uploadFiles($scope.newEventForm.files, id);
 		} else {
 			$scope.onSubmitAd( null, id, false );
 		}
@@ -288,7 +288,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	$scope.onSubmitAd = (photos, id, newPhotos) => {
 		$scope.submitBtnLoading = true;
 
-		let data = Object.assign({}, $scope.newAdForm);
+		let data = Object.assign({}, $scope.newEventForm);
 
 		delete data.files;
 
@@ -313,14 +313,14 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		/*
 		let district;
 		try{
-			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
+			district = $scope.countries[$scope.newEventForm.country].cities[$scope.newEventForm.city].districts[$scope.newEventForm.district]._id;
 		}catch(e){
 			district = null;
 		}*/
 
 		let childCategory;
 		try{
-			childCategory = $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id;
+			childCategory = $scope.categories[$scope.newEventForm.category].subCategories[$scope.newEventForm.categoryChild]._id;
 		}catch(e){
 			childCategory = null;
 		}
@@ -342,7 +342,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				photos: photoList,
 				showcaseIndex: showcaseIndex,
 				category: {
-					categoryId: $scope.categories[$scope.newAdForm.category]._id,
+					categoryId: $scope.categories[$scope.newEventForm.category]._id,
 					childCategoryId: childCategory
 				}
 			}
@@ -359,30 +359,30 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		});
 	};
 
-	$scope.newAdForm.showcaseIndex = 0;
+	$scope.newEventForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
 		if ($scope.isEdit){
 			if ($scope.uploadedFiles < 1)
-				$scope.newAdForm.files[0].showcase = true;
+				$scope.newEventForm.files[0].showcase = true;
 		}else{
-			if ($scope.newAdForm.files.length > 0)
-				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
+			if ($scope.newEventForm.files.length > 0)
+				$scope.newEventForm.files[$scope.newEventForm.showcaseIndex].showcase = true;
 		}
 	};
 
 	$scope.onDeletePhoto = (index) => {
-		$scope.newAdForm.files.splice(index, 1);
-		if ($scope.newAdForm.showcaseIndex === index){
-			$scope.newAdForm.files[0].showcase = true;
-			$scope.newAdForm.showcaseIndex = 0;
+		$scope.newEventForm.files.splice(index, 1);
+		if ($scope.newEventForm.showcaseIndex === index){
+			$scope.newEventForm.files[0].showcase = true;
+			$scope.newEventForm.showcaseIndex = 0;
 		}
 	};
 
 	$scope.onSelectShowCase = (index) => {
-		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = false;
+		$scope.newEventForm.files[$scope.newEventForm.showcaseIndex].showcase = false;
 
-		$scope.newAdForm.showcaseIndex = index;
-		$scope.newAdForm.files[index].showcase = true;
+		$scope.newEventForm.showcaseIndex = index;
+		$scope.newEventForm.files[index].showcase = true;
 	};
 
 	$scope.triggerUploadWindow = () => {

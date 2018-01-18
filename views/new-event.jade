@@ -10,15 +10,16 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/step.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/message.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/newEventPage.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
 block content
     div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }')")
-        .ui.segment.no-segment
-            .ui.divided.items
+        .ui.stacked.segment
+            .ui.divided.items.no-margin
                 .item
-                    a.image.myAdsList(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
+                    a.image(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
                         img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                         img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
                     .content
@@ -34,7 +35,7 @@ block content
                                 | {{ ad.statusText }}
 
                             div.margin-top-10(ng-show="ad.totalActivePower > 0")
-                                h4
+                                h4(ng-cloak)
                                     i.ui.rocket.icon
                                     | {{ ad.totalActivePower }}
             .ui.dimmer(ng-class="{ active:loadingAd }")
@@ -47,7 +48,7 @@ block content
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
-                    form.ui.form.fluid#newAdForm
+                    form.ui.form.fluid#newEventForm
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
                         input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
@@ -61,13 +62,13 @@ block content
 
                         .field
                             label #{ i18n.__("title") }
-                            input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newAdForm.title")
+                            input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newEventForm.title")
 
                         .field
                             label #{ i18n.__("description") }
                             ng-wig(
                                 name='description',
-                                ng-model='newAdForm.description'
+                                ng-model='newEventForm.description'
                             )
 
                         .three.fields
@@ -97,12 +98,12 @@ block content
                                         i.upload.icon
                                         |  #{ i18n.__("upload_photos") }
                                     a.ui.basic.label
-                                        | {{ newAdForm.files.length > 0 ? newAdForm.files.length : '0'  }}
+                                        | {{ newEventForm.files.length > 0 ? newEventForm.files.length : '0'  }}
                                 input(
                                     type='file',
                                     style="width:30%"
                                     ngf-select='onPhotoSelect()',
-                                    ng-model='newAdForm.files',
+                                    ng-model='newEventForm.files',
                                     name='photos',
                                     class='hidden'
                                     ngf-fix-orientation="true",
@@ -123,7 +124,7 @@ block content
                                     | #{ i18n.__("photo_size_limit") }
 
                             .ui.four.stackable.cards
-                                .card.photoList(ng-repeat='f in newAdForm.files')
+                                .card.photoList(ng-repeat='f in newEventForm.files')
                                     .image.photoListImage
                                         a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                             i.bookmark.icon
@@ -161,7 +162,7 @@ block content
                             | {{ newAdErr }}
 
                         button.ui.right.floated.primary.button(
-                                form="newAdForm",
+                                form="newEventForm",
                                 ng-class="uploading ? 'loading disabled' : '' "
                             )
                             | #{ i18n.__("next_btn") }
@@ -169,10 +170,10 @@ block content
                         .clearfix
 
                 div#preview(ng-show="steps.preview", ng-cloak)
-                    h2 {{ newAdForm.title }}
+                    h2 {{ newEventForm.title }}
 
                     .ui.four.stackable.cards
-                        .card.photoList(ng-repeat='f in newAdForm.files')
+                        .card.photoList(ng-repeat='f in newEventForm.files')
                             .image.photoListImage
                                 a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                     i.bookmark.icon
@@ -195,42 +196,42 @@ block content
                                         td {{ location }}
                                     tr
                                         td #{ i18n.__("category") }
-                                        td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
+                                        td {{ categories[newEventForm.category].name }} / {{ categories[newEventForm.category].subCategories[newEventForm.categoryChild].name }}
                                     tr
                                         td #{ i18n.__("contact_name") }
                                         td
-                                            span(ng-show="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.anotherContact.name }}
-                                            span(ng-hide="newAdForm.anotherContact.checked")
+                                            span(ng-show="newEventForm.anotherContact.checked")
+                                                | {{ newEventForm.anotherContact.name }}
+                                            span(ng-hide="newEventForm.anotherContact.checked")
                                                 | #{ user.name } #{ user.surname }
 
-                                    tr(ng-hide="newAdForm.anotherContact.checked")
+                                    tr(ng-hide="newEventForm.anotherContact.checked")
                                         td #{ i18n.__( "phone" ) }
                                         td
                                             span
-                                                | {{ newAdForm.phone }}
+                                                | {{ newEventForm.phone }}
 
                                     tr
                                         td #{ i18n.__( "mobile_phone" ) }
                                         td
-                                            span(ng-show="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.anotherContact.phone }}
-                                            span(ng-hide="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.mobile_phone }}
+                                            span(ng-show="newEventForm.anotherContact.checked")
+                                                | {{ newEventForm.anotherContact.phone }}
+                                            span(ng-hide="newEventForm.anotherContact.checked")
+                                                | {{ newEventForm.mobile_phone }}
 
                                     tr
                                         td #{ i18n.__( "website" ) }
                                         td
-                                            | {{ newAdForm.website }}
+                                            | {{ newEventForm.website }}
 
                                     tr
                                         td #{ i18n.__( "address" ) }
                                         td
-                                            | {{ newAdForm.address }}
+                                            | {{ newEventForm.address }}
 
                     h3 #{ i18n.__("description") }
                     .ui.segment
-                        p.description(ng-bind-html="newAdForm.description")
+                        p.description(ng-bind-html="newEventForm.description")
 
                     .g-recaptcha(
                         vc-recaptcha,
