@@ -102,13 +102,13 @@ block content
                                 #startDate.ui.calendar
                                     .ui.input.left.icon
                                         i.calendar.icon
-                                        input(name='startDate', placeholder='Date/Time')
+                                        input(name='startDate', ng-model="newEventForm.startDate", placeholder="Start Date")
                             .field
                                 label End Date
                                 #endDate.ui.calendar
                                     .ui.input.left.icon
                                         i.calendar.icon
-                                        input(name='endDate', placeholder='Date/Time')
+                                        input(name='endDate', ng-model="newEventForm.endDate", placeholder="End Date")
 
                         .ui.tiny.stacked.segment
                             .text-center
@@ -213,6 +213,12 @@ block content
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ eventCategories[newEventForm.eventCategory].name }}
+                                    tr
+                                        td #{ i18n.__( "start_date" ) }
+                                        td {{ newEventForm.startDateText }}
+                                    tr
+                                        td #{ i18n.__( "end_date" ) }
+                                        td {{ newEventForm.endDateText }}
 
 
                     h3 #{ i18n.__("description") }

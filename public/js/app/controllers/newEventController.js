@@ -11,12 +11,40 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 	$(() => {
 
+
 		$('#startDate').calendar({
 			type: 'date',
+			onChange: function (date,text) {
+				$scope.newEventForm.startDate = date;
+				$scope.newEventForm.startDateText = text;
+			},
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return day + '/' + month + '/' + year;
+				}
+			},
 			endCalendar: $('#endDate')
 		});
+
 		$('#endDate').calendar({
 			type: 'date',
+			onChange: function (date,text) {
+				$scope.newEventForm.endDate = date;
+				$scope.newEventForm.endDateText = text;
+			},
+			formatter: {
+				date: function (date, settings) {
+					if (!date) return '';
+					var day = date.getDate();
+					var month = date.getMonth() + 1;
+					var year = date.getFullYear();
+					return day + '/' + month + '/' + year;
+				}
+			},
 			startCalendar: $('#startDate')
 		});
 
