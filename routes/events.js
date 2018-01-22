@@ -59,7 +59,10 @@ router.post( '/new', ( req, res) => {
 });
 
 router.get( '/getIndexEvents', (req, res) => {
-	Events.find({  }, (err, data) => {
+	Events.find({
+		startDate: { $lte: new Date() },
+		endDate: { $gte:  new Date() }
+	}, (err, data) => {
 		res.json(data);
 	})
 		.limit(12)
