@@ -8,11 +8,13 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/step.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/popup.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/message.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newEventPage.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic-ui-calendar/dist/calendar.min.css')
 
 block content
     div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }')")
@@ -97,16 +99,16 @@ block content
                                     option(value="", disabled) #{ i18n.__("please_select") }
                             .field
                                 label Start Date
-                                select(name="startDate")
-                                    option Test
-                                    option Test
-                                    option Test
+                                #startDate.ui.calendar
+                                    .ui.input.left.icon
+                                        i.calendar.icon
+                                        input(name='startDate', placeholder='Date/Time')
                             .field
                                 label End Date
-                                select(name="endDate")
-                                    option Test
-                                    option Test
-                                    option Test
+                                #endDate.ui.calendar
+                                    .ui.input.left.icon
+                                        i.calendar.icon
+                                        input(name='endDate', placeholder='Date/Time')
 
                         .ui.tiny.stacked.segment
                             .text-center
@@ -237,6 +239,8 @@ block content
                 a.ui.primary.button(href="./") #{ i18n.__("index_title") }
 
 append javascripts
+    script(src="/semantic/dist/semantic.min.js")
     script(src="/dist/js/app/services/newEventFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
+    script(src="/semantic-ui-calendar/dist/calendar.min.js")
     script(src="/js/app/controllers/newEventController.js")

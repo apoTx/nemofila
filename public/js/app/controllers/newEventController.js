@@ -11,6 +11,15 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 	$(() => {
 
+		$('#startDate').calendar({
+			type: 'date',
+			endCalendar: $('#endDate')
+		});
+		$('#endDate').calendar({
+			type: 'date',
+			startCalendar: $('#startDate')
+		});
+
 		$('#newEventForm').form({
 			keyboardShortcuts: false,
 			on: 'blur',
@@ -77,6 +86,8 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	});
 
 	$scope.init = (id) => {
+
+
 		$scope.loadingAd = true;
 		newEventFactory.getAd(id).then((data) => {
 			$scope.loadingAd = false;
