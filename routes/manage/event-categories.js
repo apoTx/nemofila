@@ -7,23 +7,24 @@ let Categories = require('../../models/categories');
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
-	res.render('manage/event-categories', { title: 'Categories' });
+	res.render('manage/event-categories', { title: 'Event Categories' });
 });
 
-router.get('/getCategories', requireLogin, (req,res) => {
-	Categories.find({}, (err, data) => {
+router.get('/getEventCategories', requireLogin, (req,res) => {
+	Categories.find({ type: 1 }, (err, data) => {
 		res.json( data );
 	});
 });
 
-router.post('/saveCategory', requireLogin, (req, res) => {
+router.post('/saveEventCategory', requireLogin, (req, res) => {
 	let category = new Categories({
-		name: capitalize.words(req.body.name)
+		name: capitalize.words(req.body.name),
+		type: 1
 	});
 
 	category.save((err, data) => {
 		if (err)
-			console.log(err);
+			throw new Error(err);
 
 		res.json({ 'status': 1, '_id': data._id, 'name': data.name });
 	});
@@ -46,7 +47,7 @@ router.post('/saveSubCategory', requireLogin, (req, res) => {
 	);
 });
 
-router.delete('/deleteCategory', requireLogin, (req, res) => {
+router.delete('/deleteEventCategory', requireLogin, (req, res) => {
 	Categories.findByIdAndRemove(req.body._id, (err) => {
 		if (err)
 			throw(err);

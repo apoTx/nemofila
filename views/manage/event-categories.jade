@@ -2,7 +2,7 @@ extends layout
 
 
 block content
-    div(ng-controller="categoryController", ng-init="init()")
+    div(ng-controller="eventCategoryController", ng-init="init()")
         .ui.grid
             .two.column.row
                 .column
@@ -17,7 +17,7 @@ block content
                                     input(type='text', placeholder='Add new...', ng-model="categories.form.category.name")
                                 i.add.icon
 
-                .column(ng-if="visibles.subCategory")
+                // .column(ng-if="visibles.subCategory")
                     b Sub Categories
                     .ui.vertical.menu.countryList
                         a.item(ng-repeat="subCategory in categories.list[categories.selected.index].subCategories track by $index", ng-click="selectCity($index)")
@@ -30,4 +30,4 @@ block content
                                 i.add.icon
 
 append javascripts
-    script(src='/dist/js/admin/app/controllers/categoryController.min.js')
+    script(src='/dist/js/admin/app/controllers/eventCategoryController.min.js')
