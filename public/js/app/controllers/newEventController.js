@@ -84,7 +84,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		});
 
 		categoriesFactory.getEventCategories().then((data) => {
-			console.log(data);
+			$scope.eventCategories = data;
 		});
 	};
 

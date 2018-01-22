@@ -74,10 +74,8 @@ block content
                         .three.fields
                             .field
                                 label Event Category
-                                select(name="category")
-                                    option Test
-                                    option Test
-                                    option Test
+                                select(name="category", ng-model="eventCategory", ng-options="index as category.name for (index, category) in eventCategories ")
+                                    option(value="", disabled) #{ i18n.__("please_select") }
                             .field
                                 label Start Date
                                 select(name="startDate")
