@@ -38,7 +38,9 @@ router.post( '/new', ( req, res) => {
 				photoShowcaseIndex: req.body.showcaseIndex,
 				categoryId: req.body.data.eventCategory,
 				ownerId: req.session.user._id,
-				adId: req.body.adId
+				adId: req.body.adId,
+				startDate: data.startDate,
+				endDate: data.endDate
 			};
 			const event = new Events(obj);
 
