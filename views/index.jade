@@ -136,7 +136,7 @@ block content
                                     img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                                     img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
                                 .content
-                                    span {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
+                                    span {{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader
 
