@@ -6,7 +6,15 @@ app.factory('categoriesFactory', ['$http', ($http) => {
 			});
 	};
 
+	let getEventCategories = () => {
+		return $http.get('/categories/getEventCategories')
+			.then((response) => {
+				return response.data;
+			});
+	};
+
 	return {
-		getCategories: getCategories
+		getCategories: getCategories,
+		getEventCategories: getEventCategories
 	};
 }]);

@@ -1,4 +1,4 @@
-app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newEventFactory', ($scope, Upload, $timeout, $http, $window, newEventFactory) => {
+app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newEventFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, newEventFactory, categoriesFactory) => {
 
 	// New Event Form
 	$scope.newEventForm = {};
@@ -81,6 +81,10 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		newEventFactory.getAd(id).then((data) => {
 			$scope.loadingAd = false;
 			$scope.ad = data;
+		});
+
+		categoriesFactory.getEventCategories().then((data) => {
+			console.log(data);
 		});
 	};
 

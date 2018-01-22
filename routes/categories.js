@@ -9,4 +9,10 @@ router.get('/getCategories', (req,res) => {
 	});
 });
 
+router.get('/getEventCategories', (req,res) => {
+	Categories.find({ type: 1 }, (err, data) => {
+		res.json( data );
+	});
+});
+
 module.exports = router;
