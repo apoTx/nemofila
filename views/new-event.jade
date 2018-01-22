@@ -16,6 +16,25 @@ append stylesheets
 
 block content
     div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }')")
+        .ui.steps.fluid(class="margin-bottom-30")
+            a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
+                i.info.icon
+                .content
+                    .title #{ i18n.__( "newEvent_tab_information" ) }
+                    .description #{ i18n.__( "newEvent_tab_information_message" )}
+
+            // a.step(ng-class="steps.power ? 'active': 'disabled' ", ng-cloak, ng-hide="isEdit")
+                i.rocket.icon
+                .content
+                    .title #{ i18n.__("newAd_tab_buy_power") }
+                    .description #{ i18n.__("newAd_tab_buy_power_message") }
+
+            a.step.disabled(ng-class="steps.preview ? 'active':'disabled' ", ng-cloak)
+                i.unhide.icon
+                .content
+                    .title #{ i18n.__( "newEvent_tab_preview" ) }
+                    .description #{ i18n.__( "newEvent_tab_preview_message" ) }
+
         .ui.stacked.segment
             .ui.divided.items.no-margin
                 .item
@@ -74,7 +93,7 @@ block content
                         .three.fields
                             .field
                                 label Event Category
-                                select(name="category", ng-model="newEventForm.eventCategory", ng-options="category._id as category.name for (index, category) in eventCategories ")
+                                select(name="category", ng-model="newEventForm.eventCategory", ng-options="index as category.name for (index, category) in eventCategories ")
                                     option(value="", disabled) #{ i18n.__("please_select") }
                             .field
                                 label Start Date
@@ -167,7 +186,7 @@ block content
 
                         .clearfix
 
-                div#preview(ng-show="steps.preview", ng-cloak)
+                div.margin-top-10#preview(ng-show="steps.preview", ng-cloak)
                     h2 {{ newEventForm.title }}
 
                     .ui.four.stackable.cards
@@ -190,42 +209,9 @@ block content
                             table.ui.definition.table
                                 tbody
                                     tr
-                                        td #{ i18n.__("location") }
-                                        td {{ location }}
-                                    tr
                                         td #{ i18n.__("category") }
-                                        td {{ categories[newEventForm.category].name }} / {{ categories[newEventForm.category].subCategories[newEventForm.categoryChild].name }}
-                                    tr
-                                        td #{ i18n.__("contact_name") }
-                                        td
-                                            span(ng-show="newEventForm.anotherContact.checked")
-                                                | {{ newEventForm.anotherContact.name }}
-                                            span(ng-hide="newEventForm.anotherContact.checked")
-                                                | #{ user.name } #{ user.surname }
+                                        td {{ eventCategories[newEventForm.eventCategory].name }}
 
-                                    tr(ng-hide="newEventForm.anotherContact.checked")
-                                        td #{ i18n.__( "phone" ) }
-                                        td
-                                            span
-                                                | {{ newEventForm.phone }}
-
-                                    tr
-                                        td #{ i18n.__( "mobile_phone" ) }
-                                        td
-                                            span(ng-show="newEventForm.anotherContact.checked")
-                                                | {{ newEventForm.anotherContact.phone }}
-                                            span(ng-hide="newEventForm.anotherContact.checked")
-                                                | {{ newEventForm.mobile_phone }}
-
-                                    tr
-                                        td #{ i18n.__( "website" ) }
-                                        td
-                                            | {{ newEventForm.website }}
-
-                                    tr
-                                        td #{ i18n.__( "address" ) }
-                                        td
-                                            | {{ newEventForm.address }}
 
                     h3 #{ i18n.__("description") }
                     .ui.segment

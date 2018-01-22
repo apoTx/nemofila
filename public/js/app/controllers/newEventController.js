@@ -99,10 +99,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	};
 
 	$scope.back = () => {
-		if ( !$scope.isEdit )
-			$scope.powerTab();
-		else
-			$scope.adInformationTab();
+		$scope.adInformationTab();
 	};
 
 	$scope.uploadedFiles = [];
