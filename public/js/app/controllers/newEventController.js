@@ -11,7 +11,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 	$(() => {
 
-
 		const dateFormat = {
 			date:  (date) => {
 				if (!date) return '';
@@ -23,33 +22,39 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		};
 
 		const today = new Date();
-		const dateRange = {
+		const startDateRange = {
 			minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30)
+			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 60)
+		};
+
+		const endDateRange = {
+			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30),
 		};
 
 		$('#startDate').calendar({
 			type: 'date',
-			onChange: function (date,text) {
+			onChange: (date,text) => {
 				$scope.newEventForm.startDate = date;
 				$scope.newEventForm.startDateText = text;
 			},
 			formatter: {
 				date: dateFormat.date
 			},
-			minDate: dateRange.minDate,
+			minDate: startDateRange.minDate,
+			maxDate: startDateRange.maxDate,
 			endCalendar: $('#endDate')
 		});
 
 		$('#endDate').calendar({
 			type: 'date',
-			onChange: function (date,text) {
+			onChange: (date,text) => {
 				$scope.newEventForm.endDate = date;
 				$scope.newEventForm.endDateText = text;
 			},
 			formatter: {
 				date: dateFormat.date
 			},
+			maxDate: endDateRange.maxDate,
 			startCalendar: $('#startDate')
 		});
 
