@@ -94,21 +94,21 @@ block content
 
                         .three.fields
                             .field
-                                label Event Category
+                                label #{ i18n.__( "event_category" ) }
                                 select(name="category", ng-model="newEventForm.eventCategory", ng-options="index as category.name for (index, category) in eventCategories ")
                                     option(value="", disabled) #{ i18n.__("please_select") }
                             .field
-                                label Start Date
+                                label #{ i18n.__( "start_date" ) }
                                 #startDate.ui.calendar
                                     .ui.input.left.icon
                                         i.calendar.icon
-                                        input(name='startDate', ng-model="newEventForm.startDate", placeholder="Start Date")
+                                        input(name='startDate', ng-model="newEventForm.startDate", placeholder='#{ i18n.__( "start_date" ) }')
                             .field
-                                label End Date
+                                label #{ i18n.__( "end_date" ) }
                                 #endDate.ui.calendar
                                     .ui.input.left.icon
                                         i.calendar.icon
-                                        input(name='endDate', ng-model="newEventForm.endDate", placeholder="End Date")
+                                        input(name='endDate', ng-model="newEventForm.endDate", placeholder='#{ i18n.__( "end_date" ) }')
 
                         .ui.tiny.stacked.segment
                             .text-center
