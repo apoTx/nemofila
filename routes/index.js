@@ -23,7 +23,7 @@ const verifyRecaptcha = require('../helper/recaptcha');
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
 
-const adPerPage = 48;
+const adPerPage = 16;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {

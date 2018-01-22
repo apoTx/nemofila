@@ -56,4 +56,10 @@ router.post( '/new', ( req, res) => {
 	});
 });
 
+router.get( '/getIndexEvents', (req, res) => {
+	Events.find({  }, (err, data) => {
+		res.json(data);
+	}).limit();
+});
+
 module.exports = router;
