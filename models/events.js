@@ -7,6 +7,7 @@ let eventSchema = new Schema({
 		type: String,
 		// required: true
 	},
+	categoryId: ObjectId,
 	adId: {
 		type: ObjectId
 	},

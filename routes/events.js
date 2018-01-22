@@ -28,8 +28,8 @@ router.get( '/new/:adId', ( req, res) => {
 
 router.post( '/new', ( req, res) => {
 	verifyRecaptcha(req.body.recaptcha, (success) => {
-		if (success) {
 
+		if (success) {
 			const data = req.body.data;
 			const obj = {
 				title: data.title,
@@ -37,6 +37,7 @@ router.post( '/new', ( req, res) => {
 				description: data.description,
 				photos: req.body.photos,
 				photoShowcaseIndex: req.body.showcaseIndex,
+				categoryId: req.body.data.eventCategory,
 				ownerId: req.session.user._id,
 				adId: req.body.adId
 			};
