@@ -69,4 +69,8 @@ router.get( '/getIndexEvents', (req, res) => {
 		.sort({ _id: -1 });
 });
 
+router.get( '/detail/:slug/:id', (req, res) => {
+	res.json({'asd':'asd'})
+});
+
 module.exports = router;

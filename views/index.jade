@@ -131,7 +131,7 @@ block content
                 .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
                     .doubling.four.column.row
                         .column.margin-bottom-10(ng-repeat="event in events")
-                            a.ui.fluid.card.adCard(href="/detail/{{ event.slug }}/{{ event._id }}")
+                            a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
                                 .image.cardListImage
                                     img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                                     img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
