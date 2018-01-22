@@ -18,7 +18,7 @@ append stylesheets
 
 block content
     div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }')")
-        .ui.steps.fluid(class="margin-bottom-30")
+        .ui.steps.fluid(class="margin-bottom-30", ng-if="!eventSaveComplete", ng-cloak)
             a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                 i.info.icon
                 .content
@@ -37,7 +37,7 @@ block content
                     .title #{ i18n.__( "newEvent_tab_preview" ) }
                     .description #{ i18n.__( "newEvent_tab_preview_message" ) }
 
-        .ui.stacked.segment
+        .ui.stacked.segment(ng-if="!eventSaveComplete", ng-cloak)
             .ui.divided.items.no-margin
                 .item
                     a.image(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")

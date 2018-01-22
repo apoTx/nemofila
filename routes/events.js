@@ -28,7 +28,6 @@ router.get( '/new/:adId', ( req, res) => {
 
 router.post( '/new', ( req, res) => {
 	verifyRecaptcha(req.body.recaptcha, (success) => {
-
 		if (success) {
 			const data = req.body.data;
 			const obj = {
@@ -47,7 +46,7 @@ router.post( '/new', ( req, res) => {
 				if (err)
 					throw new Error( err );
 
-				res.send( { 'status': 1 } );
+				res.json( { 'status': 1 } );
 			});
 
 		}else{

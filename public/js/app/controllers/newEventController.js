@@ -37,11 +37,11 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				$scope.newEventForm.endDateText = text;
 			},
 			formatter: {
-				date: function (date, settings) {
+				date: function (date) {
 					if (!date) return '';
-					var day = date.getDate();
-					var month = date.getMonth() + 1;
-					var year = date.getFullYear();
+					const day = date.getDate();
+					const month = date.getMonth() + 1;
+					const year = date.getFullYear();
 					return day + '/' + month + '/' + year;
 				}
 			},
@@ -114,8 +114,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	});
 
 	$scope.init = (id) => {
-
-
 		$scope.loadingAd = true;
 		newEventFactory.getAd(id).then((data) => {
 			$scope.loadingAd = false;
@@ -302,6 +300,8 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			showcaseIndex = null;
 		}
 
+		data.eventCategory = $scope.eventCategories[$scope.newEventForm.eventCategory]._id;
+		console.log(data.eventCategory);
 		let isEdit = id !== 'false' ? true : false;
 
 		$http({
