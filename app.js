@@ -37,6 +37,7 @@ let ads = require('./routes/manage/ads');
 let users = require('./routes/manage/users');
 let manage_countries = require('./routes/manage/countries');
 let manage_categories = require('./routes/manage/categories');
+let manage_event_categories = require('./routes/manage/event-categories');
 
 // Mongo connection
 let mongoose = require('mongoose');
@@ -104,6 +105,7 @@ app.use('/manage/ads', ads);
 app.use('/manage/users', users);
 app.use('/manage/countries', manage_countries);
 app.use('/manage/categories', manage_categories);
+app.use('/manage/event-categories', manage_event_categories);
 app.use('/', index);
 app.use('/search', search);
 app.use('/auth', auth);
