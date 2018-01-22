@@ -83,7 +83,7 @@
 	"how_create_an_ad": "How create an ad",
 	"create_your_ad": "Create your ad",
 	"blog_flor_business_owners": "Blog for business owners",
-	"business_success_stories": "Business success stories",
+	"business_success_stories": "Busineslast_eventss success stories",
 	"if_your_business_is_not_here": "Your business is not here?",
 	"how_it_work": "How it Work",
 	"best_in_nemofila": "Best in Nemofila",
@@ -106,5 +106,6 @@
 	"newEvent_tab_preview_message": "newEvent_tab_preview_message",
 	"start_date": "start_date",
 	"end_date": "end_date",
-	"event_category": "event_category"
+	"event_category": "event_category",
+	"last_events": "Last Events"
 }

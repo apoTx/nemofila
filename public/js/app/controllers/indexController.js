@@ -13,6 +13,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 		$('.dropdown').dropdown();
 
 		$scope.indexAdsLoading = true;
+		$scope.indexEventsLoading = true;
 		$scope.advancedSearchVisible = false;
 
 		indexFactory.getIndexAds(page).then((response) => {
@@ -21,6 +22,12 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 			$scope.adPerPage = response.adPerPage;
 			$scope.adCount = response.adCount;
 			$scope.currentPage = response.page;
+		});
+
+		indexFactory.getIndexEvents().then((response) => {
+			console.log(response);
+			$scope.indexEventsLoading = false;
+			$scope.events = response;
 		});
 
 		categoriesFactory.getCategories().then((response) => {

@@ -125,6 +125,25 @@ block content
 
             .clearfix
 
+
+            h2.indexBestInTitle #{i18n.__( "last_events" )}
+            .ui.segment.list-segment
+                .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
+                    .doubling.four.column.row
+                        .column.margin-bottom-10(ng-repeat="event in events")
+                            a.ui.fluid.card.adCard(href="/detail/{{ event.slug }}/{{ event._id }}")
+                                .image.cardListImage
+                                    img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                                    img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
+                                .content
+                                    span {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
+                .ui.dimmer(ng-class="{ active:indexAdsLoading }")
+                    .ui.loader
+
+                h1.text-center(ng-show="events.length < 1", ng-cloak)
+                    | No results.
+
+
     include partials/modals/index/howItWork
 
 append javascripts
