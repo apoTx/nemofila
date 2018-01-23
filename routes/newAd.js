@@ -74,6 +74,8 @@ router.post('/create', requireLogin, (req, res) => {
 			const website = data.website;
 			const place = data.place;
 
+			delete place.photos;
+
 			const obj = {
 				title: data.title,
 				slug: slugify(data.title, { lower:true }),

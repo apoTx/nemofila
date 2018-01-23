@@ -249,7 +249,7 @@ block content
                                 tbody
                                     tr
                                         td #{ i18n.__("location") }
-                                        td {{ location }}
+                                        td {{ newAdForm.place.formatted_address }}
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
