@@ -42,7 +42,8 @@ router.post( '/new', ( req, res) => {
 				ownerId: req.session.user._id,
 				adId: req.body.adId,
 				startDate: data.startDate,
-				endDate: data.endDate
+				endDate: data.endDate,
+				listingDaysAgo: data.listingDaysAgo
 			};
 			const event = new Events(obj);
 

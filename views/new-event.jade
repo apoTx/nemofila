@@ -92,7 +92,7 @@ block content
                                 ng-model='newEventForm.description'
                             )
 
-                        .three.fields
+                        .four.fields
                             .field
                                 label #{ i18n.__( "event_category" ) }
                                 select(name="category", ng-model="newEventForm.eventCategory", ng-options="index as category.name for (index, category) in eventCategories ")
@@ -110,6 +110,16 @@ block content
                                     .ui.input.left.icon
                                         i.calendar.icon
                                         input(name='endDate', ng-model="newEventForm.endDate", placeholder='#{ i18n.__( "end_date" ) }')
+
+                            .field
+                                label #{ i18n.__( "listing_date" ) }
+                                select#listingDaysAgo(ng-model="newEventForm.listingDaysAgo")
+                                    option(value="") Gününde
+                                    option(value="1") 1 Gün önce
+                                    option(value="2") 2 Gün önce
+                                    option(value="3") 3 Gün önce
+                                    option(value="4") 4 Gün önce
+                                    option(value="5") 5 Gün önce
 
                         .ui.tiny.stacked.segment
                             .text-center
@@ -176,6 +186,7 @@ block content
 
 
                                 | {{errorMsg}}
+
 
                         .ui.error.message
                         .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
