@@ -4,7 +4,7 @@ let router = express.Router();
 let Categories = require('../models/categories');
 
 router.get('/getCategories', (req,res) => {
-	Categories.find({}, (err, data) => {
+	Categories.find({ type: { $exists : false }  }, (err, data) => {
 		res.json( data );
 	});
 });
