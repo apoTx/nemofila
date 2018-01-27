@@ -1,53 +1,53 @@
-let compression = require('compression');
-let express = require('express');
-let path = require('path');
-let favicon = require('serve-favicon');
-let logger = require('morgan');
-let cookieParser = require('cookie-parser');
-let bodyParser = require('body-parser');
-let sessions = require('client-sessions');
-let passport = require('passport');
-let i18n = require('i18n');
+const compression = require('compression');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const sessions = require('client-sessions');
+const passport = require('passport');
+const i18n = require('i18n');
 
 // Development env file
-let config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
+const config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
 //Routes
-let index = require('./routes/index');
-let search = require('./routes/search');
-let newAd = require('./routes/newAd');
-let events = require('./routes/events');
-let detail = require('./routes/detail');
-let profile = require('./routes/profile/profile');
-let account = require('./routes/account');
-let myAds = require('./routes/profile/myAds');
-let buyPower = require('./routes/profile/buyPower');
-let myFavourites = require('./routes/profile/myFavourites');
-let myMessages = require('./routes/profile/myMessages');
-let countries = require('./routes/countries');
-let categories = require('./routes/categories');
-let auth = require('./routes/auth');
-let services = require('./routes/services');
-let contact = require('./routes/contact');
-let terms = require('./routes/terms');
+const index = require('./routes/index');
+const search = require('./routes/search');
+const newAd = require('./routes/newAd');
+const events = require('./routes/events');
+const detail = require('./routes/detail');
+const profile = require('./routes/profile/profile');
+const account = require('./routes/account');
+const myAds = require('./routes/profile/myAds');
+const buyPower = require('./routes/profile/buyPower');
+const myFavourites = require('./routes/profile/myFavourites');
+const myMessages = require('./routes/profile/myMessages');
+const countries = require('./routes/countries');
+const categories = require('./routes/categories');
+const auth = require('./routes/auth');
+const services = require('./routes/services');
+const contact = require('./routes/contact');
+const terms = require('./routes/terms');
 
 // Admin Routes
-let manage = require('./routes/manage/index');
-let ads = require('./routes/manage/ads');
-let users = require('./routes/manage/users');
-let manage_countries = require('./routes/manage/countries');
-let manage_categories = require('./routes/manage/categories');
-let manage_event_categories = require('./routes/manage/event-categories');
+const manage = require('./routes/manage/index');
+const ads = require('./routes/manage/ads');
+const users = require('./routes/manage/users');
+const manage_countries = require('./routes/manage/countries');
+const manage_categories = require('./routes/manage/categories');
+const manage_event_categories = require('./routes/manage/event-categories');
 
 // Mongo connection
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.connect(config.db.MONGO_URI, {
 	useMongoClient: true,
 });
 
-let app = express();
+const app = express();
 
-let settings = require('./config/settings.json');
+const settings = require('./config/settings.json');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

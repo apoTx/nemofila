@@ -31,11 +31,19 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30),
 		};
 
+		const listingDateRange = {
+			minDate: $scope.newEventForm.startDate,
+			maxDate: $scope.newEventForm.startDate
+		};
+
 		$('#startDate').calendar({
 			type: 'date',
 			onChange: (date,text) => {
 				$scope.newEventForm.startDate = date;
 				$scope.newEventForm.startDateText = text;
+				$scope.$apply();
+				console.log($scope.newEventForm.startDate);
+				console.log($scope.newEventForm.startDate - 30);
 			},
 			formatter: {
 				date: dateFormat.date
@@ -57,6 +65,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			maxDate: endDateRange.maxDate,
 			startCalendar: $('#startDate')
 		});
+
 
 		$('#newEventForm').form({
 			keyboardShortcuts: false,

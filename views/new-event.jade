@@ -97,6 +97,7 @@ block content
                                 label #{ i18n.__( "event_category" ) }
                                 select(name="category", ng-model="newEventForm.eventCategory", ng-options="index as category.name for (index, category) in eventCategories ")
                                     option(value="", disabled) #{ i18n.__("please_select") }
+
                             .field
                                 label #{ i18n.__( "start_date" ) }
                                 #startDate.ui.calendar
