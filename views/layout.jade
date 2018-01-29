@@ -182,10 +182,6 @@ html
         // recaptcha
         script(src="/angular-recaptcha/release/angular-recaptcha.min.js")
 
-        // google place
-        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
-        script(type='text/javascript', src="/angular-google-places-autocomplete/dist/autocomplete.min.js")
-
         script(src="/dist/js/app/main.min.js")
         script(src="/jquery/dist/jquery.min.js")
 
@@ -212,3 +208,9 @@ html
             }
             gtag( 'js', new Date() );
             gtag( 'config', 'UA-109564878-1' );
+
+
+    block google_map_scripts
+        // google place
+        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
+        script(type='text/javascript', src="/angular-google-places-autocomplete/dist/autocomplete.min.js")
