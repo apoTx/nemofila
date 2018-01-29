@@ -1,7 +1,8 @@
 const express = require('express');
 const request = require('request');
 const mongoose = require('mongoose');
-let slugify = require('slugify');
+const moment = require('moment');
+const slugify = require('slugify');
 const router = express.Router();
 
 // Models
@@ -32,6 +33,13 @@ router.post( '/new', ( req, res) => {
 	verifyRecaptcha(req.body.recaptcha, (success) => {
 		if (success) {
 			const data = req.body.data;
+			const listingDate = moment(data.startDate).subtract(data.listingDaysAgo, 'd').format();
+
+			console.log(data.startDate);
+			console.log(listingDate);
+
+			// return false;
+
 			const obj = {
 				title: data.title,
 				slug: slugify(data.title, { lower:true }),
@@ -43,7 +51,8 @@ router.post( '/new', ( req, res) => {
 				adId: req.body.adId,
 				startDate: data.startDate,
 				endDate: data.endDate,
-				listingDaysAgo: data.listingDaysAgo
+				listingDaysAgo: data.listingDaysAgo,
+				listingDate: listingDate
 			};
 			const event = new Events(obj);
 
@@ -63,7 +72,7 @@ router.post( '/new', ( req, res) => {
 
 router.get( '/getIndexEvents', (req, res) => {
 	Events.find({
-		startDate: { $lte: new Date() },
+		listingDate: { $lte: new Date() },
 		endDate: { $gte:  new Date() }
 	}, (err, data) => {
 		res.json(data);

@@ -32,12 +32,15 @@ let eventSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	listingDaysAgo: {
-		type: Number,
-	},
 	status: {
 		type: Number,
 		default: 0,
+	},
+	listingDaysAgo: {
+		type: Number,
+	},
+	listingDate:{
+		type: Date
 	},
 	startDate: {
 		type: Date
