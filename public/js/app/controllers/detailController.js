@@ -119,6 +119,8 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 	};
 
 	$scope.showcase = (data, showcaseIndex) => {
+		console.log(data);
+		console.log(showcaseIndex);
 		$scope.photos = data;
 		$scope.showcaseIndex = showcaseIndex;
 		$scope.showcase = data[$scope.showcaseIndex].filename;

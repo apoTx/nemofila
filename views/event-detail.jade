@@ -19,7 +19,7 @@ block content
 
     - var photosList = JSON.stringify(data.ad.photos);
 
-    div.detailContainer.ui.main.container.subPage(ng-controller="detailController" ng-init="init('#{sessionId}','#{ _id }', '#{JSON.stringify(photos)}', '#{ amazon_base_url }' )")
+    div.detailContainer.ui.main.container.subPage(ng-controller="detailController" ng-init="init('#{sessionId}','#{ _id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }' )")
 
         - if (status === 0)
             .ui.warning.message.margin-bottom-30
@@ -93,7 +93,7 @@ block content
                     )
                     - if (data.ad.photos !== null)
                         img(
-                            ng-init="showcase(#{ JSON.stringify(photos) }, #{ photoShowcaseIndex })",
+                            ng-init="showcase(#{ JSON.stringify(data.ad.photos) }, #{ data.ad.photoShowcaseIndex })",
                             ng-src='#{ amazon_base_url }/{{ showcase }}'
                         )
                     - else
@@ -221,4 +221,4 @@ block content
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
-    script(src="/dist/js/app/controllers/detailController.min.js")
+    script(src="/js/app/controllers/detailController.js")
