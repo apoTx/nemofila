@@ -152,7 +152,8 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 		if (err)
 			return next(err);
 
-		res.json(result);
+		console.log(result[0]);
+		res.render('event-detail', { data: result[0], moment: moment });
 	});
 });
 
