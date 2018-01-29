@@ -17,7 +17,7 @@ block content
     - else
         - sessionId = null;
 
-    - var photosList = JSON.stringify(photos);
+    - var photosList = JSON.stringify(data.ad.photos);
 
     div.detailContainer.ui.main.container.subPage(ng-controller="detailController" ng-init="init('#{sessionId}','#{ _id }', '#{JSON.stringify(photos)}', '#{ amazon_base_url }' )")
 
@@ -127,12 +127,6 @@ block content
                 table.ui.definition.table
                     tbody
                         tr
-                            td #{i18n.__("category")}
-                            td #{ data.ad.category.name } / #{ data.ad.category.childCategoryName }
-                        tr
-                            td #{i18n.__("listing_date")}
-                            td #{ moment(data.ad.listingDate).format("DD/MM/YYYY") }
-                        tr
                             td #{i18n.__("contact_name")}
                             td
                                 - if (!data.ad.anotherContact || !data.ad.anotherContact.checked)
@@ -156,7 +150,17 @@ block content
                             td #{i18n.__( "phone" )}
                             td
                                 a.phone-number
-                                    | 1232
+                                    | #{ data.ad.phone }
+
+                        tr
+                            td #{i18n.__( "Start Date" )}
+                            td
+                                | #{ moment(data.startDate).format("DD/MM/YYYY") }
+
+                        tr
+                            td #{i18n.__( "End Date" )}
+                            td
+                                | #{ moment( data.endDate ).format( "DD/MM/YYYY" ) }
 
                         tr(ng-show="#{ data.ad.website != '' }", ng-cloak)
                             td #{i18n.__( "website" )}
@@ -175,10 +179,6 @@ block content
             p.description
                 | !{ data.ad.description }
 
-
-        .text-center
-            h3 #{ pageView }
-            | page view
 
         - if (sessionId !== null && (sessionId != String(data.ad.user._id)))
             // Send Message Modal

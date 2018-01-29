@@ -107,5 +107,7 @@
 	"start_date": "start_date",
 	"end_date": "end_date",
 	"event_category": "event_category",
-	"last_events": "Last Events"
+	"last_events": "Last Events",
+	"Start Date": "Start Date",
+	"End Date": "End Date"
 }

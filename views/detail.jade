@@ -156,7 +156,7 @@ block content
                             td #{i18n.__( "phone" )}
                             td
                                 a.phone-number
-                                    | 1232
+                                    | #{ data.phone }
 
                         tr(ng-show="#{ data.website != '' }", ng-cloak)
                             td #{i18n.__( "website" )}

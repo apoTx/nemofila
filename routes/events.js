@@ -136,6 +136,8 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 				'title': 1,
 				'description': 1,
 				'status': 1,
+				'startDate': 1,
+				'endDate': 1,
 				'photoShowcaseIndex': 1,
 				'photos': 1,
 				'user.name': 1,
