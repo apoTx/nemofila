@@ -23,11 +23,59 @@ block content
     div.detailContainer.ui.main.container.subPage
 
         div(ng-controller="eventDetailController")
-            | asd
+            .ui.stackable.grid
+                .ten.wide.column
+                    h1 #{data.title}
+
+                .six.wide.column.text-right.detail-right-menu
+                    .ui.right.floated.main.menu
+                        a.music.popup.icon.item(
+                            data-content='#{i18n.__( "share_facebook" )}',
+                            target="_blank",
+                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
+                            href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
+                        )
+                            i.facebook.icon
+                        a.music.popup.icon.item(data-content='#{i18n.__( "share_twitter" )}')
+                            i.twitter.icon
+                        a.music.popup.icon.item(data-content='#{i18n.__( "share_google" )}')
+                            i.google.plus.icon
+
+            .ui.stackable.grid
+                .six.wide.column
+                    a.ui.fluid.image.showcaseImage(
+                        ng-click='openGallery()',
+                        href="javascript:;"
+                    )
+                        - if (data.ad.photos !== null)
+                            img(
+                                ng-src='#{ amazon_base_url }/#{ data.photos[0].filename }'
+                            )
+                        - else
+                            img(ng-src='/img/no-photo.png')
 
 
+                .ten.wide.column
+                    | &nbsp;
+                    table.ui.definition.table
+                        tbody
+                            tr
+                                td #{i18n.__( "Category" )}
+                                td
+                                    | #{ data.category.name }
 
-        div(ng-controller="detailController" ng-init="init('#{sessionId}','#{ _id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
+                            tr
+                                td #{i18n.__( "Place" )}
+                                td
+                                    | #{ data.ad.place.formatted_address }
+
+            h3 #{i18n.__( "Event Description" )}
+            .ui.segment
+                p.description
+                    | !{ data.description }
+
+
+        div.margin-top-30(ng-controller="detailController" ng-init="init('#{sessionId}','#{ _id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
             - if (status === 0)
                 .ui.warning.message.margin-bottom-30
                     .header
@@ -57,19 +105,6 @@ block content
                     h1 #{data.ad.title}
 
                 .six.wide.column.text-right.detail-right-menu
-                    .ui.right.floated.main.menu
-                        a.music.popup.icon.item(
-                                data-content='#{i18n.__("share_facebook")}',
-                                target="_blank",
-                                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
-                                href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
-                            )
-                            i.facebook.icon
-                        a.music.popup.icon.item(data-content='#{i18n.__("share_twitter")}')
-                            i.twitter.icon
-                        a.music.popup.icon.item(data-content='#{i18n.__("share_google")}')
-                            i.google.plus.icon
-
 
                     - if (session)
                         .ui.right.floated.main.menu(
@@ -183,7 +218,7 @@ block content
                     #googleMap(style="width:100%;height:400px;")
 
 
-            h3 #{i18n.__("description")}
+            h3 #{i18n.__("Ad Description")}
             .ui.segment
                 p.description
                     | !{ data.ad.description }

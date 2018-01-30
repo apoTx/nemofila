@@ -109,5 +109,9 @@
 	"event_category": "event_category",
 	"last_events": "Last Events",
 	"Start Date": "Start Date",
-	"End Date": "End Date"
+	"End Date": "End Date",
+	"Category": "Category",
+	"Place": "Place",
+	"Ad Description": "Ad Description",
+	"Event Description": "Event Description"
 }
