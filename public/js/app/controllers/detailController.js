@@ -31,7 +31,20 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		},
 	});
 
-	$scope.init = (userId, adId, photos, amazon_base_url) => {
+	function initMap(lat, lng){
+		let geocoder = new google.maps.Geocoder();
+		const latlng = new google.maps.LatLng( lat, lng );
+		const mapOptions = {
+			zoom: 8,
+			center: latlng
+		};
+		let map = new google.maps.Map( document.getElementById( 'googleMap' ), mapOptions );
+	}
+
+	$scope.init = (userId, adId, photos, amazon_base_url, mapLat, mapLng) => {
+
+		initMap(mapLat, mapLng);
+
 		if ( userId !== 'null' ){
 			favFactory.isFav(userId,adId).then((response) => {
 				$scope.isFav = response.isFav;
