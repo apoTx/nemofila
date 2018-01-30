@@ -35,11 +35,6 @@ router.post( '/new', ( req, res) => {
 			const data = req.body.data;
 			const listingDate = moment(data.startDate).subtract(data.listingDaysAgo, 'd').format();
 
-			console.log(data.startDate);
-			console.log(listingDate);
-
-			// return false;
-
 			const obj = {
 				title: data.title,
 				slug: slugify(data.title, { lower:true }),
@@ -155,7 +150,10 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 			return next(err);
 
 		console.log(result[0]);
-		res.render('event-detail', { data: result[0], moment: moment });
+		res.render('event-detail', {
+			data: result[0],
+			moment: moment,
+			title: res.__('Best') + ' event '+ result[0].ad.place.address_components[0].short_name });
 	});
 });
 
