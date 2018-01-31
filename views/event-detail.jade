@@ -100,7 +100,9 @@ block content
                     | !{ data.description }
 
 
-        div.margin-top-30(ng-controller="detailController" ng-init="init('#{sessionId}','#{ _id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
+        div.margin-top-30(
+            ng-controller="detailController"
+            ng-init="init('#{sessionId}','#{ data.ad._id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
             - if (status === 0)
                 .ui.warning.message.margin-bottom-30
                     .header
@@ -137,7 +139,7 @@ block content
                         )
                             a.music.popup.icon.item(
                                 data-content='#{i18n.__("add_favourites")}',
-                                ng-click="addFavourites('#{ session._id }','#{ _id }')"
+                                ng-click="addFavourites('#{ session._id }','#{ data.ad._id }')"
                             )
                                 i.star.empty.icon
 
@@ -146,8 +148,8 @@ block content
                             ng-cloak
                         )
                             a.music.popup.icon.item(
-                            data-content='#{i18n.__("remove_favourites")}',
-                            ng-click="delFavourites('#{ session._id }','#{ _id }')"
+                                data-content='#{i18n.__("remove_favourites")}',
+                                ng-click="delFavourites('#{ session._id }','#{ data.ad._id }')"
                             )
                                 i.star.icon
 
