@@ -201,7 +201,8 @@ block content
                                     - else
                                         img(ng-src='/img/no-photo.png')
                                 .content
-                                    span.black #{ event.title }
+                                    span.black span #{ event.title.substr( 0, 26 ) }
+                                        | #{ event.title.length > 26 ? '...' : '' }
 
 
             - if (sessionId !== null && (sessionId != String(data.user._id)))
