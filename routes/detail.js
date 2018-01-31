@@ -225,6 +225,7 @@ router.get('/addFavourites', requireLogin, (req, res) => {
 	let fav = new Favourites({
 		userId: req.query.userId,
 		adId: req.query.adId,
+		type: req.query.type
 	});
 
 	fav.save((err) => {

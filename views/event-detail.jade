@@ -22,13 +22,17 @@ block content
 
     div.detailContainer.ui.main.container.subPage
 
-        div(ng-controller="eventDetailController")
+        div(
+            ng-controller="eventDetailController",
+            ng-init="init('#{sessionId}','#{ data._id }')"
+        )
             .ui.stackable.grid
                 .ten.wide.column
                     h1 #{data.title}
 
                 .six.wide.column.text-right.detail-right-menu
                     .ui.right.floated.main.menu
+
                         a.music.popup.icon.item(
                             data-content='#{i18n.__( "share_facebook" )}',
                             target="_blank",
@@ -41,18 +45,39 @@ block content
                         a.music.popup.icon.item(data-content='#{i18n.__( "share_google" )}')
                             i.google.plus.icon
 
+                    - if (session)
+                        .ui.right.floated.main.menu(
+                            ng-show="!eventIsFav",
+                            ng-cloak
+                        )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__( "add_favourites" )}',
+                                ng-click="addFavourites('#{ session._id }','#{ data._id }', 1)"
+                            )
+                                i.star.empty.icon
+
+                        .ui.right.floated.main.menu(
+                            ng-show="eventIsFav",
+                            ng-cloak
+                        )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__( "remove_favourites" )}',
+                                ng-click="delFavourites('#{ session._id }','#{ data._id }')"
+                            )
+                                i.star.icon
+
             .ui.stackable.grid
                 .six.wide.column
                     a.ui.fluid.image.showcaseImage(
                         ng-click='openGallery()',
                         href="javascript:;"
                     )
-                        - if (data.ad.photos !== null)
+                        - if (data.photos !== null)
                             img(
-                                ng-src='#{ amazon_base_url }/#{ data.photos[0].filename }'
+                                src='#{ amazon_base_url }/#{ data.photos[0].filename }'
                             )
                         - else
-                            img(ng-src='/img/no-photo.png')
+                            img(src='/img/no-photo.png')
 
 
                 .ten.wide.column

@@ -188,18 +188,19 @@ block content
 
 
         h2 Events
-        .ui.grid.no-margin-bottom
-            .doubling.four.column.row
-                - each event in data.events
-                    .column.margin-bottom-10
-                        a.ui.fluid.card.adCard(href="/events/detail/#{ event.slug }/#{ event._id }")
-                            .image.cardListImage
-                                - if (event.photos !== null)
-                                    img(ng-src='#{ amazon_base_url }/#{ event.photos[event.photoShowcaseIndex].filename }')
-                                - else
-                                    img(ng-src='/img/no-photo.png')
-                            .content
-                                span.black #{ event.title}
+        .ui.segment.list-segment
+            .ui.grid.no-margin-bottom
+                .doubling.four.column.row
+                    - each event in data.events
+                        .column.margin-bottom-10
+                            a.ui.fluid.card.adCard(href="/events/detail/#{ event.slug }/#{ event._id }")
+                                .image.cardListImage
+                                    - if (event.photos !== null)
+                                        img(ng-src='#{ amazon_base_url }/#{ event.photos[event.photoShowcaseIndex].filename }')
+                                    - else
+                                        img(ng-src='/img/no-photo.png')
+                                .content
+                                    span #{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
 
 
             - if (sessionId !== null && (sessionId != String(data.user._id)))

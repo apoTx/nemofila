@@ -1,9 +1,12 @@
 app.factory('favFactory', ['$http', ($http) => {
-	let addFavourites = (userId, adId) => {
+	/**
+	 * @favType: 0 or 1 -> ad or event
+	 * */
+	let addFavourites = (userId, adId, favType ) => {
 		return $http({
 			url: '/detail/addFavourites',
 			method: 'get',
-			params: { userId: userId, adId: adId },
+			params: { userId: userId, adId: adId, type: favType ? favType : 0  },
 		})
 			.then((response) => {
 				return response.data;
