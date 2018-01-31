@@ -105,7 +105,6 @@ block content
                     h1 #{data.ad.title}
 
                 .six.wide.column.text-right.detail-right-menu
-
                     - if (session)
                         .ui.right.floated.main.menu(
                             ng-show="!isFav",
@@ -174,7 +173,7 @@ block content
                                     - if (!data.ad.anotherContact || !data.ad.anotherContact.checked)
                                         div.contact-name #{ data.user.name } #{ data.user.surname }
 
-                                        - if (sessionId !== null && (sessionId != String(data.ad.user._id)))
+                                        - if (sessionId !== null && (sessionId != String(data.user._id)))
                                             button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
                                     - else
                                         div #{ data.ad.anotherContact.name }
@@ -224,7 +223,7 @@ block content
                     | !{ data.ad.description }
 
 
-            - if (sessionId !== null && (sessionId != String(data.ad.user._id)))
+            - if (sessionId !== null && (sessionId != String(data.user._id)))
                 // Send Message Modal
                 .ui.modal.tiny#sendMessageModal
                     i.close.icon

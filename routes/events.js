@@ -151,9 +151,11 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 
 		console.log(result[0]);
 		res.render('event-detail', {
+			session: req.session.user,
 			data: result[0],
 			moment: moment,
-			title: res.__('Best') + ' event '+ result[0].ad.place.address_components[0].short_name });
+			title: result[0].title // res.__('Best') + ' event '+ result[0].ad.place.address_components[0].short_name
+		});
 	});
 });
 
