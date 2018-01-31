@@ -46,6 +46,10 @@ p.description{
     display: none!important;
 }
 
+.black{
+    color:#333
+}
+
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {
         padding: 3px !important;
