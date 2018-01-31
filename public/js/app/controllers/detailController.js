@@ -31,15 +31,17 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		},
 	});
 
+	/*eslint-disable*/
 	function initMap(lat, lng){
-		let geocoder = new google.maps.Geocoder();
+		const geocoder = new google.maps.Geocoder();
 		const latlng = new google.maps.LatLng( lat, lng );
 		const mapOptions = {
 			zoom: 8,
 			center: latlng
 		};
-		let map = new google.maps.Map( document.getElementById( 'googleMap' ), mapOptions );
+		const map = new google.maps.Map( document.getElementById( 'googleMap' ), mapOptions );
 	}
+	/*eslint-enable*/
 
 	$scope.init = (userId, adId, photos, amazon_base_url, mapLat, mapLng) => {
 
