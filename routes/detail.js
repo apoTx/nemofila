@@ -53,6 +53,7 @@ const getObject = (data, req) => {
 			districtName: districtName
 		},*/
 		amazon_base_url: config.amazon_s3.photo_base_url,
+		events: data.events
 	};
 };
 
@@ -83,6 +84,22 @@ router.get('/:slug/:id', (req, res, next) => {
 		},
 		{ '$unwind': '$user' },
 
+		// Event collection
+		{
+			$lookup: {
+				from: 'events',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'event'
+			}
+		},
+		{
+			$unwind: {
+				path: '$event',
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
 		// categories collection
 		{
 			$lookup: {
@@ -105,41 +122,78 @@ router.get('/:slug/:id', (req, res, next) => {
 		},
 		{ '$unwind': '$locationObj' },*/
 
-		{ $limit: 1 },
+
+		{
+			$group: {
+				'_id': {
+					'_id': '$_id',
+					'title': '$title',
+					'description': '$description',
+					'price': '$prica',
+					'anotherContact': '$anotherContact',
+					'uuid': '$uuid',
+					'ownerId': '$ownerId',
+					'status': '$status',
+					'phone': '$phone',
+					'place': '$place',
+					'mobile_phone': '$mobile_phone',
+					'website': '$website',
+					'address': '$address',
+					'photoShowcaseIndex': '$photoShowcaseIndex',
+					'photos': '$photos',
+					'listingDate': '$listingDate',
+					'category': '$category',
+					'categoryObj': '$categoryObj',
+					'pageView': '$pageView',
+					'user': '$user'
+				},
+				'events': {
+					$push: '$event'
+				}
+			}
+		},
+
 		{
 			'$project': {
-				'title': 1,
-				'description': 1,
-				'price': 1,
-				'anotherContact': 1,
-				'uuid': 1,
-				'ownerId': 1,
-				'status': 1,
-				'phone': 1,
-				'place': 1,
-				'mobile_phone': 1,
-				'website': 1,
-				'address': 1,
-				'photoShowcaseIndex': 1,
-				'photos': 1,
-				'listingDate': 1,
-				'user.name': 1,
-				'user._id': 1,
-				'user.surname': 1,
-				'user.phone': 1,
-				'category': 1,
-				'pageView': 1,
-				'categoryObj': '$categoryObj',
+				_id: '$_id._id',
+				'title': '$_id.title',
+				'description': '$_id.description',
+				'price': '$_id.price',
+				'anotherContact': '$_id.anotherContact',
+				'uuid': '$_id.uuid',
+				'ownerId': '$_id.ownerId',
+				'status': '$_id.status',
+				'phone': '$_id.phone',
+				'place': '$_id.place',
+				'mobile_phone': '$_id.mobile_phone',
+				'website': '$_id.website',
+				'address': '$_id.address',
+				'photoShowcaseIndex': '$_id.photoShowcaseIndex',
+				'photos': '$_id.photos',
+				'listingDate': '$_id.listingDate',
+				'pageView': '$_id.pageView',
+				'user.name': '$_id.user.name',
+				'user._id': '$_id.user._id',
+				'user.surname': '$_id.user.surname',
+				'user.phone': '$_id.user.phone',
+				'category': '$_id.category',
+				'categoryObj': '$_id.categoryObj',
+				'events': '$events'
 			},
 		},
+
+		{ $limit: 1 },
 	], (err, result)=>{
 		if (err)
 			return next(err);
+
 
 		if(result.length < 1){
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
 			let data = result[0];
+			console.log(data);
+
 
 			if( data.status !== 1){
 				if ( req.session.user ){
