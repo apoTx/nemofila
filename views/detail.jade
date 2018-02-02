@@ -124,8 +124,13 @@ block content
                                 )
 
                 .ten.wide.column
-                    .ui.breadcrumb.tiny
-                        .active.section #{ place.formatted_address }
+                    .ui.grid
+                        .ten.wide.column
+                            .ui.breadcrumb.tiny
+                                .active.section #{ place.formatted_address }
+                        .six.wide.column
+                            .ui.right.floated.text-right
+                                | asd
 
 
                     table.ui.definition.table
