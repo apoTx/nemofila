@@ -154,7 +154,8 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 			session: req.session.user,
 			data: result[0],
 			moment: moment,
-			title: result[0].title // res.__('Best') + ' event '+ result[0].ad.place.address_components[0].short_name
+			url: req.protocol + '://' + req.get('host') + req.originalUrl,
+			title: res.__('Best') + ' '+ res.__('event') + ' '+ result[0].title + ' ' + res.__('in') + ' '+ result[0].ad.place.address_components[0].short_name
 		});
 	});
 });
