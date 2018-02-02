@@ -197,6 +197,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.address = response.data.address || '';
 			$scope.newAdForm.website = response.data.website || '';
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
+			$scope.newAdForm.place = response.data.place;
 			if (!$scope.newAdForm.anotherContact){
 				$scope.newAdForm.anotherContact =  { };
 				$scope.newAdForm.anotherContact.checked = false;
@@ -216,9 +217,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
 				$scope.newAdForm.categoryChild = (($scope.categories[$scope.newAdForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
 
-				$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
+				/*$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
 				$scope.newAdForm.city = (($scope.countries[$scope.newAdForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
-				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
+				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();*/
 			});
 
 			$scope.loadingBufferData = false;
