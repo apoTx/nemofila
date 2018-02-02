@@ -6,6 +6,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/breadcrumb.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
     link(rel='old stylesheet', href='/ng-image-gallery/dist/ng-image-gallery.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/style.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
@@ -130,7 +131,7 @@ block content
                                 .active.section #{ place.formatted_address }
                         .six.wide.column
                             .ui.right.floated.text-right
-                                | asd
+                                .ui.star.large.rating#detailRating(data-rating='1')
 
 
                     table.ui.definition.table
@@ -250,5 +251,6 @@ block content
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
+    script(src="/semantic/dist/components/rating.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
     script(src="/dist/js/app/controllers/detailController.min.js")

@@ -1,35 +1,42 @@
 app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($scope, favFactory, messageFactory) => {
 
-	$('.detail-right-menu a').popup({
-		position: 'bottom center'
+	$(() => {
+		$('.detail-right-menu a').popup({
+			position: 'bottom center'
+		});
+
+		$('#detailRating').rating({
+			maxRating: 5
+		});
+
+		// Send Message Form validation
+		$('#sendMessageForm').form({
+			keyboardShortcuts: false,
+			on: 'blur',
+			fields: {
+				pw: {
+					identifier  : 'message',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter your message.'
+						},
+						{
+							type   : 'maxLength[600]',
+							prompt : 'Your message can be up to {ruleValue} characters long.'
+						}
+					]
+				}
+			},
+			onSuccess: () => {
+				$scope.sendMessage();
+			},
+			onInvalid:() => {
+				$scope.sendMessageErr = null;
+			},
+		});
 	});
 
-	// Send Message Form validation
-	$('#sendMessageForm').form({
-		keyboardShortcuts: false,
-		on: 'blur',
-		fields: {
-			pw: {
-				identifier  : 'message',
-				rules: [
-					{
-						type   : 'empty',
-						prompt : 'Please enter your message.'
-					},
-					{
-						type   : 'maxLength[600]',
-						prompt : 'Your message can be up to {ruleValue} characters long.'
-					}
-				]
-			}
-		},
-		onSuccess: () => {
-			$scope.sendMessage();
-		},
-		onInvalid:() => {
-			$scope.sendMessageErr = null;
-		},
-	});
 
 	/*eslint-disable*/
 	function initMap(lat, lng){
