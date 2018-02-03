@@ -260,4 +260,25 @@ router.get('/isFav', requireLogin, (req, res) => {
 	});
 });
 
+router.get('/setRate', requireLogin, (req, res) => {
+	Ads.findOneAndUpdate({
+		_id: req.query.adId
+	},{
+		$push: {
+			rates: {
+				userId: req.session.user._id,
+				score: req.query.score
+			},
+		}
+	},{
+		upsert: true,
+		new: true
+	}, (err, result) => {
+		if (err)
+			throw err;
+
+		res.json(result);
+	});
+});
+
 module.exports = router;

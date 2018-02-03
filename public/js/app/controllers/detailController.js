@@ -8,8 +8,8 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		$('#detailRating').rating({
 			maxRating: 5,
 			onRate: (value) => {
-				rateFactory.setRate($scope.adId,4).then((data) => {
-					// console.log(data);
+				rateFactory.setRate($scope.adId, value).then((data) => {
+					console.log(data);
 				});
 			}
 		});

@@ -76,7 +76,13 @@ let adSchema = new Schema({
 	pageView: {
 		type: Number,
 		default: 0
-	}
+	},
+	rates: [
+		{
+			userId: ObjectId,
+			score: Number
+		},
+	]
 });
 
 module.exports = mongoose.model('ads', adSchema);
