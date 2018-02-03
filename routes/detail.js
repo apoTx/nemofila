@@ -42,6 +42,8 @@ const getObject = (data, req) => {
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
 		session: req.session.user,
 		place: data.place,
+		rate: Math.round(data.rate),
+		viewRate: data.rate.toFixed(1),
 		pageView: numeral(data.pageView).format('0a'),
 		category: {
 			name: data.categoryObj.name,
@@ -145,7 +147,8 @@ router.get('/:slug/:id', (req, res, next) => {
 					'category': '$category',
 					'categoryObj': '$categoryObj',
 					'pageView': '$pageView',
-					'user': '$user'
+					'user': '$user',
+					'rateAvg': { $avg: '$rates.score' }
 				},
 				'events': {
 					$push: '$event'
@@ -157,6 +160,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			'$project': {
 				_id: '$_id._id',
 				'title': '$_id.title',
+				'rate': '$_id.rateAvg',
 				'description': '$_id.description',
 				'price': '$_id.price',
 				'anotherContact': '$_id.anotherContact',

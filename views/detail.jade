@@ -131,7 +131,9 @@ block content
                                 .active.section #{ place.formatted_address }
                         .six.wide.column
                             .ui.right.floated.text-right
-                                .ui.star.large.rating#detailRating(data-rating='1')
+                                span.rateNumber
+                                    b #{ viewRate }
+                                .ui.star.large.rating#detailRating(data-rating='#{ rate }')
 
 
                     table.ui.definition.table
