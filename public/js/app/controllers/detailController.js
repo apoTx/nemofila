@@ -1,4 +1,4 @@
-app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($scope, favFactory, messageFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', ($scope, favFactory, rateFactory, messageFactory) => {
 
 	$(() => {
 		$('.detail-right-menu a').popup({
@@ -6,7 +6,12 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 		});
 
 		$('#detailRating').rating({
-			maxRating: 5
+			maxRating: 5,
+			onRate: (value) => {
+				rateFactory.setRate($scope.adId,4).then((data) => {
+					// console.log(data);
+				});
+			}
 		});
 
 		// Send Message Form validation
@@ -51,6 +56,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($
 	/*eslint-enable*/
 
 	$scope.init = (userId, adId, photos, amazon_base_url, mapLat, mapLng) => {
+		$scope.adId = adId;
 
 		initMap(mapLat, mapLng);
 
