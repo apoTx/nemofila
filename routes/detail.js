@@ -14,7 +14,7 @@ const requireLogin = require('./inc/requireLogin.js');
 const Ads = require('../models/ads');
 const Favourites = require('../models/favourites');
 
-const getObject = (data, req) => {
+const getObject = (data, req, res) => {
 
 	// For category
 	let childCategoryName;
@@ -35,6 +35,18 @@ const getObject = (data, req) => {
 		districtName = null;
 	}*/
 
+	const viewRate = (val) => {
+		if (val === null){
+			return res.__('No reviews yet');
+		}
+
+		if (val % 1 === 0){
+			return val.toFixed(0);
+		}else{
+			return val.toFixed(1);
+		}
+	};
+
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
 		data: data,
@@ -43,7 +55,7 @@ const getObject = (data, req) => {
 		session: req.session.user,
 		place: data.place,
 		rate: Math.round(data.rate),
-		viewRate: data.rate.toFixed(1),
+		viewRate: viewRate(data.rate),
 		pageView: numeral(data.pageView).format('0a'),
 		category: {
 			name: data.categoryObj.name,
@@ -265,6 +277,8 @@ router.get('/isFav', requireLogin, (req, res) => {
 });
 
 router.get('/setRate', requireLogin, (req, res) => {
+
+
 	Ads.findOneAndUpdate({
 		_id: req.query.adId
 	},{
