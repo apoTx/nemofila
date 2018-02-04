@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const uuid = require('uuid');
+const round = require('mongo-round');
 
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -342,7 +343,7 @@ router.get('/getIndexAds', (req,res) => {
 			$project: {
 				_id: '$_id._id',
 				title: '$_id.title',
-				rate: '$_id.rateAvg',
+				rate: round('$_id.rateAvg', 1),
 				slug: '$_id.slug',
 				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
@@ -358,6 +359,7 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
+		console.log(data);
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
 			const result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
