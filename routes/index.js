@@ -328,19 +328,21 @@ router.get('/getIndexAds', (req,res) => {
 					photos: '$photos',
 					updateAt: '$updateAt',
 					photoShowcaseIndex: '$photoShowcaseIndex',
+					rateAvg: { $avg: '$rates.score' },
 				},
 				power: {
 					$push: '$power'
 				},
 				totalPower: {
 					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
-				}
+				},
 			}
 		},
 		{
 			$project: {
 				_id: '$_id._id',
 				title: '$_id.title',
+				rate: '$_id.rateAvg',
 				slug: '$_id.slug',
 				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
