@@ -14,10 +14,16 @@ block content
             form.ui.form.fluid(action="/search")
                 div
                     .two.fields
-                        .field(ng-init="place='#{ data[0].place.formatted_address }'")
+                        .field(
+                            ng-init="place.formatted_address='#{ data[0].place.formatted_address }'"
+                        )
                             label Location
-                            input(g-places-autocomplete='', ng-model='place')
-                            input(name="location", ng-hide="true", ng-model='place.address_components[0].short_name')
+                            input(g-places-autocomplete='', ng-model='place.formatted_address')
+                            input(
+                                name="location",
+                                ng-init="place.long_name='#{ data[0].place.address_components[0].long_name }'",
+                                ng-model='place.long_name'
+                            )
 
                         .field
                             .two.fields(country-and-category-dropdowns)
@@ -41,8 +47,8 @@ block content
                             .column.margin-bottom-10
                                 a.ui.fluid.card.adCard(href="/detail/#{ ad.slug }/#{ ad._id }")
                                     .image.cardListImage
-                                        .ui.orange.right.ribbon.label #{ ad.rate }
-
+                                        - if (ad.rate)
+                                            .ui.orange.right.ribbon.label #{ ad.rate }
                                         - if (ad.totalPower > 0)
                                             .ui.left.corner.orange.label
                                                 .cardPowerNumber

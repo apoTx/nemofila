@@ -44,7 +44,7 @@ router.get( '/', ( req, res ) => {
 			'$match': {
 				status: 1,
 				title: new RegExp(req.query.title, 'i'),
-				'place.address_components.short_name': location !== '' ? location : { $exists: true },
+				'place.address_components.long_name': location !== '' ? location : { $exists: true },
 				'category.categoryId': categoryId ? ObjectId(categoryId) :  { $exists: true },
 				'category.categoryChildId': subCategoryId ? ObjectId(subCategoryId) :  { $exists: true },
 			}
@@ -122,6 +122,8 @@ router.get( '/', ( req, res ) => {
 			url: url,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
+
+		console.log(data);
 
 		res.render('search', result);
 	});

@@ -76,7 +76,7 @@ block content
                                     .field
                                         label Location
                                         input(g-places-autocomplete='', ng-model='place')
-                                        input(name="location", type="hidden", value="{{ place.address_components[0].short_name }}")
+                                        input(name="location", type="hidden", value="{{ place.address_components[0].long_name }}")
 
                                     .field
                                         .two.fields(country-and-category-dropdowns)
@@ -97,7 +97,7 @@ block content
                         .column.margin-bottom-10(ng-repeat="ad in ads")
                             a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
                                 .image.cardListImage
-                                    .ui.orange.right.ribbon.label
+                                    .ui.orange.right.ribbon.label(ng-if="ad.rate")
                                         | {{ ad.rate }}
                                     .ui.left.corner.orange.label(ng-show="ad.totalPower > 0")
                                         .cardPowerNumber
