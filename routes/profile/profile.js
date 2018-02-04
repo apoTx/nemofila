@@ -15,6 +15,7 @@ router.get('/', requireLogin, (req, res) => {
 				settings: res.__('settings'),
 				edit: res.__('edit'),
 				new_event: res.__('new_event'),
+				update: res.__('Update'),
 				buy_power: res.__('buy_power'),
 				unpublish: res.__('unpublish')
 			},
