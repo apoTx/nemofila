@@ -7,6 +7,7 @@ let ObjectId = require('mongoose').Types.ObjectId;
 
 // Models
 let Ads = require('../models/ads');
+let Events = require('../models/events');
 
 let adPerPage = 48;
 
@@ -123,14 +124,51 @@ router.get( '/', ( req, res ) => {
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
-		console.log(data);
-
 		res.render('search', result);
 	});
 });
 
 router.get('/getEventsByLocationName', (req, res) => {
-	res.json({'o':1})
+	const location = req.query.location;
+
+	Events.aggregate([
+		{
+			'$match': {
+				// '_id': _id,
+			}
+		},
+
+		// ads collection
+		{
+			$lookup: {
+				from: 'ads',
+				localField: 'adId',
+				foreignField: '_id',
+				as: 'ad'
+			}
+		},
+		{ '$unwind': '$ad' },
+
+		{ $limit: 1 },
+		{
+			'$project': {
+				'title': 1,
+				'description': 1,
+				'status': 1,
+				'startDate': 1,
+				'endDate': 1,
+				'photoShowcaseIndex': 1,
+				'photos': 1,
+				'ad': '$ad',
+			},
+		},
+	], (err, result)=>{
+		if (err)
+			throw err;
+
+		console.log(result[0]);
+		res.json(result[0]);
+	});
 });
 
 module.exports = router;
