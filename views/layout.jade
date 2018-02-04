@@ -33,7 +33,12 @@ html
             link(rel='old stylesheet', href='/dist/css/style.css')
             link(rel='stylesheet', type='text/css', href='/angular-google-places-autocomplete/src/autocomplete.css')
 
-    body(ng-app="app", ng-controller="layoutController", ng-init="init('#{ JSON.stringify(user) }')")
+    body(
+        ng-app="app",
+        ng-controller="layoutController",
+        ng-init="init('#{ JSON.stringify(user) }')",
+        ng-cloak
+    )
 
         .ui.sidebar.inverted.vertical.right.menu.rightSidebar
             if !user

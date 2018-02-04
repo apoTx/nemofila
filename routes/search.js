@@ -26,6 +26,7 @@ router.get( '/', ( req, res ) => {
 
 	let lastAd = (page -1) * adPerPage;
 
+	console.log(category);
 
 	Ads.aggregate([
 		{
