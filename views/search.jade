@@ -21,6 +21,7 @@ block content
                             input(g-places-autocomplete='', ng-model='place')
                             input(
                                 name="location",
+                                ng-show="false",
                                 ng-init="placeLongName='#{ data[0].place.address_components[0].long_name }'",
                                 ng-model='placeLongName'
                             )
