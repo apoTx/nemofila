@@ -18,11 +18,11 @@ block content
                             ng-init="place.formatted_address='#{ data[0].place.formatted_address }'"
                         )
                             label Location
-                            input(g-places-autocomplete='', ng-model='place.formatted_address')
+                            input(g-places-autocomplete='', ng-model='place')
                             input(
                                 name="location",
-                                ng-init="place.long_name='#{ data[0].place.address_components[0].long_name }'",
-                                ng-model='place.long_name'
+                                ng-init="placeLongName='#{ data[0].place.address_components[0].long_name }'",
+                                ng-model='placeLongName'
                             )
 
                         .field
