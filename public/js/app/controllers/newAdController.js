@@ -211,7 +211,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.files = [];
 			}
 
-			let country = response.data.location;
 			let category = response.data.category;
 			setTimeout(() => {
 				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
