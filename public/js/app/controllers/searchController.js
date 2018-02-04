@@ -1,4 +1,4 @@
-app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', ($scope, $http, categoriesFactory) => {
+app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'searchFactory', ($scope, $http, categoriesFactory, searchFactory) => {
 	$http;
 
 	$scope.init = () => {
@@ -8,10 +8,16 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', ($s
 	};
 
 	$scope.$watch('place', () => {
-		console.log($scope.place);
 		if ($scope.place.address_components){
 			$scope.placeLongName = $scope.place.address_components[0].long_name;
 		}
 	});
+
+	$scope.showEvents = (placeLongName) => {
+		console.log(placeLongName);
+		searchFactory.getEventsByLocationName(placeLongName).then((result) => {
+			console.log(result);
+		});
+	};
 
 }]);

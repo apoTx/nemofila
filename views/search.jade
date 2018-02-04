@@ -62,8 +62,13 @@ block content
                                         span #{ ad.title.substr(0, 26) }
                                         | #{ ad.title.length > 26 ? '...' : '' }
 
+            .text-center
+                button.ui.big.button.margin-auto(ng-click="showEvents(placeLongName)")
+                    | #{i18n.__("Show events")} ({{ placeLongName }})
+
 
 append javascripts
+    script(src="/dist/js/app/services/searchFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="/dist/js/app/controllers/searchController.min.js")

@@ -129,4 +129,8 @@ router.get( '/', ( req, res ) => {
 	});
 });
 
+router.get('/getEventsByLocationName', (req, res) => {
+	res.json({'o':1})
+});
+
 module.exports = router;
