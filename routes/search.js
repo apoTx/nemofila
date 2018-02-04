@@ -97,7 +97,7 @@ router.get( '/', ( req, res ) => {
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
 				totalPower: 1,
-				place: '$_id.place.address_components',
+				place: '$_id.place',
 				rate: round('$_id.rate', 1),
 			}
 		}, // ,
@@ -122,8 +122,6 @@ router.get( '/', ( req, res ) => {
 			url: url,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
-
-		console.log(result.data[0].place[0].sort_name);
 
 		res.render('search', result);
 	});

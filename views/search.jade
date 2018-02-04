@@ -14,10 +14,10 @@ block content
             form.ui.form.fluid(action="/search")
                 div
                     .two.fields
-                        .field
+                        .field(ng-init="place='#{ data[0].place.formatted_address }'")
                             label Location
                             input(g-places-autocomplete='', ng-model='place')
-                            input(name="location", type="hidden", value="")
+                            input(name="location", ng-hide="true", ng-model='place.address_components[0].short_name')
 
                         .field
                             .two.fields(country-and-category-dropdowns)
