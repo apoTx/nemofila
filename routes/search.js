@@ -17,6 +17,14 @@ router.get( '/', ( req, res ) => {
 	let subCategoryId = req.query.subCategoryId;
 	let categoryName = req.query.categoryName;
 	let subCategoryName = req.query.subCategoryName;
+	let sortWith = req.query.sortWith;
+
+	let sort;
+	if (sortWith === 'rate'){
+		sort = { 'rate': -1 };
+	}else{
+		sort = { 'totalPower':-1, 'updateAt': -1 };
+	}
 
 	let pattern = /^[1-9]+$/;
 
@@ -67,7 +75,7 @@ router.get( '/', ( req, res ) => {
 					photos: '$photos',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					place: '$place',
-					rateAvg: { $avg: '$rates.score' },
+					rate: { $avg: '$rates.score' },
 				},
 				power: {
 					$push: '$power'
@@ -88,10 +96,10 @@ router.get( '/', ( req, res ) => {
 				powers: '$power',
 				totalPower: 1,
 				place: '$_id.place.address_components',
-				rate: round('$_id.rateAvg', 1),
+				rate: round('$_id.rate', 1),
 			}
-		},
-		{ $sort: { 'totalPower':-1, 'updateAt': -1  } },
+		}, // ,
+		{ $sort: sort },
 		{ $skip: lastAd },
 		{ $limit: adPerPage }
 	], (err, data) => {

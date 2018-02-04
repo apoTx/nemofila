@@ -26,6 +26,8 @@ block content
                         button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                             | Search
             h1.text-center.padding-bottom-10 #{ title }
+            .ui.right.floated
+                | asd
             .ui.segment.list-segment.searchData
                 .ui.grid.no-margin-bottom.gray-bg
                     .doubling.four.column.row
@@ -34,7 +36,7 @@ block content
                                 a.ui.fluid.card.adCard(href="/detail/#{ ad.slug }/#{ ad._id }")
                                     .image.cardListImage
                                         .ui.orange.right.ribbon.label #{ ad.rate }
-                                           
+
                                         - if (ad.totalPower > 0)
                                             .ui.left.corner.orange.label
                                                 .cardPowerNumber
