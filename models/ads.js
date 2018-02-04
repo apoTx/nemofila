@@ -82,7 +82,58 @@ let adSchema = new Schema({
 			userId: ObjectId,
 			score: Number
 		},
-	]
+	],
+	workTimes: {
+		monday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		},
+		tuesday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		},
+		wednesday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		},
+		thursday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		},
+		friday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		},
+		saturday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		},
+		sunday: {
+			startH: Number,
+			startM: Number,
+			endH: Number,
+			endM: Number,
+			open: Boolean
+		}
+	}
 });
 
 module.exports = mongoose.model('ads', adSchema);
