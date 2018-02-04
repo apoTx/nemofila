@@ -1,5 +1,6 @@
 let express = require('express');
 let router = express.Router();
+const round = require('mongo-round');
 
 let i18n = require('i18n');
 let ObjectId = require('mongoose').Types.ObjectId;
@@ -65,7 +66,8 @@ router.get( '/', ( req, res ) => {
 					updateAt: '$updateAt',
 					photos: '$photos',
 					photoShowcaseIndex: '$photoShowcaseIndex',
-					place: '$place'
+					place: '$place',
+					rateAvg: { $avg: '$rates.score' },
 				},
 				power: {
 					$push: '$power'
@@ -85,7 +87,8 @@ router.get( '/', ( req, res ) => {
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
 				totalPower: 1,
-				place: '$_id.place.address_components'
+				place: '$_id.place.address_components',
+				rate: round('$_id.rateAvg', 1),
 			}
 		},
 		{ $sort: { 'totalPower':-1, 'updateAt': -1  } },
@@ -96,15 +99,17 @@ router.get( '/', ( req, res ) => {
 			throw new Error(err);
 
 		const category = subCategoryName !== '' ? subCategoryName : categoryName;
-		console.log(location);
 		const locationTitle = (location !== '') && (location !== undefined)   ? 'in '+ location : '';
+		const best = category !== '' ? i18n.__( 'best' ) : '';
+		const title = `${best} ${category} ${locationTitle}`;
+
 		let d = { data: data };
 
 		let result = Object.assign(d, {
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
-			title: `${i18n.__( 'best' )} ${category} ${locationTitle}`
+			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
 		res.render('search', result);
