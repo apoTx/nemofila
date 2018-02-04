@@ -7,6 +7,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 		'<option value="">Please select</option>' +
 		'</select>\n' +
 		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category].name" name="categoryName" /> ' +
+		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category]._id" name="categoryId" /> ' +
 		'</div>\n' +
 		'<div class="field">\n' +
 		'  <label>Child Category</label>\n' +
@@ -14,6 +15,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 		'	<option value="">Please select</option>' +
 		'</select>\n' +
 		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category].subCategories[newAdForm.categoryChild].name" name="subCategoryName" /> ' +
+		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category].subCategories[newAdForm.categoryChild]._id" name="subCategoryId" /> ' +
 		'</div>',
 
 

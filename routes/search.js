@@ -12,7 +12,8 @@ let adPerPage = 48;
 /* GET home page. */
 router.get( '/', ( req, res ) => {
 	let location = req.query.location;
-	let category = req.query.category;
+	let categoryId = req.query.categoryId;
+	let subCategoryId = req.query.subCategoryId;
 	let categoryName = req.query.categoryName;
 	let subCategoryName = req.query.subCategoryName;
 
@@ -26,7 +27,6 @@ router.get( '/', ( req, res ) => {
 
 	let lastAd = (page -1) * adPerPage;
 
-	console.log(category);
 
 	Ads.aggregate([
 		{
@@ -34,8 +34,8 @@ router.get( '/', ( req, res ) => {
 				status: 1,
 				title: new RegExp(req.query.title, 'i'),
 				'place.address_components.short_name': location !== '' ? location : { $exists: true },
-				'category.categoryId': category.categoryId ? ObjectId(category.categoryId) :  { $exists: true },
-				'category.categoryChildId': category.categoryChildId ? ObjectId(category.categoryChildId) :  { $exists: true },
+				'category.categoryId': categoryId ? ObjectId(categoryId) :  { $exists: true },
+				'category.categoryChildId': subCategoryId ? ObjectId(subCategoryId) :  { $exists: true },
 			}
 		},
 
