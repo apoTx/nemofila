@@ -4,3 +4,10 @@
 .gray-bg{
     background-color: #f1f1f1;
 }
+.inline-block-select{
+    display: inline-block!important;
+    width:auto !important;
+}
+.float-right{
+    float:right
+}

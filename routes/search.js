@@ -26,6 +26,8 @@ router.get( '/', ( req, res ) => {
 		sort = { 'totalPower':-1, 'updateAt': -1 };
 	}
 
+	const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+
 	let pattern = /^[1-9]+$/;
 
 	let page;
@@ -113,13 +115,15 @@ router.get( '/', ( req, res ) => {
 
 		let d = { data: data };
 
-
 		let result = Object.assign(d, {
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
+			url: url,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
+
+		console.log(result.data[0].place[0].sort_name);
 
 		res.render('search', result);
 	});

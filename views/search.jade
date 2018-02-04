@@ -17,7 +17,7 @@ block content
                         .field
                             label Location
                             input(g-places-autocomplete='', ng-model='place')
-                            input(name="location", type="hidden", value="{{ place.address_components[0].short_name }}")
+                            input(name="location", type="hidden", value="")
 
                         .field
                             .two.fields(country-and-category-dropdowns)
@@ -25,9 +25,15 @@ block content
                     .field.text-right
                         button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                             | Search
+
+                    .field.margin-top-30
+                        select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
+                            option(selected disabled) Sort with
+                            option(value="rate") Rate
+
             h1.text-center.padding-bottom-10 #{ title }
-            .ui.right.floated
-                | asd
+
+            .clearfix
             .ui.segment.list-segment.searchData
                 .ui.grid.no-margin-bottom.gray-bg
                     .doubling.four.column.row
