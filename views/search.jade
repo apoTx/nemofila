@@ -33,6 +33,8 @@ block content
                             .column.margin-bottom-10
                                 a.ui.fluid.card.adCard(href="/detail/#{ ad.slug }/#{ ad._id }")
                                     .image.cardListImage
+                                        .ui.orange.right.ribbon.label #{ ad.rate }
+                                           
                                         - if (ad.totalPower > 0)
                                             .ui.left.corner.orange.label
                                                 .cardPowerNumber

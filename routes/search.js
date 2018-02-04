@@ -105,6 +105,7 @@ router.get( '/', ( req, res ) => {
 
 		let d = { data: data };
 
+
 		let result = Object.assign(d, {
 			adCount: data.length,
 			adPerPage: adPerPage,
