@@ -12,7 +12,7 @@ block content
             h2.text-center.padding-top-10 No results.
         - else
             form.ui.form.fluid(action="/search")
-                div
+                div.gray-bg.padding-10
                     .two.fields
                         .field(
                             ng-init="place.formatted_address='#{ data[0].place.formatted_address }'"
@@ -33,16 +33,16 @@ block content
                         button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                             | Search
 
-                    .field.margin-top-30
-                        select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
-                            option(selected disabled) Sort with
-                            option(value="rate") Rate
+                .field.margin-top-30
+                    select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
+                        option(selected disabled) Sort with
+                        option(value="rate") Rate
 
             h1.text-center.padding-bottom-10 #{ title }
 
             .clearfix
             .ui.segment.list-segment.searchData
-                .ui.grid.no-margin-bottom.gray-bg
+                .ui.grid.no-margin-bottom
                     .doubling.four.column.row
                         each ad in data
                             .column.margin-bottom-10
