@@ -197,9 +197,24 @@ block content
                 | page view
 
 
+        h2 #{i18n.__( "Similar Ads" )}
+        .ui.segment.list-segment
+            .ui.grid.no-margin-bottom
+                .doubling.four.column.row
+                    .column.margin-bottom-10(
+                        ng-repeat="ad in similarAds",
+                        ng-if="ad._id !== adId"
+                    )
+                        a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
+                            .image.cardListImage
+                                img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-hide="ad.photoShowcaseIndex === null")
+                                img(ng-src='/img/no-photo.png', , ng-show="ad.photoShowcaseIndex === null")
+                            .content
+                                span.black {{ ad.title }}
+
+
         - if (data.events.length > 0)
-            h2 Events
-            pre #{ data.events.title }
+            h2 #{i18n.__( "Events" )}
             .ui.segment.list-segment
                 .ui.grid.no-margin-bottom
                     .doubling.four.column.row
@@ -259,4 +274,5 @@ append javascripts
     script(src="/semantic/dist/components/rating.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
     script(src="/dist/js/app/services/rateFactory.min.js")
-    script(src="/dist/js/app/controllers/detailController.min.js")
+    script(src="/dist/js/app/services/detailFactory.min.js")
+    script(src="/js/app/controllers/detailController.js")

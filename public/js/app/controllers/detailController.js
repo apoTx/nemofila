@@ -1,4 +1,4 @@
-app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', ($scope, favFactory, rateFactory, messageFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory) => {
 
 	$(() => {
 		$('.detail-right-menu a').popup({
@@ -75,13 +75,24 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			});
 		}
 
-		let photoList = JSON.parse(photos);
-		photoList.forEach((elem,index)=>{
-			elem.url = amazon_base_url+'/'+elem.filename;
-			elem.id = index;
-		});
+		try{
+			let photoList = JSON.parse(photos);
+			photoList.forEach((elem,index)=>{
+				elem.url = amazon_base_url+'/'+elem.filename;
+				elem.id = index;
+			});
 
-		$scope.imagesa = photoList;
+			$scope.imagesa = photoList;
+		}catch (e) {
+			//catch
+		}
+
+
+		// similar ads
+		detailFactory.getSimilars($scope.adId).then((result) => {
+			console.log(result);
+			$scope.similarAds = result;
+		});
 	};
 
 	$scope.addFavourites = (adId, userId) => {
@@ -156,8 +167,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 	};
 
 	$scope.showcase = (data, showcaseIndex) => {
-		console.log(data);
-		console.log(showcaseIndex);
 		$scope.photos = data;
 		$scope.showcaseIndex = showcaseIndex;
 		$scope.showcase = data[$scope.showcaseIndex].filename;

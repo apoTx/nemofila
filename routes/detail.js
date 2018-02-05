@@ -237,6 +237,32 @@ router.get('/:slug/:id', (req, res, next) => {
 	});
 });
 
+router.get('/getSimilars', requireLogin, (req, res) => {
+	const adId = req.query.adId;
+
+	/*eslint-disable*/
+	let findData;
+	/*eslint-enable*/
+
+	Ads.findById(adId, (err, result) => {
+		const categoryId = result.category.categoryId;
+		const childCategoryId = result.category.categoryChildId;
+		const location = result.place.address_components[0].long_name;
+		console.log(location);
+
+		if (childCategoryId === null){
+			findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
+		}else{
+			findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
+		}
+
+		Ads.find(findData, (err, data) => {
+			res.json(data);
+		});
+
+	});
+});
+
 router.get('/addFavourites', requireLogin, (req, res) => {
 	let fav = new Favourites({
 		userId: req.query.userId,
