@@ -8,6 +8,11 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		$('#detailRating').rating({
 			maxRating: 5,
 			onRate: (value) => {
+				if(!$scope.userId || $scope.userId === 'null'){
+					alert('Please login');
+					return false;
+				}
+
 				rateFactory.setRate($scope.adId, value).then((data) => {
 					console.log(data);
 				});
@@ -57,6 +62,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 
 	$scope.init = (userId, adId, photos, amazon_base_url, mapLat, mapLng) => {
 		$scope.adId = adId;
+		$scope.userId = userId;
 
 		initMap(mapLat, mapLng);
 
