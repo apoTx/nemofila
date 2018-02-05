@@ -134,6 +134,8 @@ block content
                                 span.rateNumber
                                     b #{ viewRate }
                                 .ui.star.large.rating#detailRating(data-rating='#{ rate }')
+                                span.reviewMessage(ng-show="onRate")
+                                    | #{i18n.__("Thank you for the review")}
 
 
                     table.ui.definition.table

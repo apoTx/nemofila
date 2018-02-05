@@ -58,6 +58,9 @@ p.description{
     display: block;
     margin-top:-10px
 }
+.reviewMessage{
+    color: #af6f12;
+}
 
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {

@@ -5,6 +5,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			position: 'bottom center'
 		});
 
+		$scope.onRate = false;
 		$('#detailRating').rating({
 			maxRating: 5,
 			onRate: (value) => {
@@ -16,6 +17,8 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 				rateFactory.setRate($scope.adId, value).then((data) => {
 					console.log(data);
 				});
+
+				$scope.onRate = true;
 			}
 		});
 
