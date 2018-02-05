@@ -129,7 +129,7 @@ router.get( '/', ( req, res ) => {
 });
 
 router.get('/getEventsByLocationName', (req, res) => {
-	const location = req.query.location;
+	// const location = req.query.location;
 
 	Events.aggregate([
 		{
