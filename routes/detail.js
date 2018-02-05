@@ -246,19 +246,19 @@ router.get('/getSimilars', requireLogin, (req, res) => {
 
 	Ads.findById(adId, (err, result) => {
 		const categoryId = result.category.categoryId;
-		const childCategoryId = result.category.categoryChildId;
+		// const childCategoryId = result.category.categoryChildId;
 		const location = result.place.address_components[0].long_name;
 		console.log(location);
 
-		if (childCategoryId === null){
-			findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
-		}else{
-			findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
-		}
+		//if (childCategoryId === null){
+		findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
+		//}else{
+		//findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
+		//}
 
 		Ads.find(findData, (err, data) => {
 			res.json(data);
-		});
+		}).limit(8);
 
 	});
 });

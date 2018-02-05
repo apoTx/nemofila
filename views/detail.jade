@@ -196,21 +196,21 @@ block content
                 h3 #{ pageView }
                 | page view
 
-
-        h2 #{i18n.__( "Similar Ads" )}
-        .ui.segment.list-segment
-            .ui.grid.no-margin-bottom
-                .doubling.four.column.row
-                    .column.margin-bottom-10(
-                        ng-repeat="ad in similarAds",
-                        ng-if="ad._id !== adId"
-                    )
-                        a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
-                            .image.cardListImage
-                                img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-hide="ad.photoShowcaseIndex === null")
-                                img(ng-src='/img/no-photo.png', , ng-show="ad.photoShowcaseIndex === null")
-                            .content
-                                span.black {{ ad.title }}
+        div(ng-if="similarAds.length > 1")
+            h2 #{i18n.__( "Similar Ads" )}
+            .ui.segment.list-segment
+                .ui.grid.no-margin-bottom
+                    .doubling.four.column.row
+                        .column.margin-bottom-10(
+                            ng-repeat="ad in similarAds",
+                            ng-if="ad._id !== adId"
+                        )
+                            a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
+                                .image.cardListImage
+                                    img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-hide="ad.photoShowcaseIndex === null")
+                                    img(ng-src='/img/no-photo.png', , ng-show="ad.photoShowcaseIndex === null")
+                                .content
+                                    span.black {{ ad.title }}
 
 
         - if (data.events.length > 0)
