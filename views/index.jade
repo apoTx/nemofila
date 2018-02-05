@@ -14,7 +14,9 @@ append stylesheets
 block logo
 
 block top_left
-    .ui.container.computer.tablet.only.grid.no-margin()
+    .ui.container.computer.tablet.only.grid.no-margin
+        a.header.item.no-before(href='/')
+            img.logo(src='/img/nemofila.png')
         .left.menu
             .ui.simple.dropdown.item
                 i.map.signs.thin.icon
