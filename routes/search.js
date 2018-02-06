@@ -1,13 +1,13 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
 const round = require('mongo-round');
 
-let i18n = require('i18n');
-let ObjectId = require('mongoose').Types.ObjectId;
+const i18n = require('i18n');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 // Models
-let Ads = require('../models/ads');
-let Events = require('../models/events');
+const Ads = require('../models/ads');
+const Events = require('../models/events');
 
 let adPerPage = 48;
 

@@ -320,6 +320,7 @@ router.get('/getIndexAds', (req,res) => {
 			}
 		},
 
+
 		{
 			$group: {
 				_id: {
@@ -329,7 +330,7 @@ router.get('/getIndexAds', (req,res) => {
 					photos: '$photos',
 					updateAt: '$updateAt',
 					photoShowcaseIndex: '$photoShowcaseIndex',
-					rateAvg: { $avg: '$rates.score' },
+					rateAvg: { $ceil: { $avg: '$rates.score' } },
 				},
 				power: {
 					$push: '$power'
@@ -343,7 +344,7 @@ router.get('/getIndexAds', (req,res) => {
 			$project: {
 				_id: '$_id._id',
 				title: '$_id.title',
-				rate: round('$_id.rateAvg', 1),
+				rate: '$_id.rateAvg',
 				slug: '$_id.slug',
 				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',

@@ -5,6 +5,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/label.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/rating.min.css')
     link(rel='stylesheet', type='text/css', href='dist/css/index.css')
     style.
         .transparent {
@@ -97,17 +98,27 @@ block content
                 .ui.grid.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
                     .doubling.four.column.row
                         .column.margin-bottom-10(ng-repeat="ad in ads")
-                            a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
-                                .image.cardListImage
-                                    .ui.orange.right.ribbon.label(ng-if="ad.rate")
-                                        | {{ ad.rate }}
+                            .ui.fluid.card.adCard
+                                a.image.cardListImage(href="/detail/{{ ad.slug }}/{{ ad._id }}")
                                     .ui.left.corner.orange.label(ng-show="ad.totalPower > 0")
                                         .cardPowerNumber
                                             | {{ ad.totalPower }}
                                     img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                                     img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
-                                .content
+                                //.content
                                     span {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
+                                .content
+                                    .header {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
+                                    .meta
+                                        a Friends
+                                    .description
+                                        | Matthew is an interior designer living in New York.
+                                .extra.content
+                                    span.right.floated
+                                        | Joined in 2013
+                                    div(ng-if="ad.rate")
+                                        .ui.star.rating(data-rating='{{ ad.rate }}')
+
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader
 
@@ -151,6 +162,7 @@ block content
     include partials/modals/index/howItWork
 
 append javascripts
+    script(src="/semantic/dist/components/rating.min.js")
     script(src="/semantic/dist/components/dropdown.min.js")
     script(src="/dist/js/app/services/indexFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")

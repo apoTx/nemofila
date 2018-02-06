@@ -1,5 +1,12 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory,  categoriesFactory) => {
 
+	$(() => {
+		$('.rating').rating({
+			maxRating: 5,
+			interactive: false
+		});
+	});
+
 	$scope.toggleFilterSidebar = () => {
 		$('.filterSidebar')
 			.sidebar('setting', 'transition', 'overlay')
