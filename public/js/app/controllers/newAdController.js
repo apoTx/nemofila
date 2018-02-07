@@ -135,6 +135,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$('#workTimesModal').modal('show');
 			});
 
+			$('#workTimesForm .checkbox').checkbox({
+				onChecked: () => {
+					console.log($(this).attr('id'));
+					console.log('asd');
+				}
+			});
+
 			$('#anotherPerson').checkbox({
 				onChecked: () => {
 					$scope.newAdForm.anotherContact.checked = true;

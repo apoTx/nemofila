@@ -19,3 +19,9 @@
     font-size:12px;
     padding:10px 0
 }
+
+#workTimesForm .row > .column{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
