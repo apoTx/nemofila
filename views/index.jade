@@ -50,7 +50,7 @@ block content
                 .clearfix
 
                 div.headTitle
-                    h1 Say Hello to Nemofila
+                    h1 #{i18n.__( "Say Hello to Nemofila" )}
 
                 .ui.sidebar.inverted.vertical.left.menu.filterSidebar
                     form.ui.form.sidebarFilterForm
@@ -123,7 +123,7 @@ block content
                     .ui.loader
 
                 h1.text-center(ng-show="ads.length < 1", ng-cloak)
-                    | No results.
+                    | #{i18n.__( "No Results" )}
 
             .ui.grid.stackable
                 .eighteen.wide.column.center.aligned
@@ -156,7 +156,7 @@ block content
                     .ui.loader
 
                 h1.text-center(ng-show="events.length < 1", ng-cloak)
-                    | No results.
+                    | #{i18n.__( "No Results" )}
 
 
     include partials/modals/index/howItWork
