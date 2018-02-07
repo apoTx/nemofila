@@ -68,6 +68,22 @@ router.get( '/', ( req, res ) => {
 			}
 		},
 
+		// categories collection
+		{
+			$lookup: {
+				from: 'categories',
+				localField: 'category.categoryId',
+				foreignField: '_id',
+				as: 'category'
+			}
+		},
+		{
+			$unwind: {
+				path: '$category',
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
 		{
 			$group: {
 				_id: {
@@ -76,6 +92,7 @@ router.get( '/', ( req, res ) => {
 					slug: '$slug',
 					updateAt: '$updateAt',
 					photos: '$photos',
+					category: '$category',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					place: '$place',
 					rate: { $ceil: { $avg: '$rates.score' } },
@@ -99,6 +116,7 @@ router.get( '/', ( req, res ) => {
 				powers: '$power',
 				totalPower: 1,
 				place: '$_id.place',
+				category: '$_id.category.name',
 				rate: round('$_id.rate', 1),
 			}
 		}, // ,

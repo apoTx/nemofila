@@ -59,7 +59,7 @@ block content
                                             img(ng-src='/img/no-photo.png')
                                     .content
                                         span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
-                                        .meta category
+                                        .meta #{ ad.category }
                                     - if (ad.rate)
                                         .extra.content
                                             .ui.star.rating(data-rating='#{ ad.rate }')
