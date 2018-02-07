@@ -27,3 +27,7 @@
    /* display: none!important;*/
     margin-top:-8px
 }
+
+.workTimeSettingsDisplay{
+    display: none!important;
+}

@@ -135,21 +135,30 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$('#workTimesModal').modal('show');
 			});
 
-			$('.openClose.checkbox').checkbox({
+			/*$('.openClose.checkbox').checkbox({
 				onChecked: () => {
 					const $childCheckbox  = $(this).closest('.checkbox');
 
 					console.log($childCheckbox);
 				}
-			});
+			});*/
 
 			$('.hour24').change(function() {
 				let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
-				console.log($clockDropdowns);
 				if(this.checked) {
 					$clockDropdowns.hide();
 				}else{
 					$clockDropdowns.show();
+				}
+			});
+
+			$('.openClose').change(function() {
+				let $elem = $(this).parent('div').parent('div').next('div');
+
+				if(this.checked) {
+					$elem.removeClass('workTimeSettingsDisplay');
+				}else{
+					$elem.addClass('workTimeSettingsDisplay');
 				}
 			});
 

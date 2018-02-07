@@ -9,18 +9,18 @@
                     .row
                         .three.wide.column
                             strong Pazartesi
-                        .four.wide.column
-                            .ui.toggle.checkbox.openClose
-                                input(type='checkbox')
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox')
                                 label #{i18n.__( "Open" )}
 
-                        .nine.wide.column
+                        .ten.wide.column.workTimeSettingsDisplay
                             .ui.grid.text-left
-                                .six.wide.column.center
+                                .five.wide.column.center
                                     .ui.checkbox
                                         input.hour24(type='checkbox')
                                         label #{i18n.__( "24 Hour" )}
-                                .ten.wide.column.timeDropdowns
+                                .eleven.wide.column.timeDropdowns
                                     .ui.grid.dropdowns
                                         .eight.wide.column
                                             select(ng-model='monday.openTime', ng-options='item for item in clocks')
