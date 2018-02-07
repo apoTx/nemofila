@@ -1,0 +1,29 @@
+.ui.modal.tiny#workTimesModal
+    i.close.icon
+    .header
+        | Work Times
+    .content
+        div(ng-show="!emailSended" ng-cloak)
+            form.ui.form#subscribeForm
+                .fields.ui.grid
+                    .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                        //label E-mail
+                        input(name='email', placeholder='E-mail', ng-model='subscribeFormData.email', autocapitalize="none")
+                .ui.error.message
+                .backendErr.ui.red.message(ng-if="subscribeErr")
+                    | {{ subscribeErr }}
+
+        div(ng-show="successSubscribe" ng-cloak)
+            .ui.success.message
+                .header
+                    | #{i18n.__("thankyou")}
+                p
+                    | #{i18n.__("added_mail_description")}
+
+
+    .actions
+        button.ui.right.icon.button.primary(
+        form="subscribeForm",
+        ng-class="subscribeBtnLoading ? 'loading disabled' : '' "
+        )
+            | Submit

@@ -85,6 +85,9 @@ block content
                         .field
                             label #{ i18n.__( "website" ) }
                             input(name='website', placeholder='#{ i18n.__( "website" ) }',  ng-model="newAdForm.website")
+                        .field
+                            label #{ i18n.__( "Work Times" ) }
+                            .ui.button#workTimesBtn #{ i18n.__( "Add Work Times" ) }
 
                         .ui.tiny.stacked.segment
                             .text-center
@@ -308,6 +311,8 @@ block content
                 div.margin-bottom-30 #{ i18n.__("new_ad_successful_info") }
                 a.ui.primary.button(href="/") #{ i18n.__("index_title") }
 
+    // Work Times Modal
+    include partials/modals/workTimes
 
     .ui.modal#termsModal
         .header Terms

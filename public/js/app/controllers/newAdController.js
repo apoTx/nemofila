@@ -125,8 +125,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		$(() => {
 			$('#terms').on('click', () => {
-				console.log('asd');
 				$('#termsModal').modal('show');
+			});
+
+
+			$('#workTimesModal').modal('show');
+
+			$('#workTimesBtn').on('click', () => {
+				$('#workTimesModal').modal('show');
 			});
 
 			$('#anotherPerson').checkbox({
