@@ -21,11 +21,9 @@
 }
 
 #workTimesForm .row > .column, .center{
-    display: flex!important;
-    align-items: center!important;
-    justify-content: center!important;
 }
 
-.timeDropdowns{
+.timeDropdowns > div > div{
    /* display: none!important;*/
+    margin-top:-8px
 }

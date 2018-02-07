@@ -143,6 +143,16 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				}
 			});
 
+			$('.hour24').change(function() {
+				let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
+				console.log($clockDropdowns);
+				if(this.checked) {
+					$clockDropdowns.hide();
+				}else{
+					$clockDropdowns.show();
+				}
+			});
+
 			$('#anotherPerson').checkbox({
 				onChecked: () => {
 					$scope.newAdForm.anotherContact.checked = true;

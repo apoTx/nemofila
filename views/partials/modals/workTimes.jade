@@ -11,17 +11,17 @@
                             strong Pazartesi
                         .four.wide.column
                             .ui.toggle.checkbox.openClose
-                                input(type='checkbox', name='public')
+                                input(type='checkbox')
                                 label #{i18n.__( "Open" )}
 
-                        .nine.wide.column.timeDropdowns
-                            .ui.grid
+                        .nine.wide.column
+                            .ui.grid.text-left
                                 .six.wide.column.center
                                     .ui.checkbox
-                                        input(type='checkbox', name='public')
+                                        input.hour24(type='checkbox')
                                         label #{i18n.__( "24 Hour" )}
-                                .ten.wide.column
-                                    .ui.grid
+                                .ten.wide.column.timeDropdowns
+                                    .ui.grid.dropdowns
                                         .eight.wide.column
                                             select(ng-model='monday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__("Open Time")}
