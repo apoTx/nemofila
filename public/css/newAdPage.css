@@ -25,3 +25,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.timeDropdowns{
+   /* display: none!important;*/
+}

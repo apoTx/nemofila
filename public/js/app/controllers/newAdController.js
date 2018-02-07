@@ -137,8 +137,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			$('#workTimesForm .checkbox').checkbox({
 				onChecked: () => {
-					console.log($(this).attr('id'));
-					console.log('asd');
+					const $childCheckbox  = $(this).closest('.checkbox');
+
+					console.log($childCheckbox);
 				}
 			});
 

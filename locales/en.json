@@ -133,5 +133,7 @@
 	"Work Times": "Work Times",
 	"Add Work Times": "Add Work Times",
 	"Open Time": "Open Time",
-	"Close Time": "Close Time"
+	"Close Time": "Close Time",
+	"Close": "Close",
+	"Open": "Open"
 }
