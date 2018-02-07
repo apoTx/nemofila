@@ -10,18 +10,25 @@
                         .three.wide.column
                             strong Pazartesi
                         .four.wide.column
-                            .ui.toggle.checkbox
-                                input(type='checkbox', name='public', id="deneme")
+                            .ui.toggle.checkbox.openClose
+                                input(type='checkbox', name='public')
                                 label #{i18n.__( "Open" )}
 
                         .nine.wide.column.timeDropdowns
                             .ui.grid
-                                .eight.wide.column
-                                    select()
-                                        option(value='', disabled, selected) #{i18n.__("Open Time")}
-                                .eight.wide.column
-                                    select()
-                                        option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                                .six.wide.column.center
+                                    .ui.checkbox
+                                        input(type='checkbox', name='public')
+                                        label #{i18n.__( "24 Hour" )}
+                                .ten.wide.column
+                                    .ui.grid
+                                        .eight.wide.column
+                                            select(ng-model='monday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__("Open Time")}
+                                        .eight.wide.column
+                                            select(ng-model='monday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__("Close Time")}
+
 
 
                 .backendErr.ui.red.message(ng-if="subscribeErr")
