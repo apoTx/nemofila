@@ -111,10 +111,10 @@ block content
                                     .header {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
                                     .meta
                                         a Friends
-                                    .description
-                                        | Matthew is an interior designer living in New York.
+                                    //.description
+                                        | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
                                 .extra.content
-                                    span.right.floated
+                                    //span.right.floated
                                         | Joined in 2013
                                     div(ng-if="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')

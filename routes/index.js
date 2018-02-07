@@ -326,6 +326,7 @@ router.get('/getIndexAds', (req,res) => {
 				_id: {
 					_id: '$_id',
 					title: '$title',
+					description: '$description',
 					slug: '$slug',
 					photos: '$photos',
 					updateAt: '$updateAt',
@@ -344,6 +345,7 @@ router.get('/getIndexAds', (req,res) => {
 			$project: {
 				_id: '$_id._id',
 				title: '$_id.title',
+				description: '$_id.description',
 				rate: '$_id.rateAvg',
 				slug: '$_id.slug',
 				updateAt: '$_id.updateAt',
