@@ -78,7 +78,7 @@ router.get( '/', ( req, res ) => {
 					photos: '$photos',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					place: '$place',
-					rate: { $avg: '$rates.score' },
+					rate: { $ceil: { $avg: '$rates.score' } },
 				},
 				power: {
 					$push: '$power'

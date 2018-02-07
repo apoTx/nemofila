@@ -59,7 +59,7 @@ i18n.configure({
 	locales:['en', 'es', 'tr'],
 	directory: __dirname + '/locales',
 	defaultLocale: 'en',
-	cookie: 'locale'
+	cookie: 'locale',
 });
 
 app.use(favicon(path.join(__dirname, 'public/img', 'favicon.ico')));

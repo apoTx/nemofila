@@ -4,6 +4,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='dist/css/index.css')
     link(rel='stylesheet', type='text/css', href='dist/css/search.css')
     link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/rating.min.css')
 
 
 block content
@@ -46,10 +47,8 @@ block content
                     .doubling.four.column.row
                         each ad in data
                             .column.margin-bottom-10
-                                a.ui.fluid.card.adCard(href="/detail/#{ ad.slug }/#{ ad._id }")
-                                    .image.cardListImage
-                                        - if (ad.rate)
-                                            .ui.orange.right.ribbon.label #{ ad.rate }
+                                .ui.fluid.card.adCard
+                                    a.image.cardListImage(href="/detail/#{ ad.slug }/#{ ad._id }")
                                         - if (ad.totalPower > 0)
                                             .ui.left.corner.orange.label
                                                 .cardPowerNumber
@@ -59,8 +58,11 @@ block content
                                         - else
                                             img(ng-src='/img/no-photo.png')
                                     .content
-                                        span #{ ad.title.substr(0, 26) }
-                                        | #{ ad.title.length > 26 ? '...' : '' }
+                                        span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
+                                        .meta category
+                                    - if (ad.rate)
+                                        .extra.content
+                                            .ui.star.rating(data-rating='#{ ad.rate }')
 
             .text-center
                 button.ui.big.button.margin-auto(ng-click="showEvents(placeLongName)")
@@ -68,6 +70,7 @@ block content
 
 
 append javascripts
+    script(src="/semantic/dist/components/rating.min.js")
     script(src="/dist/js/app/services/searchFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
