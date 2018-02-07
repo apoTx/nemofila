@@ -320,6 +320,21 @@ router.get('/getIndexAds', (req,res) => {
 			}
 		},
 
+		// categories collection
+		{
+			$lookup: {
+				from: 'categories',
+				localField: 'category.categoryId',
+				foreignField: '_id',
+				as: 'category'
+			}
+		},
+		{
+			$unwind: {
+				path: '$category',
+				preserveNullAndEmptyArrays: true
+			}
+		},
 
 		{
 			$group: {
@@ -330,6 +345,7 @@ router.get('/getIndexAds', (req,res) => {
 					slug: '$slug',
 					photos: '$photos',
 					updateAt: '$updateAt',
+					category: '$category',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
 				},
@@ -352,6 +368,7 @@ router.get('/getIndexAds', (req,res) => {
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
+				category: '$_id.category.name',
 				totalPower: 1
 			}
 		},

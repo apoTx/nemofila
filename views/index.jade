@@ -110,7 +110,7 @@ block content
                                 .content
                                     .header {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
                                     .meta
-                                        a Friends
+                                        a {{ ad.category }}
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
                                 .extra.content
