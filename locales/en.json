@@ -136,5 +136,16 @@
 	"Close Time": "Close Time",
 	"Close": "Close",
 	"Open": "Open",
-	"24 Hour": "24 Hour"
+	"24 Hour": "24 Hour",
+	"Pazartesi": "Pazartesi",
+	"Salı": "Salı",
+	"Monday": "Monday",
+	"Tuesday": "Tuesday",
+	"Wednesday": "Wednesday",
+	"Thursday": "Thursday",
+	"Friday": "Friday",
+	"Saturday": "Saturday",
+	"Sunday": "Sunday",
+	"Okay": "Okay",
+	"Done": "Done"
 }

@@ -76,6 +76,8 @@ router.post('/create', requireLogin, (req, res) => {
 
 			delete place.photos;
 
+			console.log(data.workTimes);
+
 			const obj = {
 				title: data.title,
 				slug: slugify(data.title, { lower:true }),
@@ -91,7 +93,8 @@ router.post('/create', requireLogin, (req, res) => {
 				category: {
 					categoryId: category.categoryId,
 					categoryChildId: category.childCategoryId
-				}
+				},
+				workTimes: data.workTimes
 			};
 
 			if (data.anotherContact.checked){

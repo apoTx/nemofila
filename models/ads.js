@@ -85,53 +85,67 @@ let adSchema = new Schema({
 	],
 	workTimes: {
 		monday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		},
 		tuesday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		},
 		wednesday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		},
 		thursday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		},
 		friday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		},
 		saturday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		},
 		sunday: {
-			startH: Number,
-			startM: Number,
-			endH: Number,
-			endM: Number,
-			open: Boolean
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: Boolean,
+			openTime: String,
+			closeTime: String
 		}
 	}
 });
