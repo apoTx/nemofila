@@ -29,6 +29,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 			$scope.adPerPage = response.adPerPage;
 			$scope.adCount = response.adCount;
 			$scope.currentPage = response.page;
+			$scope.dayName = response.dayName;
 		});
 
 		indexFactory.getIndexEvents().then((response) => {

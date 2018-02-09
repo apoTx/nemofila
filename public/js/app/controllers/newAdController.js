@@ -129,7 +129,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 
 
-			$('#workTimesModal').modal('show');
+			// $('#workTimesModal').modal('show');
 
 			$('#workTimesBtn').on('click', () => {
 				$('#workTimesModal').modal('show');

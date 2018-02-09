@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const uuid = require('uuid');
-const round = require('mongo-round');
 
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -19,6 +18,7 @@ const Subscribe = require('../models/subscribes');
 
 // helpers
 const mailer = require('../helper/mailer');
+const getDayName = require('../helper/getDayName');
 const verifyRecaptcha = require('../helper/recaptcha');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
@@ -346,6 +346,7 @@ router.get('/getIndexAds', (req,res) => {
 					photos: '$photos',
 					updateAt: '$updateAt',
 					category: '$category',
+					workTimes: '$workTimes',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
 				},
@@ -367,6 +368,7 @@ router.get('/getIndexAds', (req,res) => {
 				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
+				workTimes: '$_id.workTimes',
 				powers: '$power',
 				category: '$_id.category.name',
 				totalPower: 1
@@ -379,11 +381,11 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(data);
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
-			const result = Object.assign(d, { adCount: count, adPerPage: adPerPage, page: req.query.page  });
+			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
+			console.log(result);
 			res.json(result);
 		});
 	});

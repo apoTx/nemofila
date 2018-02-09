@@ -114,8 +114,12 @@ block content
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
                                 .extra.content
-                                    //span.right.floated
-                                        | Joined in 2013
+                                    span.right.floated(ng-if="!ad.workTimes[dayName].hour24")
+                                        .ui.red.horizontal.label #{i18n.__( "Close" )}
+
+                                    span.right.floated(ng-if="ad.workTimes[dayName].hour24")
+                                        .ui.green.horizontal.label #{i18n.__( "Open" )}
+
                                     div(ng-if="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 
