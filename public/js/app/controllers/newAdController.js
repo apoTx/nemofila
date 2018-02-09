@@ -31,10 +31,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.powerNumber = $('.powerNumber').val();
 		});
 
-		$('body').on('click', () => {
-			console.log($scope.workTimes);
-		})
-
 		function handleToken(token) {
 			$scope.buyPowerLoader = true;
 			$scope.$apply();
