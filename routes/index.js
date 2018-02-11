@@ -335,7 +335,6 @@ router.get('/getIndexAds', (req,res) => {
 				preserveNullAndEmptyArrays: true
 			}
 		},
-
 		{
 			$group: {
 				_id: {
@@ -349,6 +348,7 @@ router.get('/getIndexAds', (req,res) => {
 					workTimes: '$workTimes',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
+					//openClose: { $cond: [ { '$workTimes.friday.openTime': { $lte: '08:00' } }, 1, 0 ] }
 				},
 				power: {
 					$push: '$power'
@@ -369,6 +369,7 @@ router.get('/getIndexAds', (req,res) => {
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				workTimes: '$_id.workTimes',
+				openClose: '$_id.openClose',
 				powers: '$power',
 				category: '$_id.category.name',
 				totalPower: 1
