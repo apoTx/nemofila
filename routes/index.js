@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
@@ -383,7 +382,7 @@ router.get('/getIndexAds', (req,res) => {
 
 		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
 			hour: 'numeric',
-			minute: 'numeric'});
+			minute: 'numeric' });
 
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };

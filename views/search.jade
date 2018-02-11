@@ -60,8 +60,18 @@ block content
                                     .content
                                         span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
                                         .meta #{ ad.category }
-                                    - if (ad.rate)
-                                        .extra.content
+
+                                    .extra.content
+                                        - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
+
+                                        - if (!ad.workTimes.open || !clockOpenClose)
+                                            span.right.floated
+                                                .ui.red.horizontal.label #{i18n.__( "Close" )}
+                                        - else
+                                            span.right.floated
+                                                .ui.green.horizontal.label #{i18n.__( "Open" )}
+
+                                        - if (ad.rate)
                                             .ui.star.rating(data-rating='#{ ad.rate }')
 
             .text-center

@@ -9,6 +9,8 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const Ads = require('../models/ads');
 const Events = require('../models/events');
 
+const getDayName = require('../helper/getDayName');
+
 let adPerPage = 48;
 
 /* GET home page. */
@@ -95,6 +97,7 @@ router.get( '/', ( req, res ) => {
 					category: '$category',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					place: '$place',
+					workTimes: '$workTimes',
 					rate: { $ceil: { $avg: '$rates.score' } },
 				},
 				power: {
@@ -118,6 +121,7 @@ router.get( '/', ( req, res ) => {
 				place: '$_id.place',
 				category: '$_id.category.name',
 				rate: round('$_id.rate', 1),
+				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
 			}
 		}, // ,
 		{ $sort: sort },
@@ -127,6 +131,9 @@ router.get( '/', ( req, res ) => {
 		if (err)
 			throw new Error(err);
 
+		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
+			hour: 'numeric',
+			minute: 'numeric' });
 		const category = subCategoryName !== '' ? subCategoryName : categoryName;
 		const locationTitle = (location !== '') && (location !== undefined)   ? 'in '+ location : '';
 		const best = category !== '' ? i18n.__( 'best' ) : '';
@@ -139,8 +146,11 @@ router.get( '/', ( req, res ) => {
 			adPerPage: adPerPage,
 			page: req.query.page,
 			url: url,
+			currentTime: currentTime,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
+
+		console.log(result.data);
 
 		res.render('search', result);
 	});

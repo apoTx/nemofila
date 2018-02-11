@@ -89,63 +89,126 @@ let adSchema = new Schema({
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		},
 		tuesday: {
 			open: {
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		},
 		wednesday: {
 			open: {
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		},
 		thursday: {
 			open: {
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		},
 		friday: {
 			open: {
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		},
 		saturday: {
 			open: {
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		},
 		sunday: {
 			open: {
 				type: Boolean,
 				default: false
 			},
-			hour24: Boolean,
-			openTime: String,
-			closeTime: String
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				default: '23:00'
+			}
 		}
 	}
 });
