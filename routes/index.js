@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
@@ -348,14 +349,13 @@ router.get('/getIndexAds', (req,res) => {
 					workTimes: '$workTimes',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
-					//openClose: { $cond: [ { '$workTimes.friday.openTime': { $lte: '08:00' } }, 1, 0 ] }
 				},
 				power: {
 					$push: '$power'
 				},
 				totalPower: {
 					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
-				},
+				}
 			}
 		},
 		{
@@ -368,11 +368,10 @@ router.get('/getIndexAds', (req,res) => {
 				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
-				workTimes: '$_id.workTimes',
-				openClose: '$_id.openClose',
+				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
 				powers: '$power',
 				category: '$_id.category.name',
-				totalPower: 1
+				totalPower: 1,
 			}
 		},
 		{ $sort: { 'totalPower':-1, 'updateAt': -1 } },
@@ -382,9 +381,13 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
+		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
+			hour: 'numeric',
+			minute: 'numeric'});
+
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
-			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
+			const result = Object.assign(d, { currentTime: currentTime, dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
 			console.log(result);
 			res.json(result);
