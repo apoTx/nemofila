@@ -213,22 +213,20 @@ block content
                                     span.black {{ ad.title }}
 
 
-        - if (data.events.length > 0)
+        div(ng-if="events.length > 0")
             h2 #{i18n.__( "Events" )}
             .ui.segment.list-segment
                 .ui.grid.no-margin-bottom
                     .doubling.four.column.row
-                        - each event in data.events
-                            .column.margin-bottom-10
-                                a.ui.fluid.card.adCard(href="/events/detail/#{ event.slug }/#{ event._id }")
-                                    .image.cardListImage
-                                        - if (event.photos !== null)
-                                            img(ng-src='#{ amazon_base_url }/#{ event.photos[event.photoShowcaseIndex].filename }')
-                                        - else
-                                            img(ng-src='/img/no-photo.png')
-                                    .content
-                                        span.black #{ event.title.substr( 0, 26 ) }
-                                            | #{ event.title.length > 26 ? '...' : '' }
+                        .column.margin-bottom-10(
+                            ng-repeat="event in events",
+                        )
+                            a.ui.fluid.card.adCard(href="/detail/{{ event.slug }}/{{ event._id }}")
+                                .image.cardListImage
+                                    img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-hide="event.photoShowcaseIndex === null")
+                                    img(ng-src='/img/no-photo.png', , ng-show="event.photoShowcaseIndex === null")
+                                .content
+                                    span.black {{ event.title }}
 
 
             - if (sessionId !== null && (sessionId != String(data.user._id)))
@@ -274,5 +272,6 @@ append javascripts
     script(src="/semantic/dist/components/rating.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
     script(src="/dist/js/app/services/rateFactory.min.js")
+    script(src="/dist/js/app/services/eventFactory.min.js")
     script(src="/dist/js/app/services/detailFactory.min.js")
     script(src="/js/app/controllers/detailController.js")

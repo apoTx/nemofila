@@ -1,4 +1,4 @@
-app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory) => {
 
 	$(() => {
 		$('.detail-right-menu a').popup({
@@ -90,8 +90,12 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 
 		// similar ads
 		detailFactory.getSimilars($scope.adId).then((result) => {
-			console.log(result);
 			$scope.similarAds = result;
+		});
+
+		// events
+		eventFactory.getEventsByAdId($scope.adId).then((result) => {
+			$scope.events = result;
 		});
 	};
 

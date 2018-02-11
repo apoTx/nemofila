@@ -76,6 +76,18 @@ router.get( '/getIndexEvents', (req, res) => {
 		.sort({ _id: -1 });
 });
 
+router.get( '/getEventsByAdId', (req, res) => {
+	Events.find({
+		adId: req.query.adId,
+		listingDate: { $lte: new Date() },
+		endDate: { $gte:  new Date() }
+	}, (err, data) => {
+		res.json(data);
+	})
+		.limit(12)
+		.sort({ _id: -1 });
+});
+
 router.get( '/detail/:slug/:id', (req, res, next) => {
 	let _id;
 	try{
