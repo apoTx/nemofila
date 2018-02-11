@@ -15,6 +15,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.newAdForm.place = null;
 
+	$scope.autocompleteOptions = {
+		types: ['(cities)']
+	};
+
 	$(() => {
 		// stripe
 		$('#buttonCheckout').on('click', () => {
