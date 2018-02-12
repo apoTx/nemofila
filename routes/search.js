@@ -157,45 +157,37 @@ router.get( '/', ( req, res ) => {
 });
 
 router.get('/getEventsByLocationName', (req, res) => {
-	// const location = req.query.location;
+	const location = req.query.location;
 
-	Events.aggregate([
+	Ads.aggregate([
 		{
 			'$match': {
-				// '_id': _id,
+				'place.address_components.long_name': location !== '' ? location : { $exists: true },
 			}
 		},
 
 		// ads collection
 		{
 			$lookup: {
-				from: 'ads',
-				localField: 'adId',
-				foreignField: '_id',
-				as: 'ad'
+				from: 'events',
+				localField: '_id',
+				foreignField: 'adId',
+				as: 'events'
 			}
 		},
-		{ '$unwind': '$ad' },
+		{ '$unwind': '$events' },
 
 		{ $limit: 1 },
 		{
 			'$project': {
-				'title': 1,
-				'description': 1,
-				'status': 1,
-				'startDate': 1,
-				'endDate': 1,
-				'photoShowcaseIndex': 1,
-				'photos': 1,
-				'ad': '$ad',
+				'events': '$events',
 			},
 		},
 	], (err, result)=>{
 		if (err)
 			throw err;
 
-		console.log(result[0]);
-		res.json(result[0]);
+		res.json(result);
 	});
 });
 

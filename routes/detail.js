@@ -99,7 +99,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		{ '$unwind': '$user' },
 
 		// Event collection
-		{
+		/*{
 			$lookup: {
 				from: 'events',
 				localField: '_id',
@@ -112,7 +112,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				path: '$event',
 				preserveNullAndEmptyArrays: true
 			}
-		},
+		},*/
 
 		// categories collection
 		{

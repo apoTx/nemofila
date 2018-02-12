@@ -23,7 +23,8 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'se
 	$scope.showEvents = (placeLongName) => {
 		console.log(placeLongName);
 		searchFactory.getEventsByLocationName(placeLongName).then((result) => {
-			console.log(result);
+			$scope.events = result;
+			console.log($scope.events);
 		});
 	};
 
