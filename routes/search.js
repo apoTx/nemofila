@@ -7,7 +7,6 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 // Models
 const Ads = require('../models/ads');
-const Events = require('../models/events');
 
 const getDayName = require('../helper/getDayName');
 
