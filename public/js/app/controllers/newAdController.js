@@ -150,9 +150,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$('.hour24').change(function() {
 				let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
 				if(this.checked) {
-					$clockDropdowns.hide();
+					$clockDropdowns.addClass('timeDropdownsVisible');
 				}else{
-					$clockDropdowns.show();
+					$clockDropdowns.removeClass('timeDropdownsVisible');
 				}
 			});
 
@@ -238,6 +238,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.website = response.data.website || '';
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
 			$scope.newAdForm.place = response.data.place;
+			$scope.newAdForm.workTimes = response.data.workTimes;
+
+			console.log($scope.newAdForm.workTimes);
+
 			if (!$scope.newAdForm.anotherContact){
 				$scope.newAdForm.anotherContact =  { };
 				$scope.newAdForm.anotherContact.checked = false;

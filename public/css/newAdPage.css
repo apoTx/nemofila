@@ -31,3 +31,6 @@
 .workTimeSettingsDisplay{
     display: none!important;
 }
+.timeDropdownsVisible{
+    display: none!important;
+}

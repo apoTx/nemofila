@@ -95,11 +95,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		},
 		tuesday: {
@@ -113,11 +113,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		},
 		wednesday: {
@@ -131,11 +131,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		},
 		thursday: {
@@ -149,11 +149,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		},
 		friday: {
@@ -167,11 +167,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		},
 		saturday: {
@@ -185,11 +185,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		},
 		sunday: {
@@ -203,11 +203,11 @@ let adSchema = new Schema({
 			},
 			openTime: {
 				type: String,
-				default: '07:00'
+				//default: '07:00'
 			},
 			closeTime: {
 				type: String,
-				default: '23:00'
+				//default: '23:00'
 			}
 		}
 	}
