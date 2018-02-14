@@ -213,11 +213,11 @@ block content
                                     span.black {{ ad.title }}
 
 
-        div(ng-if="events.length > 0")
+        div.margin-top-30(ng-if="events.length > 0")
             h2 #{i18n.__( "Events" )}
             .ui.segment.list-segment
                 .ui.grid.no-margin-bottom
-                    .doubling.four.column.row
+                    .doubling.four.column.row.no-padding-bottom
                         .column.margin-bottom-10(
                             ng-repeat="event in events",
                         )
@@ -229,43 +229,43 @@ block content
                                     span.black {{ event.title }}
 
 
-            - if (sessionId !== null && (sessionId != String(data.user._id)))
-                // Send Message Modal
-                .ui.modal.tiny#sendMessageModal
-                    i.close.icon
-                    .header
-                        | Send Message
-                    .content
-                        div(ng-show="!messageSended" ng-cloak)
-                            div.margin-bottom-30
-                                h4.no-margin-bottom To: #{ data.user.name } #{ data.user.surname }
+        - if (sessionId !== null && (sessionId != String(data.user._id)))
+            // Send Message Modal
+            .ui.modal.tiny#sendMessageModal
+                i.close.icon
+                .header
+                    | Send Message
+                .content
+                    div(ng-show="!messageSended" ng-cloak)
+                        div.margin-bottom-30
+                            h4.no-margin-bottom To: #{ data.user.name } #{ data.user.surname }
 
-                            form.ui.form#sendMessageForm
-                                input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ data.user._id }' ", ng-model="sendMessageFormData.toUserId")
-                                input(type='hidden', ng-init="sendMessageFormData.adId = '#{ data._id }' ", ng-model="sendMessageFormData.adId")
+                        form.ui.form#sendMessageForm
+                            input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ data.user._id }' ", ng-model="sendMessageFormData.toUserId")
+                            input(type='hidden', ng-init="sendMessageFormData.adId = '#{ data._id }' ", ng-model="sendMessageFormData.adId")
 
-                                .fields.ui.grid
-                                    .field.sixteen.wide.column.no-padding-top.no-padding-bottom
-                                        textarea(
-                                            name="message",
-                                            placeholder='Enter your message',
-                                            ng-model='sendMessageFormData.message'
-                                        )
-                                .ui.error.message
-                                .backendErr.ui.red.message(ng-if="sendMessageErr")
-                                    | {{ sendMessageErr }}
+                            .fields.ui.grid
+                                .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                                    textarea(
+                                        name="message",
+                                        placeholder='Enter your message',
+                                        ng-model='sendMessageFormData.message'
+                                    )
+                            .ui.error.message
+                            .backendErr.ui.red.message(ng-if="sendMessageErr")
+                                | {{ sendMessageErr }}
 
-                        div(ng-show="messageSended" ng-cloak)
-                            .ui.success.message
-                                .header
-                                    | Your message has been sent.
-                    .actions
-                        button.ui.right.icon.button.primary(
-                            form="sendMessageForm",
-                            ng-class="sendMessageLoading ? 'loading disabled' : '' ",
-                            ng-show="!messageSended"
-                        )
-                            | Submit
+                    div(ng-show="messageSended" ng-cloak)
+                        .ui.success.message
+                            .header
+                                | Your message has been sent.
+                .actions
+                    button.ui.right.icon.button.primary(
+                        form="sendMessageForm",
+                        ng-class="sendMessageLoading ? 'loading disabled' : '' ",
+                        ng-show="!messageSended"
+                    )
+                        | Submit
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")

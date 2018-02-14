@@ -237,7 +237,7 @@ router.get('/:slug/:id', (req, res, next) => {
 	});
 });
 
-router.get('/getSimilars', requireLogin, (req, res) => {
+router.get('/getSimilars', (req, res) => {
 	const adId = req.query.adId;
 
 	/*eslint-disable*/

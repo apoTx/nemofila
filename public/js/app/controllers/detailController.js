@@ -91,6 +91,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		// similar ads
 		detailFactory.getSimilars($scope.adId).then((result) => {
 			$scope.similarAds = result;
+			console.log(result);
 		});
 
 		// events
