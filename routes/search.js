@@ -151,7 +151,7 @@ router.get( '/', ( req, res ) => {
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
-		console.log(result.data);
+		console.log(result);
 
 		res.render('search', result);
 	});

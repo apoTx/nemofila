@@ -31,6 +31,13 @@ block content
                             .two.fields(country-and-category-dropdowns)
 
                     .field.text-right
+                        label.custom Open Now
+                            - if (openNow)
+                                input.customCheckbox(name='openNow', type='checkbox', checked)
+                            - else
+                                input.customCheckbox(name='openNow', type='checkbox')
+
+                    .field.text-right
                         button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                             | Search
 
