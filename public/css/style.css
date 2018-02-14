@@ -317,3 +317,9 @@ a.black{
 .businessOwnersMenu .item a{
     color:#000!important;
 }
+.customCheckbox{
+    width:18px;
+    height:19px;
+    cursor: pointer;
+    margin-left: 10px;
+}

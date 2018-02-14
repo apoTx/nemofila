@@ -46,33 +46,34 @@ block content
                 .ui.grid.no-margin-bottom
                     .doubling.four.column.row
                         each ad in data
-                            .column.margin-bottom-10
-                                .ui.fluid.card.adCard
-                                    a.image.cardListImage(href="/detail/#{ ad.slug }/#{ ad._id }")
-                                        - if (ad.totalPower > 0)
-                                            .ui.left.corner.orange.label
-                                                .cardPowerNumber
-                                                    | #{ ad.totalPower }
-                                        - if (ad.photos !== null)
-                                            img(ng-src='#{ amazon_base_url }/#{ ad.photos[ad.photoShowcaseIndex].filename }')
-                                        - else
-                                            img(ng-src='/img/no-photo.png')
-                                    .content
-                                        span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
-                                        .meta #{ ad.category }
+                            - if (!((!ad.workTimes.open || clockOpenClose) && openNow) )
+                                .column.margin-bottom-10
+                                    .ui.fluid.card.adCard
+                                        a.image.cardListImage(href="/detail/#{ ad.slug }/#{ ad._id }")
+                                            - if (ad.totalPower > 0)
+                                                .ui.left.corner.orange.label
+                                                    .cardPowerNumber
+                                                        | #{ ad.totalPower }
+                                            - if (ad.photos !== null)
+                                                img(ng-src='#{ amazon_base_url }/#{ ad.photos[ad.photoShowcaseIndex].filename }')
+                                            - else
+                                                img(ng-src='/img/no-photo.png')
+                                        .content
+                                            span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
+                                            .meta #{ ad.category }
 
-                                    .extra.content
-                                        - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
+                                        .extra.content
+                                            - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
 
-                                        - if (!ad.workTimes.open || !clockOpenClose)
-                                            span.right.floated
-                                                .ui.red.horizontal.label #{i18n.__( "Close" )}
-                                        - else
-                                            span.right.floated
-                                                .ui.green.horizontal.label #{i18n.__( "Open" )}
+                                            - if (!ad.workTimes.open || !clockOpenClose)
+                                                span.right.floated
+                                                    .ui.red.horizontal.label #{i18n.__( "Close" )}
+                                            - else
+                                                span.right.floated
+                                                    .ui.green.horizontal.label #{i18n.__( "Open" )}
 
-                                        - if (ad.rate)
-                                            .ui.star.rating(data-rating='#{ ad.rate }')
+                                            - if (ad.rate)
+                                                .ui.star.rating(data-rating='#{ ad.rate }')
 
             .text-center
                 button.ui.big.button.margin-auto(

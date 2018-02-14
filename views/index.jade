@@ -1,12 +1,14 @@
 extends layout
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/label.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/rating.min.css')
-    link(rel='stylesheet', type='text/css', href='dist/css/index.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/index.css')
     style.
         .transparent {
             background: rgba(0, 0, 0, 0.1) !important
@@ -84,11 +86,16 @@ block content
                                     .field
                                         .two.fields(country-and-category-dropdowns)
 
+
+                                .clearfix
+
+                                .field.text-right
+                                    label.custom Open Now
+                                        input.customCheckbox(name='openNow', type='checkbox')
+
                                 .field.text-right
                                     button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                                         | Search
-
-                                .clearfix
 
         .ui.main.container
             h2.indexBestInTitle #{i18n.__("best_in_nemofila")}

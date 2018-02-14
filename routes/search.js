@@ -20,6 +20,7 @@ router.get( '/', ( req, res ) => {
 	let categoryName = req.query.categoryName;
 	let subCategoryName = req.query.subCategoryName;
 	let sortWith = req.query.sortWith;
+	const openNow = req.query.openNow;
 
 	let sort;
 	if (sortWith === 'rate'){
@@ -146,6 +147,7 @@ router.get( '/', ( req, res ) => {
 			page: req.query.page,
 			url: url,
 			currentTime: currentTime,
+			openNow: openNow === 'on' ? true : false,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
