@@ -13,6 +13,8 @@ app.controller('profileController', ['$scope', ($scope) => {
 		$scope.i18n_buy_power = profile_locale.myAds.buy_power;
 		$scope.i18n_unpublish = profile_locale.myAds.unpublish;
 
+		$scope.i18n_myEventsTitle = profile_locale.myEvents.title;
+
 		$scope.i18n_messagesTitle = profile_locale.messages.title;
 		$scope.i18n_searchPlaceholder = profile_locale.messages.search;
 
@@ -31,6 +33,10 @@ app.config(['$routeProvider', ($routeProvider) => {
 		.when('/myads', {
 			templateUrl : 'partials/profile/myads.jade',
 			controller: 'myAdsController',
+		})
+		.when('/myevents', {
+			templateUrl : 'partials/profile/myevents.jade',
+			controller: 'myEventsController',
 		})
 		.when('/buypower/:id', {
 			templateUrl : 'partials/profile/buyPower.jade',

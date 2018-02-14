@@ -13,6 +13,9 @@ const config = require('../config/env.json')[process.env.NODE_ENV || 'developmen
 const verifyRecaptcha = require('../helper/recaptcha');
 const ObjectId = mongoose.Types.ObjectId;
 
+//helpers
+let requireLogin = require('./inc/requireLogin.js');
+
 router.get( '/', ( req, res) => {
 	res.send('events');
 });
@@ -85,6 +88,17 @@ router.get( '/getEventsByAdId', (req, res) => {
 		res.json(data);
 	})
 		.limit(12)
+		.sort({ _id: -1 });
+});
+
+router.get( '/getMyEvents', requireLogin, (req, res) => {
+	console.log();
+	Events.find({
+		ownerId: req.session.user._id,
+	}, (err, data) => {
+		console.log(data);
+		res.json(data);
+	})
 		.sort({ _id: -1 });
 });
 

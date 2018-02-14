@@ -19,6 +19,9 @@ router.get('/', requireLogin, (req, res) => {
 				buy_power: res.__('buy_power'),
 				unpublish: res.__('unpublish')
 			},
+			myEvents: {
+				title: res.__( 'My Events' ),
+			},
 			messages: {
 				title: res.__('messages'),
 				search: res.__('searchPlaceholder'),

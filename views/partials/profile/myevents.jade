@@ -1,0 +1,36 @@
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/item.min.css')
+
+h2(ng-if="myEvents.length > 0  ") {{ i18n_myEventsTitle }}
+h2.text-center(ng-if="myEvents.length < 1") {{ i18n_no_results }}
+
+.ui.segment.no-segment
+    .ui.divided.items
+        .item(ng-repeat="event in myEvents")
+            a.image.myAdsList(href='/events/detail/{{ event.slug }}/{{ event._id }}', target="_blank")
+                img(ng-src='{{ amazon_base_url }}/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ event.photos !== null }}")
+                img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
+            .content
+                a.header(href='/detail/{{ event.slug }}/{{ event._id }}' , target="_blank")
+                    | {{ event.title }}
+                .description
+                    p
+                .extra
+                    .ui.label(
+                            ng-class="{red: event.status===2 || event.status === 4, orange: event.status === 0}"
+                        )
+                        | {{ event.statusText }}
+
+                    .ui.text.menu
+                        .ui.simple.right.dropdown.item
+                            | {{ i18n_settings }}
+                            i.dropdown.icon
+                            .menu
+                                a.item(href="./newAd?id={{ event._id }}")
+                                    i.edit.icon
+                                    | {{ i18n_edit }}
+
+.ui.dimmer(ng-class="{active: loadingMyEvents}")
+    .ui.loader
+
+

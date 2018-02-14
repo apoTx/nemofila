@@ -19,6 +19,11 @@ block content
             )
                 | #{i18n.__("my_ads")}
             a.item(
+                href="#!myevents",
+                ng-class="{active: activetab=='myevents'}"
+            )
+                | #{i18n.__( "My Events" )}
+            a.item(
                 href="#!messages",
                 ng-class="{active: activetab=='messages'}"
             )
@@ -45,6 +50,10 @@ append javascripts
     // MyAds
     script(src="dist/js/app/services/profile/myAdsFactory.min.js")
     script(src="dist/js/app/controllers/profile/myAdsController.min.js")
+
+    // MyEvents
+    script(src="dist/js/app/services/eventFactory.min.js")
+    script(src="dist/js/app/controllers/profile/myEventsController.min.js")
 
     // Messages
     script(src="/dist/js/app/services/profile/myMessageFactory.min.js")
