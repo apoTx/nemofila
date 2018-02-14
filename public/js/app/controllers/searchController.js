@@ -20,10 +20,12 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'se
 		}
 	});
 
+	$scope.loadingEvents = false;
 	$scope.showEvents = (placeLongName) => {
-		console.log(placeLongName);
+		$scope.loadingEvents = true;
 		searchFactory.getEventsByLocationName(placeLongName).then((result) => {
 			$scope.events = result;
+			$scope.loadingEvents = true;
 			console.log($scope.events);
 		});
 	};

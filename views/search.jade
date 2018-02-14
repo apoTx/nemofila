@@ -75,7 +75,11 @@ block content
                                             .ui.star.rating(data-rating='#{ ad.rate }')
 
             .text-center
-                button.ui.big.button.margin-auto(ng-click="showEvents(placeLongName)")
+                button.ui.big.button.margin-auto(
+                    ng-click="showEvents(placeLongName)",
+                    ng-class="{loading: loadingEvents}",
+                    ng-if="!events"
+                )
                     | #{i18n.__("Show events")} ({{ placeLongName }})
 
             div(ng-if="events.length > 0")
@@ -83,16 +87,15 @@ block content
                 .ui.segment.list-segment
                     .ui.grid.no-margin-bottom
                         .doubling.four.column.row
-                            span(ng-repeat="e in events")
-                                .column.margin-bottom-10(
-                                    ng-repeat="event in e",
-                                )
-                                    a.ui.fluid.card.adCard(href="/detail/{{ event.slug }}/{{ event._id }}")
-                                        .image.cardListImage
-                                            img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-hide="event.photoShowcaseIndex === null")
-                                            img(ng-src='/img/no-photo.png', , ng-show="event.photoShowcaseIndex === null")
-                                        .content
-                                            span.black {{ event.title }}
+                            .column.margin-bottom-10(
+                                ng-repeat="e in events",
+                            )
+                                a.ui.fluid.card.adCard(href="/detail/{{ e.event.slug }}/{{ e.event._id }}")
+                                    .image.cardListImage
+                                        img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
+                                        img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")
+                                    .content
+                                        span.black {{ e.event.title }}
 
 
 append javascripts

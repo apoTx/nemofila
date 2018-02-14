@@ -171,15 +171,14 @@ router.get('/getEventsByLocationName', (req, res) => {
 				from: 'events',
 				localField: '_id',
 				foreignField: 'adId',
-				as: 'events'
+				as: 'event'
 			}
 		},
-		{ '$unwind': '$events' },
-
-		{ $limit: 1 },
+		{ '$unwind': '$event' },
+		{ '$limit': 30 },
 		{
 			'$project': {
-				'events': '$events',
+				'event': 1,
 			},
 		},
 	], (err, result)=>{
