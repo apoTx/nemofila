@@ -120,6 +120,7 @@ block content
                                         a {{ ad.category }}
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
+
                                 .extra.content(ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)")
                                     span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
                                         .ui.red.horizontal.label #{i18n.__( "Close" )}
