@@ -139,6 +139,15 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 					$scope.newEventForm.eventCategory = (($scope.eventCategories).findIndex(x => String(x._id) === String(category))).toString();
 					console.log($scope.newEventForm.eventCategory);
 				});
+
+				try{
+					$scope.newEventForm.files = result.photos || '';
+					$scope.uploadedFiles = $scope.newEventForm.files;
+					$scope.newEventForm.showcaseIndex = result.photoShowcaseIndex;
+				}catch (e){
+					$scope.newEventForm.files = [];
+				}
+
 			});
 
 			$scope.isEdit = true;
@@ -344,6 +353,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				data: data,
 				isEdit: isEdit,
 				adId: id,
+				eventId: $scope.newEventForm._id,
 				power: {
 					powerStatus: $scope.buyPowerStatus,
 					powerNumber: $scope.powerNumber,

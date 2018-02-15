@@ -14,7 +14,9 @@ const verifyRecaptcha = require('../helper/recaptcha');
 const ObjectId = mongoose.Types.ObjectId;
 
 //helpers
-let requireLogin = require('./inc/requireLogin.js');
+const requireLogin = require('./inc/requireLogin.js');
+const getAdStatusText = require('../helper/getAdStatusText');
+
 
 router.get( '/', ( req, res) => {
 	res.send('events');
@@ -37,6 +39,8 @@ router.post( '/new', ( req, res) => {
 	verifyRecaptcha(req.body.recaptcha, (success) => {
 		if (success) {
 			const data = req.body.data;
+			const isEdit = req.body.isEdit;
+
 			const listingDate = moment(data.startDate).subtract(data.listingDaysAgo, 'd').format();
 
 			const obj = {
@@ -53,14 +57,30 @@ router.post( '/new', ( req, res) => {
 				listingDaysAgo: data.listingDaysAgo,
 				listingDate: listingDate
 			};
-			const event = new Events(obj);
 
-			event.save(obj, (err) => {
-				if (err)
-					throw new Error( err );
+			if (!isEdit) {
 
-				res.json( { 'status': 1 } );
-			});
+				const event = new Events( obj );
+
+				event.save( obj, (err) => {
+					if (err)
+						throw new Error( err );
+
+					res.json( { 'status': 1 } );
+				} );
+
+			}else{
+				console.log(req.body.eventId);
+
+				Events.findOneAndUpdate({ '_id': req.body.eventId }, Object.assign(obj, { status: 0, statusText: getAdStatusText(0) }), { upsert:true }, (err, data) => {
+					if (err)
+						throw new Error(err);
+
+					//sendMail(data.title, data._id);
+					res.send( { 'status': 1 } );
+				});
+
+			}
 
 		}else{
 			console.log('err');
