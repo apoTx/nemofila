@@ -191,10 +191,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		$scope.userExists =  (userExists == 'true');
 
-		countriesFactory.getCountries().then((response) => {
-			$scope.countries = response;
-		});
-
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
 		});
@@ -239,8 +235,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
 			$scope.newAdForm.place = response.data.place;
 			$scope.newAdForm.workTimes = response.data.workTimes;
-
-			console.log($scope.newAdForm.workTimes);
 
 			if (!$scope.newAdForm.anotherContact){
 				$scope.newAdForm.anotherContact =  { };

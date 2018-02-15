@@ -133,6 +133,12 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			eventFactory.getEventsByEventId(eventId).then((result) => {
 				console.log(result);
 				$scope.newEventForm = result;
+
+				let category = result.categoryId;
+				setTimeout(() => {
+					$scope.newEventForm.eventCategory = (($scope.eventCategories).findIndex(x => String(x._id) === String(category))).toString();
+					console.log($scope.newEventForm.eventCategory);
+				});
 			});
 
 			$scope.isEdit = true;
@@ -142,7 +148,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		eventFactory.getAd(id).then((data) => {
 			$scope.loadingAd = false;
 			$scope.ad = data;
-			console.log($scope.ad);
 		});
 
 		categoriesFactory.getEventCategories().then((data) => {
