@@ -59,7 +59,6 @@ router.post( '/new', ( req, res) => {
 			};
 
 			if (!isEdit) {
-
 				const event = new Events( obj );
 
 				event.save( obj, (err) => {
@@ -70,7 +69,6 @@ router.post( '/new', ( req, res) => {
 				} );
 
 			}else{
-				console.log(req.body.eventId);
 
 				Events.findOneAndUpdate({ '_id': req.body.eventId }, Object.assign(obj, { status: 0, statusText: getAdStatusText(0) }), { upsert:true }, (err, data) => {
 					if (err)
@@ -79,7 +77,6 @@ router.post( '/new', ( req, res) => {
 					//sendMail(data.title, data._id);
 					res.send( { 'status': 1 } );
 				});
-
 			}
 
 		}else{
