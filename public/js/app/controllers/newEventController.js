@@ -346,7 +346,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 		data.eventCategory = $scope.eventCategories[$scope.newEventForm.eventCategory]._id;
 		console.log(data.eventCategory);
-		let isEdit = id !== 'false' ? true : false;
+		// let isEdit = id !== 'false' ? true : false;
 
 		$http({
 			url: '/events/new',

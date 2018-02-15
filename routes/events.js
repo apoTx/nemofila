@@ -41,8 +41,6 @@ router.post( '/new', ( req, res) => {
 			const data = req.body.data;
 			const isEdit = req.body.isEdit;
 
-			console.log(isEdit);
-
 			const listingDate = moment(data.startDate).subtract(data.listingDaysAgo, 'd').format();
 
 			const obj = {
