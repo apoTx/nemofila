@@ -1,0 +1,83 @@
+extends ../layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/dist/css/admin/print.css')
+    link(rel='stylesheet', type='text/css', href='/semantic-ui-calendar/dist/calendar.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+
+block content
+    div(ng-controller="eventsController", ng-init="init()")
+        div.ui.segment#searchAd
+            form.ui.form
+                .two.fields
+                    .field
+                        label Start Date
+                        .ui.calendar#startDate
+                            .ui.input.left.icon
+                                i.calendar.icon
+                                input(placeholder='Start Date')
+
+                    .field
+                        label End Date
+                        .ui.calendar#endDate
+                            .ui.input.left.icon
+                                i.calendar.icon
+                                input(placeholder='End Date')
+
+                .two.fields
+                    .field
+                        label Power
+                        select(ng-model="searchForm.power")
+                            option(value="") All
+                            option(value="1") Powerd ads
+                            option(value="2") Free ads
+
+                    .field
+                        label Status
+                        select(ng-model="searchForm.status")
+                            option(value="") All
+                            option(value="0") Waiting for Approve
+                            option(value="1") Approved
+                            option(value="2") Rejected
+                            option(value="4") Unpublished
+
+                button.ui.button.primary.right.floated(
+                    ng-click="advanceSearch()",
+                    ng-class="{ loading: loadingSearch, disabled: loadingSearch }") Search
+                .clearfix
+
+
+        .ui.segment.no-segment
+            table.ui.table
+                thead
+                    tr
+                        th Ad Title
+                        th Name of Owner
+                        th Created At
+                        th Status
+                        th Detail
+                tbody
+                    tr(
+                        ng-repeat="ad in ads",
+                        ng-hide="(searchForm.power == 1 && ad.totalPower < 1) || (searchForm.power == 2 && ad.totalPower > 0)",
+                        ng-class="{ warning: ad.status == 0,  negative: ad.status == 2 || ad.status == 4}"
+                    )
+                        td {{ ad.title }}
+                        td {{ ad.user.name }} {{ ad.user.surname }}
+                        td(am-time-ago='ad.createdAt')
+                        td {{ ad.statusText }}
+                        td.text-right
+                            span(ng-show="ad.totalPower > 0")
+                                i.icon.orange.rocket
+                            a.ui.button.icon.mini(
+                                href="ads/edit/{{ad._id}}"
+                            )
+                                i.edit.icon
+            .ui.dimmer(ng-class="{active: loadingAds }")
+                .ui.loader
+
+append javascripts
+    script(src='/semantic-ui-calendar/dist/calendar.min.js')
+    script(src='/dist/js/admin/app/services/eventsFactory.min.js')
+    script(src='/dist/js/admin/app/controllers/eventsController.min.js')

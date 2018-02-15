@@ -1,0 +1,123 @@
+extends ../layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+
+block content
+    div(ng-controller="adsEditController", ng-init="init()")
+        a.ui.right.floated.button(
+                href="/detail/#{ data.slug }/#{data._id}",
+                target="_blank"
+            )
+            | View In The Detail Page
+
+        - if ( data.status === 1 )
+            button.ui.right.floated.button.negative(
+                ng-click="unpublish()"
+            )
+                | Unpublish
+
+        .clearfix
+
+        table.ui.definition.table
+            tbody
+                tr
+                    td Status
+                    td #{ statusText }
+                tr
+                    td Created At:
+                    td #{ data.createdAt }
+
+        div(ng-show="#{ data.power.length } > 0")
+            h2 Powers
+            table.ui.celled.padded.table
+                thead
+                    tr
+                        th.ui.center.aligned Active Power
+                        th.ui.center.aligned Ending Power
+                        th.ui.center.aligned Total Power
+                tbody
+                    tr
+                        td
+                            h3.ui.center.aligned.header #{ data.totalActivePower }
+                        td.single.line
+                            h3.ui.center.aligned.header #{ data.totalEndingPower }
+                        td
+                            h3.ui.center.aligned.header #{ data.totalPower }
+
+            table.ui.celled.table
+                thead
+                    tr.ui.center.aligned
+                        th Power Number
+                        th Price
+                        th Created At
+                        th Ending At
+                tbody
+                    each power, i in data.power
+                        tr.ui.center.aligned
+                            td= power.powerNumber
+                            td= power.price
+                            td= moment(power.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+                            td= moment(power.endingAt).format('MMMM Do YYYY, h:mm:ss a')
+
+        br
+        br
+
+        input(
+            type="hidden",
+            ng-init="adEditForm.id= '#{data._id}'"
+            ng-model="adEditForm.id",
+        )
+
+        - if ( data.status === 0 )
+            .ui.form
+                .grouped.fields
+                    label Do you publish this ad?
+                    br
+
+                    .field
+                        .ui.radio.checkbox
+                            input(
+                                type='radio',
+                                ng-model="adEditForm.publishStatus",
+                                name='publishStatus',
+                                id='approve',
+                                value="1",
+                                ng-change='changeStatus()'
+                            )
+                            label(for='approve') Approve
+                    .field
+                        .ui.radio.checkbox
+                            input(
+                                type='radio',
+                                ng-model="adEditForm.publishStatus",
+                                name='publishStatus',
+                                id='reject',
+                                value="2",
+                                ng-change='changeStatus()'
+                            )
+                            label(for='reject') Reject
+
+                    .field(
+                            ng-show="adEditForm.reasonVisible"
+                        )
+                        label Reason
+                        textarea(
+                            ng-model="adEditForm.reason"
+                        )
+
+                    .field
+                        button.ui.button.primary.right.floated(
+                            ng-click="submitEdit()",
+                            ng-class="loadingEditSubmit ? 'loading disabled': ''"
+                        )
+                            | Submit
+                        .clearfix
+
+
+
+append javascripts
+    script(src='/dist/js/admin/app/services/adsFactory.min.js')
+    script(src='/dist/js/admin/app/controllers/adsEditController.min.js')
