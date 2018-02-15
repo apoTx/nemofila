@@ -113,13 +113,11 @@ block content
 
                             .field
                                 label #{ i18n.__( "listing_date" ) }
-                                select#listingDaysAgo(ng-model="newEventForm.listingDaysAgo")
+                                select#listingDaysAgo(
+                                    ng-options="c for c in dayAgo",
+                                    ng-model="newEventForm.listingDaysAgo"
+                                )
                                     option(value="") Gününde
-                                    option(value="1") 1 Gün önce
-                                    option(value="2") 2 Gün önce
-                                    option(value="3") 3 Gün önce
-                                    option(value="4") 4 Gün önce
-                                    option(value="5") 5 Gün önce
 
                         .ui.tiny.stacked.segment
                             .text-center

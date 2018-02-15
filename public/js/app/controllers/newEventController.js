@@ -153,6 +153,8 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		categoriesFactory.getEventCategories().then((data) => {
 			$scope.eventCategories = data;
 		});
+
+		$scope.dayAgo = [1, 2, 3, 4, 5];
 	};
 
 	$scope.next = () => {
