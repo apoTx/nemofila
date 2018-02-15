@@ -1,6 +1,6 @@
-app.factory('adsFactory', ['$http', ($http) => {
-	let getAllAds = () => {
-		return $http.get('/manage/ads/getAllAds')
+app.factory('eventsFactory', ['$http', ($http) => {
+	let getAllEvents = () => {
+		return $http.get('/manage/events/getAllEvents')
 			.then((response) => {
 				return response.data;
 			}, () => {
@@ -11,7 +11,7 @@ app.factory('adsFactory', ['$http', ($http) => {
 	let publishAd = (data) => {
 		console.log(data);
 		return $http({
-			url: '/manage/ads/publishAd',
+			url: '/manage/events/publishAd',
 			method: 'POST',
 			data: data,
 		})
@@ -49,7 +49,7 @@ app.factory('adsFactory', ['$http', ($http) => {
 	};
 
 	return {
-		getAllAds: getAllAds,
+		getAllEvents: getAllEvents,
 		publishAd: publishAd,
 		unpublish: unpublish,
 		advanceSearch: advanceSearch

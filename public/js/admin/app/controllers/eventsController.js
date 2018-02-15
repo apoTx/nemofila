@@ -1,9 +1,9 @@
-app.controller('eventsController', ['$scope', '$http', 'adsFactory', '$window', ($scope, $http, adsFactory, $window) => {
+app.controller('eventsController', ['$scope', '$http', 'eventsFactory', '$window', ($scope, $http, eventsFactory, $window) => {
 	$scope.loadingAds = true;
 
-	adsFactory.getAllAds().then((response) => {
+	eventsFactory.getAllEvents().then((response) => {
 		$scope.loadingAds = false;
-		$scope.ads = response;
+		$scope.events = response;
 	});
 
 	$scope.adEditForm = { };
@@ -19,7 +19,7 @@ app.controller('eventsController', ['$scope', '$http', 'adsFactory', '$window', 
 
 	$scope.submitEdit = () => {
 		$scope.loadingEditSubmit = true;
-		adsFactory.publishAd($scope.adEditForm).then((response) => {
+		eventsFactory.publishAd($scope.adEditForm).then((response) => {
 			console.log(response);
 			$scope.loadingEditSubmit = false;
 
@@ -33,7 +33,7 @@ app.controller('eventsController', ['$scope', '$http', 'adsFactory', '$window', 
 		let r = confirm('Are you sure?');
 		if (r === true) {
 			$scope.loadingUnpublish = true;
-			adsFactory.unpublish($scope.adEditForm.id).then((response) => {
+			eventsFactory.unpublish($scope.adEditForm.id).then((response) => {
 				$scope.loadingUnpublish = false;
 
 				if (response.status === 1){
@@ -95,7 +95,7 @@ app.controller('eventsController', ['$scope', '$http', 'adsFactory', '$window', 
 	$scope.advanceSearch = () => {
 		$scope.loadingAds = true;
 		console.log($scope.searchForm);
-		adsFactory.advanceSearch($scope.searchForm).then((response) => {
+		eventsFactory.advanceSearch($scope.searchForm).then((response) => {
 			$scope.loadingAds = false;
 			$scope.ads = response;
 			console.log(response);

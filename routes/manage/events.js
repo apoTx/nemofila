@@ -217,12 +217,6 @@ router.get('/getAllEvents', requireLogin, (req, res, next) => {
 						name: '$user.name',
 						surname: '$user.surname'
 					}
-				},
-				power: {
-					$push: '$power'
-				},
-				totalPower: {
-					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
 				}
 			}
 		},
@@ -236,7 +230,6 @@ router.get('/getAllEvents', requireLogin, (req, res, next) => {
 				'slug': '$_id.slug',
 				'createdAt': '$_id.createdAt',
 				'user': '$_id.user',
-				totalPower: 1
 			},
 		},
 		{ $sort : { createdAt : -1 } },

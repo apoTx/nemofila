@@ -130,6 +130,9 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	$scope.init = (id, eventId) => {
 
 		if (eventId !== 'undefined'){
+
+			console.log("tesssst");
+
 			eventFactory.getEventsByEventId(eventId).then((result) => {
 				console.log(result);
 				$scope.newEventForm = result;
@@ -351,7 +354,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			data: {
 				recaptcha: document.getElementById('g-recaptcha-response').value,
 				data: data,
-				isEdit: isEdit,
+				isEdit: $scope.isEdit,
 				adId: id,
 				eventId: $scope.newEventForm._id,
 				power: {

@@ -59,19 +59,16 @@ block content
                         th Detail
                 tbody
                     tr(
-                        ng-repeat="ad in ads",
-                        ng-hide="(searchForm.power == 1 && ad.totalPower < 1) || (searchForm.power == 2 && ad.totalPower > 0)",
-                        ng-class="{ warning: ad.status == 0,  negative: ad.status == 2 || ad.status == 4}"
+                        ng-repeat="event in events",
+                        ng-class="{ warning: event.status == 0,  negative: event.status == 2 || event.status == 4}"
                     )
-                        td {{ ad.title }}
-                        td {{ ad.user.name }} {{ ad.user.surname }}
-                        td(am-time-ago='ad.createdAt')
-                        td {{ ad.statusText }}
+                        td {{ event.title }}
+                        td {{ event.user.name }} {{ event.user.surname }}
+                        td(am-time-ago='event.createdAt')
+                        td {{ event.statusText }}
                         td.text-right
-                            span(ng-show="ad.totalPower > 0")
-                                i.icon.orange.rocket
                             a.ui.button.icon.mini(
-                                href="ads/edit/{{ad._id}}"
+                                href="events/edit/{{event._id}}"
                             )
                                 i.edit.icon
             .ui.dimmer(ng-class="{active: loadingAds }")

@@ -41,6 +41,8 @@ router.post( '/new', ( req, res) => {
 			const data = req.body.data;
 			const isEdit = req.body.isEdit;
 
+			console.log(isEdit);
+
 			const listingDate = moment(data.startDate).subtract(data.listingDaysAgo, 'd').format();
 
 			const obj = {
@@ -69,6 +71,8 @@ router.post( '/new', ( req, res) => {
 				} );
 
 			}else{
+
+				console.log('asd');
 
 				Events.findOneAndUpdate({ '_id': req.body.eventId }, Object.assign(obj, { status: 0, statusText: getAdStatusText(0) }), { upsert:true }, (err, data) => {
 					if (err)

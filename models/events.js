@@ -36,8 +36,13 @@ let eventSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
+	statusText: {
+		type: String,
+		default: 'Waiting'
+	},
 	listingDaysAgo: {
 		type: Number,
+		default: 0
 	},
 	listingDate:{
 		type: Date
