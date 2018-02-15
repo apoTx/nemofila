@@ -17,7 +17,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic-ui-calendar/dist/calendar.min.css')
 
 block content
-    div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }')")
+    div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }',  '#{ eventId }')")
         .ui.steps.fluid(class="margin-bottom-30", ng-if="!eventSaveComplete", ng-cloak)
             a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                 i.info.icon

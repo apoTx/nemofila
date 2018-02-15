@@ -25,6 +25,19 @@ app.factory('eventFactory', ['$http', ($http) => {
 			});
 	};
 
+	let getEventsByEventId = (id) => {
+		return $http({
+			url: '/events/getEventsByEventId',
+			method:'GET',
+			params: { eventId: id }
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	let getMyEvents = (id) => {
 		return $http({
 			url: '/events/getMyEvents',
@@ -41,6 +54,7 @@ app.factory('eventFactory', ['$http', ($http) => {
 	return {
 		getAd: getAd,
 		getEventsByAdId: getEventsByAdId,
-		getMyEvents: getMyEvents
+		getMyEvents: getMyEvents,
+		getEventsByEventId: getEventsByEventId
 	};
 }]);

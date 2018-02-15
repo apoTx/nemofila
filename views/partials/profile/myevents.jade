@@ -26,7 +26,7 @@ h2.text-center(ng-if="myEvents.length < 1") {{ i18n_no_results }}
                             | {{ i18n_settings }}
                             i.dropdown.icon
                             .menu
-                                a.item(href="./newAd?id={{ event._id }}")
+                                a.item(href="./events/new/{{ event.adId }}/?eventId={{ event._id }}")
                                     i.edit.icon
                                     | {{ i18n_edit }}
 

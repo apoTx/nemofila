@@ -127,11 +127,22 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		});
 	});
 
-	$scope.init = (id) => {
+	$scope.init = (id, eventId) => {
+
+		if (eventId !== 'undefined'){
+			eventFactory.getEventsByEventId(eventId).then((result) => {
+				console.log(result);
+				$scope.newEventForm = result;
+			});
+
+			$scope.isEdit = true;
+		}
+
 		$scope.loadingAd = true;
 		eventFactory.getAd(id).then((data) => {
 			$scope.loadingAd = false;
 			$scope.ad = data;
+			console.log($scope.ad);
 		});
 
 		categoriesFactory.getEventCategories().then((data) => {

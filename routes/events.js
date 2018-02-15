@@ -27,6 +27,7 @@ router.get( '/new/:adId', ( req, res) => {
 			userExists: !!req.session.user,
 			id: req.params.adId ? req.params.adId : 'false',
 			formdata: JSON.parse(body),
+			eventId: req.query.eventId,
 			amazon_base_url: config.amazon_s3.photo_base_url,
 		});
 	});
@@ -77,6 +78,12 @@ router.get( '/getIndexEvents', (req, res) => {
 	})
 		.limit(12)
 		.sort({ _id: -1 });
+});
+
+router.get( '/getEventsByEventId', (req, res) => {
+	Events.findById( req.query.eventId , (err, data) => {
+		res.json(data);
+	});
 });
 
 router.get( '/getEventsByAdId', (req, res) => {
