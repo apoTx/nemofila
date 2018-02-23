@@ -76,6 +76,7 @@ router.post( '/new', ( req, res) => {
 					if (err)
 						throw new Error(err);
 
+					console.log(data);
 					//sendMail(data.title, data._id);
 					res.send( { 'status': 1 } );
 				});

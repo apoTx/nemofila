@@ -4,6 +4,7 @@ let mongoose = require('mongoose');
 let moment = require('moment');
 
 // Models
+let Ads = require('../../models/ads');
 let Events = require('../../models/events');
 let Users = require('../../models/users');
 
@@ -21,7 +22,7 @@ router.get('/', requireLogin, (req, res) => {
 });
 
 router.get('/edit/:id', requireLogin, (req, res) => {
-	Ads.aggregate([
+	Events.aggregate([
 		{
 			'$match': {
 				'_id': mongoose.Types.ObjectId(req.params.id),
@@ -53,19 +54,7 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 					statusText: '$statusText',
 					slug: '$slug',
 					createdAt: '$createdAt',
-				},
-				power: {
-					$push: '$power'
-				},
-				totalActivePower: {
-					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
-				},
-				totalEndingPower: {
-					$sum: { $cond: [{ $lte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
-				},
-				totalPower: {
-					$sum: '$power.powerNumber'
-				},
+				}
 			}
 		},
 
@@ -77,10 +66,6 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 				'statusText': '$_id.statusText',
 				'slug': '$_id.slug',
 				'createdAt': '$_id.createdAt',
-				power: 1,
-				totalActivePower: 1,
-				totalEndingPower: 1,
-				totalPower: 1
 			},
 		},
 	], (err, data) => {
@@ -88,8 +73,8 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 			throw new Error(err);
 
 		let result = data[0];
-		console.log(result);
-		res.render('manage/ads/ad_edit', {
+		console.log(data);
+		res.render('manage/events/event_edit', {
 			title: result.title,
 			data: result,
 			statusText: getAdStatusText(result.status),
