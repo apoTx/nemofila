@@ -22,6 +22,30 @@ block content
 
     div.detailContainer.ui.main.container.subPage
 
+        - if (data.status === 0)
+            .ui.warning.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_approvel_event")}
+                |   #{i18n.__("only_you")}
+
+        - if (data.status === 2)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_rejected_event")}
+                |   #{i18n.__("only_you")}
+
+        - if (data.status === 3)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_expired_event")}
+                |   #{i18n.__("only_you")}
+
+        - if (data.status === 4)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_unpublished_event")}
+                |   #{i18n.__("only_you")}
+
         div(
             ng-controller="eventDetailController",
             ng-init="init('#{sessionId}','#{ data._id }')"
@@ -99,33 +123,10 @@ block content
                 p.description
                     | !{ data.description }
 
-
         div.margin-top-30(
             ng-controller="detailController"
             ng-init="init('#{sessionId}','#{ data.ad._id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
-            - if (status === 0)
-                .ui.warning.message.margin-bottom-30
-                    .header
-                        | #{i18n.__("status_approvel")}
-                    |   #{i18n.__("only_you")}
 
-            - if (status === 2)
-                .ui.negative.message.margin-bottom-30
-                    .header
-                        | #{i18n.__("status_rejected")}
-                    |   #{i18n.__("only_you")}
-
-            - if (status === 3)
-                .ui.negative.message.margin-bottom-30
-                    .header
-                        | #{i18n.__("status_expired")}
-                    |   #{i18n.__("only_you")}
-
-            - if (status === 4)
-                .ui.negative.message.margin-bottom-30
-                    .header
-                        | #{i18n.__("status_unpublished")}
-                    |   #{i18n.__("only_you")}
 
             .ui.stackable.grid
                 .ten.wide.column
