@@ -131,7 +131,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 		if (eventId !== 'undefined'){
 
-			console.log("tesssst");
+			console.log('tesssst');
 
 			eventFactory.getEventsByEventId(eventId).then((result) => {
 				console.log(result);
