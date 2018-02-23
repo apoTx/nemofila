@@ -8,10 +8,10 @@ app.factory('eventsFactory', ['$http', ($http) => {
 			});
 	};
 
-	let publishAd = (data) => {
+	let publish = (data) => {
 		console.log(data);
 		return $http({
-			url: '/manage/events/publishAd',
+			url: '/manage/events/publish',
 			method: 'POST',
 			data: data,
 		})
@@ -24,7 +24,7 @@ app.factory('eventsFactory', ['$http', ($http) => {
 
 	let unpublish = (id) => {
 		return $http({
-			url: '/manage/ads/unpublish',
+			url: '/manage/events/unpublish',
 			method: 'POST',
 			data: { id: id },
 		})
@@ -37,7 +37,7 @@ app.factory('eventsFactory', ['$http', ($http) => {
 
 	let advanceSearch = (data) => {
 		return $http({
-			url: '/manage/ads/advanceSearch',
+			url: '/manage/events/advanceSearch',
 			method: 'GET',
 			params: { data: data },
 		})
@@ -50,7 +50,7 @@ app.factory('eventsFactory', ['$http', ($http) => {
 
 	return {
 		getAllEvents: getAllEvents,
-		publishAd: publishAd,
+		publish: publish,
 		unpublish: unpublish,
 		advanceSearch: advanceSearch
 	};

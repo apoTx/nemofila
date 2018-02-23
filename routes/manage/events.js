@@ -81,25 +81,9 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 			moment: moment
 		});
 	});
-
-	/*
-	Ads.findById( req.params.id ,(err,result) => {
-		if (err)
-			next();
-
-		console.log(result);
-		if (result)
-			res.render('manage/ads/ad_edit', {
-				title: result.title,
-				data: result,
-				statusText: getAdStatusText(result.status)
-			});
-		else
-			next();
-	});*/
 });
 
-router.post('/publishAd', requireLogin, (req, res) => {
+router.post('/publish', requireLogin, (req, res) => {
 	let data = req.body;
 	let publishStatus = parseInt(req.body.publishStatus);
 
@@ -112,19 +96,19 @@ router.post('/publishAd', requireLogin, (req, res) => {
 		Object.assign(updateDate, { listingDate: new Date() });
 	}
 
-	Ads.findByIdAndUpdate(data.id, updateDate, (err,result) => {
+	Events.findByIdAndUpdate(data.id, updateDate, (err,result) => {
 		if (!err){
 			res.json({ status: 1 });
 
 			Users.findById(result.ownerId, (err,response) => {
 				// send email
 				let to_email = response.email;
-				let subject = publishStatus === 1 ? 'Your ad has been published' : 'Your ad has been rejected';
+				let subject = publishStatus === 1 ? 'Your event has been published' : 'Your event has been rejected';
 				let mailOptions = {
 					from: mailer.config.defaultFromAddress,
 					to: to_email,
 					subject: subject,
-					template: 'ad-approve',
+					template: 'event-approve',
 					context: {
 						siteUrl: mailer.siteUrl,
 						adTitle: result.title,
@@ -147,9 +131,9 @@ router.post('/publishAd', requireLogin, (req, res) => {
 });
 
 router.post('/unpublish', requireLogin, (req, res) => {
-	let id = req.body.id;
+	const id = req.body.id;
 
-	Ads.findByIdAndUpdate(id, {
+	Events.findByIdAndUpdate(id, {
 		status: 4,
 		statusText: getAdStatusText(4)
 	}, (err) => {

@@ -149,5 +149,6 @@
 	"Okay": "Okay",
 	"Done": "Done",
 	"My Events": "My Events",
-	"status_approvel_event": "status_approvel_event"
+	"status_approvel_event": "status_approvel_event",
+	"status_unpublished_event": "status_unpublished_event"
 }

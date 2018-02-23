@@ -6,7 +6,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
 
 block content
-    div(ng-controller="adsEditController", ng-init="init()")
+    div(ng-controller="eventsEditController", ng-init="init()")
         a.ui.right.floated.button(
                 href="/events/detail/#{ data.slug }/#{data._id}",
                 target="_blank"
@@ -47,7 +47,7 @@ block content
                         .ui.radio.checkbox
                             input(
                                 type='radio',
-                                ng-model="adEditForm.publishStatus",
+                                ng-model="eventEditForm.publishStatus",
                                 name='publishStatus',
                                 id='approve',
                                 value="1",
@@ -58,7 +58,7 @@ block content
                         .ui.radio.checkbox
                             input(
                                 type='radio',
-                                ng-model="adEditForm.publishStatus",
+                                ng-model="eventEditForm.publishStatus",
                                 name='publishStatus',
                                 id='reject',
                                 value="2",
@@ -67,11 +67,11 @@ block content
                             label(for='reject') Reject
 
                     .field(
-                            ng-show="adEditForm.reasonVisible"
+                            ng-show="eventEditForm.reasonVisible"
                         )
                         label Reason
                         textarea(
-                            ng-model="adEditForm.reason"
+                            ng-model="eventEditForm.reason"
                         )
 
                     .field
@@ -85,5 +85,5 @@ block content
 
 
 append javascripts
-    script(src='/dist/js/admin/app/services/adsFactory.min.js')
-    script(src='/dist/js/admin/app/controllers/adsEditController.min.js')
+    script(src='/dist/js/admin/app/services/eventsFactory.min.js')
+    script(src='/dist/js/admin/app/controllers/eventsEditController.min.js')

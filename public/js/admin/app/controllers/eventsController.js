@@ -6,20 +6,20 @@ app.controller('eventsController', ['$scope', '$http', 'eventsFactory', '$window
 		$scope.events = response;
 	});
 
-	$scope.adEditForm = { };
-	$scope.adEditForm.publishStatus = '1';
-	$scope.adEditForm.reasonVisible = false;
+	$scope.eventEditForm = { };
+	$scope.eventEditForm.publishStatus = '1';
+	$scope.eventEditForm.reasonVisible = false;
 
 	$scope.changeStatus = () => {
-		if ($scope.adEditForm.publishStatus === '2')
-			$scope.adEditForm.reasonVisible = true;
+		if ($scope.eventEditForm.publishStatus === '2')
+			$scope.eventEditForm.reasonVisible = true;
 		else
-			$scope.adEditForm.reasonVisible = false;
+			$scope.eventEditForm.reasonVisible = false;
 	};
 
 	$scope.submitEdit = () => {
 		$scope.loadingEditSubmit = true;
-		eventsFactory.publishAd($scope.adEditForm).then((response) => {
+		eventsFactory.publish($scope.eventEditForm).then((response) => {
 			console.log(response);
 			$scope.loadingEditSubmit = false;
 
@@ -33,7 +33,7 @@ app.controller('eventsController', ['$scope', '$http', 'eventsFactory', '$window
 		let r = confirm('Are you sure?');
 		if (r === true) {
 			$scope.loadingUnpublish = true;
-			eventsFactory.unpublish($scope.adEditForm.id).then((response) => {
+			eventsFactory.unpublish($scope.eventEditForm.id).then((response) => {
 				$scope.loadingUnpublish = false;
 
 				if (response.status === 1){
