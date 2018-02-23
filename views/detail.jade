@@ -78,15 +78,15 @@ block content
                                 data-content='#{i18n.__("add_favourites")}',
                                 ng-click="addFavourites('#{ session._id }','#{ data._id }')"
                             )
-                                i.star.empty.icon
+                                i.star.outline.icon
 
                         .ui.right.floated.main.menu(
                             ng-show="isFav",
                             ng-cloak
                         )
                             a.music.popup.icon.item(
-                            data-content='#{i18n.__("remove_favourites")}',
-                            ng-click="delFavourites('#{ session._id }','#{ data._id }')"
+                                data-content='#{i18n.__("remove_favourites")}',
+                                ng-click="delFavourites('#{ session._id }','#{ data._id }')"
                             )
                                 i.star.icon
 
@@ -196,7 +196,7 @@ block content
                 h3 #{ pageView }
                 | page view
 
-        div(ng-if="similarAds.length > 1")
+        div.margin-top-30(ng-if="similarAds.length > 1")
             h2 #{i18n.__( "Similar Ads" )}
             .ui.segment.list-segment
                 .ui.grid.no-margin-bottom
