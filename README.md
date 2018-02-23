@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/meseven/easyad.png)](https://travis-ci.org/meseven/easyad)
 
 
-# easyad
-Easy Ads
+# nemofila
+Nemofila
 
 [Preview Staging](https://easyad-staging.herokuapp.com/)
 
