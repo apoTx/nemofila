@@ -152,23 +152,20 @@ block content
 
             .clearfix
 
-
-            h2.indexBestInTitle #{i18n.__( "last_events" )}
-            .ui.segment.list-segment
-                .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
-                    .doubling.four.column.row
-                        .column.margin-bottom-10(ng-repeat="event in events")
-                            a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
-                                .image.cardListImage
-                                    img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
-                                    img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
-                                .content
-                                    span {{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
-                .ui.dimmer(ng-class="{ active:indexAdsLoading }")
-                    .ui.loader
-
-                h1.text-center(ng-show="events.length < 1", ng-cloak)
-                    | #{i18n.__( "No Results" )}
+            div(ng-if="events.length > 0")
+                h2.indexBestInTitle #{i18n.__( "last_events" )}
+                .ui.segment.list-segment
+                    .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
+                        .doubling.four.column.row
+                            .column.margin-bottom-10(ng-repeat="event in events")
+                                a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
+                                    .image.cardListImage
+                                        img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                                        img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
+                                    .content
+                                        span {{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
+                    .ui.dimmer(ng-class="{ active:indexAdsLoading }")
+                        .ui.loader
 
 
     include partials/modals/index/howItWork

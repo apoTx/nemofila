@@ -92,7 +92,8 @@ router.post( '/new', ( req, res) => {
 router.get( '/getIndexEvents', (req, res) => {
 	Events.find({
 		listingDate: { $lte: new Date() },
-		endDate: { $gte:  new Date() }
+		endDate: { $gte:  new Date() },
+		status: 1
 	}, (err, data) => {
 		res.json(data);
 	})
