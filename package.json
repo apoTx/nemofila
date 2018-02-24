@@ -27,6 +27,7 @@
     "express-fileupload": "^0.2.0",
     "express-session": "^1.15.6",
     "find-or-create": "^1.1.0",
+    "geo-tz": "^3.3.4",
     "i18n": "^0.8.3",
     "jade": "^1.11.0",
     "moment": "^2.20.1",

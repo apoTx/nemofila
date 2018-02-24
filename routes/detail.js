@@ -3,6 +3,7 @@ const router = express.Router();
 const moment = require('moment');
 const mongoose = require('mongoose');
 const numeral = require('numeral');
+const geoTz = require('geo-tz')
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -45,7 +46,11 @@ const getObject = (data, req, res) => {
 		}else{
 			return val.toFixed(1);
 		}
-	};
+	}
+
+	const tzMoment = geoTz.tzMoment(data.place.geometry.location.lat, data.place.geometry.location.lng);
+	const now_local_time = moment.parseZone(tzMoment).format('H:m');
+
 
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
@@ -246,7 +251,6 @@ router.get('/getSimilars', (req, res) => {
 		const categoryId = result.category.categoryId;
 		// const childCategoryId = result.category.categoryChildId;
 		const location = result.place.address_components[0].long_name;
-		console.log(location);
 
 		//if (childCategoryId === null){
 		findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
