@@ -46,6 +46,22 @@ p.description{
     display: none!important;
 }
 
+.black{
+    color:#333
+}
+
+.rateNumber{
+    padding: 10px;
+    display: inline-block;
+}
+.rateNumber b{
+    display: block;
+    margin-top:-10px
+}
+.reviewMessage{
+    color: #af6f12;
+}
+
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {
         padding: 3px !important;

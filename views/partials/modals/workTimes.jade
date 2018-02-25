@@ -1,0 +1,182 @@
+.ui.modal.small#workTimesModal
+    i.close.icon
+    .header
+        | Work Times
+    .content
+        div(ng-show="!emailSended" ng-cloak)
+            form.ui.form#workTimesForm
+                .ui.grid
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Monday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.monday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.monday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.monday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.monday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.monday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__("Open Time")}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.monday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__("Close Time")}
+                    // ##DAY END##
+
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Tuesday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.tuesday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.tuesday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.tuesday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.tuesday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.tuesday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Open Time" )}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.tuesday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                        // ##DAY END##
+
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Wednesday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.wednesday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.wednesday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.wednesday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.wednesday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.wednesday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Open Time" )}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.wednesday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                    // ##DAY END##
+
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Thursday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.thursday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.thursday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.thursday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.thursday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.thursday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Open Time" )}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.thursday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                    // ##DAY END##
+
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Friday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.friday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.friday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.friday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.friday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.friday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Open Time" )}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.friday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                    // ##DAY END##
+
+
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Saturday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.saturday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.saturday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.saturday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.saturday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.saturday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Open Time" )}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.saturday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                    // ##DAY END##
+
+                    .row
+                        .three.wide.column
+                            strong #{i18n.__( "Sunday" )}
+                        .three.wide.column
+                            .ui.checkbox
+                                input.openClose(type='checkbox', ng-model="newAdForm.workTimes.sunday.open")
+                                label #{i18n.__( "Open" )}
+
+                        .ten.wide.column(ng-class="{ workTimeSettingsDisplay: !newAdForm.workTimes.sunday.open }")
+                            .ui.grid.text-left
+                                .five.wide.column.center
+                                    .ui.checkbox
+                                        input.hour24(type='checkbox', ng-model="newAdForm.workTimes.sunday.hour24")
+                                        label #{i18n.__( "24 Hour" )}
+                                .eleven.wide.column.timeDropdowns(ng-class="{ timeDropdownsVisible: newAdForm.workTimes.sunday.hour24 }")
+                                    .ui.grid.dropdowns
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.sunday.openTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Open Time" )}
+                                        .eight.wide.column
+                                            select(ng-model='newAdForm.workTimes.sunday.closeTime', ng-options='item for item in clocks')
+                                                option(value='', disabled, selected) #{i18n.__( "Close Time" )}
+                    // ##DAY END##
+
+
+    .actions
+        .ui.positive.right.labeled.icon.button
+            | #{i18n.__( "Done" )}
+            i.checkmark.icon

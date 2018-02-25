@@ -1,5 +1,5 @@
 app.factory('indexFactory', ['$http', ($http) => {
-	let getIndexAds = (page) => {
+	const getIndexAds = (page) => {
 		return $http({
 			url: '/getIndexAds',
 			method: 'get',
@@ -12,7 +12,20 @@ app.factory('indexFactory', ['$http', ($http) => {
 			});
 	};
 
-	let searchAd = (title, location, category) => {
+	const getIndexEvents = (page) => {
+		return $http({
+			url: '/events/getIndexEvents',
+			method: 'get',
+			params: { page: page }
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
+	const searchAd = (title, location, category) => {
 		return $http({
 			url: '/searchAd',
 			method: 'get',
@@ -26,6 +39,7 @@ app.factory('indexFactory', ['$http', ($http) => {
 
 	return {
 		getIndexAds: getIndexAds,
+		getIndexEvents: getIndexEvents,
 		searchAd: searchAd
 	};
 }]);

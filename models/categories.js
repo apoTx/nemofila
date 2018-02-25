@@ -10,7 +10,11 @@ let categorySchema = new Schema({
 		{
 			name: String,
 		}
-	]
+	],
+	type: {
+		type: Boolean,
+		default: 0, // 0 = normal category, 1 = event category
+	}
 });
 
 module.exports = mongoose.model('categories', categorySchema);

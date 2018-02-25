@@ -1,0 +1,262 @@
+extends layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/dist/css/profile.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/item.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/step.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/popup.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/message.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/newEventPage.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
+    link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic-ui-calendar/dist/calendar.min.css')
+
+block content
+    div.ui.main.container.subPage(ng-controller="newEventController", ng-init="init('#{ id }',  '#{ eventId }')")
+        .ui.steps.fluid(class="margin-bottom-30", ng-if="!eventSaveComplete", ng-cloak)
+            a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
+                i.info.icon
+                .content
+                    .title #{ i18n.__( "newEvent_tab_information" ) }
+                    .description #{ i18n.__( "newEvent_tab_information_message" )}
+
+            // a.step(ng-class="steps.power ? 'active': 'disabled' ", ng-cloak, ng-hide="isEdit")
+                i.rocket.icon
+                .content
+                    .title #{ i18n.__("newAd_tab_buy_power") }
+                    .description #{ i18n.__("newAd_tab_buy_power_message") }
+
+            a.step.disabled(ng-class="steps.preview ? 'active':'disabled' ", ng-cloak)
+                i.unhide.icon
+                .content
+                    .title #{ i18n.__( "newEvent_tab_preview" ) }
+                    .description #{ i18n.__( "newEvent_tab_preview_message" ) }
+
+        .ui.stacked.segment(ng-if="!eventSaveComplete", ng-cloak)
+            .ui.divided.items.no-margin
+                .item
+                    a.image(href='/detail/{{ ad.slug }}/{{ ad._id }}', target="_blank")
+                        img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                        img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
+                    .content
+                        a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}', ng-cloak, target="_blank")
+                            | {{ ad.title }}
+                        .description
+                            p
+                        .extra
+                            .ui.label(
+                                ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}",
+                                ng-cloak
+                            )
+                                | {{ ad.statusText }}
+
+                            div.margin-top-10(ng-show="ad.totalActivePower > 0")
+                                h4(ng-cloak)
+                                    i.ui.rocket.icon
+                                    | {{ ad.totalActivePower }}
+            .ui.dimmer(ng-class="{ active:loadingAd }")
+                .ui.loader
+
+
+        div(ng-if="!eventSaveComplete", ng-cloak)
+            .ui.segment.no-segment.test
+                .ui.dimmer(ng-class="loadingBufferData ? 'active': ''")
+                    .ui.text.loader Loading
+
+                div#adInformation(ng-show="steps.informations", ng-cloak)
+                    form.ui.form.fluid#newEventForm
+                        input(type='hidden', name='Content-Type', value='')
+                        input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
+                        input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
+                        input(type='hidden', name='success_action_status', ng-model="success_action_status", ng-init="success_action_status= '#{ formdata.inputs.success_action_status }'" )
+                        input(type='hidden', name='policy', ng-model="policy", ng-init="policy = '#{ formdata.inputs.policy }'")
+                        input(type='hidden', name='X-amz-credential', ng-model="x_amz_credential", ng-init="x_amz_credential= '#{ formdata.inputs['X-amz-credential'] }'")
+                        input(type='hidden', name='X-amz-algorithm', ng-model="X_amz_algorithm", ng-init="X_amz_algorithm = '#{ formdata.inputs['X-amz-algorithm'] }'")
+                        input(type='hidden', name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
+                        input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
+                        input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
+
+                        .field
+                            label #{ i18n.__("title") }
+                            input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newEventForm.title")
+
+                        .field
+                            label #{ i18n.__("description") }
+                            ng-wig(
+                                name='description',
+                                ng-model='newEventForm.description'
+                            )
+
+                        .four.fields
+                            .field
+                                label #{ i18n.__( "event_category" ) }
+                                select(name="category", ng-model="newEventForm.eventCategory", ng-options="index as category.name for (index, category) in eventCategories ")
+                                    option(value="", disabled) #{ i18n.__("please_select") }
+
+                            .field
+                                label #{ i18n.__( "start_date" ) }
+                                #startDate.ui.calendar
+                                    .ui.input.left.icon
+                                        i.calendar.icon
+                                        input(name='startDate', ng-model="newEventForm.startDate", placeholder='#{ i18n.__( "start_date" ) }')
+                            .field
+                                label #{ i18n.__( "end_date" ) }
+                                #endDate.ui.calendar
+                                    .ui.input.left.icon
+                                        i.calendar.icon
+                                        input(name='endDate', ng-model="newEventForm.endDate", placeholder='#{ i18n.__( "end_date" ) }')
+
+                            .field
+                                label #{ i18n.__( "listing_date" ) }
+                                select#listingDaysAgo(
+                                    ng-options="c for c in dayAgo",
+                                    ng-model="newEventForm.listingDaysAgo"
+                                )
+                                    option(value="") Gününde
+
+                        .ui.tiny.stacked.segment
+                            .text-center
+                                .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
+                                    .ui.button
+                                        i.upload.icon
+                                        |  #{ i18n.__("upload_photo") }
+                                    a.ui.basic.label
+                                        | {{ newEventForm.files.length > 0 ? newEventForm.files.length : '0'  }}
+                                input(
+                                    type='file',
+                                    style="width:30%"
+                                    ngf-select='onPhotoSelect()',
+                                    ng-model='newEventForm.files',
+                                    name='photos',
+                                    class='hidden'
+                                    ngf-fix-orientation="true",
+                                    ngf-pattern="'image/*'",
+                                    ngf-accept="'image/*'",
+                                    ngf-max-size='4MB',
+                                    ngf-multiple='true',
+                                    ngf-keep='true',
+                                    ngf-keep-distinct='true',
+                                    ngf-max-files="1",
+                                    ngf-model-invalid="invalidFiles",
+                                    ngf-resize="{ quality: .7 }"
+                                )
+
+                            .clearfix &nbsp;
+                            .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
+                                .header
+                                    | #{ i18n.__("photo_size_limit") }
+
+                            .ui.four.stackable.cards
+                                .card.photoList(ng-repeat='f in newEventForm.files')
+                                    .image.photoListImage
+                                        a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
+                                            i.bookmark.icon
+                                        img(
+                                            ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
+                                            ngf-size="{width:200, height:200, quality:0.6}",
+                                            ng-src="/img/spinner.gif",
+                                            class="upload-photo-thumb"
+                                        )
+
+                                        span.progress(ng-hide="f.progressFinish", ng-if="f.progress >= 0")
+                                            div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
+
+
+                                    .ui.bottom.attached.button.noRadius(
+                                        ng-click="onDeletePhoto($index)",
+                                        ng-if="f.showcase",
+                                        ng-cloak
+                                    )
+                                        i.remove.icon
+                                        |  #{ i18n.__("remove") }
+
+
+                                    .ui.two.buttons(ng-if="!f.showcase", ng-cloak)
+                                        .ui.bottom.attached.button.noRadius(ng-click="onDeletePhoto($index)")
+                                            i.remove.icon.margin-auto
+                                        .ui.bottom.attached.button.noRadius(ng-click="onSelectShowCase($index)")
+                                            i.bookmark.icon.margin-auto
+
+
+                                | {{errorMsg}}
+
+
+                        .ui.error.message
+                        .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
+                            | {{ newAdErr }}
+
+                        button.ui.right.floated.primary.button(
+                                form="newEventForm",
+                                ng-class="uploading ? 'loading disabled' : '' "
+                            )
+                            | #{ i18n.__("next_btn") }
+
+                        .clearfix
+
+                div.margin-top-10#preview(ng-show="steps.preview", ng-cloak)
+                    h2 {{ newEventForm.title }}
+
+                    .ui.four.stackable.cards
+                        .card.photoList(ng-repeat='f in newEventForm.files')
+                            .image.photoListImage
+                                a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
+                                    i.bookmark.icon
+                                img(
+                                    ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
+                                    ngf-size="{width:200, height:200, quality:0.6}",
+                                    ng-src="/img/spinner.gif",
+                                    class="upload-photo-thumb"
+                                )
+
+                                span.progress(ng-hide="f.progressFinish", ng-if="f.progress >= 0")
+                                    div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
+
+                    .ui.stackable.grid
+                        .sixteen.wide.column
+                            table.ui.definition.table
+                                tbody
+                                    tr
+                                        td #{ i18n.__("category") }
+                                        td {{ eventCategories[newEventForm.eventCategory].name }}
+                                    tr
+                                        td #{ i18n.__( "start_date" ) }
+                                        td {{ newEventForm.startDateText }}
+                                    tr
+                                        td #{ i18n.__( "end_date" ) }
+                                        td {{ newEventForm.endDateText }}
+
+
+                    h3 #{ i18n.__("description") }
+                    .ui.segment
+                        p.description(ng-bind-html="newEventForm.description")
+
+                    .g-recaptcha(
+                        vc-recaptcha,
+                        key="'#{ recaptcha_site_key }'",
+                        on-success="successCaptcha()"
+                    )
+                    button.ui.right.floated.primary.button(
+                        ng-click="uploadAndSaveMongo('#{ id }')",
+                        ng-class="{loading:submitBtnLoading, disabled:uploading || !activeSaveBtn}"
+                    )
+                        | #{ i18n.__("save_btn") }
+                    button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
+                        | #{ i18n.__("back_btn") }
+
+        div(ng-if="eventSaveComplete", ng-cloak)
+            div.text-center
+                h1 #{ i18n.__("new_ad_successful_title") }
+                div.margin-bottom-30 #{ i18n.__("new_event_successful_info") }
+                a.ui.primary.button(href="/") #{ i18n.__("index_title") }
+
+append javascripts
+    script(src="/semantic/dist/semantic.min.js")
+    script(src="/dist/js/app/services/eventFactory.min.js")
+    script(src="/dist/js/app/services/categoriesFactory.min.js")
+    script(src="/semantic-ui-calendar/dist/calendar.min.js")
+    script(src="/js/app/controllers/newEventController.js")

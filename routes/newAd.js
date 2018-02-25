@@ -59,21 +59,26 @@ router.post('/create', requireLogin, (req, res) => {
 
 	verifyRecaptcha(req.body.recaptcha, (success) => {
 		if (success) {
-			let data = req.body.data;
-			let powerData = req.body.power;
-			let photos = req.body.photos;
-			let _uuid = req.body.uuid  || uuid.v1();
-			let showcaseIndex = req.body.showcaseIndex;
-			let country = req.body.country;
-			let category = req.body.category;
-			let isEdit = req.body.isEdit;
-			let editId = req.body.editId;
-			let phone = data.phone;
-			let mobile_phone = data.mobile_phone;
-			let address = data.address;
-			let website = data.website;
+			const data = req.body.data;
+			const powerData = req.body.power;
+			const photos = req.body.photos;
+			const _uuid = req.body.uuid  || uuid.v1();
+			const showcaseIndex = req.body.showcaseIndex;
+			// let country = req.body.country;
+			const category = req.body.category;
+			const isEdit = req.body.isEdit;
+			const editId = req.body.editId;
+			const phone = data.phone;
+			const mobile_phone = data.mobile_phone;
+			const address = data.address;
+			const website = data.website;
+			const place = data.place;
 
-			let obj = {
+			delete place.photos;
+
+			console.log(data.workTimes);
+
+			const obj = {
 				title: data.title,
 				slug: slugify(data.title, { lower:true }),
 				description: data.description,
@@ -84,15 +89,12 @@ router.post('/create', requireLogin, (req, res) => {
 				mobile_phone: mobile_phone,
 				address: address,
 				website: website,
-				location: {
-					countryId: country.countryId,
-					cityId: country.cityId,
-					districtId: country.districtId,
-				},
+				place: place,
 				category: {
 					categoryId: category.categoryId,
 					categoryChildId: category.childCategoryId
-				}
+				},
+				workTimes: data.workTimes
 			};
 
 			if (data.anotherContact.checked){
@@ -106,7 +108,7 @@ router.post('/create', requireLogin, (req, res) => {
 			}
 
 			if (!isEdit) {
-				let ad = new Ads(Object.assign(obj, { ownerId: req.session.user._id }));
+				const ad = new Ads(Object.assign(obj, { ownerId: req.session.user._id }));
 
 				ad.save((err, data) => {
 					if (err) {

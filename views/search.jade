@@ -1,0 +1,114 @@
+extends layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='dist/css/index.css')
+    link(rel='stylesheet', type='text/css', href='dist/css/search.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='semantic/dist/components/rating.min.css')
+
+
+block content
+    .ui.main.container.subPage(ng-controller="searchController", ng-init="init()")
+        - if (data.length < 1)
+            h2.text-center.padding-top-10 No results.
+        - else
+            form.ui.form.fluid(action="/search")
+                div.gray-bg.padding-10
+                    .two.fields
+                        .field(
+                            ng-init="place.formatted_address='#{ data[0].place.formatted_address }'"
+                        )
+                            label Location
+                            input(g-places-autocomplete='', ng-model='place')
+                            input(
+                                name="location",
+                                ng-show="false",
+                                ng-init="placeLongName='#{ data[0].place.address_components[0].long_name }'",
+                                ng-model='placeLongName'
+                            )
+
+                        .field
+                            .two.fields(country-and-category-dropdowns)
+
+                    .field.text-right
+                        label.custom Open Now
+                            - if (openNow)
+                                input.customCheckbox(name='openNow', type='checkbox', checked)
+                            - else
+                                input.customCheckbox(name='openNow', type='checkbox')
+
+                    .field.text-right
+                        button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                            | Search
+
+                .field.margin-top-30
+                    select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
+                        option(selected disabled) Sort with
+                        option(value="rate") Rate
+
+            h1.text-center.padding-bottom-10 #{ title }
+
+            .clearfix
+            .ui.segment.list-segment.searchData
+                .ui.grid.no-margin-bottom
+                    .doubling.four.column.row
+                        each ad in data
+                            - if (!((!ad.workTimes.open || clockOpenClose) && openNow) )
+                                .column.margin-bottom-10
+                                    .ui.fluid.card.adCard
+                                        a.image.cardListImage(href="/detail/#{ ad.slug }/#{ ad._id }")
+                                            - if (ad.totalPower > 0)
+                                                .ui.left.corner.orange.label
+                                                    .cardPowerNumber
+                                                        | #{ ad.totalPower }
+                                            - if (ad.photos !== null)
+                                                img(ng-src='#{ amazon_base_url }/#{ ad.photos[ad.photoShowcaseIndex].filename }')
+                                            - else
+                                                img(ng-src='/img/no-photo.png')
+                                        .content
+                                            span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
+                                            .meta #{ ad.category }
+
+                                        .extra.content
+                                            - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
+
+                                            - if (!ad.workTimes.open || !clockOpenClose)
+                                                span.right.floated
+                                                    .ui.red.horizontal.label #{i18n.__( "Close" )}
+                                            - else
+                                                span.right.floated
+                                                    .ui.green.horizontal.label #{i18n.__( "Open" )}
+
+                                            - if (ad.rate)
+                                                .ui.star.rating(data-rating='#{ ad.rate }')
+
+            .text-center
+                button.ui.big.button.margin-auto(
+                    ng-click="showEvents(placeLongName)",
+                    ng-class="{loading: loadingEvents}",
+                    ng-if="!events"
+                )
+                    | #{i18n.__("Show events")} ({{ placeLongName }})
+
+            div(ng-if="events.length > 0")
+                h2 #{i18n.__( "Events" )} ({{ placeLongName }})
+                .ui.segment.list-segment
+                    .ui.grid.no-margin-bottom
+                        .doubling.four.column.row
+                            .column.margin-bottom-10(
+                                ng-repeat="e in events",
+                            )
+                                a.ui.fluid.card.adCard(href="/detail/{{ e.event.slug }}/{{ e.event._id }}")
+                                    .image.cardListImage
+                                        img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
+                                        img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")
+                                    .content
+                                        span.black {{ e.event.title }}
+
+
+append javascripts
+    script(src="/semantic/dist/components/rating.min.js")
+    script(src="/dist/js/app/services/searchFactory.min.js")
+    script(src="/dist/js/app/services/categoriesFactory.min.js")
+    script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
+    script(src="/dist/js/app/controllers/searchController.min.js")

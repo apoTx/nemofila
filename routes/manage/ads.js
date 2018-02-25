@@ -243,7 +243,6 @@ router.get('/getAllAds', requireLogin, (req, res, next) => {
 		if (err)
 			return next(err);
 
-		console.log(result);
 		res.json(result);
 	});
 });

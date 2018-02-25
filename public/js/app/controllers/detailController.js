@@ -1,50 +1,103 @@
-app.controller('detailController', ['$scope', 'favFactory', 'messageFactory', ($scope, favFactory, messageFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory) => {
 
-	$('.detail-right-menu a').popup({
-		position: 'bottom center'
-	});
+	$(() => {
+		$('.detail-right-menu a').popup({
+			position: 'bottom center'
+		});
 
-	// Send Message Form validation
-	$('#sendMessageForm').form({
-		keyboardShortcuts: false,
-		on: 'blur',
-		fields: {
-			pw: {
-				identifier  : 'message',
-				rules: [
-					{
-						type   : 'empty',
-						prompt : 'Please enter your message.'
-					},
-					{
-						type   : 'maxLength[600]',
-						prompt : 'Your message can be up to {ruleValue} characters long.'
-					}
-				]
+		$scope.onRate = false;
+		$('#detailRating').rating({
+			maxRating: 5,
+			onRate: (value) => {
+				if(!$scope.userId || $scope.userId === 'null'){
+					alert('Please login');
+					return false;
+				}
+
+				rateFactory.setRate($scope.adId, value).then((data) => {
+					console.log(data);
+				});
+
+				$scope.onRate = true;
 			}
-		},
-		onSuccess: () => {
-			$scope.sendMessage();
-		},
-		onInvalid:() => {
-			$scope.sendMessageErr = null;
-		},
+		});
+
+		// Send Message Form validation
+		$('#sendMessageForm').form({
+			keyboardShortcuts: false,
+			on: 'blur',
+			fields: {
+				pw: {
+					identifier  : 'message',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter your message.'
+						},
+						{
+							type   : 'maxLength[600]',
+							prompt : 'Your message can be up to {ruleValue} characters long.'
+						}
+					]
+				}
+			},
+			onSuccess: () => {
+				$scope.sendMessage();
+			},
+			onInvalid:() => {
+				$scope.sendMessageErr = null;
+			},
+		});
 	});
 
-	$scope.init = (userId, adId, photos, amazon_base_url) => {
+
+	/*eslint-disable*/
+	function initMap(lat, lng){
+		const geocoder = new google.maps.Geocoder();
+		const latlng = new google.maps.LatLng( lat, lng );
+		const mapOptions = {
+			zoom: 8,
+			center: latlng
+		};
+		const map = new google.maps.Map( document.getElementById( 'googleMap' ), mapOptions );
+	}
+	/*eslint-enable*/
+
+	$scope.init = (userId, adId, photos, amazon_base_url, mapLat, mapLng) => {
+		$scope.adId = adId;
+		$scope.userId = userId;
+
+		initMap(mapLat, mapLng);
+
 		if ( userId !== 'null' ){
 			favFactory.isFav(userId,adId).then((response) => {
 				$scope.isFav = response.isFav;
 			});
 		}
 
-		let photoList = JSON.parse(photos);
-		photoList.forEach((elem,index)=>{
-			elem.url = amazon_base_url+'/'+elem.filename;
-			elem.id = index;
+		try{
+			let photoList = JSON.parse(photos);
+			photoList.forEach((elem,index)=>{
+				elem.url = amazon_base_url+'/'+elem.filename;
+				elem.id = index;
+			});
+
+			$scope.imagesa = photoList;
+		}catch (e) {
+			//catch
+		}
+
+
+		// similar ads
+		detailFactory.getSimilars($scope.adId).then((result) => {
+			$scope.similarAds = result;
+			console.log(result);
 		});
 
-		$scope.imagesa = photoList;
+		// events
+		eventFactory.getEventsByAdId($scope.adId).then((result) => {
+			$scope.events = result;
+		});
 	};
 
 	$scope.addFavourites = (adId, userId) => {

@@ -6,6 +6,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/breadcrumb.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
     link(rel='old stylesheet', href='/ng-image-gallery/dist/ng-image-gallery.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/style.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
@@ -19,165 +20,214 @@ block content
 
     - var photosList = JSON.stringify(data.photos);
 
-    div.detailContainer(ng-controller="detailController" ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify(data.photos)}', '#{ amazon_base_url }' )")
+    div.ui.main.container.subPage(
+        ng-controller="detailController"
+        ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify( data.photos )}', '#{ amazon_base_url }', '#{ data.place.geometry.location.lat }', '#{ data.place.geometry.location.lng }' )"
+    )
+        div.detailContainer
 
-        - if (data.status === 0)
-            .ui.warning.message.margin-bottom-30
-                .header
-                    | #{i18n.__("status_approvel")}
-                |   #{i18n.__("only_you")}
+            - if (data.status === 0)
+                .ui.warning.message.margin-bottom-30
+                    .header
+                        | #{i18n.__("status_approvel")}
+                    |   #{i18n.__("only_you")}
 
-        - if (data.status === 2)
-            .ui.negative.message.margin-bottom-30
-                .header
-                    | #{i18n.__("status_rejected")}
-                |   #{i18n.__("only_you")}
+            - if (data.status === 2)
+                .ui.negative.message.margin-bottom-30
+                    .header
+                        | #{i18n.__("status_rejected")}
+                    |   #{i18n.__("only_you")}
 
-        - if (data.status === 3)
-            .ui.negative.message.margin-bottom-30
-                .header
-                    | #{i18n.__("status_expired")}
-                |   #{i18n.__("only_you")}
+            - if (data.status === 3)
+                .ui.negative.message.margin-bottom-30
+                    .header
+                        | #{i18n.__("status_expired")}
+                    |   #{i18n.__("only_you")}
 
-        - if (data.status === 4)
-            .ui.negative.message.margin-bottom-30
-                .header
-                    | #{i18n.__("status_unpublished")}
-                |   #{i18n.__("only_you")}
+            - if (data.status === 4)
+                .ui.negative.message.margin-bottom-30
+                    .header
+                        | #{i18n.__("status_unpublished")}
+                    |   #{i18n.__("only_you")}
 
-        .ui.stackable.grid
-            .ten.wide.column
-                h1 #{data.title}
+            .ui.stackable.grid
+                .ten.wide.column
+                    h1 #{data.title}
 
-            .six.wide.column.text-right.detail-right-menu
-                .ui.right.floated.main.menu
-                    a.music.popup.icon.item(
-                            data-content='#{i18n.__("share_facebook")}',
-                            target="_blank",
-                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
-                            href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
-                        )
-                        i.facebook.icon
-                    a.music.popup.icon.item(data-content='#{i18n.__("share_twitter")}')
-                        i.twitter.icon
-                    a.music.popup.icon.item(data-content='#{i18n.__("share_google")}')
-                        i.google.plus.icon
-
-
-                - if (session)
-                    .ui.right.floated.main.menu(
-                        ng-show="!isFav",
-                        ng-cloak
-                    )
+                .six.wide.column.text-right.detail-right-menu
+                    .ui.right.floated.main.menu
                         a.music.popup.icon.item(
-                            data-content='#{i18n.__("add_favourites")}',
-                            ng-click="addFavourites('#{ session._id }','#{ data._id }')"
-                        )
-                            i.star.empty.icon
+                                data-content='#{i18n.__("share_facebook")}',
+                                target="_blank",
+                                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
+                                href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
+                            )
+                            i.facebook.icon
+                        a.music.popup.icon.item(data-content='#{i18n.__("share_twitter")}')
+                            i.twitter.icon
+                        a.music.popup.icon.item(data-content='#{i18n.__("share_google")}')
+                            i.google.plus.icon
 
-                    .ui.right.floated.main.menu(
-                        ng-show="isFav",
-                        ng-cloak
-                    )
-                        a.music.popup.icon.item(
-                        data-content='#{i18n.__("remove_favourites")}',
-                        ng-click="delFavourites('#{ session._id }','#{ data._id }')"
-                        )
-                            i.star.icon
 
-        .ui.stackable.grid
-            .six.wide.column
-                a.ui.fluid.image.showcaseImage(
-                        ng-click='openGallery()',
-                        href="javascript:;"
-                    )
-                    - if (data.photos !== null)
-                        img(
-                            ng-init="showcase(#{ JSON.stringify(data.photos) }, #{ data.photoShowcaseIndex })",
-                            ng-src='#{ amazon_base_url }/{{ showcase }}'
+                    - if (session)
+                        .ui.right.floated.main.menu(
+                            ng-show="!isFav",
+                            ng-cloak
                         )
-                    - else
-                        img(ng-src='/img/no-photo.png')
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__("add_favourites")}',
+                                ng-click="addFavourites('#{ session._id }','#{ data._id }')"
+                            )
+                                i.star.outline.icon
 
-                .ui.images.detail-photo-list.text-center
-                    - if (data.photos !== null)
-                        ng-image-gallery(
-                            images='imagesa',
-                            methods='methods',
-                            img-anim='slide',
-                            conf='conf',
-                            on-open='opened();',
-                            on-close='closed();',
-                            on-delete='delete(img, cb)',
-                            bubble-size=18,
-                            img-bubbles="true",
+                        .ui.right.floated.main.menu(
+                            ng-show="isFav",
+                            ng-cloak
                         )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__("remove_favourites")}',
+                                ng-click="delFavourites('#{ session._id }','#{ data._id }')"
+                            )
+                                i.star.icon
 
-                        each photo,k in data.photos
-                            img.ui.image.mini(
-                                ng-click='changePhoto(#{k})',
-                                src='#{ amazon_base_url }/#{ photo.filename }'
+            .ui.stackable.grid
+                .six.wide.column
+                    a.ui.fluid.image.showcaseImage(
+                            ng-click='openGallery()',
+                            href="javascript:;"
+                        )
+                        - if (data.photos !== null)
+                            img(
+                                ng-init="showcase(#{ JSON.stringify(data.photos) }, #{ data.photoShowcaseIndex })",
+                                ng-src='#{ amazon_base_url }/{{ showcase }}'
+                            )
+                        - else
+                            img(ng-src='/img/no-photo.png')
+
+                    .ui.images.detail-photo-list.text-center
+                        - if (data.photos !== null)
+                            ng-image-gallery(
+                                images='imagesa',
+                                methods='methods',
+                                img-anim='slide',
+                                conf='conf',
+                                on-open='opened();',
+                                on-close='closed();',
+                                on-delete='delete(img, cb)',
+                                bubble-size=18,
+                                img-bubbles="true",
                             )
 
-            .ten.wide.column
-                .ui.breadcrumb.tiny
-                    .active.section #{ location.name }
-                    .divider  /
-                    .active.section #{ location.cityName }
-                    .divider  /
-                    .active.section #{ location.districtName }
+                            each photo,k in data.photos
+                                img.ui.image.mini(
+                                    ng-click='changePhoto(#{k})',
+                                    src='#{ amazon_base_url }/#{ photo.filename }'
+                                )
+
+                .ten.wide.column
+                    .ui.grid
+                        .ten.wide.column
+                            .ui.breadcrumb.tiny
+                                .active.section #{ place.formatted_address }
+                        .six.wide.column
+                            .ui.right.floated.text-right
+                                span.rateNumber
+                                    b #{ viewRate }
+                                .ui.star.large.rating#detailRating(data-rating='#{ rate }')
+                                span.reviewMessage(ng-show="onRate")
+                                    | #{i18n.__("Thank you for the review")}
 
 
-                table.ui.definition.table
-                    tbody
-                        tr
-                            td #{i18n.__("category")}
-                            td #{ category.name } / #{ category.childCategoryName }
-                        tr
-                            td #{i18n.__("listing_date")}
-                            td #{ moment(data.listingDate).format("DD/MM/YYYY") }
-                        tr
-                            td #{i18n.__("contact_name")}
-                            td
-                                - if (!data.anotherContact || !data.anotherContact.checked)
-                                    div.contact-name #{ data.user.name } #{ data.user.surname }
-
-                                    - if (sessionId !== null && (sessionId != String(data.user._id)))
-                                        button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
-                                - else
-                                    div #{ data.anotherContact.name }
-                                .clearfix
-                        tr
-                            td #{i18n.__("mobile_phone")}
-                            td
-                                a.phone-number
+                    table.ui.definition.table
+                        tbody
+                            tr
+                                td #{i18n.__("category")}
+                                td #{ category.name } / #{ category.childCategoryName }
+                            tr
+                                td #{i18n.__("listing_date")}
+                                td #{ moment(data.listingDate).format("DD/MM/YYYY") }
+                            tr
+                                td #{i18n.__("contact_name")}
+                                td
                                     - if (!data.anotherContact || !data.anotherContact.checked)
-                                        | #{ data.mobile_phone }
+                                        div.contact-name #{ data.user.name } #{ data.user.surname }
+
+                                        - if (sessionId !== null && (sessionId != String(data.user._id)))
+                                            button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
                                     - else
-                                        div #{ data.anotherContact.phone }
+                                        div #{ data.anotherContact.name }
+                                    .clearfix
+                            tr
+                                td #{i18n.__("mobile_phone")}
+                                td
+                                    a.phone-number
+                                        - if (!data.anotherContact || !data.anotherContact.checked)
+                                            | #{ data.mobile_phone }
+                                        - else
+                                            div #{ data.anotherContact.phone }
 
-                        tr(ng-show="#{ data.phone !== '' }", ng-cloak)
-                            td #{i18n.__( "phone" )}
-                            td
-                                a.phone-number
-                                    | 1232
+                            tr(ng-show="#{ data.phone !== '' }", ng-cloak)
+                                td #{i18n.__( "phone" )}
+                                td
+                                    a.phone-number
+                                        | #{ data.phone }
 
-                        tr(ng-show="#{ data.website != '' }", ng-cloak)
-                            td #{i18n.__( "website" )}
-                            td
-                                a(href="#{ data.website }", ng-cloak)
-                                    | #{ data.website }
+                            tr(ng-show="#{ data.website != '' }", ng-cloak)
+                                td #{i18n.__( "website" )}
+                                td
+                                    a(href="#{ data.website }", ng-cloak)
+                                        | #{ data.website }
 
-                        tr(ng-show="#{ data.address != '' }", ng-cloak)
-                            td #{i18n.__( "address" )}
-                            td
-                                | #{ data.address }
+                            tr(ng-show="#{ data.address != '' }", ng-cloak)
+                                td #{i18n.__( "address" )}
+                                td
+                                    | #{ data.address }
+
+                    #googleMap(style="width:100%;height:400px;")
 
 
-        h3 #{i18n.__("description")}
-        .ui.segment
-            p.description
-                | !{ data.description }
+            h3 #{i18n.__("description")}
+            .ui.segment
+                p.description
+                    | !{ data.description }
+
+
+            .text-center
+                h3 #{ pageView }
+                | page view
+
+        div.margin-top-30(ng-if="similarAds.length > 1")
+            h2 #{i18n.__( "Similar Ads" )}
+            .ui.segment.list-segment
+                .ui.grid.no-margin-bottom
+                    .doubling.four.column.row
+                        .column.margin-bottom-10(
+                            ng-repeat="ad in similarAds",
+                            ng-if="ad._id !== adId"
+                        )
+                            a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
+                                .image.cardListImage
+                                    img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-hide="ad.photoShowcaseIndex === null")
+                                    img(ng-src='/img/no-photo.png', , ng-show="ad.photoShowcaseIndex === null")
+                                .content
+                                    span.black {{ ad.title }}
+
+
+        div.margin-top-30(ng-if="events.length > 0")
+            h2 #{i18n.__( "Events" )}
+            .ui.segment.list-segment
+                .ui.grid.no-margin-bottom
+                    .doubling.four.column.row.no-padding-bottom
+                        .column.margin-bottom-10(
+                            ng-repeat="event in events",
+                        )
+                            a.ui.fluid.card.adCard(href="/detail/{{ event.slug }}/{{ event._id }}")
+                                .image.cardListImage
+                                    img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-hide="event.photoShowcaseIndex === null")
+                                    img(ng-src='/img/no-photo.png', , ng-show="event.photoShowcaseIndex === null")
+                                .content
+                                    span.black {{ event.title }}
+
 
         - if (sessionId !== null && (sessionId != String(data.user._id)))
             // Send Message Modal
@@ -219,5 +269,9 @@ block content
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
+    script(src="/semantic/dist/components/rating.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
-    script(src="/dist/js/app/controllers/detailController.min.js")
+    script(src="/dist/js/app/services/rateFactory.min.js")
+    script(src="/dist/js/app/services/eventFactory.min.js")
+    script(src="/dist/js/app/services/detailFactory.min.js")
+    script(src="/js/app/controllers/detailController.js")

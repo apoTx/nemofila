@@ -1,82 +1,179 @@
 extends layout
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/label.min.css')
-    link(rel='stylesheet', type='text/css', href='dist/css/index.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/index.css')
+    style.
+        .transparent {
+            background: rgba(0, 0, 0, 0.1) !important
+        }
+
+block logo
+
+block top_left
+    .ui.container.computer.tablet.only.grid.no-margin
+        a.header.item.no-before(href='/')
+            img.logo(src='/img/nemofila.png')
+        .left.menu
+            .ui.simple.dropdown.item
+                i.map.signs.thin.icon
+                span.text #{i18n.__( "business_owners" )}
+                .menu.businessOwnersMenu
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "how_create_an_ad" )}
+                    .item
+                        a.ui(href="/newAd")
+                            | #{i18n.__( "create_your_ad" )}
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "blog_flor_business_owners" )}
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "business_success_stories" )}
+                    .item.ui
+                        a.ui(href="#")
+                            | #{i18n.__( "if_your_business_is_not_here" )}
+            .item
+                button.ui.orange.button(ng-click="openHowItWorkModal()") #{i18n.__( "how_it_work" )}
 
 block content
-
     div(ng-controller="indexController" ng-init="init(#{ page })")
-        .ui.sidebar.inverted.vertical.left.menu.filterSidebar
-            form.ui.form.sidebarFilterForm
-                country-and-category-dropdowns
+        .ui.main.container.fluid.indexHead
+            .ui.main.container
+                .indexHeadTop
 
-                .field.text-right.margin-top-10
-                    .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                        | Search
+                .clearfix
 
-        .search
-            .fixer
-            .searchForm
-                form.ui.form.fluid(ng-submit="onSubmit()")
-                    .ui.action.input.fluid
-                        input(type='text', ng-model='searchForm.title', placeholder='#{i18n.__("searchPlaceholder")}...')
-                        button.ui.button.primary(type="submit", ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
+                div.headTitle
+                    h1 #{i18n.__( "Say Hello to Nemofila" )}
 
-                    .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
-                        a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
-                            | #{i18n.__("filterBtn")}
+                .ui.sidebar.inverted.vertical.left.menu.filterSidebar
+                    form.ui.form.sidebarFilterForm
+                        .field
+                            label Location
+                            input(class="ui input", id="searchLocation2", class="autocompletePlace")
+                        country-and-category-dropdowns
 
-                    div.searchFormBottom.ui.container.computer.only.grid
-                        .five.fields(country-and-category-dropdowns)
-
-                        .field.text-right
-                            .ui.button.primary(ng-click="onSubmit()", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                        .field.text-right.margin-top-10
+                            .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                                 | Search
 
-                        .clearfix
+                .search.ui.container
+                    .searchForm
+                        form.ui.form.fluid(action="/search")
+                            .ui.action.input.fluid.filterInput
+                                input(ng-model='searchForm.title', name="title", value="{{ searchForm.title }}", placeholder='#{i18n.__("searchPlaceholder")}...')
+                                // button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
 
-        h2(ng-show="isSearch && resultNumber > 0", ng-cloak) We found {{ resultNumber }} results.
-        .ui.segment.list-segment
-            .ui.grid.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
-                .doubling.four.column.row
-                    .column.margin-bottom-10(ng-repeat="ad in ads")
-                        a.ui.fluid.card.adCard(href="/detail/{{ ad.slug }}/{{ ad._id }}")
-                            .image.cardListImage
-                                .ui.left.corner.orange.label(ng-show="ad.totalPower > 0")
-                                    .cardPowerNumber
-                                        | {{ ad.totalPower }}
-                                img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
-                                img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
-                            .content
-                                span {{ ad.title | limitTo: 16 }} {{ ad.title.length > 16 ? '...' : ''}}
-            .ui.dimmer(ng-class="{ active:indexAdsLoading }")
-                .ui.loader
+                            .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
+                                a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
+                                    | #{i18n.__("filterBtn")}
 
-            h1.text-center(ng-show="ads.length < 1", ng-cloak)
-                | No results.
+                            div.searchFormBottom.ui.container.computer.only.grid
+                                .two.fields
+                                    .field
+                                        label Location
+                                        input(g-places-autocomplete='', ng-model='place')
+                                        input(name="location", type="hidden", value="{{ place.address_components[0].long_name }}")
 
-        .ui.grid.stackable
-            .eighteen.wide.column.center.aligned
-                paging(
-                    page= 'currentPage',
-                    page-size='adPerPage',
-                    total='adCount',
-                    pg-href="?page={page}",
-                    show-prev-next='true',
-                    show-first-last='true',
-                    text-prev="Prev",
-                    text-next="Next"
-                )
+                                    .field
+                                        .two.fields(country-and-category-dropdowns)
 
-        .clearfix
+
+                                .clearfix
+
+                                .field.text-right
+                                    label.custom Open Now
+                                        input.customCheckbox(name='openNow', type='checkbox')
+
+                                .field.text-right
+                                    button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                                        | Search
+
+        .ui.main.container
+            h2.indexBestInTitle #{i18n.__("best_in_nemofila")}
+
+            h2(ng-show="isSearch && resultNumber > 0", ng-cloak) We found {{ resultNumber }} results.
+            .ui.segment.list-segment
+                .ui.grid.no-margin-bottom(ng-show="!indexAdsLoading" ng-cloak)
+                    .doubling.four.column.row
+                        .column.margin-bottom-10(ng-repeat="ad in ads")
+                            .ui.fluid.card.adCard
+                                a.image.cardListImage(href="/detail/{{ ad.slug }}/{{ ad._id }}")
+                                    .ui.left.corner.orange.label(ng-show="ad.totalPower > 0")
+                                        .cardPowerNumber
+                                            | {{ ad.totalPower }}
+                                    img(ng-src='#{ amazon_base_url }/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                                    img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
+                                //.content
+                                    span {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
+                                .content
+                                    .header {{ ad.title | limitTo: 26 }} {{ ad.title.length > 26 ? '...' : ''}}
+                                    .meta
+                                        a {{ ad.category }}
+                                    //.description
+                                        | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
+
+                                .extra.content(ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)")
+                                    span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
+                                        .ui.red.horizontal.label #{i18n.__( "Close" )}
+
+                                    span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
+                                        .ui.green.horizontal.label #{i18n.__( "Open" )}
+
+                                    div(ng-if="ad.rate")
+                                        .ui.star.rating(data-rating='{{ ad.rate }}')
+
+                .ui.dimmer(ng-class="{ active:indexAdsLoading }")
+                    .ui.loader
+
+                h1.text-center(ng-show="ads.length < 1", ng-cloak)
+                    | #{i18n.__( "No Results" )}
+
+            .ui.grid.stackable
+                .eighteen.wide.column.center.aligned
+                    paging(
+                        page= 'currentPage',
+                        page-size='adPerPage',
+                        total='adCount',
+                        pg-href="?page={page}",
+                        show-prev-next='true',
+                        show-first-last='true',
+                        text-prev="Prev",
+                        text-next="Next"
+                    )
+
+            .clearfix
+
+            div(ng-if="events.length > 0")
+                h2.indexBestInTitle #{i18n.__( "last_events" )}
+                .ui.segment.list-segment
+                    .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
+                        .doubling.four.column.row
+                            .column.margin-bottom-10(ng-repeat="event in events")
+                                a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
+                                    .image.cardListImage
+                                        img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
+                                        img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
+                                    .content
+                                        span {{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
+                    .ui.dimmer(ng-class="{ active:indexAdsLoading }")
+                        .ui.loader
+
+
+    include partials/modals/index/howItWork
 
 append javascripts
+    script(src="/semantic/dist/components/rating.min.js")
+    script(src="/semantic/dist/components/dropdown.min.js")
     script(src="/dist/js/app/services/indexFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
-    script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="dist/js/app/controllers/indexController.min.js")

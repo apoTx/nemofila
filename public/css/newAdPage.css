@@ -19,3 +19,18 @@
     font-size:12px;
     padding:10px 0
 }
+
+#workTimesForm .row > .column, .center{
+}
+
+.timeDropdowns > div > div{
+   /* display: none!important;*/
+    margin-top:-8px
+}
+
+.workTimeSettingsDisplay{
+    display: none!important;
+}
+.timeDropdownsVisible{
+    display: none!important;
+}

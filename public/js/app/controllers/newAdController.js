@@ -13,6 +13,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.buyPowerStatus = false;
 	$scope.buyPowerLoader = false;
 
+	$scope.newAdForm.place = null;
+
+	$scope.autocompleteOptions = {
+		types: ['(cities)']
+	};
+
 	$(() => {
 		// stripe
 		$('#buttonCheckout').on('click', () => {
@@ -123,8 +129,41 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		$(() => {
 			$('#terms').on('click', () => {
-				console.log('asd');
 				$('#termsModal').modal('show');
+			});
+
+
+			// $('#workTimesModal').modal('show');
+
+			$('#workTimesBtn').on('click', () => {
+				$('#workTimesModal').modal('show');
+			});
+
+			/*$('.openClose.checkbox').checkbox({
+				onChecked: () => {
+					const $childCheckbox  = $(this).closest('.checkbox');
+
+					console.log($childCheckbox);
+				}
+			});*/
+
+			$('.hour24').change(function() {
+				let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
+				if(this.checked) {
+					$clockDropdowns.addClass('timeDropdownsVisible');
+				}else{
+					$clockDropdowns.removeClass('timeDropdownsVisible');
+				}
+			});
+
+			$('.openClose').change(function() {
+				let $elem = $(this).parent('div').parent('div').next('div');
+
+				if(this.checked) {
+					$elem.removeClass('workTimeSettingsDisplay');
+				}else{
+					$elem.addClass('workTimeSettingsDisplay');
+				}
 			});
 
 			$('#anotherPerson').checkbox({
@@ -152,29 +191,31 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		$scope.userExists =  (userExists == 'true');
 
-		countriesFactory.getCountries().then((response) => {
-			$scope.countries = response;
-		});
-
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
 		});
+
+		$scope.clocks = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'];
+		$scope.newAdForm.workTimes = {};
 	};
 
 	$scope.next = () => {
-		if ( !$scope.isEdit )
+		/*if ( !$scope.isEdit )
 			$scope.powerTab();
 		else
 			$scope.previewTab();
-
+		*/
+		$scope.previewTab();
 		$scope.$apply();
 	};
 
 	$scope.back = () => {
-		if ( !$scope.isEdit )
+		/*if ( !$scope.isEdit )
 			$scope.powerTab();
 		else
-			$scope.adInformationTab();
+			$scope.adInformationTab();*/
+
+		$scope.adInformationTab();
 	};
 
 	$scope.uploadedFiles = [];
@@ -192,6 +233,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			$scope.newAdForm.address = response.data.address || '';
 			$scope.newAdForm.website = response.data.website || '';
 			$scope.newAdForm.anotherContact = response.data.anotherContact;
+			$scope.newAdForm.place = response.data.place;
+			$scope.newAdForm.workTimes = response.data.workTimes;
+
 			if (!$scope.newAdForm.anotherContact){
 				$scope.newAdForm.anotherContact =  { };
 				$scope.newAdForm.anotherContact.checked = false;
@@ -205,15 +249,14 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.files = [];
 			}
 
-			let country = response.data.location;
 			let category = response.data.category;
 			setTimeout(() => {
 				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
 				$scope.newAdForm.categoryChild = (($scope.categories[$scope.newAdForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
 
-				$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
+				/*$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
 				$scope.newAdForm.city = (($scope.countries[$scope.newAdForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
-				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();
+				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();*/
 			});
 
 			$scope.loadingBufferData = false;
@@ -315,7 +358,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.onSubmitAd = (photos, id, newPhotos) => {
 		$scope.submitBtnLoading = true;
 
+		console.log($scope.newAdForm);
+		console.log($scope.newAdForm.workTimes);
 		let data = Object.assign({}, $scope.newAdForm);
+		console.log(data);
 
 		delete data.files;
 
@@ -337,13 +383,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}catch (e){
 			showcaseIndex = null;
 		}
-
+		/*
 		let district;
 		try{
 			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
 		}catch(e){
 			district = null;
-		}
+		}*/
 
 		let childCategory;
 		try{
@@ -368,11 +414,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				},
 				photos: photoList,
 				showcaseIndex: showcaseIndex,
-				country: {
-					countryId: $scope.countries[$scope.newAdForm.country]._id,
-					cityId: $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city]._id,
-					districtId: district
-				},
 				category: {
 					categoryId: $scope.categories[$scope.newAdForm.category]._id,
 					childCategoryId: childCategory

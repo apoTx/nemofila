@@ -1,14 +1,14 @@
 extends layout
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='dist/css/style.css')
-    link(rel='stylesheet', type='text/css', href='dist/css/profile.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/button.min.css')
-    link(rel='stylesheet', type='text/css', href='semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/style.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/profile.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/button.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
 
 block content
-    div(
+    .ui.main.container.subPage(
         ng-controller="profileController",
         ng-init="init('#{ amazon_base_url }', '#{ JSON.stringify(profile_locales) }')"
     )
@@ -18,6 +18,11 @@ block content
                 ng-class="{active: activetab=='myads'}"
             )
                 | #{i18n.__("my_ads")}
+            a.item(
+                href="#!myevents",
+                ng-class="{active: activetab=='myevents'}"
+            )
+                | #{i18n.__( "My Events" )}
             a.item(
                 href="#!messages",
                 ng-class="{active: activetab=='messages'}"
@@ -45,6 +50,10 @@ append javascripts
     // MyAds
     script(src="dist/js/app/services/profile/myAdsFactory.min.js")
     script(src="dist/js/app/controllers/profile/myAdsController.min.js")
+
+    // MyEvents
+    script(src="dist/js/app/services/eventFactory.min.js")
+    script(src="dist/js/app/controllers/profile/myEventsController.min.js")
 
     // Messages
     script(src="/dist/js/app/services/profile/myMessageFactory.min.js")

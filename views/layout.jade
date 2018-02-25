@@ -6,7 +6,7 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
 
         title= title
-            |  - EasyAd
+            |  - Nemofila
 
         block stylesheets
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/reset.min.css')
@@ -31,8 +31,14 @@ html
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/sidebar.min.css')
             link(rel='stylesheet', type='text/css', href='/semantic/dist/components/flag.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
+            link(rel='stylesheet', type='text/css', href='/angular-google-places-autocomplete/src/autocomplete.css')
 
-    body(ng-app="app", ng-controller="layoutController", ng-init="init('#{ JSON.stringify(user) }')")
+    body(
+        ng-app="app",
+        ng-controller="layoutController",
+        ng-init="init('#{ JSON.stringify(user) }')",
+        ng-cloak
+    )
 
         .ui.sidebar.inverted.vertical.right.menu.rightSidebar
             if !user
@@ -52,10 +58,13 @@ html
                     button.ui.primary.button(ng-click="openSignInModal()") #{i18n.__("newAdBtn")}
 
 
-        .ui.fixed.inverted.menu
+        .ui.fixed.inverted.menu.transparent
             .ui.container
-                a.header.item.no-before(href='/')
-                    img.logo(src='/img/logo.png')
+                block top_left
+
+                block logo
+                    a.header.item.no-before(href='/')
+                         img.logo(src='/img/nemofila.png')
                 .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item
@@ -106,7 +115,7 @@ html
                                     a.item(href='/logout')
                                         i.icon.sign.out
                                         | #{i18n.__("logout")}
-
+                    //
                         .item
                             if user
                                 a.ui.primary.button.right.floated.right(href="/newAd") #{i18n.__("newAdBtn")}
@@ -124,7 +133,8 @@ html
                         i.sidebar.medium.icon
 
         .pusher
-            .ui.main.container.aligned
+            .ui.main.container.fluid.containerParent
+
                 block content
 
         // Footer
@@ -187,11 +197,16 @@ html
         // Controller
         script(src="/dist/js/app/controllers/layoutController.min.js")
 
+        // google map
+        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
+        script(type='text/javascript', src="/angular-google-places-autocomplete/dist/autocomplete.min.js")
+
         script(src="/semantic/dist/components/dimmer.min.js")
         script(src="/semantic/dist/components/modal.min.js")
         script(src="/semantic/dist/components/transition.min.js")
         script(src="/semantic/dist/components/form.min.js")
         script(src="/semantic/dist/components/sidebar.min.js")
+
 
         // Global site tag (gtag.js) - Google Analytics
         script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-109564878-1')

@@ -16,7 +16,7 @@ let adSchema = new Schema({
 	},
 	photos: [],
 	photoShowcaseIndex: {
-		type: Number
+		type: Number,
 	},
 	power: {
 		powerStatus: Boolean,
@@ -25,11 +25,7 @@ let adSchema = new Schema({
 	uuid: {
 		type: String
 	},
-	location:{
-		countryId: ObjectId,
-		cityId: ObjectId,
-		districtId: ObjectId,
-	},
+	place: {},
 	category: {
 		categoryId: ObjectId ,
 		categoryChildId: ObjectId ,
@@ -77,6 +73,144 @@ let adSchema = new Schema({
 	},
 	address:String,
 	website: String,
+	pageView: {
+		type: Number,
+		default: 0
+	},
+	rates: [
+		{
+			userId: ObjectId,
+			score: Number
+		},
+	],
+	workTimes: {
+		monday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		},
+		tuesday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		},
+		wednesday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		},
+		thursday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		},
+		friday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		},
+		saturday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		},
+		sunday: {
+			open: {
+				type: Boolean,
+				default: false
+			},
+			hour24: {
+				type: Boolean,
+				default: false
+			},
+			openTime: {
+				type: String,
+				//default: '07:00'
+			},
+			closeTime: {
+				type: String,
+				//default: '23:00'
+			}
+		}
+	}
 });
 
 module.exports = mongoose.model('ads', adSchema);

@@ -1,4 +1,5 @@
-app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory) => {
+app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', 'vcRecaptchaService', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory, vcRecaptchaService) => {
+
 	$scope.toggleSidebar = () => {
 		$('.rightSidebar')
 			.sidebar('setting', 'transition', 'overlay')
@@ -208,6 +209,7 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	};
 
 	// Sign In
+	let widgetId = null;
 	$scope.loginFormData = { };
 	$scope.signIn = () => {
 		$scope.signInBtnLoading = true;
@@ -217,9 +219,14 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 			if (response.status === 1){
 				$window.location.reload();
 			}else {
+				vcRecaptchaService.reload(widgetId);
 				$scope.signInErr = response.error;
 			}
 		});
+	};
+
+	$scope. onWidgetCreate = (_widgetId) => {
+		widgetId = _widgetId;
 	};
 
 	// Forgot Password

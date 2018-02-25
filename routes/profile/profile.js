@@ -14,8 +14,13 @@ router.get('/', requireLogin, (req, res) => {
 				no_results: res.__('no_results'),
 				settings: res.__('settings'),
 				edit: res.__('edit'),
+				new_event: res.__('new_event'),
+				update: res.__('Update'),
 				buy_power: res.__('buy_power'),
 				unpublish: res.__('unpublish')
+			},
+			myEvents: {
+				title: res.__( 'My Events' ),
 			},
 			messages: {
 				title: res.__('messages'),

@@ -1,0 +1,301 @@
+extends layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/button.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/popup.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/breadcrumb.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
+    link(rel='old stylesheet', href='/ng-image-gallery/dist/ng-image-gallery.min.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/style.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
+
+block content
+    - var sessionId;
+    - if (session)
+        - sessionId = session._id;
+    - else
+        - sessionId = null;
+
+    - var photosList = JSON.stringify(data.ad.photos);
+
+
+    div.detailContainer.ui.main.container.subPage
+
+        - if (data.status === 0)
+            .ui.warning.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_approvel_event")}
+                |   #{i18n.__("only_you")}
+
+        - if (data.status === 2)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_rejected_event")}
+                |   #{i18n.__("only_you")}
+
+        - if (data.status === 3)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_expired_event")}
+                |   #{i18n.__("only_you")}
+
+        - if (data.status === 4)
+            .ui.negative.message.margin-bottom-30
+                .header
+                    | #{i18n.__("status_unpublished_event")}
+                |   #{i18n.__("only_you")}
+
+        div(
+            ng-controller="eventDetailController",
+            ng-init="init('#{sessionId}','#{ data._id }')"
+        )
+            .ui.stackable.grid
+                .ten.wide.column
+                    h1 #{data.title}
+
+                .six.wide.column.text-right.detail-right-menu
+                    .ui.right.floated.main.menu
+
+                        a.music.popup.icon.item(
+                            data-content='#{i18n.__( "share_facebook" )}',
+                            target="_blank",
+                            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
+                            href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
+                        )
+                            i.facebook.icon
+                        a.music.popup.icon.item(data-content='#{i18n.__( "share_twitter" )}')
+                            i.twitter.icon
+                        a.music.popup.icon.item(data-content='#{i18n.__( "share_google" )}')
+                            i.google.plus.icon
+
+                    - if (session)
+                        .ui.right.floated.main.menu(
+                            ng-show="!eventIsFav",
+                            ng-cloak
+                        )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__( "add_favourites" )}',
+                                ng-click="addFavourites('#{ session._id }','#{ data._id }', 1)"
+                            )
+                                i.star.empty.icon
+
+                        .ui.right.floated.main.menu(
+                            ng-show="eventIsFav",
+                            ng-cloak
+                        )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__( "remove_favourites" )}',
+                                ng-click="delFavourites('#{ session._id }','#{ data._id }')"
+                            )
+                                i.star.icon
+
+            .ui.stackable.grid
+                .six.wide.column
+                    a.ui.fluid.image.showcaseImage(
+                        ng-click='openGallery()',
+                        href="javascript:;"
+                    )
+                        - if (data.photos !== null)
+                            img(
+                                src='#{ amazon_base_url }/#{ data.photos[0].filename }'
+                            )
+                        - else
+                            img(src='/img/no-photo.png')
+
+
+                .ten.wide.column
+                    | &nbsp;
+                    table.ui.definition.table
+                        tbody
+                            tr
+                                td #{i18n.__( "Category" )}
+                                td
+                                    | #{ data.category.name }
+
+                            tr
+                                td #{i18n.__( "Place" )}
+                                td
+                                    | #{ data.ad.place.formatted_address }
+
+            h3 #{i18n.__( "Event Description" )}
+            .ui.segment
+                p.description
+                    | !{ data.description }
+
+        div.margin-top-30(
+            ng-controller="detailController"
+            ng-init="init('#{sessionId}','#{ data.ad._id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
+
+
+            .ui.stackable.grid
+                .ten.wide.column
+                    h1 #{data.ad.title}
+
+                .six.wide.column.text-right.detail-right-menu
+                    - if (session)
+                        .ui.right.floated.main.menu(
+                            ng-show="!isFav",
+                            ng-cloak
+                        )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__("add_favourites")}',
+                                ng-click="addFavourites('#{ session._id }','#{ data.ad._id }')"
+                            )
+                                i.star.empty.icon
+
+                        .ui.right.floated.main.menu(
+                            ng-show="isFav",
+                            ng-cloak
+                        )
+                            a.music.popup.icon.item(
+                                data-content='#{i18n.__("remove_favourites")}',
+                                ng-click="delFavourites('#{ session._id }','#{ data.ad._id }')"
+                            )
+                                i.star.icon
+
+            .ui.stackable.grid
+                .six.wide.column
+                    a.ui.fluid.image.showcaseImage(
+                            ng-click='openGallery()',
+                            href="javascript:;"
+                        )
+                        - if (data.ad.photos !== null)
+                            img(
+                                ng-init="showcase(#{ JSON.stringify(data.ad.photos) }, #{ data.ad.photoShowcaseIndex })",
+                                ng-src='#{ amazon_base_url }/{{ showcase }}'
+                            )
+                        - else
+                            img(ng-src='/img/no-photo.png')
+
+                    .ui.images.detail-photo-list.text-center
+                        - if (photos !== null)
+                            ng-image-gallery(
+                                images='imagesa',
+                                methods='methods',
+                                img-anim='slide',
+                                conf='conf',
+                                on-open='opened();',
+                                on-close='closed();',
+                                on-delete='delete(img, cb)',
+                                bubble-size=18,
+                                img-bubbles="true",
+                            )
+
+                            each photo,k in data.ad.photos
+                                img.ui.image.mini(
+                                    ng-click='changePhoto(#{k})',
+                                    src='#{ amazon_base_url }/#{ photo.filename }'
+                                )
+
+                .ten.wide.column
+                    .ui.breadcrumb.tiny
+                        .active.section #{ data.ad.place.formatted_address }
+
+
+                    table.ui.definition.table
+                        tbody
+                            tr
+                                td #{i18n.__("contact_name")}
+                                td
+                                    - if (!data.ad.anotherContact || !data.ad.anotherContact.checked)
+                                        div.contact-name #{ data.user.name } #{ data.user.surname }
+
+                                        - if (sessionId !== null && (sessionId != String(data.user._id)))
+                                            button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
+                                    - else
+                                        div #{ data.ad.anotherContact.name }
+                                    .clearfix
+                            tr
+                                td #{i18n.__("mobile_phone")}
+                                td
+                                    a.phone-number
+                                        - if (!data.ad.anotherContact || !data.ad.anotherContact.checked)
+                                            | #{ data.ad.mobile_phone }
+                                        - else
+                                            div #{ data.ad.anotherContact.phone }
+
+                            tr(ng-show="#{ data.ad.phone !== '' }", ng-cloak)
+                                td #{i18n.__( "phone" )}
+                                td
+                                    a.phone-number
+                                        | #{ data.ad.phone }
+
+                            tr
+                                td #{i18n.__( "Start Date" )}
+                                td
+                                    | #{ moment(data.startDate).format("DD/MM/YYYY") }
+
+                            tr
+                                td #{i18n.__( "End Date" )}
+                                td
+                                    | #{ moment( data.endDate ).format( "DD/MM/YYYY" ) }
+
+                            tr(ng-show="#{ data.ad.website != '' }", ng-cloak)
+                                td #{i18n.__( "website" )}
+                                td
+                                    a(href="#{ data.ad.website }", ng-cloak)
+                                        | #{ data.ad.website }
+
+                            tr(ng-show="#{ data.ad.address != '' }", ng-cloak)
+                                td #{i18n.__( "address" )}
+                                td
+                                    | #{ data.ad.address }
+
+                    #googleMap(style="width:100%;height:400px;")
+
+
+            h3 #{i18n.__("Ad Description")}
+            .ui.segment
+                p.description
+                    | !{ data.ad.description }
+
+
+            - if (sessionId !== null && (sessionId != String(data.user._id)))
+                // Send Message Modal
+                .ui.modal.tiny#sendMessageModal
+                    i.close.icon
+                    .header
+                        | Send Message
+                    .content
+                        div(ng-show="!messageSended" ng-cloak)
+                            div.margin-bottom-30
+                                h4.no-margin-bottom To: #{ data.ad.user.name } #{ data.ad.user.surname }
+
+                            form.ui.form#sendMessageForm
+                                input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ ad.user._id }' ", ng-model="sendMessageFormData.toUserId")
+                                input(type='hidden', ng-init="sendMessageFormData.adId = '#{ ad._id }' ", ng-model="sendMessageFormData.adId")
+
+                                .fields.ui.grid
+                                    .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                                        textarea(
+                                            name="message",
+                                            placeholder='Enter your message',
+                                            ng-model='sendMessageFormData.message'
+                                        )
+                                .ui.error.message
+                                .backendErr.ui.red.message(ng-if="sendMessageErr")
+                                    | {{ sendMessageErr }}
+
+                        div(ng-show="messageSended" ng-cloak)
+                            .ui.success.message
+                                .header
+                                    | Your message has been sent.
+                    .actions
+                        button.ui.right.icon.button.primary(
+                            form="sendMessageForm",
+                            ng-class="sendMessageLoading ? 'loading disabled' : '' ",
+                            ng-show="!messageSended"
+                        )
+                            | Submit
+
+
+append javascripts
+    script(src="/semantic/dist/components/popup.min.js")
+    script(src="/semantic/dist/components/rating.min.js")
+    script(src="/dist/js/app/services/favFactory.min.js")
+    script(src="/dist/js/app/services/rateFactory.min.js")
+    script(src="/dist/js/app/services/eventFactory.min.js")
+    script(src="/dist/js/app/services/detailFactory.min.js")
+    script(src="/dist/js/app/controllers/detailController.min.js")
+    script(src="/dist/js/app/controllers/eventDetailController.min.js")

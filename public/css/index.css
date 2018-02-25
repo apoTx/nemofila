@@ -11,13 +11,13 @@
     min-height: 300px
 }
 .search{
-    height:300px;
-    background: url('/img/search-bg.jpg') no-repeat center #eee;
-    background-size: cover;
+    // height:300px;
 }
 
 .searchForm{
-    padding: 10px;
+    padding: 10px 10px 15px 10px;
+    background-color: rgba(238, 238, 238, 0.3);
+    margin: 0 10%
 }
 .fixer{
     padding-top:118px;
@@ -40,10 +40,62 @@
     color: #fff!important;
 }
 
+label.custom{
+    padding:2px 3px!important;
+    margin-right: 5px!important;
+    cursor: pointer;
+}
+
 .cardListImage{
     height: 159px!important;
     overflow: hidden!important;
     display:flex!important;
     align-items:center!important;
     justify-content:center!important;
+}
+.indexHead{
+    background: url('/img/index-head-bg.jpg') no-repeat center #eee;
+    background-size: cover;
+    padding:10% 0
+}
+.filterInput{
+    padding: 0 1em;
+    margin-bottom:10px!important;
+}
+.searchFormBottom{
+    padding-top: 10px !important;
+}
+.searchFormBottom .field label{
+    background-color: #eee;
+    display: inline-block!important;
+    padding:0 5px
+}
+.headTitle{
+    text-align: center;
+    color: #fff;
+    margin: 7em 0
+}
+.headTitle h1{
+    padding: 5px 15px;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size:38px
+}
+
+.indexBestInTitle{
+    text-align: center;
+    padding: 2em 0
+}
+
+@media only screen and (max-width: 768px){
+    .ui.container.indexHead {
+        width: 100%!important;
+        margin-left: 0!important;
+        margin-right: 0!important;
+    }
+    .ui.container.containerParent {
+        width: 100%!important;
+        margin-left: 0!important;
+        margin-right: 0!important;
+    }
 }

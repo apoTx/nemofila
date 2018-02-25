@@ -1,4 +1,11 @@
-app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countriesFactory', 'categoriesFactory', ($scope, $http, indexFactory, countriesFactory, categoriesFactory) => {
+app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory,  categoriesFactory) => {
+
+	$(() => {
+		$('.rating').rating({
+			maxRating: 5,
+			interactive: false
+		});
+	});
 
 	$scope.toggleFilterSidebar = () => {
 		$('.filterSidebar')
@@ -7,9 +14,13 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 	};
 
 	$scope.newAdForm = {};
+	$scope.place = null;
 
 	$scope.init = (page) => {
+		$('.dropdown').dropdown();
+
 		$scope.indexAdsLoading = true;
+		$scope.indexEventsLoading = true;
 		$scope.advancedSearchVisible = false;
 
 		indexFactory.getIndexAds(page).then((response) => {
@@ -18,10 +29,14 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 			$scope.adPerPage = response.adPerPage;
 			$scope.adCount = response.adCount;
 			$scope.currentPage = response.page;
+			$scope.dayName = response.dayName;
+			$scope.currentTime = response.currentTime;
 		});
 
-		countriesFactory.getCountries().then((response) => {
-			$scope.countries = response;
+		indexFactory.getIndexEvents().then((response) => {
+			console.log(response);
+			$scope.indexEventsLoading = false;
+			$scope.events = response;
 		});
 
 		categoriesFactory.getCategories().then((response) => {
@@ -87,4 +102,9 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory', 'countrie
 			$scope.advancedSearchVisible = false;
 		}
 	};
+
+	$scope.openHowItWorkModal = () => {
+		$('#howItWorkModal').modal('show');
+	};
+
 }]);
