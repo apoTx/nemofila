@@ -229,13 +229,13 @@ block content
 
 
                 div#preview(ng-show="steps.preview", ng-cloak)
-                    h2 {{ newAdForm.title }}
 
-                    div
-                        button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
-                            | #{ i18n.__("back_btn") }
+                    div.ui.mobile.only.grid
+                        .text-right.full-width
+                            button.ui.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
+                                | #{ i18n.__("back_btn") }
 
-                    .clearfix
+                    h2.padding-bottom-10 {{ newAdForm.title }}
 
                     .ui.four.stackable.cards
                         .card.photoList(ng-repeat='f in newAdForm.files')
