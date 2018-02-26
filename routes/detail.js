@@ -3,7 +3,6 @@ const router = express.Router();
 const moment = require('moment');
 const mongoose = require('mongoose');
 const numeral = require('numeral');
-const geoTz = require('geo-tz');
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -14,6 +13,9 @@ const requireLogin = require('./inc/requireLogin.js');
 // Models
 const Ads = require('../models/ads');
 const Favourites = require('../models/favourites');
+
+// helpers
+const openOrClose = require('../helper/openOrClose');
 
 const getObject = (data, req, res) => {
 
@@ -48,9 +50,8 @@ const getObject = (data, req, res) => {
 		}
 	};
 
-	const tzMoment = geoTz.tzMoment(data.place.geometry.location.lat, data.place.geometry.location.lng);
-	const now_local_time = moment.parseZone(tzMoment).format('H:m');
-
+	const isOpen = openOrClose(data);
+	console.log(isOpen);
 
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
@@ -66,11 +67,6 @@ const getObject = (data, req, res) => {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
 		},
-		/*location: {
-			name: data.locationObj.name,
-			cityName: cityName,
-			districtName: districtName
-		},*/
 		amazon_base_url: config.amazon_s3.photo_base_url,
 		events: data.events
 	};
@@ -158,6 +154,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'mobile_phone': '$mobile_phone',
 					'website': '$website',
 					'address': '$address',
+					'workTimes': '$workTimes',
 					'photoShowcaseIndex': '$photoShowcaseIndex',
 					'photos': '$photos',
 					'listingDate': '$listingDate',
@@ -192,6 +189,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'photoShowcaseIndex': '$_id.photoShowcaseIndex',
 				'photos': '$_id.photos',
 				'listingDate': '$_id.listingDate',
+				'workTimes': '$_id.workTimes',
 				'pageView': '$_id.pageView',
 				'user.name': '$_id.user.name',
 				'user._id': '$_id.user._id',
