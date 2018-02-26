@@ -27,17 +27,6 @@ const getObject = (data, req, res) => {
 		childCategoryName = null;
 	}
 
-	// For location
-	/*let cityObj = (data.locationObj.cities).find(x => String(x._id) === String(data.location.cityId));
-	let cityName = cityObj.name;
-
-	let districtName;
-	try{
-		districtName = (cityObj.districts).find(x => String(x._id) === String(data.location.districtId)).name;
-	}catch (e){
-		districtName = null;
-	}*/
-
 	const viewRate = (val) => {
 		if (val === null){
 			return res.__('No reviews yet');
@@ -51,11 +40,11 @@ const getObject = (data, req, res) => {
 	};
 
 	const isOpen = openOrClose(data);
-	console.log(isOpen);
 
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
 		data: data,
+		isOpen: isOpen,
 		moment: moment,
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
 		session: req.session.user,
