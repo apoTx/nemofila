@@ -380,13 +380,9 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
-		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
-			hour: 'numeric',
-			minute: 'numeric' });
-
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
-			const result = Object.assign(d, { currentTime: currentTime, dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
+			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
 			console.log(result);
 			res.json(result);

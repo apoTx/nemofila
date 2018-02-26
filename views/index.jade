@@ -121,12 +121,16 @@ block content
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
 
-                                .extra.content(ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)")
-                                    span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
-                                        .ui.red.horizontal.label #{i18n.__( "Close" )}
+                                .extra.content(
+                                        ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)"
+                                    )
 
-                                    span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
-                                        .ui.green.horizontal.label #{i18n.__( "Open" )}
+                                    //
+                                        span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
+                                            .ui.red.horizontal.label #{i18n.__( "Close" )}
+
+                                        span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
+                                            .ui.green.horizontal.label #{i18n.__( "Open" )}
 
                                     div(ng-if="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
