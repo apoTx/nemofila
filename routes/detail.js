@@ -8,7 +8,9 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
+//helpers
 const requireLogin = require('./inc/requireLogin.js');
+const getDayName = require('../helper/getDayName');
 
 // Models
 const Ads = require('../models/ads');
@@ -40,6 +42,8 @@ const getObject = (data, req, res) => {
 	};
 
 	const isOpen = openOrClose(data);
+
+	console.log(data.workTimesToday);
 
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
@@ -152,6 +156,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'photoShowcaseIndex': '$_id.photoShowcaseIndex',
 				'photos': '$_id.photos',
 				'listingDate': '$_id.listingDate',
+				'workTimesToday': '$_id.workTimes'+ '.'+ getDayName(),
 				'workTimes': '$_id.workTimes',
 				'pageView': '$_id.pageView',
 				'user.name': '$_id.user.name',

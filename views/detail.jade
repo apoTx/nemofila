@@ -89,12 +89,6 @@ block content
                                 ng-click="delFavourites('#{ session._id }','#{ data._id }')"
                             )
                                 i.star.icon
-                    - if (isOpen)
-                        .right.floated.margin-top-10
-                            .ui.green.horizontal.label #{i18n.__("Open Now")}
-                    - else
-                        .right.floated.margin-top-10
-                            .ui.red.horizontal.label #{i18n.__("Close")}
 
             .ui.stackable.grid
                 .six.wide.column
@@ -184,6 +178,30 @@ block content
                                 td #{i18n.__( "address" )}
                                 td
                                     | #{ data.address }
+
+                            tr
+                                td #{i18n.__("Work Times")}
+                                td
+                                    span.today #{i18n.__("Today")}
+                                    span
+                                        - if (isOpen)
+                                            .ui.green.horizontal.label.inline-block #{i18n.__("Open Now")}
+
+                                            - if (!data.workTimesToday.hour24)
+                                                .closeTime.inline-block
+                                                    | #{i18n.__("Close Time")}
+                                                    | #{ data.workTimesToday.closeTime }
+                                            - else
+                                                .inline-block #{i18n.__("24 hours")}
+
+                                        - else
+                                            .ui.red.horizontal.label #{i18n.__("Close")}
+
+
+
+
+
+
 
                     #googleMap(style="width:100%;height:200px;")
 

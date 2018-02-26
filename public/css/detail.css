@@ -62,6 +62,18 @@ p.description{
     color: #af6f12;
 }
 
+.today{
+    margin-right:10px
+}
+
+.inline-block{
+    display: inline-block!important;
+}
+
+.closeTime{
+    margin-left: 15px
+}
+
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {
         padding: 3px !important;
