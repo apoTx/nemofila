@@ -177,6 +177,14 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		$scope.showcase = data[$scope.showcaseIndex].filename;
 	};
 
+	$scope.workTimesVisible = false;
+	$scope.toggleWorkTimes = () => {
+		if ($scope.workTimesVisible)
+			$scope.workTimesVisible = false;
+		else
+			$scope.workTimesVisible = true;
+	};
+
 }]);
 
 app.config(['ngImageGalleryOptsProvider', function(ngImageGalleryOptsProvider){

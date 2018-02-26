@@ -108,6 +108,12 @@ body {
     width: 100%
 }
 
+ul,li{
+    margin:0!important;
+    padding: 0!important;
+    list-style-type: none;
+}
+
 .upload-photo-thumb{
     max-height: 91px!important;
 }

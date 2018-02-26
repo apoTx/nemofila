@@ -43,7 +43,6 @@ const getObject = (data, req, res) => {
 
 	const isOpen = openOrClose(data);
 
-	console.log(data.workTimesToday);
 
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,

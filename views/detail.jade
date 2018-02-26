@@ -182,29 +182,110 @@ block content
                             tr
                                 td #{i18n.__("Work Times")}
                                 td
-                                    span.today #{i18n.__("Today")}
-                                    span
-                                        - if (isOpen)
-                                            .ui.green.horizontal.label.inline-block #{i18n.__("Open Now")}
+                                    div.todayTop(ng-click="toggleWorkTimes()")
+                                        span.today #{i18n.__("Today")}
+                                        span
+                                            - if (isOpen)
+                                                .ui.green.horizontal.label.inline-block #{i18n.__("Open Now")}
 
-                                            - if (!data.workTimesToday.hour24)
-                                                .closeTime.inline-block
-                                                    | #{i18n.__("Close Time")}
-                                                    | #{ data.workTimesToday.closeTime }
+                                                - if (!data.workTimesToday.hour24)
+                                                    .closeTime.inline-block
+                                                        | #{i18n.__("Close Time")}
+                                                        | #{ data.workTimesToday.closeTime }
+                                                - else
+                                                    .inline-block #{i18n.__("24 hours")}
+
                                             - else
-                                                .inline-block #{i18n.__("24 hours")}
+                                                .ui.red.horizontal.label #{i18n.__("Close")}
 
-                                        - else
-                                            .ui.red.horizontal.label #{i18n.__("Close")}
+                                    - var monday = data.workTimes.monday;
+                                    - var tuesday = data.workTimes.tuesday;
+                                    - var wednesday = data.workTimes.wednesday;
+                                    - var thursday = data.workTimes.thursday;
+                                    - var friday = data.workTimes.friday;
+                                    - var saturday = data.workTimes.saturday;
+                                    - var sunday = data.workTimes.sunday;
 
+                                    ul.workTimeList(ng-show="workTimesVisible")
+                                        li
+                                            div.listDay #{i18n.__("Monday")}
+                                            div.listWorkTimes
 
+                                                - if (!monday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(monday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ monday.openTime } : #{ monday.closeTime }
 
+                                        li
+                                            div.listDay #{i18n.__("Tuesday")}
+                                            div.listWorkTimes
 
+                                                - if (!tuesday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(tuesday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ tuesday.openTime } : #{ tuesday.closeTime }
 
+                                        li
+                                            div.listDay #{i18n.__("Wednesday")}
+                                            div.listWorkTimes
+
+                                                - if (!wednesday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(wednesday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ wednesday.openTime } : #{ wednesday.closeTime }
+
+                                        li
+                                            div.listDay #{i18n.__("Thursday")}
+                                            div.listWorkTimes
+
+                                                - if (!thursday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(thursday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ thursday.openTime } : #{ thursday.closeTime }
+
+                                        li
+                                            div.listDay #{i18n.__("Friday")}
+                                            div.listWorkTimes
+
+                                                - if (!friday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(friday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ friday.openTime } : #{ friday.closeTime }
+
+                                        li
+                                            div.listDay #{i18n.__("Saturday")}
+                                            div.listWorkTimes
+
+                                                - if (!saturday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(saturday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ saturday.openTime } : #{ saturday.closeTime }
+
+                                        li
+                                            div.listDay #{i18n.__("Sunday")}
+                                            div.listWorkTimes
+
+                                                - if (!sunday.open)
+                                                    | #{i18n.__("Close")}
+                                                - else if(sunday.hour24)
+                                                    | #{i18n.__("24 hours")}
+                                                - else
+                                                    | #{ sunday.openTime } : #{ sunday.closeTime }
 
 
                     #googleMap(style="width:100%;height:200px;")
-
 
             h3 #{i18n.__("description")}
             .ui.segment

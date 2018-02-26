@@ -62,6 +62,13 @@ p.description{
     color: #af6f12;
 }
 
+.todayTop{
+    padding: 10px 5px;
+    cursor: pointer
+}
+.todayTop:hover{
+    background-color: rgba(246, 252, 243, 0.85);
+}
 .today{
     margin-right:10px
 }
@@ -72,6 +79,20 @@ p.description{
 
 .closeTime{
     margin-left: 15px
+}
+
+.workTimeList{
+    padding: 0 5px!important;
+    margin-top: 15px !important
+}
+.listDay{
+    width:100px;
+    display: inline-block;
+}
+.listWorkTimes{
+    display: inline-block;
+    text-align: center;
+    width: 100px;
 }
 
 @media only screen and (max-width: 767px) {
