@@ -346,6 +346,7 @@ router.get('/getIndexAds', (req,res) => {
 					updateAt: '$updateAt',
 					category: '$category',
 					workTimes: '$workTimes',
+					place: '$place.address_components',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
 				},
@@ -368,6 +369,7 @@ router.get('/getIndexAds', (req,res) => {
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
+				location: '$_id.place',
 				powers: '$power',
 				category: '$_id.category.name',
 				totalPower: 1,
@@ -380,6 +382,7 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
+		console.log(data);
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
 			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
