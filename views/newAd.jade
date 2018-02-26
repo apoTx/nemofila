@@ -75,8 +75,8 @@ block content
                                 label #{ i18n.__( "phone" ) }
                                 input(name='phone', placeholder='#{ i18n.__( "phone" ) }',  ng-model="newAdForm.phone")
                             .field.wide.eight
-                                label #{ i18n.__( "mobile_phone" ) }
-                                input(name="mobile_phone", placeholder='#{ i18n.__( "mobile_phone" ) }', ng-model="newAdForm.mobile_phone")
+                                label #{ i18n.__( "Zip Code" ) }
+                                input(name="zip_code", placeholder='#{ i18n.__( "Zip Code" ) }', ng-model="newAdForm.zip_code")
 
                         .field
                             label #{ i18n.__( "address" ) }
@@ -270,13 +270,17 @@ block content
                                             span
                                                 | {{ newAdForm.phone }}
 
-                                    tr
-                                        td #{ i18n.__( "mobile_phone" ) }
+                                    tr(ng-hide="!newAdForm.anotherContact.checked")
+                                        td #{ i18n.__("phone") }
                                         td
-                                            span(ng-show="newAdForm.anotherContact.checked")
+                                            span
                                                 | {{ newAdForm.anotherContact.phone }}
-                                            span(ng-hide="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.mobile_phone }}
+
+                                    tr
+                                        td #{ i18n.__( "Zip Code" ) }
+                                        td
+                                            span
+                                                | {{ newAdForm.zip_code }}
 
                                     tr
                                         td #{ i18n.__( "website" ) }

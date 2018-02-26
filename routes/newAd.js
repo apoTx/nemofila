@@ -69,7 +69,7 @@ router.post('/create', requireLogin, (req, res) => {
 			const isEdit = req.body.isEdit;
 			const editId = req.body.editId;
 			const phone = data.phone;
-			const mobile_phone = data.mobile_phone;
+			const zip_code = data.zip_code;
 			const address = data.address;
 			const website = data.website;
 			const place = data.place;
@@ -86,7 +86,7 @@ router.post('/create', requireLogin, (req, res) => {
 				photoShowcaseIndex: showcaseIndex,
 				uuid: _uuid,
 				phone: phone,
-				mobile_phone: mobile_phone,
+				zipCode: zip_code,
 				address: address,
 				website: website,
 				place: place,

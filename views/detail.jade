@@ -164,13 +164,9 @@ block content
                                         div #{ data.anotherContact.name }
                                     .clearfix
                             tr
-                                td #{i18n.__("mobile_phone")}
+                                td #{i18n.__("Zip Code")}
                                 td
-                                    a.phone-number
-                                        - if (!data.anotherContact || !data.anotherContact.checked)
-                                            | #{ data.mobile_phone }
-                                        - else
-                                            div #{ data.anotherContact.phone }
+                                    | #{ data.zipCode }
 
                             tr(ng-show="#{ data.phone !== '' }", ng-cloak)
                                 td #{i18n.__( "phone" )}

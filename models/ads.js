@@ -68,7 +68,7 @@ let adSchema = new Schema({
 	phone: {
 		type: String,
 	},
-	mobile_phone: {
+	zipCode: {
 		type: String,
 	},
 	address:String,
