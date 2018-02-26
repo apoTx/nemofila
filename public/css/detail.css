@@ -67,7 +67,7 @@ p.description{
     cursor: pointer
 }
 .todayTop:hover{
-    background-color: rgba(246, 252, 243, 0.85);
+    background: rgba(140, 187, 226, 0.03);
 }
 .today{
     margin-right:10px
