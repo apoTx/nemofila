@@ -88,22 +88,6 @@ router.get('/:slug/:id', (req, res, next) => {
 		},
 		{ '$unwind': '$user' },
 
-		// Event collection
-		{
-			$lookup: {
-				from: 'events',
-				localField: '_id',
-				foreignField: 'adId',
-				as: 'event'
-			}
-		},
-		{
-			$unwind: {
-				path: '$event',
-				preserveNullAndEmptyArrays: true
-			}
-		},
-
 		// categories collection
 		{
 			$lookup: {
@@ -114,17 +98,6 @@ router.get('/:slug/:id', (req, res, next) => {
 			}
 		},
 		{ '$unwind': '$categoryObj' },
-
-		// countries collection
-		{
-			$lookup: {
-				from: 'countries',
-				localField: 'location.cityId',
-				foreignField: 'cities._id',
-				as: 'locationObj'
-			}
-		},
-		{ '$unwind': '$locationObj' },
 
 		{
 			$group: {
