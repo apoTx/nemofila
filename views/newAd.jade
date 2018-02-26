@@ -231,6 +231,12 @@ block content
                 div#preview(ng-show="steps.preview", ng-cloak)
                     h2 {{ newAdForm.title }}
 
+                    div
+                        button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
+                            | #{ i18n.__("back_btn") }
+
+                    .clearfix
+
                     .ui.four.stackable.cards
                         .card.photoList(ng-repeat='f in newAdForm.files')
                             .image.photoListImage
