@@ -134,7 +134,7 @@ block content
                                     span.right.floated
                                         i.map.marker.alternate.icon
                                         | {{ ad.location[0].long_name }}
-                                    div(ng-if="ad.rate")
+                                    div(ng-show="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
