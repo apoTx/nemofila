@@ -13,8 +13,10 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
 block content
+
     div.ui.main.container.subPage(ng-controller="newAdController")
         div(ng-if="!adSaveComplete", ng-cloak)
+
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon
@@ -50,6 +52,11 @@ block content
                         input(type='hidden', name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
                         input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
                         input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
+
+                        - if (isAdmin)
+                            .field
+                                label #{ i18n.__("Email Address") }
+                                input
 
                         .field
                             label #{ i18n.__("title") }

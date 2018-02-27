@@ -98,6 +98,13 @@ app.use((req, res, next) => {
 		user: req.session.user,
 		amazon_base_url: config.amazon_s3.photo_base_url,
 	};
+
+	try{
+		req.isAdmin = req.session.user.isAdmin ? true : false;
+	} catch (e){
+		req.isAdmin = false;
+	}
+
 	next();
 });
 

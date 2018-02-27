@@ -49,6 +49,7 @@ router.get('/:id?', requireLogin, (req, res) => {
 			title: 'New Ad',
 			userExists: req.session.user ? true : false,
 			id: req.query.id ? req.query.id : 'false',
+			isAdmin: req.isAdmin,
 			formdata: JSON.parse(body),
 			amazon_base_url: config.amazon_s3.photo_base_url,
 		});
