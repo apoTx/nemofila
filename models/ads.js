@@ -14,6 +14,9 @@ let adSchema = new Schema({
 	description: {
 		type: String,
 	},
+	description2: {
+		type: String,
+	},
 	photos: [],
 	photoShowcaseIndex: {
 		type: Number,

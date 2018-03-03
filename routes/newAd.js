@@ -88,6 +88,7 @@ router.post('/create', requireLogin, (req, res) => {
 				title: data.title,
 				slug: slugify(data.title, { lower:true }),
 				description: data.description,
+				description2: data.description2,
 				photos: photos,
 				photoShowcaseIndex: showcaseIndex,
 				uuid: _uuid,

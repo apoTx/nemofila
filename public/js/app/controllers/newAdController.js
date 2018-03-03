@@ -94,6 +94,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				},
+				description2: {
+					identifier  : 'description2',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a description2.'
+						},
+						{
+							type   : 'maxLength[2000]',
+							prompt : 'Your description2 can be up to {ruleValue} characters long.'
+						}
+					]
+				},
 				country: {
 					identifier: 'country',
 					rules: [
@@ -228,6 +241,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
+			$scope.newAdForm.description2 = response.data.description2 || '';
 			$scope.newAdForm.phone = response.data.phone || '';
 			$scope.newAdForm.mobile_phone = response.data.mobile_phone || '';
 			$scope.newAdForm.address = response.data.address || '';
