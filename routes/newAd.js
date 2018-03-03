@@ -1,32 +1,37 @@
-let express = require('express');
-let slugify = require('slugify');
-let request = require('request');
-let uuid = require('uuid');
+const express = require('express');
+const slugify = require('slugify');
+const request = require('request');
+const uuid = require('uuid');
 
-let router = express.Router();
+const router = express.Router();
 
 // settings
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 // Models
-let Ads = require('../models/ads');
-let Power = require('../models/powers');
+const Ads = require('../models/ads');
+const Power = require('../models/powers');
 
 // Mail transporter
-let mailer = require('../helper/mailer');
-let verifyRecaptcha = require('../helper/recaptcha');
-let getAdStatusText = require('../helper/getAdStatusText');
-let requireLogin = require('./inc/requireLogin.js');
+const mailer = require('../helper/mailer');
+const verifyRecaptcha = require('../helper/recaptcha');
+const getAdStatusText = require('../helper/getAdStatusText');
+const requireLogin = require('./inc/requireLogin.js');
 
-let sendMail = (title, id) => {
-	// send email
-	let to_email = mailer.config.new_ad_alert_to_email;
-	let subject = 'There\'s a new ad that is pending approval';
-	let mailOptions = {
+const mailTemplate = {
+	defaultTemplate: 'admin/new-ad-alert',
+	adminAdTemplate: 'admin/new-ad-alert-from-admin'
+};
+const to_email = mailer.config.new_ad_alert_to_email;
+const subject = 'There\'s a new ad that is pending approval';
+const subject_for_from_admin = 'Your ad was added';
+
+const sendMail = (title, id, isAdmin, template, to) => {
+	const mailOptions = {
 		from: mailer.config.defaultFromAddress,
-		to: to_email,
-		subject: subject,
-		template: 'admin/new-ad-alert',
+		to: to ? to : to_email,
+		subject: isAdmin ?  subject_for_from_admin : subject,
+		template: template ? template : mailTemplate.defaultTemplate,
 		context: {
 			siteUrl: mailer.siteUrl,
 			adTitle: title,
@@ -77,7 +82,7 @@ router.post('/create', requireLogin, (req, res) => {
 
 			delete place.photos;
 
-			console.log(data.workTimes);
+			console.log(data.toEmailAddress);
 
 			const obj = {
 				title: data.title,
@@ -95,7 +100,9 @@ router.post('/create', requireLogin, (req, res) => {
 					categoryId: category.categoryId,
 					categoryChildId: category.childCategoryId
 				},
-				workTimes: data.workTimes
+				workTimes: data.workTimes,
+				adminAd: req.isAdmin,
+				toEmailAddress: data.toEmailAddress
 			};
 
 			if (data.anotherContact.checked){
@@ -115,7 +122,11 @@ router.post('/create', requireLogin, (req, res) => {
 					if (err) {
 						throw new Error( err );
 					} else {
-						sendMail(data.title, data._id);
+
+						if (req.isAdmin)
+							sendMail(data.title, data._id, req.isAdmin, mailTemplate.adminAdTemplate, obj.toEmailAddress);
+						else
+							sendMail(data.title, data._id, req.isAdmin);
 
 						if (powerData.powerStatus){
 							let power = new Power ({
@@ -138,7 +149,9 @@ router.post('/create', requireLogin, (req, res) => {
 					if (err)
 						throw new Error(err);
 
-					sendMail(data.title, data._id);
+
+					sendMail(data.title, data._id, req.isAdmin);
+
 					res.send( { 'status': 1 } );
 				});
 			}

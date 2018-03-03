@@ -56,7 +56,7 @@ block content
                         - if (isAdmin)
                             .field
                                 label #{ i18n.__("To Email Address") }
-                                input
+                                input(name="toEmailAddress", placeholder='#{ i18n.__("To Email Address") }',  ng-model="newAdForm.toEmailAddress")
 
                         .field
                             label #{ i18n.__("title") }

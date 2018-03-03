@@ -210,6 +210,12 @@ let adSchema = new Schema({
 				//default: '23:00'
 			}
 		}
+	},
+	adminAd: {
+		type: Boolean,
+	},
+	toEmailAddress: {
+		type: String,
 	}
 });
 
