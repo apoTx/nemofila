@@ -62,12 +62,19 @@ block content
                             label #{ i18n.__("title") }
                             input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newAdForm.title")
 
-                        .field
-                            label #{ i18n.__("description") }
-                            ng-wig(
-                                name='description',
-                                ng-model='newAdForm.description'
-                            )
+                        .two.fields
+                            .field
+                                label #{ i18n.__("description") }
+                                ng-wig(
+                                    name='description',
+                                    ng-model='newAdForm.description'
+                                )
+                            .field
+                                label #{ i18n.__("description2") }
+                                ng-wig(
+                                    name='description',
+                                    ng-model='newAdForm.description'
+                                )
 
                         .two.fields
                             .field
