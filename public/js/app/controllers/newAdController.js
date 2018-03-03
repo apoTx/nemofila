@@ -1,5 +1,33 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
 
+	const im = 'img/marker.png';
+	$scope.locate = () => {
+		navigator.geolocation.getCurrentPosition(initialize,fail);
+	}
+
+	function initialize(position) {
+		const myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		const mapOptions = {
+			zoom: 11,
+			center: myLatLng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		const map = new google.maps.Map(document.getElementById('map'),
+			mapOptions);
+		const userMarker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			icon: im
+		});
+
+
+	}
+
+	function fail(){
+		alert('navigator.geolocation failed, may not be supported');
+	}
+
+
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };

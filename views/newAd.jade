@@ -79,26 +79,36 @@ block content
                         .two.fields
                             .field
                                 label Location
-                                input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
+
+                                .ui.action.input
+                                    input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
+                                    .ui.button(ng-click='locate()') #{ i18n.__("Find my location") }
                             .field
                                 .two.fields(country-and-category-dropdowns)
 
 
                         .fields.two
                             .field.wide.eight
-                                label #{ i18n.__( "phone" ) }
-                                input(name='phone', placeholder='#{ i18n.__( "phone" ) }',  ng-model="newAdForm.phone")
+                                #map(style="height:300px; width:100%")
+
                             .field.wide.eight
-                                label #{ i18n.__( "Zip Code" ) }
-                                input(name="zip_code", placeholder='#{ i18n.__( "Zip Code" ) }', ng-model="newAdForm.zip_code")
+                                .margin-bottom-10
+                                    label
+                                        b #{ i18n.__("phone") }
+                                    input(name='phone', placeholder='#{ i18n.__("phone") }',  ng-model="newAdForm.phone")
+                                .margin-bottom-10
+                                    label
+                                        b #{ i18n.__( "Zip Code" ) }
+                                    input(name="zip_code", placeholder='#{ i18n.__( "Zip Code" ) }', ng-model="newAdForm.zip_code")
+                                .margin-bottom-10
+                                    label
+                                        b #{ i18n.__("address") }
+                                    input(name='address', placeholder='#{ i18n.__("address") }',  ng-model="newAdForm.address")
+                                .margin-bottom-10
+                                    label
+                                        b #{ i18n.__("website") }
+                                    input(name='website', placeholder='#{ i18n.__("website") }',  ng-model="newAdForm.website")
 
-                        .field
-                            label #{ i18n.__( "address" ) }
-                            input(name='address', placeholder='#{ i18n.__( "address" ) }',  ng-model="newAdForm.address")
-
-                        .field
-                            label #{ i18n.__( "website" ) }
-                            input(name='website', placeholder='#{ i18n.__( "website" ) }',  ng-model="newAdForm.website")
                         .field
                             label #{ i18n.__( "Work Times" ) }
                             .ui.button#workTimesBtn #{ i18n.__( "Add Work Times" ) }
