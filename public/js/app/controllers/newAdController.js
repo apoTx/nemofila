@@ -1,17 +1,20 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
 
+	$scope.mapLoading = false;
 	const im = 'img/marker.png';
 	$scope.locate = () => {
+		$scope.mapLoading = true;
 		navigator.geolocation.getCurrentPosition(initialize,fail);
-	}
+	};
 
 	function initialize(position) {
 		const myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		const mapOptions = {
-			zoom: 11,
+			zoom: 15,
 			center: myLatLng,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
+		};
+
 		const map = new google.maps.Map(document.getElementById('map'),
 			mapOptions);
 		const userMarker = new google.maps.Marker({
@@ -20,7 +23,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			icon: im
 		});
 
-
+		setTimeout(() => {
+			$scope.mapLoading = false;
+			$scope.$apply();
+		});
 	}
 
 	function fail(){
@@ -48,6 +54,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$(() => {
+
 		// stripe
 		$('#buttonCheckout').on('click', () => {
 			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];

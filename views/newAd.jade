@@ -89,7 +89,11 @@ block content
 
                         .fields.two
                             .field.wide.eight
-                                #map(style="height:300px; width:100%")
+                                .ui.segment.no-padding
+                                    #map
+                                    .ui.dimmer(ng-class="{ active: mapLoading }")
+                                        .ui.loader
+
 
                             .field.wide.eight
                                 .margin-bottom-10
@@ -371,6 +375,6 @@ append javascripts
     script(src="https://checkout.stripe.com/checkout.js")
     script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
-    script(src="/dist/js/app/controllers/newAdController.min.js")
+    script(src="/js/app/controllers/newAdController.js")
     script(src="semantic/dist/components/checkbox.min.js")
 
