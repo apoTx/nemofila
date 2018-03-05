@@ -19,6 +19,8 @@ function adminAdToUser(newId, adminAdUuid, callback) {
 				callback();
 			}
 		);
+	}else{
+		callback();
 	}
 }
 
