@@ -162,7 +162,7 @@ block content
                 h2.indexBestInTitle #{i18n.__( "last_events" )}
                 .ui.segment.list-segment
                     .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
-                        .doubling.four.column.row
+                        .doubling.two.column.row
                             .column.margin-bottom-10(ng-repeat="event in events")
                                 a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
                                     .image.cardListImage
