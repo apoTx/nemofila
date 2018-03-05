@@ -20,6 +20,7 @@ const Subscribe = require('../models/subscribes');
 const mailer = require('../helper/mailer');
 const getDayName = require('../helper/getDayName');
 const verifyRecaptcha = require('../helper/recaptcha');
+const adminAdToUser = require('../helper/adminAdToUser');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
@@ -58,11 +59,17 @@ router.post( '/register', ( req, res ) => {
 					'password': hash
 				});
 
-				user.save((err) => {
-					if (err)
+				user.save((err, data) => {
+					if (err){
 						res.send(err);
-					else
-						res.send({ 'status': 1 });
+					}else {
+
+						adminAdToUser(data._id, req.cookies.adminAdUuid, () => {
+							res.clearCookie('adminAdUuid');
+							res.send({ 'status': 1 });
+						});
+
+					}
 				});
 			});
 		}else{
@@ -89,7 +96,10 @@ router.post('/login', (req,res) => {
 					bcrypt.compare(data.password, user.password, (err, r) => {
 						if (r) {
 							req.session.user = user;
-							res.json({ status: 1 });
+							adminAdToUser(user._id, req.cookies.adminAdUuid, () => {
+								res.clearCookie('adminAdUuid');
+								res.json({ status: 1 });
+							});
 						}else{
 							res.json({ error: 'Email or password is did not match' });
 						}
@@ -300,6 +310,7 @@ router.get('/getIndexAds', (req,res) => {
 		{
 			'$match': {
 				'status': 1,
+				userSelectDelete: false,
 			}
 		},
 
@@ -346,6 +357,7 @@ router.get('/getIndexAds', (req,res) => {
 					updateAt: '$updateAt',
 					category: '$category',
 					workTimes: '$workTimes',
+					place: '$place.address_components',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
 				},
@@ -368,6 +380,7 @@ router.get('/getIndexAds', (req,res) => {
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
+				location: '$_id.place',
 				powers: '$power',
 				category: '$_id.category.name',
 				totalPower: 1,
@@ -380,15 +393,10 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
-		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
-			hour: 'numeric',
-			minute: 'numeric' });
-
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
-			const result = Object.assign(d, { currentTime: currentTime, dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
+			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
-			console.log(result);
 			res.json(result);
 		});
 	});
@@ -413,6 +421,7 @@ router.get('/searchAd', (req, res) => {
 		{
 			'$match': {
 				status: 1,
+				userSelectDelete: false,
 				title: new RegExp(req.query.title, 'i'),
 				'location.countryId': location.countryId ? ObjectId(location.countryId) :  { $exists: true },
 				'location.cityId': location.cityId ? ObjectId(location.cityId) :  { $exists: true },

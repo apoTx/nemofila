@@ -3,19 +3,24 @@ const router = express.Router();
 const moment = require('moment');
 const mongoose = require('mongoose');
 const numeral = require('numeral');
-const geoTz = require('geo-tz')
 
 const ObjectId = mongoose.Types.ObjectId;
 
 const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
+//helpers
 const requireLogin = require('./inc/requireLogin.js');
+const getDayName = require('../helper/getDayName');
+const adminAdToUser = require('../helper/adminAdToUser');
 
 // Models
 const Ads = require('../models/ads');
 const Favourites = require('../models/favourites');
 
-const getObject = (data, req, res) => {
+// helpers
+const openOrClose = require('../helper/openOrClose');
+
+const getObject = (data, req, res, showEditButton) => {
 
 	// For category
 	let childCategoryName;
@@ -24,17 +29,6 @@ const getObject = (data, req, res) => {
 	}catch(e){
 		childCategoryName = null;
 	}
-
-	// For location
-	/*let cityObj = (data.locationObj.cities).find(x => String(x._id) === String(data.location.cityId));
-	let cityName = cityObj.name;
-
-	let districtName;
-	try{
-		districtName = (cityObj.districts).find(x => String(x._id) === String(data.location.districtId)).name;
-	}catch (e){
-		districtName = null;
-	}*/
 
 	const viewRate = (val) => {
 		if (val === null){
@@ -46,15 +40,15 @@ const getObject = (data, req, res) => {
 		}else{
 			return val.toFixed(1);
 		}
-	}
+	};
 
-	const tzMoment = geoTz.tzMoment(data.place.geometry.location.lat, data.place.geometry.location.lng);
-	const now_local_time = moment.parseZone(tzMoment).format('H:m');
+	const isOpen = openOrClose(data);
 
 
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
 		data: data,
+		isOpen: isOpen,
 		moment: moment,
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
 		session: req.session.user,
@@ -62,15 +56,12 @@ const getObject = (data, req, res) => {
 		rate: Math.round(data.rate),
 		viewRate: viewRate(data.rate),
 		pageView: numeral(data.pageView).format('0a'),
+		showEditButton: showEditButton,
+		uuid: req.query.uuid,
 		category: {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
 		},
-		/*location: {
-			name: data.locationObj.name,
-			cityName: cityName,
-			districtName: districtName
-		},*/
 		amazon_base_url: config.amazon_s3.photo_base_url,
 		events: data.events
 	};
@@ -89,6 +80,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		{
 			'$match': {
 				'_id': _id,
+				userSelectDelete: false
 			}
 		},
 
@@ -103,22 +95,6 @@ router.get('/:slug/:id', (req, res, next) => {
 		},
 		{ '$unwind': '$user' },
 
-		// Event collection
-		/*{
-			$lookup: {
-				from: 'events',
-				localField: '_id',
-				foreignField: 'adId',
-				as: 'event'
-			}
-		},
-		{
-			$unwind: {
-				path: '$event',
-				preserveNullAndEmptyArrays: true
-			}
-		},*/
-
 		// categories collection
 		{
 			$lookup: {
@@ -130,25 +106,13 @@ router.get('/:slug/:id', (req, res, next) => {
 		},
 		{ '$unwind': '$categoryObj' },
 
-		// countries collection
-		/*{
-			$lookup: {
-				from: 'countries',
-				localField: 'location.cityId',
-				foreignField: 'cities._id',
-				as: 'locationObj'
-			}
-		},
-		{ '$unwind': '$locationObj' },*/
-
-
 		{
 			$group: {
 				'_id': {
 					'_id': '$_id',
 					'title': '$title',
 					'description': '$description',
-					'price': '$prica',
+					'price': '$price',
 					'anotherContact': '$anotherContact',
 					'uuid': '$uuid',
 					'ownerId': '$ownerId',
@@ -158,12 +122,18 @@ router.get('/:slug/:id', (req, res, next) => {
 					'mobile_phone': '$mobile_phone',
 					'website': '$website',
 					'address': '$address',
+					'zipCode': '$zipCode',
+					'workTimes': '$workTimes',
 					'photoShowcaseIndex': '$photoShowcaseIndex',
 					'photos': '$photos',
 					'listingDate': '$listingDate',
 					'category': '$category',
 					'categoryObj': '$categoryObj',
 					'pageView': '$pageView',
+					'adminAd': '$adminAd',
+					'changeAdminToUser': '$changeAdminToUser',
+					'toEmailAddress': '$toEmailAddress',
+					'userSelectDelete': '$userSelectDelete',
 					'user': '$user',
 					'rateAvg': { $avg: '$rates.score' }
 				},
@@ -182,6 +152,10 @@ router.get('/:slug/:id', (req, res, next) => {
 				'price': '$_id.price',
 				'anotherContact': '$_id.anotherContact',
 				'uuid': '$_id.uuid',
+				'adminAd': '$_id.adminAd',
+				'changeAdminToUser': '$_id.changeAdminToUser',
+				'toEmailAddress': '$_id.toEmailAddress',
+				'userSelectDelete': '$_id.userSelectDelete',
 				'ownerId': '$_id.ownerId',
 				'status': '$_id.status',
 				'phone': '$_id.phone',
@@ -189,9 +163,12 @@ router.get('/:slug/:id', (req, res, next) => {
 				'mobile_phone': '$_id.mobile_phone',
 				'website': '$_id.website',
 				'address': '$_id.address',
+				'zipCode': '$_id.zipCode',
 				'photoShowcaseIndex': '$_id.photoShowcaseIndex',
 				'photos': '$_id.photos',
 				'listingDate': '$_id.listingDate',
+				'workTimesToday': '$_id.workTimes'+ '.'+ getDayName(),
+				'workTimes': '$_id.workTimes',
 				'pageView': '$_id.pageView',
 				'user.name': '$_id.user.name',
 				'user._id': '$_id.user._id',
@@ -212,7 +189,24 @@ router.get('/:slug/:id', (req, res, next) => {
 		if(result.length < 1){
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
-			let data = result[0];
+			const data = result[0];
+
+			const uuid = req.query.uuid;
+			let showEditButton = false;
+			if (uuid) {
+				if (data.uuid === uuid && data.adminAd && !data.changeAdminToUser && !data.userSelectDelete) {
+					showEditButton = true;
+
+					if (data.toEmailAddress === req.user.email){
+						adminAdToUser(req.user._id, uuid, () => {
+							// do stuff
+						});
+					}else{
+						res.cookie('adminAdUuid', uuid , { maxAge: 900000, httpOnly: true });
+					}
+				}
+			}
+
 
 			if( data.status !== 1){
 				if ( req.session.user ){
@@ -234,7 +228,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					}
 				);
 
-				res.render( 'detail', getObject(data, req ,res));
+				res.render( 'detail', getObject(data, req ,res, showEditButton));
 			}
 		}
 	});
@@ -262,6 +256,21 @@ router.get('/getSimilars', (req, res) => {
 			res.json(data);
 		}).limit(8);
 
+	});
+});
+
+router.get('/deleteAd', requireLogin, (req, res) => {
+	Ads.findOneAndUpdate({
+		uuid: req.query.uuid,
+	},{
+		$set: {
+			userSelectDelete: true
+		}
+	},(err) => {
+		if (err)
+			res.send(err);
+		else
+			res.json({ status: 1 });
 	});
 });
 

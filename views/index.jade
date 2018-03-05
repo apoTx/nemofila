@@ -121,14 +121,20 @@ block content
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
 
-                                .extra.content(ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)")
-                                    span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
-                                        .ui.red.horizontal.label #{i18n.__( "Close" )}
+                                .extra.content(
+                                        ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)"
+                                    )
 
-                                    span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
-                                        .ui.green.horizontal.label #{i18n.__( "Open" )}
+                                    //
+                                        span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
+                                            .ui.red.horizontal.label #{i18n.__( "Close" )}
 
-                                    div(ng-if="ad.rate")
+                                        span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
+                                            .ui.green.horizontal.label #{i18n.__( "Open" )}
+                                    span.right.floated
+                                        i.map.marker.alternate.icon
+                                        | {{ ad.location[0].long_name }}
+                                    div(ng-show="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
@@ -156,7 +162,7 @@ block content
                 h2.indexBestInTitle #{i18n.__( "last_events" )}
                 .ui.segment.list-segment
                     .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
-                        .doubling.four.column.row
+                        .doubling.two.column.row
                             .column.margin-bottom-10(ng-repeat="event in events")
                                 a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
                                     .image.cardListImage

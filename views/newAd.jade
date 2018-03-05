@@ -13,8 +13,10 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
 
 block content
+
     div.ui.main.container.subPage(ng-controller="newAdController")
         div(ng-if="!adSaveComplete", ng-cloak)
+
             .ui.steps.fluid(class="margin-bottom-30")
                 a.step(ng-class="steps.informations ? 'active': 'disabled' ", ng-cloak)
                     i.info.icon
@@ -51,40 +53,66 @@ block content
                         input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
                         input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
 
+                        - if (isAdmin)
+                            .field
+                                label #{ i18n.__("To Email Address") }
+                                input(name="toEmailAddress", placeholder='#{ i18n.__("To Email Address") }',  ng-model="newAdForm.toEmailAddress")
+
                         .field
                             label #{ i18n.__("title") }
                             input(name='title', placeholder='#{ i18n.__("title") }',  ng-model="newAdForm.title")
 
-                        .field
-                            label #{ i18n.__("description") }
-                            ng-wig(
-                                name='description',
-                                ng-model='newAdForm.description'
-                            )
+                        .two.fields
+                            .field
+                                label #{ i18n.__("description") }
+                                ng-wig(
+                                    name='description',
+                                    ng-model='newAdForm.description'
+                                )
+                            .field
+                                label #{ i18n.__("description2") }
+                                ng-wig(
+                                    name='description2',
+                                    ng-model='newAdForm.description2'
+                                )
 
                         .two.fields
                             .field
                                 label Location
-                                input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
+
+                                .ui.action.input
+                                    input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
+                                    .ui.button(ng-click='locate()') #{ i18n.__("Find my location") }
                             .field
                                 .two.fields(country-and-category-dropdowns)
 
 
                         .fields.two
                             .field.wide.eight
-                                label #{ i18n.__( "phone" ) }
-                                input(name='phone', placeholder='#{ i18n.__( "phone" ) }',  ng-model="newAdForm.phone")
+                                .ui.segment.no-padding
+                                    #map
+                                    .ui.dimmer(ng-class="{ active: mapLoading }")
+                                        .ui.loader
+
+
                             .field.wide.eight
-                                label #{ i18n.__( "mobile_phone" ) }
-                                input(name="mobile_phone", placeholder='#{ i18n.__( "mobile_phone" ) }', ng-model="newAdForm.mobile_phone")
+                                .margin-bottom-15
+                                    label
+                                        b #{ i18n.__("phone") }
+                                    input(name='phone', placeholder='#{ i18n.__("phone") }',  ng-model="newAdForm.phone")
+                                .margin-bottom-15
+                                    label
+                                        b #{ i18n.__( "Zip Code" ) }
+                                    input(name="zip_code", placeholder='#{ i18n.__( "Zip Code" ) }', ng-model="newAdForm.zip_code")
+                                .margin-bottom-15
+                                    label
+                                        b #{ i18n.__("address") }
+                                    input(name='address', placeholder='#{ i18n.__("address") }',  ng-model="newAdForm.address")
+                                .margin-bottom-15
+                                    label
+                                        b #{ i18n.__("website") }
+                                    input(name='website', placeholder='#{ i18n.__("website") }',  ng-model="newAdForm.website")
 
-                        .field
-                            label #{ i18n.__( "address" ) }
-                            input(name='address', placeholder='#{ i18n.__( "address" ) }',  ng-model="newAdForm.address")
-
-                        .field
-                            label #{ i18n.__( "website" ) }
-                            input(name='website', placeholder='#{ i18n.__( "website" ) }',  ng-model="newAdForm.website")
                         .field
                             label #{ i18n.__( "Work Times" ) }
                             .ui.button#workTimesBtn #{ i18n.__( "Add Work Times" ) }
@@ -229,7 +257,13 @@ block content
 
 
                 div#preview(ng-show="steps.preview", ng-cloak)
-                    h2 {{ newAdForm.title }}
+
+                    div.ui.mobile.only.grid
+                        .text-right.full-width
+                            button.ui.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
+                                | #{ i18n.__("back_btn") }
+
+                    h2.padding-bottom-10 {{ newAdForm.title }}
 
                     .ui.four.stackable.cards
                         .card.photoList(ng-repeat='f in newAdForm.files')
@@ -270,13 +304,17 @@ block content
                                             span
                                                 | {{ newAdForm.phone }}
 
-                                    tr
-                                        td #{ i18n.__( "mobile_phone" ) }
+                                    tr(ng-hide="!newAdForm.anotherContact.checked")
+                                        td #{ i18n.__("phone") }
                                         td
-                                            span(ng-show="newAdForm.anotherContact.checked")
+                                            span
                                                 | {{ newAdForm.anotherContact.phone }}
-                                            span(ng-hide="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.mobile_phone }}
+
+                                    tr
+                                        td #{ i18n.__( "Zip Code" ) }
+                                        td
+                                            span
+                                                | {{ newAdForm.zip_code }}
 
                                     tr
                                         td #{ i18n.__( "website" ) }

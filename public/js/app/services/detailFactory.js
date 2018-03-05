@@ -12,7 +12,21 @@ app.factory('detailFactory', ['$http', ($http) => {
 			});
 	};
 
+	let deleteAd = (uuid) => {
+		return $http({
+			url: '/detail/deleteAd',
+			method: 'get',
+			params: { uuid: uuid },
+		})
+			.then((response) => {
+				return response.data;
+			}, () => {
+				console.log('fail');
+			});
+	};
+
 	return {
-		getSimilars: getSimilars
+		getSimilars: getSimilars,
+		deleteAd: deleteAd,
 	};
 }]);

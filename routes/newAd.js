@@ -1,37 +1,48 @@
-let express = require('express');
-let slugify = require('slugify');
-let request = require('request');
-let uuid = require('uuid');
+const express = require('express');
+const slugify = require('slugify');
+const request = require('request');
+const uuid = require('uuid');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
-let router = express.Router();
+const router = express.Router();
 
 // settings
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 
 // Models
-let Ads = require('../models/ads');
-let Power = require('../models/powers');
+const Ads = require('../models/ads');
+const Power = require('../models/powers');
 
 // Mail transporter
-let mailer = require('../helper/mailer');
-let verifyRecaptcha = require('../helper/recaptcha');
-let getAdStatusText = require('../helper/getAdStatusText');
-let requireLogin = require('./inc/requireLogin.js');
+const mailer = require('../helper/mailer');
 
-let sendMail = (title, id) => {
-	// send email
-	let to_email = mailer.config.new_ad_alert_to_email;
-	let subject = 'There\'s a new ad that is pending approval';
-	let mailOptions = {
+// helpers
+const verifyRecaptcha = require('../helper/recaptcha');
+const getAdStatusText = require('../helper/getAdStatusText');
+const requireLogin = require('./inc/requireLogin.js');
+
+const mailTemplate = {
+	defaultTemplate: 'admin/new-ad-alert',
+	adminAdTemplate: 'new-ad-alert-from-admin'
+};
+const to_email = mailer.config.new_ad_alert_to_email;
+const subject = 'There\'s a new ad that is pending approval';
+const subject_for_from_admin = 'Your ad was added';
+
+const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
+	const mailOptions = {
 		from: mailer.config.defaultFromAddress,
-		to: to_email,
-		subject: subject,
-		template: 'admin/new-ad-alert',
+		to: to ? to : to_email,
+		subject: isAdmin ?  subject_for_from_admin : subject,
+		template: template ? template : mailTemplate.defaultTemplate,
 		context: {
 			siteUrl: mailer.siteUrl,
 			adTitle: title,
 			id: id,
 			subject: subject,
+			uuid: uuid,
+			slug: slug
 		}
 	};
 
@@ -43,16 +54,40 @@ let sendMail = (title, id) => {
 	});
 };
 
-router.get('/:id?', requireLogin, (req, res) => {
-	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
-		res.render( 'newAd', {
-			title: 'New Ad',
-			userExists: req.session.user ? true : false,
-			id: req.query.id ? req.query.id : 'false',
-			formdata: JSON.parse(body),
-			amazon_base_url: config.amazon_s3.photo_base_url,
+router.get('/:id?', requireLogin, (req, res, next) => {
+
+	const adId = req.query.id;
+
+	if (adId){
+		Ads.findById(ObjectId(adId), (err, result) => {
+			if (err)
+				throw new Error(err);
+
+			const ownerId = result.ownerId;
+
+			if (String(ownerId) !== String(req.user._id)) {
+				next('Error.');
+			}else{
+				render();
+			}
 		});
-	});
+	}else{
+		render();
+	}
+
+	function render () {
+		request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
+			res.render( 'newAd', {
+				title: 'New Ad',
+				userExists: req.session.user ? true : false,
+				id: req.query.id ? req.query.id : 'false',
+				isAdmin: req.isAdmin,
+				formdata: JSON.parse(body),
+				amazon_base_url: config.amazon_s3.photo_base_url,
+			});
+		});
+	}
+
 });
 
 router.post('/create', requireLogin, (req, res) => {
@@ -69,24 +104,25 @@ router.post('/create', requireLogin, (req, res) => {
 			const isEdit = req.body.isEdit;
 			const editId = req.body.editId;
 			const phone = data.phone;
-			const mobile_phone = data.mobile_phone;
+			const zip_code = data.zip_code;
 			const address = data.address;
 			const website = data.website;
 			const place = data.place;
 
 			delete place.photos;
 
-			console.log(data.workTimes);
+			const slug = slugify(data.title, { lower:true });
 
 			const obj = {
 				title: data.title,
-				slug: slugify(data.title, { lower:true }),
+				slug: slug,
 				description: data.description,
+				description2: data.description2,
 				photos: photos,
 				photoShowcaseIndex: showcaseIndex,
 				uuid: _uuid,
 				phone: phone,
-				mobile_phone: mobile_phone,
+				zipCode: zip_code,
 				address: address,
 				website: website,
 				place: place,
@@ -94,7 +130,11 @@ router.post('/create', requireLogin, (req, res) => {
 					categoryId: category.categoryId,
 					categoryChildId: category.childCategoryId
 				},
-				workTimes: data.workTimes
+				workTimes: data.workTimes,
+				adminAd: req.isAdmin,
+				toEmailAddress: data.toEmailAddress,
+				status: req.isAdmin ? 1 : 0,
+				statusText: req.isAdmin ? getAdStatusText(1) : getAdStatusText(0),
 			};
 
 			if (data.anotherContact.checked){
@@ -114,7 +154,11 @@ router.post('/create', requireLogin, (req, res) => {
 					if (err) {
 						throw new Error( err );
 					} else {
-						sendMail(data.title, data._id);
+
+						if (req.isAdmin)
+							sendMail(data.title, data._id, req.isAdmin, mailTemplate.adminAdTemplate, obj.toEmailAddress, _uuid, slug);
+						else
+							sendMail(data.title, data._id, req.isAdmin);
 
 						if (powerData.powerStatus){
 							let power = new Power ({
@@ -137,7 +181,9 @@ router.post('/create', requireLogin, (req, res) => {
 					if (err)
 						throw new Error(err);
 
-					sendMail(data.title, data._id);
+
+					sendMail(data.title, data._id, req.isAdmin);
+
 					res.send( { 'status': 1 } );
 				});
 			}

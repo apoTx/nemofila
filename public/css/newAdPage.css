@@ -34,3 +34,9 @@
 .timeDropdownsVisible{
     display: none!important;
 }
+
+#map{
+    height:270px;
+    width:100%;
+    background: url("/img/map.png");
+}

@@ -62,6 +62,39 @@ p.description{
     color: #af6f12;
 }
 
+.todayTop{
+    padding: 10px 5px;
+    cursor: pointer
+}
+.todayTop:hover{
+    background: rgba(140, 187, 226, 0.03);
+}
+.today{
+    margin-right:10px
+}
+
+.inline-block{
+    display: inline-block!important;
+}
+
+.closeTime{
+    margin-left: 15px
+}
+
+.workTimeList{
+    padding: 0 5px!important;
+    margin-top: 15px !important
+}
+.listDay{
+    width:100px;
+    display: inline-block;
+}
+.listWorkTimes{
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+}
+
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {
         padding: 3px !important;

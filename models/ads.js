@@ -2,7 +2,6 @@ let mongoose = require('mongoose');
 let Schema	 = mongoose.Schema;
 let ObjectId = Schema.ObjectId;
 
-
 let adSchema = new Schema({
 	title: {
 		type: String,
@@ -12,6 +11,9 @@ let adSchema = new Schema({
 		type: String
 	},
 	description: {
+		type: String,
+	},
+	description2: {
 		type: String,
 	},
 	photos: [],
@@ -68,7 +70,7 @@ let adSchema = new Schema({
 	phone: {
 		type: String,
 	},
-	mobile_phone: {
+	zipCode: {
 		type: String,
 	},
 	address:String,
@@ -210,6 +212,20 @@ let adSchema = new Schema({
 				//default: '23:00'
 			}
 		}
+	},
+	adminAd: {
+		type: Boolean,
+	},
+	changeAdminToUser: {
+		type: Boolean,
+		default: 0
+	},
+	userSelectDelete: {
+		type: Boolean,
+		default: 0
+	},
+	toEmailAddress: {
+		type: String,
 	}
 });
 

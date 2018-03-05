@@ -1,5 +1,69 @@
 app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
 
+	$scope.mapLoading = false;
+	const im = 'img/marker.png';
+	$scope.locate = () => {
+		$scope.mapLoading = true;
+		navigator.geolocation.getCurrentPosition(initialize,fail);
+	};
+
+	function initialize(position, latLng, zoom) {
+		let lat, lng;
+
+		if (latLng){
+			lat = latLng.lat;
+			lng = latLng.lng;
+		}else{
+			lat = position.coords.latitude;
+			lng = position.coords.longitude;
+		}
+
+		const myLatLng = new google.maps.LatLng(lat, lng);
+		const mapOptions = {
+			zoom: zoom ? zoom : 15,
+			center: myLatLng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		const map = new google.maps.Map(document.getElementById('map'),
+			mapOptions);
+
+		/* eslint-disable-next-line */
+		const userMarker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			icon: im
+		});
+
+		setTimeout(() => {
+			$scope.mapLoading = false;
+			$scope.$apply();
+		});
+	}
+
+	function fail(){
+		alert('navigator.geolocation failed, may not be supported');
+		$scope.mapLoading = false;
+	}
+
+	$scope.$watch('newAdForm.place', (newValue) => {
+		if (typeof newValue === 'object') {
+
+			try{
+				const lat = newValue.geometry.location.lat();
+				const lng = newValue.geometry.location.lng();
+
+				const latLng = { lat: lat, lng: lng };
+				initialize(0, latLng, 12);
+			}catch (e){
+				// do stuff
+			}
+
+		}
+	});
+
+
+
 	// New Ad Form
 	$scope.newAdForm = {};
 	$scope.newAdForm.anotherContact =  { };
@@ -20,6 +84,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$(() => {
+
 		// stripe
 		$('#buttonCheckout').on('click', () => {
 			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];
@@ -91,6 +156,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						{
 							type   : 'maxLength[2000]',
 							prompt : 'Your description can be up to {ruleValue} characters long.'
+						}
+					]
+				},
+				description2: {
+					identifier  : 'description2',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a description2.'
+						},
+						{
+							type   : 'maxLength[2000]',
+							prompt : 'Your description2 can be up to {ruleValue} characters long.'
 						}
 					]
 				},
@@ -228,6 +306,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			$scope.newAdForm.title = response.data.title || '';
 			$scope.newAdForm.description = response.data.description || '';
+			$scope.newAdForm.description2 = response.data.description2 || '';
 			$scope.newAdForm.phone = response.data.phone || '';
 			$scope.newAdForm.mobile_phone = response.data.mobile_phone || '';
 			$scope.newAdForm.address = response.data.address || '';

@@ -18,6 +18,7 @@ router.get('/getMyAds', requireLogin, (req, res) => {
 		{
 			'$match': {
 				'ownerId': mongoose.Types.ObjectId(_id),
+				userSelectDelete: false
 			}
 		},
 

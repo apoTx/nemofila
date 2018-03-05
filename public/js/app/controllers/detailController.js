@@ -116,6 +116,18 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		});
 	};
 
+	// ilanı eklenen kişi, ilanı silmek istediğinde
+	$scope.deleteLoading = false;
+	$scope.deleteAd = (uuid) => {
+		$scope.deleteLoading = true;
+		detailFactory.deleteAd(uuid).then((response) => {
+			if (response.status){
+				$scope.deleteLoading = false;
+				document.location.href = '/';
+			}
+		});
+	};
+
 	$(() => {
 		$('#sendMessageModal').modal({
 			onHide: function(){
@@ -175,6 +187,14 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		$scope.photos = data;
 		$scope.showcaseIndex = showcaseIndex;
 		$scope.showcase = data[$scope.showcaseIndex].filename;
+	};
+
+	$scope.workTimesVisible = false;
+	$scope.toggleWorkTimes = () => {
+		if ($scope.workTimesVisible)
+			$scope.workTimesVisible = false;
+		else
+			$scope.workTimesVisible = true;
 	};
 
 }]);

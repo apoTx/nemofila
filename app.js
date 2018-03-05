@@ -12,6 +12,9 @@ const i18n = require('i18n');
 // Development env file
 const config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
+// models
+const User = require('./models/users');
+
 //Routes
 const index = require('./routes/index');
 const search = require('./routes/search');
@@ -98,7 +101,36 @@ app.use((req, res, next) => {
 		user: req.session.user,
 		amazon_base_url: config.amazon_s3.photo_base_url,
 	};
+
+	try{
+		req.isAdmin = req.session.user.isAdmin ? true : false;
+	} catch (e){
+		req.isAdmin = false;
+	}
+
 	next();
+});
+
+app.use((req,res,next) => {
+	if(req.session && (req.session.user || req.session.passport)){
+		let findObj;
+		if (req.session.user){
+			findObj = { email: req.session.user.email };
+		}else{
+			findObj = { _id:  req.session.passport.user.doc._id };
+		}
+		User.findOne(findObj,(err,user) => {
+			if(user){
+				req.user = user;
+				delete req.user.password;
+				req.session.user = req.user;
+				res.locals.user = req.user;
+			}
+			next();
+		}).select({ name: 1, surname:1, _id: 1, isAdmin: true, email: 1 });
+	}else{
+		next();
+	}
 });
 
 app.use('/manage/', manage);
