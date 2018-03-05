@@ -437,10 +437,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.onSubmitAd = (photos, id, newPhotos) => {
 		$scope.submitBtnLoading = true;
 
-		console.log($scope.newAdForm);
-		console.log($scope.newAdForm.workTimes);
 		let data = Object.assign({}, $scope.newAdForm);
-		console.log(data);
 
 		delete data.files;
 
