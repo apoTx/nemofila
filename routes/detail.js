@@ -11,6 +11,7 @@ const config = require('../config/env.json')[process.env.NODE_ENV || 'developmen
 //helpers
 const requireLogin = require('./inc/requireLogin.js');
 const getDayName = require('../helper/getDayName');
+const adminAdToUser = require('../helper/adminAdToUser');
 
 // Models
 const Ads = require('../models/ads');
@@ -129,6 +130,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'pageView': '$pageView',
 					'adminAd': '$adminAd',
 					'changeAdminToUser': '$changeAdminToUser',
+					'toEmailAddress': '$toEmailAddress',
 					'user': '$user',
 					'rateAvg': { $avg: '$rates.score' }
 				},
@@ -149,6 +151,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'uuid': '$_id.uuid',
 				'adminAd': '$_id.adminAd',
 				'changeAdminToUser': '$_id.changeAdminToUser',
+				'toEmailAddress': '$_id.toEmailAddress',
 				'ownerId': '$_id.ownerId',
 				'status': '$_id.status',
 				'phone': '$_id.phone',
@@ -190,7 +193,13 @@ router.get('/:slug/:id', (req, res, next) => {
 				if (data.uuid === uuid && data.adminAd && !data.changeAdminToUser) {
 					showEditButton = true;
 
-					res.cookie('adminAdUuid', uuid , { maxAge: 900000, httpOnly: true });
+					if (data.toEmailAddress === req.user.email){
+						adminAdToUser(req.user._id, uuid, () => {
+							// do stuff
+						});
+					}else{
+						res.cookie('adminAdUuid', uuid , { maxAge: 900000, httpOnly: true });
+					}
 				}
 			}
 
