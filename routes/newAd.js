@@ -109,6 +109,7 @@ router.post('/create', requireLogin, (req, res) => {
 				adminAd: req.isAdmin,
 				toEmailAddress: data.toEmailAddress,
 				status: req.isAdmin ? 1 : 0,
+				statusText: req.isAdmin ? getAdStatusText(1) : getAdStatusText(0),
 			};
 
 			if (data.anotherContact.checked){

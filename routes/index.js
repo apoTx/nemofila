@@ -58,11 +58,34 @@ router.post( '/register', ( req, res ) => {
 					'password': hash
 				});
 
-				user.save((err) => {
-					if (err)
+				user.save((err, data) => {
+					if (err){
 						res.send(err);
-					else
+					}else {
+
+						const adminAdUuid = req.cookies.adminAdUuid;
+						if(adminAdUuid){
+							Ads.findOneAndUpdate(
+								{
+									uuid:adminAdUuid
+								},
+								{
+									$set: {
+										ownerId: data._id,
+										changeAdminToUser: 1
+									}
+								},
+								(err, result) => {
+									if (err)
+										throw new Error(err);
+
+									console.log(result);
+								}
+							);
+						}
+
 						res.send({ 'status': 1 });
+					}
 				});
 			});
 		}else{

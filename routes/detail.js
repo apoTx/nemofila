@@ -109,7 +109,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'_id': '$_id',
 					'title': '$title',
 					'description': '$description',
-					'price': '$prica',
+					'price': '$price',
 					'anotherContact': '$anotherContact',
 					'uuid': '$uuid',
 					'ownerId': '$ownerId',
@@ -128,6 +128,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'categoryObj': '$categoryObj',
 					'pageView': '$pageView',
 					'adminAd': '$adminAd',
+					'changeAdminToUser': '$changeAdminToUser',
 					'user': '$user',
 					'rateAvg': { $avg: '$rates.score' }
 				},
@@ -147,6 +148,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'anotherContact': '$_id.anotherContact',
 				'uuid': '$_id.uuid',
 				'adminAd': '$_id.adminAd',
+				'changeAdminToUser': '$_id.changeAdminToUser',
 				'ownerId': '$_id.ownerId',
 				'status': '$_id.status',
 				'phone': '$_id.phone',
@@ -185,8 +187,10 @@ router.get('/:slug/:id', (req, res, next) => {
 			const uuid = req.query.uuid;
 			let showEditButton = false;
 			if (uuid) {
-				if (data.uuid === uuid && data.adminAd) {
+				if (data.uuid === uuid && data.adminAd && !data.changeAdminToUser) {
 					showEditButton = true;
+
+					res.cookie('adminAdUuid', uuid , { maxAge: 900000, httpOnly: true });
 				}
 			}
 

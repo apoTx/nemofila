@@ -216,6 +216,10 @@ let adSchema = new Schema({
 	adminAd: {
 		type: Boolean,
 	},
+	changeAdminToUser: {
+		type: Boolean,
+		default: 0
+	},
 	toEmailAddress: {
 		type: String,
 	}
