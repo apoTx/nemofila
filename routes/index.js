@@ -20,6 +20,7 @@ const Subscribe = require('../models/subscribes');
 const mailer = require('../helper/mailer');
 const getDayName = require('../helper/getDayName');
 const verifyRecaptcha = require('../helper/recaptcha');
+const adminAdToUser = require('../helper/adminAdToUser');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
@@ -63,26 +64,7 @@ router.post( '/register', ( req, res ) => {
 						res.send(err);
 					}else {
 
-						const adminAdUuid = req.cookies.adminAdUuid;
-						if(adminAdUuid){
-							Ads.findOneAndUpdate(
-								{
-									uuid:adminAdUuid
-								},
-								{
-									$set: {
-										ownerId: data._id,
-										changeAdminToUser: 1
-									}
-								},
-								(err, result) => {
-									if (err)
-										throw new Error(err);
-
-									console.log(result);
-								}
-							);
-						}
+						adminAdToUser(data._id, req.cookies.adminAdUuid);
 
 						res.send({ 'status': 1 });
 					}
