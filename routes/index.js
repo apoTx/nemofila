@@ -96,7 +96,10 @@ router.post('/login', (req,res) => {
 					bcrypt.compare(data.password, user.password, (err, r) => {
 						if (r) {
 							req.session.user = user;
-							res.json({ status: 1 });
+							adminAdToUser(user._id, req.cookies.adminAdUuid, () => {
+								res.clearCookie('adminAdUuid');
+								res.json({ status: 1 });
+							});
 						}else{
 							res.json({ error: 'Email or password is did not match' });
 						}
