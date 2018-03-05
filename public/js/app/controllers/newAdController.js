@@ -17,11 +17,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 		const map = new google.maps.Map(document.getElementById('map'),
 			mapOptions);
+
+		/* eslint-disable-next-line */
 		const userMarker = new google.maps.Marker({
 			position: myLatLng,
 			map: map,
 			icon: im
 		});
+
+		console.log(myLatLng);
 
 		setTimeout(() => {
 			$scope.mapLoading = false;
