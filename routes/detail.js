@@ -19,7 +19,7 @@ const Favourites = require('../models/favourites');
 // helpers
 const openOrClose = require('../helper/openOrClose');
 
-const getObject = (data, req, res) => {
+const getObject = (data, req, res, showEditButton) => {
 
 	// For category
 	let childCategoryName;
@@ -55,6 +55,7 @@ const getObject = (data, req, res) => {
 		rate: Math.round(data.rate),
 		viewRate: viewRate(data.rate),
 		pageView: numeral(data.pageView).format('0a'),
+		showEditButton: showEditButton,
 		category: {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
@@ -126,6 +127,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'category': '$category',
 					'categoryObj': '$categoryObj',
 					'pageView': '$pageView',
+					'adminAd': '$adminAd',
 					'user': '$user',
 					'rateAvg': { $avg: '$rates.score' }
 				},
@@ -144,6 +146,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'price': '$_id.price',
 				'anotherContact': '$_id.anotherContact',
 				'uuid': '$_id.uuid',
+				'adminAd': '$_id.adminAd',
 				'ownerId': '$_id.ownerId',
 				'status': '$_id.status',
 				'phone': '$_id.phone',
@@ -177,7 +180,16 @@ router.get('/:slug/:id', (req, res, next) => {
 		if(result.length < 1){
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
-			let data = result[0];
+			const data = result[0];
+
+			const uuid = req.query.uuid;
+			let showEditButton = false;
+			if (uuid) {
+				if (data.uuid === uuid && data.adminAd) {
+					showEditButton = true;
+				}
+			}
+
 
 			if( data.status !== 1){
 				if ( req.session.user ){
@@ -199,7 +211,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					}
 				);
 
-				res.render( 'detail', getObject(data, req ,res));
+				res.render( 'detail', getObject(data, req ,res, showEditButton));
 			}
 		}
 	});

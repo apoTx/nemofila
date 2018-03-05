@@ -24,6 +24,14 @@ block content
         ng-controller="detailController"
         ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify( data.photos )}', '#{ amazon_base_url }', '#{ data.place.geometry.location.lat }', '#{ data.place.geometry.location.lng }' )"
     )
+
+        - if (showEditButton)
+            div.margin-bottom-30.text-center
+                .ui.buttons
+                    button.ui.button #{i18n.__("Delete")}
+                    .or
+                    button.ui.positive.button #{i18n.__("Edit and Approve")}
+
         div.detailContainer
 
             - if (data.status === 0)

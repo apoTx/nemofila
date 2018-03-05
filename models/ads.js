@@ -218,9 +218,6 @@ let adSchema = new Schema({
 	},
 	toEmailAddress: {
 		type: String,
-	},
-	mailGuid: {
-		type: String,
 	}
 });
 
