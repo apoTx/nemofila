@@ -28,7 +28,10 @@ block content
         - if (showEditButton)
             div.margin-bottom-30.text-center
                 .ui.buttons
-                    button.ui.button #{i18n.__("Delete")}
+                    button.ui.button(
+                        ng-click="deleteAd('#{ uuid }')",
+                        ng-class="{ loading: deleteLoading }"
+                    ) #{i18n.__("Delete")}
                     .or
                     - if (!user)
                         button.ui.positive.button(ng-click="openSignUpModal()") #{i18n.__("Edit")}

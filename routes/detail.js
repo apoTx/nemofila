@@ -57,6 +57,7 @@ const getObject = (data, req, res, showEditButton) => {
 		viewRate: viewRate(data.rate),
 		pageView: numeral(data.pageView).format('0a'),
 		showEditButton: showEditButton,
+		uuid: req.query.uuid,
 		category: {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
@@ -79,6 +80,7 @@ router.get('/:slug/:id', (req, res, next) => {
 		{
 			'$match': {
 				'_id': _id,
+				userSelectDelete: false
 			}
 		},
 
@@ -131,6 +133,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'adminAd': '$adminAd',
 					'changeAdminToUser': '$changeAdminToUser',
 					'toEmailAddress': '$toEmailAddress',
+					'userSelectDelete': '$userSelectDelete',
 					'user': '$user',
 					'rateAvg': { $avg: '$rates.score' }
 				},
@@ -152,6 +155,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'adminAd': '$_id.adminAd',
 				'changeAdminToUser': '$_id.changeAdminToUser',
 				'toEmailAddress': '$_id.toEmailAddress',
+				'userSelectDelete': '$_id.userSelectDelete',
 				'ownerId': '$_id.ownerId',
 				'status': '$_id.status',
 				'phone': '$_id.phone',
@@ -190,7 +194,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			const uuid = req.query.uuid;
 			let showEditButton = false;
 			if (uuid) {
-				if (data.uuid === uuid && data.adminAd && !data.changeAdminToUser) {
+				if (data.uuid === uuid && data.adminAd && !data.changeAdminToUser && !data.userSelectDelete) {
 					showEditButton = true;
 
 					if (data.toEmailAddress === req.user.email){
@@ -252,6 +256,21 @@ router.get('/getSimilars', (req, res) => {
 			res.json(data);
 		}).limit(8);
 
+	});
+});
+
+router.get('/deleteAd', requireLogin, (req, res) => {
+	Ads.findOneAndUpdate({
+		uuid: req.query.uuid,
+	},{
+		$set: {
+			userSelectDelete: true
+		}
+	},(err) => {
+		if (err)
+			res.send(err);
+		else
+			res.json({ status: 1 });
 	});
 });
 

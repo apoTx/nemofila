@@ -220,6 +220,10 @@ let adSchema = new Schema({
 		type: Boolean,
 		default: 0
 	},
+	userSelectDelete: {
+		type: Boolean,
+		default: 0
+	},
 	toEmailAddress: {
 		type: String,
 	}
