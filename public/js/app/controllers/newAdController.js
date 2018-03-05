@@ -7,10 +7,20 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize,fail);
 	};
 
-	function initialize(position) {
-		const myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	function initialize(position, latLng, zoom) {
+		let lat, lng;
+
+		if (latLng){
+			lat = latLng.lat;
+			lng = latLng.lng;
+		}else{
+			lat = position.coords.latitude;
+			lng = position.coords.longitude;
+		}
+
+		const myLatLng = new google.maps.LatLng(lat, lng);
 		const mapOptions = {
-			zoom: 15,
+			zoom: zoom ? zoom : 15,
 			center: myLatLng,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
@@ -25,8 +35,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			icon: im
 		});
 
-		console.log(myLatLng);
-
 		setTimeout(() => {
 			$scope.mapLoading = false;
 			$scope.$apply();
@@ -38,9 +46,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.mapLoading = false;
 	}
 
-	$scope.$watch('newAdForm.place', (newValue, oldValue) => {
+	$scope.$watch('newAdForm.place', (newValue) => {
 		if (typeof newValue === 'object') {
-			
+
+			try{
+				const lat = newValue.geometry.location.lat();
+				const lng = newValue.geometry.location.lng();
+
+				const latLng = { lat: lat, lng: lng };
+				initialize(0, latLng, 12);
+			}catch (e){
+				// do stuff
+			}
+
 		}
 	});
 
