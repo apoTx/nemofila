@@ -2,6 +2,8 @@ const express = require('express');
 const slugify = require('slugify');
 const request = require('request');
 const uuid = require('uuid');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const router = express.Router();
 
@@ -52,17 +54,40 @@ const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
 	});
 };
 
-router.get('/:id?', requireLogin, (req, res) => {
-	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
-		res.render( 'newAd', {
-			title: 'New Ad',
-			userExists: req.session.user ? true : false,
-			id: req.query.id ? req.query.id : 'false',
-			isAdmin: req.isAdmin,
-			formdata: JSON.parse(body),
-			amazon_base_url: config.amazon_s3.photo_base_url,
+router.get('/:id?', requireLogin, (req, res, next) => {
+
+	const adId = req.query.id;
+
+	if (adId){
+		Ads.findById(ObjectId(adId), (err, result) => {
+			if (err)
+				throw new Error(err);
+
+			const ownerId = result.ownerId;
+
+			if (String(ownerId) !== String(req.user._id)) {
+				next('Error.');
+			}else{
+				render();
+			}
 		});
-	});
+	}else{
+		render();
+	}
+
+	function render () {
+		request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
+			res.render( 'newAd', {
+				title: 'New Ad',
+				userExists: req.session.user ? true : false,
+				id: req.query.id ? req.query.id : 'false',
+				isAdmin: req.isAdmin,
+				formdata: JSON.parse(body),
+				amazon_base_url: config.amazon_s3.photo_base_url,
+			});
+		});
+	}
+
 });
 
 router.post('/create', requireLogin, (req, res) => {
