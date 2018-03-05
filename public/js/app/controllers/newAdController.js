@@ -35,7 +35,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	function fail(){
 		alert('navigator.geolocation failed, may not be supported');
+		$scope.mapLoading = false;
 	}
+
+	$scope.$watch('newAdForm.place', (newValue, oldValue) => {
+		if (typeof newValue === 'object') {
+			
+		}
+	});
+
 
 
 	// New Ad Form

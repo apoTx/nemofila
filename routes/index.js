@@ -310,6 +310,7 @@ router.get('/getIndexAds', (req,res) => {
 		{
 			'$match': {
 				'status': 1,
+				userSelectDelete: false,
 			}
 		},
 
@@ -420,6 +421,7 @@ router.get('/searchAd', (req, res) => {
 		{
 			'$match': {
 				status: 1,
+				userSelectDelete: false,
 				title: new RegExp(req.query.title, 'i'),
 				'location.countryId': location.countryId ? ObjectId(location.countryId) :  { $exists: true },
 				'location.cityId': location.cityId ? ObjectId(location.cityId) :  { $exists: true },
