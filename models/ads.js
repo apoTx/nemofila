@@ -2,7 +2,6 @@ let mongoose = require('mongoose');
 let Schema	 = mongoose.Schema;
 let ObjectId = Schema.ObjectId;
 
-
 let adSchema = new Schema({
 	title: {
 		type: String,
@@ -218,6 +217,9 @@ let adSchema = new Schema({
 		type: Boolean,
 	},
 	toEmailAddress: {
+		type: String,
+	},
+	mailGuid: {
 		type: String,
 	}
 });

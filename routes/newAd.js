@@ -14,19 +14,21 @@ const Power = require('../models/powers');
 
 // Mail transporter
 const mailer = require('../helper/mailer');
+
+// helpers
 const verifyRecaptcha = require('../helper/recaptcha');
 const getAdStatusText = require('../helper/getAdStatusText');
 const requireLogin = require('./inc/requireLogin.js');
 
 const mailTemplate = {
 	defaultTemplate: 'admin/new-ad-alert',
-	adminAdTemplate: 'admin/new-ad-alert-from-admin'
+	adminAdTemplate: 'new-ad-alert-from-admin'
 };
 const to_email = mailer.config.new_ad_alert_to_email;
 const subject = 'There\'s a new ad that is pending approval';
 const subject_for_from_admin = 'Your ad was added';
 
-const sendMail = (title, id, isAdmin, template, to) => {
+const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
 	const mailOptions = {
 		from: mailer.config.defaultFromAddress,
 		to: to ? to : to_email,
@@ -37,6 +39,8 @@ const sendMail = (title, id, isAdmin, template, to) => {
 			adTitle: title,
 			id: id,
 			subject: subject,
+			uuid: uuid,
+			slug: slug
 		}
 	};
 
@@ -82,11 +86,11 @@ router.post('/create', requireLogin, (req, res) => {
 
 			delete place.photos;
 
-			console.log(data.toEmailAddress);
+			const slug = slugify(data.title, { lower:true });
 
 			const obj = {
 				title: data.title,
-				slug: slugify(data.title, { lower:true }),
+				slug: slug,
 				description: data.description,
 				description2: data.description2,
 				photos: photos,
@@ -103,7 +107,8 @@ router.post('/create', requireLogin, (req, res) => {
 				},
 				workTimes: data.workTimes,
 				adminAd: req.isAdmin,
-				toEmailAddress: data.toEmailAddress
+				toEmailAddress: data.toEmailAddress,
+				status: req.isAdmin ? 1 : 0,
 			};
 
 			if (data.anotherContact.checked){
@@ -125,7 +130,7 @@ router.post('/create', requireLogin, (req, res) => {
 					} else {
 
 						if (req.isAdmin)
-							sendMail(data.title, data._id, req.isAdmin, mailTemplate.adminAdTemplate, obj.toEmailAddress);
+							sendMail(data.title, data._id, req.isAdmin, mailTemplate.adminAdTemplate, obj.toEmailAddress, _uuid, slug);
 						else
 							sendMail(data.title, data._id, req.isAdmin);
 
