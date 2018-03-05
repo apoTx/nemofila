@@ -405,12 +405,10 @@ router.get('/getIndexAds', (req,res) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(data);
 		Ads.count({ status: 1 }, (err, count) => {
 			const d = { data: data };
 			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
 
-			console.log(result);
 			res.json(result);
 		});
 	});
