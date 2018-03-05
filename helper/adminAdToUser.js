@@ -1,6 +1,6 @@
 const Ads = require('../models/ads');
 
-function adminAdToUser(newId, adminAdUuid) {
+function adminAdToUser(newId, adminAdUuid, callback) {
 	if(adminAdUuid){
 		Ads.findOneAndUpdate(
 			{
@@ -12,11 +12,11 @@ function adminAdToUser(newId, adminAdUuid) {
 					changeAdminToUser: 1
 				}
 			},
-			(err, result) => {
+			(err) => {
 				if (err)
 					throw new Error(err);
 
-				console.log(result);
+				callback();
 			}
 		);
 	}

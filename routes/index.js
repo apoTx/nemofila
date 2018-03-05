@@ -64,9 +64,11 @@ router.post( '/register', ( req, res ) => {
 						res.send(err);
 					}else {
 
-						adminAdToUser(data._id, req.cookies.adminAdUuid);
+						adminAdToUser(data._id, req.cookies.adminAdUuid, () => {
+							res.clearCookie('adminAdUuid');
+							res.send({ 'status': 1 });
+						});
 
-						res.send({ 'status': 1 });
 					}
 				});
 			});
