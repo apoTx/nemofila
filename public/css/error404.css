@@ -73,6 +73,7 @@ button:hover {
 }
 
 .fa-arrow-left {
+    z-index: 99;
     position: fixed;
     top: 30px;
     left: 30px;
