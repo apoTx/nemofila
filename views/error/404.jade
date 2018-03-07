@@ -14,11 +14,10 @@ html
 			| Error
 
 	body
+		a.fa.fa-arrow-left(href='/')
 		.error
-			a.fa.fa-arrow-left(href='/')
-			.error
-				h1 404
-				h2 #{ message }
+			h1 404
+			h2 #{ message }
 
-				a.ui.button(href="/") Home Page
+			a.ui.button(href="/") Home Page
 
