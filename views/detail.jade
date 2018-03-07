@@ -359,7 +359,7 @@ block content
                         .column.margin-bottom-10(
                             ng-repeat="event in events",
                         )
-                            a.ui.fluid.card.adCard(href="/detail/{{ event.slug }}/{{ event._id }}")
+                            a.ui.fluid.card.adCard(href="/events/detail/{{ event.slug }}/{{ event._id }}")
                                 .image.cardListImage
                                     img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-hide="event.photoShowcaseIndex === null")
                                     img(ng-src='/img/no-photo.png', , ng-show="event.photoShowcaseIndex === null")
