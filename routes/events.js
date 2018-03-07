@@ -199,30 +199,36 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 				'ad': '$ad',
 			},
 		},
-	], (err, result)=>{
+	], (err, result)=> {
 		if (err)
 			return next(err);
 
-		const event = result[0];
-		const data = {
-			session: req.session.user,
-			data: event,
-			moment: moment,
-			url: req.protocol + '://' + req.get('host') + req.originalUrl,
-			title: res.__('Best') + ' '+ res.__('event') + ' '+ event.title + ' ' + res.__('in') + ' '+ event.ad.place.address_components[0].short_name
-		};
+		if (result.length < 1) {
+			res.status(404).render('error/404', { message: 'Event Not Found' });
+		} else {
 
-		if( event.status !== 1){
-			if ( req.session.user ){
-				if (String(event.user._id) == req.session.user._id || req.session.user.isAdmin)
-					res.render('event-detail', data);
-				else
+			const event = result[0];
+			const data = {
+				session: req.session.user,
+				data: event,
+				moment: moment,
+				url: req.protocol + '://' + req.get('host') + req.originalUrl,
+				title: res.__('Best') + ' ' + res.__('event') + ' ' + event.title + ' ' + res.__('in') + ' ' + event.ad.place.address_components[0].short_name
+			};
+
+			if (event.status !== 1) {
+				if (req.session.user) {
+					if (String(event.user._id) == req.session.user._id || req.session.user.isAdmin)
+						res.render('event-detail', data);
+					else
+						res.status(404).render('error/404', { message: 'Ad Not Found' });
+				} else {
 					res.status(404).render('error/404', { message: 'Ad Not Found' });
-			}else{
-				res.status(404).render('error/404', { message: 'Ad Not Found' });
+				}
+			} else {
+				res.render('event-detail', data);
 			}
-		}else {
-			res.render('event-detail', data);
+
 		}
 
 	});
