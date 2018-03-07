@@ -33,6 +33,8 @@ block content
         ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify( data.photos )}', '#{ amazon_base_url }', '#{ data.place.geometry.location.lat }', '#{ data.place.geometry.location.lng }' )"
     )
 
+        | !{data.description}
+
         - if (showEditButton)
             div.margin-bottom-30.text-center
                 .ui.buttons
