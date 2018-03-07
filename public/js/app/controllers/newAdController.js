@@ -277,6 +277,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.newAdForm.workTimes = {};
 	};
 
+	$scope.filterWorkTime =  (openTime) => {
+		return function (item) {
+			if (item > openTime) {
+				return true;
+			}
+			return false;
+		};
+	};
+
 	$scope.next = () => {
 		/*if ( !$scope.isEdit )
 			$scope.powerTab();

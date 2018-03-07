@@ -26,7 +26,10 @@
                                             select(ng-model='newAdForm.workTimes.monday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__("Open Time")}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.monday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.monday.closeTime',
+                                                ng-options='item for item  in clocks | filter:filterWorkTime(newAdForm.workTimes.monday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__("Close Time")}
                     // ##DAY END##
 

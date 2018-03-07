@@ -9,6 +9,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		$('#detailRating').rating({
 			maxRating: 5,
 			onRate: (value) => {
+				console.log(value);
 				if(!$scope.userId || $scope.userId === 'null'){
 					alert('Please login');
 					return false;
