@@ -168,7 +168,7 @@ block content
                             .ui.right.floated.text-right
                                 span.rateNumber
                                     b #{ viewRate }
-                                .ui.star.large.rating#detailRating(data-rating='#{ rate }')
+                                .ui.star.large.rating#detailRating(data-rating='#{ rate }', ng-init="lastRate= #{ rate }")
                                 span.reviewMessage(ng-show="onRate")
                                     | #{i18n.__("Thank you for the review")}
 
