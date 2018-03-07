@@ -52,9 +52,9 @@ router.post( '/register', ( req, res ) => {
 			const saltRounds = 10;
 			bcrypt.hash(req.body.data.password, saltRounds).then((hash) => {
 				let user = new User({
-					'name': data.name,
-					'surname': data.surname,
-					'email': data.email,
+					'name': (data.name).replace(/\b\w/g, l => l.toUpperCase()),
+					'surname': (data.surname).replace(/\b\w/g, l => l.toUpperCase()),
+					'email': (data.email).toLowerCase(),
 					'phone': data.phone,
 					'password': hash
 				});
@@ -63,12 +63,10 @@ router.post( '/register', ( req, res ) => {
 					if (err){
 						res.send(err);
 					}else {
-
 						adminAdToUser(data._id, req.cookies.adminAdUuid, () => {
 							res.clearCookie('adminAdUuid');
 							res.send({ 'status': 1 });
 						});
-
 					}
 				});
 			});
