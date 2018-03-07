@@ -21,25 +21,28 @@ block top_left
         a.header.item.no-before(href='/')
             img.logo(src='/img/nemofila.png')
         .left.menu
-            .ui.simple.dropdown.item
-                i.map.signs.thin.icon
+            .ui.dropdown.icon.item
+                i.map.signs.thin.icon &nbsp;
                 span.text #{i18n.__( "business_owners" )}
-                .menu.businessOwnersMenu
-                    .item.ui
-                        a.ui(href="#")
-                            | #{i18n.__( "how_create_an_ad" )}
-                    .item
-                        a.ui(href="/newAd")
+                .menu
+                    if !user
+                        a.item.no-before(href='javascript:;', ng-click="openSignUpModal()")
                             | #{i18n.__( "create_your_ad" )}
-                    .item.ui
-                        a.ui(href="#")
-                            | #{i18n.__( "blog_flor_business_owners" )}
-                    .item.ui
-                        a.ui(href="#")
-                            | #{i18n.__( "business_success_stories" )}
-                    .item.ui
-                        a.ui(href="#")
-                            | #{i18n.__( "if_your_business_is_not_here" )}
+                    else
+                        a.item(href="/newAd")
+                            | #{i18n.__( "create_your_ad" )}
+                    .divider
+                    .header
+                        | #{i18n.__("Info")}
+                    a.item(href="#")
+                        | #{i18n.__("how_create_an_ad")}
+                    a.item(href="#")
+                        | #{i18n.__("blog_flor_business_owners")}
+                    a.item(href="#")
+                        | #{i18n.__("business_success_stories")}
+                    a.item(href="#")
+                        | #{i18n.__("if_your_business_is_not_here")}
+
             .item
                 button.ui.orange.button(ng-click="openHowItWorkModal()") #{i18n.__( "how_it_work" )}
 
