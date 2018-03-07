@@ -57,10 +57,17 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		const geocoder = new google.maps.Geocoder();
 		const latlng = new google.maps.LatLng( lat, lng );
 		const mapOptions = {
-			zoom: 8,
+			zoom: 13,
 			center: latlng
 		};
 		const map = new google.maps.Map( document.getElementById( 'googleMap' ), mapOptions );
+
+		const marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			draggable:true,
+			title:'Drag me!'
+		});
 	}
 	/*eslint-enable*/
 

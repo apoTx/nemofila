@@ -53,7 +53,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.newAdForm.place = location.results[0];
 			});
 		});
-
 	}
 
 	function fail(){
