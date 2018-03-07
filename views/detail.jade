@@ -74,10 +74,14 @@ block content
                                 data-content='#{i18n.__("share_facebook")}',
                                 target="_blank",
                                 onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;",
-                                href="https://www.facebook.com/sharer/sharer.php?u=#{url}"
+                                href="https://www.facebook.com/sharer/sharer.php?u=#{ url }"
                             )
                             i.facebook.icon
-                        a.music.popup.icon.item(data-content='#{i18n.__("share_twitter")}')
+                        a.music.popup.icon.item(
+                            data-content='#{i18n.__("share_twitter")}',
+                            target="_blank",
+                            href="http://twitter.com/share?text=#{ data.title }&url=#{ url }&hashtags=nemofila"
+                        )
                             i.twitter.icon
                         a.music.popup.icon.item(data-content='#{i18n.__("share_google")}')
                             i.google.plus.icon
