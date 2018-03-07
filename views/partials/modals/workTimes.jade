@@ -53,7 +53,10 @@
                                             select(ng-model='newAdForm.workTimes.tuesday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__( "Open Time" )}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.tuesday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.tuesday.closeTime',
+                                                ng-options='item for item in clocks | filter:filterWorkTime(newAdForm.workTimes.tuesday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__( "Close Time" )}
                         // ##DAY END##
 
@@ -77,7 +80,10 @@
                                             select(ng-model='newAdForm.workTimes.wednesday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__( "Open Time" )}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.wednesday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.wednesday.closeTime',
+                                                ng-options='item for item in clocks | filter:filterWorkTime(newAdForm.workTimes.wednesday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__( "Close Time" )}
                     // ##DAY END##
 
@@ -101,7 +107,10 @@
                                             select(ng-model='newAdForm.workTimes.thursday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__( "Open Time" )}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.thursday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.thursday.closeTime',
+                                                ng-options='item for item in clocks| filter:filterWorkTime(newAdForm.workTimes.thursday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__( "Close Time" )}
                     // ##DAY END##
 
@@ -125,7 +134,10 @@
                                             select(ng-model='newAdForm.workTimes.friday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__( "Open Time" )}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.friday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.friday.closeTime',
+                                                ng-options='item for item in clocks | filter:filterWorkTime(newAdForm.workTimes.friday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__( "Close Time" )}
                     // ##DAY END##
 
@@ -150,7 +162,10 @@
                                             select(ng-model='newAdForm.workTimes.saturday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__( "Open Time" )}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.saturday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.saturday.closeTime',
+                                                ng-options='item for item in clocks | filter:filterWorkTime(newAdForm.workTimes.saturday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__( "Close Time" )}
                     // ##DAY END##
 
@@ -174,7 +189,10 @@
                                             select(ng-model='newAdForm.workTimes.sunday.openTime', ng-options='item for item in clocks')
                                                 option(value='', disabled, selected) #{i18n.__( "Open Time" )}
                                         .eight.wide.column
-                                            select(ng-model='newAdForm.workTimes.sunday.closeTime', ng-options='item for item in clocks')
+                                            select(
+                                                ng-model='newAdForm.workTimes.sunday.closeTime',
+                                                ng-options='item for item in clocks | filter:filterWorkTime(newAdForm.workTimes.sunday.openTime) '
+                                            )
                                                 option(value='', disabled, selected) #{i18n.__( "Close Time" )}
                     // ##DAY END##
 
