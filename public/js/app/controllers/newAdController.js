@@ -1,10 +1,9 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, countriesFactory, categoriesFactory) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory) => {
 
 	$scope.mapLoading = false;
-	const im = 'img/marker.png';
 	$scope.locate = () => {
 		$scope.mapLoading = true;
-		navigator.geolocation.getCurrentPosition(initialize,fail);
+		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
 	function initialize(position, latLng, zoom) {
@@ -18,6 +17,11 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			lng = position.coords.longitude;
 		}
 
+		newAdFactory.getLocationDetail(lat, lng).then((location) => {
+			console.log(location.results[0]);
+			$scope.newAdForm.place = location.results[0];
+		});
+
 		const myLatLng = new google.maps.LatLng(lat, lng);
 		const mapOptions = {
 			zoom: zoom ? zoom : 15,
@@ -25,20 +29,31 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
-		const map = new google.maps.Map(document.getElementById('map'),
-			mapOptions);
+		const map = new google.maps.Map(
+			document.getElementById('map'),
+			mapOptions
+		);
 
 		/* eslint-disable-next-line */
-		const userMarker = new google.maps.Marker({
+		const marker = new google.maps.Marker({
 			position: myLatLng,
 			map: map,
-			icon: im
+			draggable:true,
+			title:'Drag me!'
 		});
 
 		setTimeout(() => {
 			$scope.mapLoading = false;
 			$scope.$apply();
 		});
+
+		google.maps.event.addListener(marker, 'dragend', (position) => {
+			newAdFactory.getLocationDetail(position.latLng.lat(), position.latLng.lng()).then((location) => {
+				console.log(location.results[0]);
+				$scope.newAdForm.place = location.results[0];
+			});
+		});
+
 	}
 
 	function fail(){
