@@ -1,8 +1,11 @@
 extends layout
 
 append meta_tags
+    meta(name='description', content='#{ data.description.substr(0, 300) }')
+
+    // social meta tags
     meta(property='og:title', content='#{ data.title }')
-    meta(property='og:description', content='#{ data.description }')
+    meta(property='og:description', content='#{ data.description.substr(0, 300) }')
     meta(property='og:url', content='#{ url }')
     - if (data.photos)
         meta(property='og:image', content='#{ amazon_base_url }/#{ data.photos[data.photoShowcaseIndex].filename }')
@@ -32,8 +35,6 @@ block content
         ng-controller="detailController"
         ng-init="init('#{sessionId}','#{ data._id }', '#{JSON.stringify( data.photos )}', '#{ amazon_base_url }', '#{ data.place.geometry.location.lat }', '#{ data.place.geometry.location.lng }' )"
     )
-
-        | !{data.description}
 
         - if (showEditButton)
             div.margin-bottom-30.text-center
