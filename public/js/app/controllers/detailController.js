@@ -64,7 +64,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		const marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
-			draggable:true,
 			title:'Drag me!'
 		});
 	}
