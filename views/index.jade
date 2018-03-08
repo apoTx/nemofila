@@ -176,6 +176,12 @@ block content
                                         .meta {{ event.category.name }}
 
                                     .extra.content
+                                        span.left.floated(ng-if="event.howManyDaysAreLeft > 0 && event.howManyDaysAreLeft < 6")
+                                            .ui.red.horizontal.label
+                                                | #{i18n.__("Last")}
+                                                | {{ event.howManyDaysAreLeft }}
+                                                | #{i18n.__("days")}
+
                                         span.right.floated
                                             i.map.marker.alternate.icon
                                             | {{ event.ad.place.address_components[0].long_name }}

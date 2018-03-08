@@ -137,16 +137,22 @@ router.get( '/getIndexEvents', (req, res) => {
 				_id: 1,
 				title: 1,
 				photoShowcaseIndex: 1,
+				slug: 1,
 				photos: 1,
 				'category.name': 1,
-				'ad.place.address_components.long_name': 1
+				'ad.place.address_components.long_name': 1,
+
+				/*
+				* 86400000 = 1000 * 60 * 60 * 24
+				* milisecond to day
+				* */
+				howManyDaysAreLeft: { $ceil: { $divide: [ { $subtract: [ '$endDate', new Date() ] }, 86400000 ] } }
 			}
 		},
 	], (err, result) => {
 		if (err)
 			throw new Error(err);
 
-		console.log("HEYYYYYYYYYYYYYYYY");
 		console.log(result);
 		res.json(result);
 	});
