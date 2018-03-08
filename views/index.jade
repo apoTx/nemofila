@@ -172,7 +172,14 @@ block content
                                         img(ng-src='#{ amazon_base_url }/{{ event.photos[event.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                                         img(ng-src='/img/no-photo.png', ng-show="{{ event.photos === null }}")
                                     .content
-                                        span {{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
+                                        .header {{ event.title | limitTo: 26 }} {{ event.title.length > 26 ? '...' : ''}}
+                                        .meta {{ event.category.name }}
+
+                                    .extra.content
+                                        span.right.floated
+                                            i.map.marker.alternate.icon
+                                            | {{ event.ad.place.address_components[0].long_name }}
+
                     .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                         .ui.loader
 

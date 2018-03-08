@@ -314,6 +314,8 @@ router.get('/getIndexAds', (req,res) => {
 		},
 
 		// Power collection
+
+		/*
 		{
 			$lookup: {
 				from: 'powers',
@@ -329,6 +331,7 @@ router.get('/getIndexAds', (req,res) => {
 				preserveNullAndEmptyArrays: true
 			}
 		},
+		*/
 
 		// categories collection
 		{

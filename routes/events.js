@@ -90,15 +90,79 @@ router.post( '/new', ( req, res) => {
 });
 
 router.get( '/getIndexEvents', (req, res) => {
-	Events.find({
+
+	Events.aggregate([
+		{
+			'$match': {
+				listingDate: { $lte: new Date() },
+				endDate: { $gte:  new Date() },
+				status: 1
+			}
+		},
+
+		// categories collection
+		{
+			$lookup: {
+				from: 'categories',
+				localField: 'categoryId',
+				foreignField: '_id',
+				as: 'category'
+			}
+		},
+		{
+			$unwind: {
+				path: '$category',
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		// ads collection
+		{
+			$lookup: {
+				from: 'ads',
+				localField: 'adId',
+				foreignField: '_id',
+				as: 'ad'
+			}
+		},
+		{
+			$unwind: {
+				path: '$ad',
+				preserveNullAndEmptyArrays: true
+			}
+		},
+
+		{
+			$project: {
+				_id: 1,
+				title: 1,
+				photoShowcaseIndex: 1,
+				photos: 1,
+				'category.name': 1,
+				'ad.place.address_components.long_name': 1
+			}
+		},
+	], (err, result) => {
+		if (err)
+			throw new Error(err);
+
+		console.log("HEYYYYYYYYYYYYYYYY");
+		console.log(result);
+		res.json(result);
+	});
+
+	/*Events.find({
 		listingDate: { $lte: new Date() },
 		endDate: { $gte:  new Date() },
 		status: 1
 	}, (err, data) => {
+		if (err)
+			throw new Error(err);
+
 		res.json(data);
 	})
 		.limit(12)
-		.sort({ _id: -1 });
+		.sort({ _id: -1 });*/
 });
 
 router.get( '/getEventsByEventId', (req, res) => {
