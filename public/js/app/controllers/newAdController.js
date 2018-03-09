@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'Slug', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, Slug) => {
 
 	$scope.mapLoading = false;
 	$scope.locate = () => {
@@ -404,7 +404,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 
 			files.forEach((file) => {
-				let photoName = guid() +'_'+file.name;
+				let extensionData = (file.name).split('.');
+				let fileExtension = extensionData[extensionData.length - 1];
+
+				let photoName = guid() + '_' + fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
@@ -423,7 +426,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						'X-amz-algorithm': $scope.X_amz_algorithm,
 						'X-amz-date': $scope.X_amz_date,
 						'Content-Type': file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
-						filename: file.name, // this is needed for Flash polyfill IE8-9
+						filename: photoName, // this is needed for Flash polyfill IE8-9
 						file: file,
 					}
 				});

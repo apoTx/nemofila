@@ -265,7 +265,9 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			}
 
 			files.forEach((file) => {
-				let photoName = guid() +'_'+file.name;
+				let extensionData = (file.name).split('.');
+				let fileExtension = extensionData[extensionData.length - 1];
+				let photoName = guid() +'_'+ fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
@@ -284,7 +286,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 						'X-amz-algorithm': $scope.X_amz_algorithm,
 						'X-amz-date': $scope.X_amz_date,
 						'Content-Type': file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
-						filename: file.name, // this is needed for Flash polyfill IE8-9
+						filename: photoName, // this is needed for Flash polyfill IE8-9
 						file: file,
 					}
 				});
