@@ -136,7 +136,7 @@ block content
                                             .ui.green.horizontal.label #{i18n.__( "Open" )}
                                     span.right.floated
                                         i.map.marker.alternate.icon
-                                        | {{ ad.location[0].long_name }}
+                                        | {{ ad.locationName | limitTo: 12 }}{{ ad.locationName.length > 12 ? '...' : ''}}
                                     div(ng-show="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 
