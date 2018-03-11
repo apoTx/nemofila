@@ -137,7 +137,7 @@ router.get( '/getIndexEvents', (req, res) => {
 				slug: 1,
 				photos: 1,
 				'category.name': 1,
-				'ad.place.address_components.long_name': 1,
+				'ad.place.formatted_address': 1,
 
 				/*
 				* 86400000 = 1000 * 60 * 60 * 24

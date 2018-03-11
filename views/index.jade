@@ -184,7 +184,7 @@ block content
 
                                         span.right.floated
                                             i.map.marker.alternate.icon
-                                            | {{ event.ad.place.address_components[0].long_name }}
+                                            | {{ event.ad.place.formatted_address | limitTo: 18 }}{{ event.ad.place.formatted_address.length > 18 ? '...' : ''}}
 
                     .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                         .ui.loader

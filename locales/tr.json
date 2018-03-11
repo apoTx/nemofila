@@ -118,5 +118,14 @@
 	"start_date": "start_date",
 	"end_date": "end_date",
 	"upload_photo": "upload_photo",
-	"new_event_successful_info": "new_event_successful_info"
+	"new_event_successful_info": "new_event_successful_info",
+	"Best": "Best",
+	"event": "event",
+	"in": "in",
+	"Category": "Category",
+	"Place": "Place",
+	"Event Description": "Event Description",
+	"Start Date": "Start Date",
+	"End Date": "End Date",
+	"Ad Description": "Ad Description"
 }
