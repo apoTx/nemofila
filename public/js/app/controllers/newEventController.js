@@ -1,4 +1,4 @@
-app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory) => {
+app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config) => {
 
 	// New Event Form
 	$scope.newEventForm = {};
@@ -60,7 +60,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			maxDate: endDateRange.maxDate,
 			startCalendar: $('#startDate')
 		});
-
 
 		$('#newEventForm').form({
 			keyboardShortcuts: false,
@@ -275,7 +274,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				}
 
 				file.upload = Upload.upload({
-					url: 'https://easyad-static.s3-eu-central-1.amazonaws.com',
+					url: config.s3_upload_url,
 					method: 'POST',
 					data: {
 						key: photoName, // the key to store the file on S3, could be file name or customized
