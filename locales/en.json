@@ -164,5 +164,19 @@
 	"Edit": "Edit",
 	"Info": "Info",
 	"Last": "Last",
-	"days": "days"
+	"days": "days",
+	"Changa profile picture": "Changa profile picture",
+	"Sign Up with Facebook": "Sign Up with Facebook",
+	"Sign Up with Twitter": "Sign Up with Twitter",
+	"Sign Up with Google": "Sign Up with Google",
+	"Or": "Or",
+	"Change profile picture": "Change profile picture",
+	"Name": "Name",
+	"Surname": "Surname",
+	"E-mail": "E-mail",
+	"Phone Number": "Phone Number",
+	"Password": "Password",
+	"Confirm password": "Confirm password",
+	"Login": "Login",
+	"Sign Up": "Sign Up"
 }

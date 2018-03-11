@@ -156,6 +156,8 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		$('#signUpModal').modal('show');
 	};
 
+	$scope.openSignUpModal();
+
 	$scope.openSignInModal = (closeOther) => {
 		if (closeOther){
 			$('#signUpModal').modal('show');

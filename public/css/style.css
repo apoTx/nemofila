@@ -346,3 +346,14 @@ a.black{
     align-items:center!important;
     justify-content:center!important;
 }
+
+.profilePicture{
+    display: inline-block;
+}
+
+.profilePicture span{
+    display: block;
+}
+.profilePicture img{
+    display: inline-block!important;
+}
