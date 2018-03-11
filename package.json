@@ -52,6 +52,7 @@
     "serve-favicon": "^2.4.5",
     "slugify": "^1.2.9",
     "stripe": "^5.5.0",
+    "translate-json-object": "^2.3.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
