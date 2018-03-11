@@ -266,7 +266,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			files.forEach((file) => {
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
-				let photoName = guid() +'_'+ fileExtension;
+				let photoName = guid() +'.'+ fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;

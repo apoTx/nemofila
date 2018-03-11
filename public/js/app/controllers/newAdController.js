@@ -407,7 +407,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 
-				let photoName = guid() + '_' + fileExtension;
+				let photoName = guid() + '.' + fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
