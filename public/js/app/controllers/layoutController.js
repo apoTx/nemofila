@@ -1,4 +1,4 @@
-app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', 'vcRecaptchaService', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory, vcRecaptchaService) => {
+app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', 'vcRecaptchaService', 'Upload',  'config', '$timeout', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory, vcRecaptchaService, Upload, config, $timeout) => {
 
 	$scope.toggleSidebar = () => {
 		$('.rightSidebar')
@@ -156,7 +156,6 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		$('#signUpModal').modal('show');
 	};
 
-	// $scope.openSignUpModal();
 
 	$scope.openSignInModal = (closeOther) => {
 		if (closeOther){
@@ -179,11 +178,36 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	};
 
 	setTimeout(()=>{
-		// $scope.openSignUpModal();
+		$scope.openSignUpModal();
 		// $scope.openSignInModal();
 		// $scope.openNewAdModal();
 		// $scope.openForgotModal();
 	});
+
+
+	// sign up photo upload
+	$scope.uploadFiles = function(file, errFiles) {
+		$scope.f = file;
+		$scope.errFile = errFiles && errFiles[0];
+		if (file) {
+			file.upload = Upload.upload({
+				url: config.s3_upload_url,
+				data: { file: file }
+			});
+
+			file.upload.then((response) => {
+				$timeout(() => {
+					file.result = response.data;
+				});
+			}, (response) => {
+				if (response.status > 0)
+					$scope.errorMsg = response.status + ': ' + response.data;
+			}, (evt) => {
+				file.progress = Math.min(100, parseInt(100.0 *
+					evt.loaded / evt.total));
+			});
+		}
+	};
 
 	// Sign Up
 	$scope.signupForm = {};

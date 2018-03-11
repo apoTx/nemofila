@@ -127,5 +127,22 @@
 	"Event Description": "Event Description",
 	"Start Date": "Start Date",
 	"End Date": "End Date",
-	"Ad Description": "Ad Description"
+	"Ad Description": "Ad Description",
+	"To Email Address": "To Email Address",
+	"description2": "description2",
+	"Find my location": "Find my location",
+	"Zip Code": "Zip Code",
+	"Work Times": "Work Times",
+	"Add Work Times": "Add Work Times",
+	"Monday": "Monday",
+	"24 Hour": "24 Hour",
+	"Open Time": "Open Time",
+	"Close Time": "Close Time",
+	"Tuesday": "Tuesday",
+	"Wednesday": "Wednesday",
+	"Thursday": "Thursday",
+	"Friday": "Friday",
+	"Saturday": "Saturday",
+	"Sunday": "Sunday",
+	"Done": "Done"
 }

@@ -10,4 +10,8 @@ let app = angular.module('app',[
 	'vcRecaptcha',
 	'google.places'
 ]);
+
+app.value('config', {
+	's3_upload_url': 'https://easyad-static.s3-eu-central-1.amazonaws.com'
+});
 /*eslint-enable */

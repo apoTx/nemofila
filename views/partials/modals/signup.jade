@@ -21,9 +21,24 @@
             |   #{i18n.__("Or")}
 
         div.text-center.margin-bottom-10
-            a.profilePicture.text-center(href="#")
+            button(type='file', ngf-select='uploadFiles($file, $invalidFiles)', accept='image/*', ngf-max-height='1000', ngf-max-size='1MB')
+                | Select File
+            br
+            br
+            |   File:
+            div(style='font:smaller')
+                | {{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                span.progresss(ng-show='f.progress >= 0')
+                    div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
+            |   {{errorMsg}}
+
+
+
+            //a.profilePicture.text-center(href="#")
                 span #{i18n.__("Change profile picture")}
                 img.ui.tiny.circular.image(src="/img/square-image.png")
+
+                 button.ui.primary Upload
 
         form.ui.form#signUpForm
             .two.fields

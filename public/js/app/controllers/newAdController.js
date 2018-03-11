@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory',  ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config',  ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config) => {
 
 	$scope.mapLoading = false;
 	$scope.locate = () => {
@@ -415,7 +415,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				}
 
 				file.upload = Upload.upload({
-					url: 'https://easyad-static.s3-eu-central-1.amazonaws.com',
+					url: config.s3_upload_url,
 					method: 'POST',
 					data: {
 						key: photoName, // the key to store the file on S3, could be file name or customized
