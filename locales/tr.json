@@ -105,5 +105,18 @@
 	"Password": "Password",
 	"Confirm password": "Confirm password",
 	"Login": "Login",
-	"Sign Up": "Sign Up"
+	"Sign Up": "Sign Up",
+	"new_event": "new_event",
+	"Update": "Update",
+	"My Events": "My Events",
+	"new-event-page-title": "new-event-page-title",
+	"newEvent_tab_information": "newEvent_tab_information",
+	"newEvent_tab_information_message": "newEvent_tab_information_message",
+	"newEvent_tab_preview": "newEvent_tab_preview",
+	"newEvent_tab_preview_message": "newEvent_tab_preview_message",
+	"event_category": "event_category",
+	"start_date": "start_date",
+	"end_date": "end_date",
+	"upload_photo": "upload_photo",
+	"new_event_successful_info": "new_event_successful_info"
 }
