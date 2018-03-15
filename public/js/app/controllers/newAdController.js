@@ -6,53 +6,55 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
-	function initialize(position, latLng, zoom) {
-		let lat, lng;
+	function initialize(position, latLng, zoom, elementId) {
+		try{
+			let lat, lng;
 
-		if (latLng){
-			lat = latLng.lat;
-			lng = latLng.lng;
-		}else{
-			lat = position.coords.latitude;
-			lng = position.coords.longitude;
-		}
+			if (latLng){
+				lat = latLng.lat;
+				lng = latLng.lng;
+			}else{
+				lat = position.coords.latitude;
+				lng = position.coords.longitude;
+			}
 
-		newAdFactory.getLocationDetail(lat, lng).then((location) => {
-			console.log(location.results[0]);
-			$scope.newAdForm.place = location.results[0];
-		});
-
-		const myLatLng = new google.maps.LatLng(lat, lng);
-		const mapOptions = {
-			zoom: zoom ? zoom : 15,
-			center: myLatLng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-
-		const map = new google.maps.Map(
-			document.getElementById('map'),
-			mapOptions
-		);
-
-		/* eslint-disable-next-line */
-		const marker = new google.maps.Marker({
-			position: myLatLng,
-			map: map,
-			draggable:true,
-			title:'Drag me!'
-		});
-
-		setTimeout(() => {
-			$scope.mapLoading = false;
-			$scope.$apply();
-		});
-
-		google.maps.event.addListener(marker, 'dragend', (position) => {
-			newAdFactory.getLocationDetail(position.latLng.lat(), position.latLng.lng()).then((location) => {
-				console.log(location.results[0]);
+			newAdFactory.getLocationDetail(lat, lng).then((location) => {
 				$scope.newAdForm.place = location.results[0];
 			});
-		});
+
+			const myLatLng = new google.maps.LatLng(lat, lng);
+			const mapOptions = {
+				zoom: zoom ? zoom : 15,
+				center: myLatLng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			const map = new google.maps.Map(
+				document.getElementById(elementId),
+				mapOptions
+			);
+
+			/* eslint-disable-next-line */
+			const marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				draggable:true,
+				title:'Drag me!'
+			});
+
+			setTimeout(() => {
+				$scope.mapLoading = false;
+				$scope.$apply();
+			});
+
+			google.maps.event.addListener(marker, 'dragend', (position) => {
+				newAdFactory.getLocationDetail(position.latLng.lat(), position.latLng.lng()).then((location) => {
+					$scope.newAdForm.place = location.results[0];
+				});
+			});
+		}catch(e){
+			console.log(e);
+		}
 	}
 
 	function fail(){
@@ -60,22 +62,22 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.mapLoading = false;
 	}
 
+	$scope.latLng;
 	$scope.$watch('newAdForm.place', (newValue) => {
 		if (typeof newValue === 'object') {
-
 			try{
 				const lat = newValue.geometry.location.lat();
 				const lng = newValue.geometry.location.lng();
 
 				const latLng = { lat: lat, lng: lng };
-				initialize(0, latLng, 12);
+				$scope.latLng = latLng;
+
+				initialize(0, latLng, 12, 'map');
 			}catch (e){
 				// do stuff
 			}
-
 		}
 	});
-
 
 
 	// New Ad Form
@@ -593,6 +595,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};*/
 
 	$scope.previewTab = () => {
+		initialize(0, $scope.latLng, 12, 'mapPreview');
+
 		$scope.steps.informations = false;
 		$scope.steps.power = false;
 		$scope.steps.preview = true;

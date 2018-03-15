@@ -90,7 +90,7 @@ block content
                         .fields.two
                             .field.wide.eight
                                 .ui.segment.no-padding
-                                    #map
+                                    .map#map
                                     .ui.dimmer(ng-class="{ active: mapLoading }")
                                         .ui.loader
 
@@ -332,6 +332,7 @@ block content
                                 p.description(ng-bind-html="newAdForm.description")
 
                         .six.wide.column
+                            h3 #{ i18n.__("Work Times") }
 
                             ul.workTimeList(ng-repeat="(key, day) in newAdForm.workTimes")
                                 li
@@ -346,18 +347,26 @@ block content
                                         div(ng-if="day.open && !day.hour24")
                                             | {{ day.openTime }} : {{ day.closeTime ? day.closeTime : '~' }}
 
-                    .g-recaptcha.margin-top-30(
-                        vc-recaptcha,
-                        key="'#{ recaptcha_site_key }'",
-                        on-success="successCaptcha()"
-                    )
-                    button.ui.right.floated.primary.button(
-                        ng-click="uploadAndSaveMongo('#{ id }')",
-                        ng-class="{loading:submitBtnLoading, disabled:uploading || !activeSaveBtn}"
-                    )
-                        | #{ i18n.__("save_btn") }
-                    button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
-                        | #{ i18n.__("back_btn") }
+                            div#mapPreview
+
+                    .margin-top-30.text-right
+                        .g-recaptcha.margin-top-30(
+                            style="float:right",
+                            vc-recaptcha,
+                            key="'#{ recaptcha_site_key }'",
+                            on-success="successCaptcha()"
+                        )
+
+                    .clearfix
+
+                    .ui
+                        button.ui.right.floated.primary.button(
+                            ng-click="uploadAndSaveMongo('#{ id }')",
+                            ng-class="{loading:submitBtnLoading, disabled:uploading || !activeSaveBtn}"
+                        )
+                            | #{ i18n.__("save_btn") }
+                        button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
+                            | #{ i18n.__("back_btn") }
 
         div(ng-if="adSaveComplete", ng-cloak)
             div.text-center
