@@ -241,20 +241,27 @@ router.get('/getSimilars', (req, res) => {
 	let findData;
 	/*eslint-enable*/
 
-	Ads.findById(adId, (err, result) => {
-		const categoryId = result.category.categoryId;
-		// const childCategoryId = result.category.categoryChildId;
-		const location = result.place.address_components[0].long_name;
+	Ads.findById(adId, { status: 1 }, (err, result) => {
 
-		//if (childCategoryId === null){
-		findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
-		//}else{
-		//findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
-		//}
+		try {
 
-		Ads.find(findData, (err, data) => {
-			res.json(data);
-		}).limit(8);
+			const categoryId = result.category.categoryId;
+			// const childCategoryId = result.category.categoryChildId;
+			const location = result.place.address_components[0].long_name;
+
+			//if (childCategoryId === null){
+			findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
+			//}else{
+			//findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
+			//}
+
+			Ads.find(findData, (err, data) => {
+				res.json(data);
+			}).limit(8);
+
+		}catch(err){
+			console.log(err);
+		}
 
 	});
 });
