@@ -117,6 +117,7 @@ block content
                             label #{ i18n.__( "Work Times" ) }
                             .ui.button#workTimesBtn #{ i18n.__( "Add Work Times" ) }
 
+
                         .ui.tiny.stacked.segment
                             .text-center
                                 .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
@@ -271,10 +272,10 @@ block content
                                 a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                     i.bookmark.icon
                                 img(
-                                ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
-                                ngf-size="{width:200, height:200, quality:0.6}",
-                                ng-src="img/spinner.gif",
-                                class="upload-photo-thumb"
+                                    ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
+                                    ngf-size="{width:200, height:200, quality:0.6}",
+                                    ng-src="img/spinner.gif",
+                                    class="upload-photo-thumb"
                                 )
 
                                 span.progress(ng-hide="f.progressFinish", ng-if="f.progress >= 0")
@@ -331,7 +332,19 @@ block content
                                 p.description(ng-bind-html="newAdForm.description")
 
                         .six.wide.column
-                            | jheye
+
+                            ul.workTimeList(ng-repeat="(key, day) in newAdForm.workTimes")
+                                li
+                                    div.listDay {{ key }}
+                                    div.listWorkTimes
+                                        div(ng-if="!day.open")
+                                            | #{i18n.__("Close")}
+
+                                        div(ng-if="day.hour24")
+                                            | #{i18n.__("24 hours")}
+
+                                        div(ng-if="day.open && !day.hour24")
+                                            | {{ day.openTime }} : {{ day.closeTime ? day.closeTime : '~' }}
 
                     .g-recaptcha.margin-top-30(
                         vc-recaptcha,

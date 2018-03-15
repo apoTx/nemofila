@@ -81,19 +81,7 @@ p.description{
     margin-left: 15px
 }
 
-.workTimeList{
-    padding: 0 5px!important;
-    margin-top: 15px !important
-}
-.listDay{
-    width:100px;
-    display: inline-block;
-}
-.listWorkTimes{
-    display: inline-block;
-    text-align: center;
-    width: 100px;
-}
+
 
 .adDetails{
     margin-top: 50px!important;

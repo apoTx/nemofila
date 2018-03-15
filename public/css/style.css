@@ -361,3 +361,18 @@ a.black{
 #googleMap{
     margin-top:38px
 }
+
+.workTimeList{
+    padding: 0 5px!important;
+    margin-top: 15px !important
+}
+.listDay{
+    width:100px;
+    display: inline-block;
+    text-transform: capitalize;
+}
+.listWorkTimes{
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+}
