@@ -38,7 +38,7 @@ block top_left
                         | #{i18n.__("how_create_an_ad")}
                     a.item(href="#")
                         | #{i18n.__("blog_flor_business_owners")}
-                    a.item(href="#")
+                    // a.item(href="#")
                         | #{i18n.__("business_success_stories")}
                     a.item(href="#")
                         | #{i18n.__("if_your_business_is_not_here")}
@@ -71,7 +71,7 @@ block content
                 .search.ui.container
                     .searchForm
                         form.ui.form.fluid(action="/search")
-                            .ui.action.input.fluid.filterInput
+                            // .ui.action.input.fluid.filterInput
                                 input(ng-model='searchForm.title', name="title", value="{{ searchForm.title }}", placeholder='#{i18n.__("searchPlaceholder")}...')
                                 // button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
 
@@ -89,16 +89,18 @@ block content
                                     .field
                                         .two.fields(country-and-category-dropdowns)
 
-
                                 .clearfix
 
-                                .field.text-right
-                                    label.custom Open Now
-                                        input.customCheckbox(name='openNow', type='checkbox')
+                                .ui.grid
+                                    .six.wide.column
+                                        .field.text-left
+                                            label.custom Open Now
+                                                input.customCheckbox(name='openNow', type='checkbox')
 
-                                .field.text-right
-                                    button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                                        | Search
+                                    .ten.wide.column
+                                        .field.text-right
+                                            button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                                                | Search
 
         .ui.main.container
             h2.indexBestInTitle #{i18n.__("best_in_nemofila")}
