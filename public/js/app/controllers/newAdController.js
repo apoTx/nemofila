@@ -6,7 +6,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
-	function initialize(position, latLng, zoom, elementId) {
+	function initialize(position, latLng, zoom, elementId, customLat, customLng) {
 		try{
 			let lat, lng;
 
@@ -14,8 +14,17 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				lat = latLng.lat;
 				lng = latLng.lng;
 			}else{
-				lat = position.coords.latitude;
-				lng = position.coords.longitude;
+
+				try{
+					lat = position.coords.latitude;
+					lng = position.coords.longitude;
+				}catch(e){ // edit page
+					lat = customLat;
+					lng = customLng;
+				}
+
+
+				console.log('hhewe');
 			}
 
 			newAdFactory.getLocationDetail(lat, lng).then((location) => {
@@ -279,7 +288,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	$scope.init = (id, userExists) => {
 		if (id !== 'false'){
-			$scope.getAd(id);
+			$scope.getAd(id, () => {
+				initialize(0, false, 12, 'map', $scope.newAdForm.place.geometry.location.lat, $scope.newAdForm.place.geometry.location.lng); // map
+			});
+
 			$scope.isEdit = true;
 		}
 
@@ -344,7 +356,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 	$scope.uploadedFiles = [];
-	$scope.getAd = (id) => {
+	$scope.getAd = (id, callback) => {
 		$scope.loadingBufferData = true;
 		$http( {
 			url: '/newAd/getEditAd/' + id,
@@ -386,6 +398,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 
 			$scope.loadingBufferData = false;
+
+			callback();
 		}, () => { // optional
 			console.log( 'fail' );
 			$scope.loadingBufferData = false;
