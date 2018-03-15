@@ -1,4 +1,4 @@
-app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', 'vcRecaptchaService', 'Upload',  'config', '$timeout', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory, vcRecaptchaService, Upload, config, $timeout) => {
+app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 'layoutFactory', 'messageFactory', 'vcRecaptchaService', 'Upload',  'config', ($scope, $rootScope, $http, $window, layoutFactory, messageFactory, vcRecaptchaService, Upload, config) => {
 
 	$scope.toggleSidebar = () => {
 		$('.rightSidebar')
