@@ -95,6 +95,10 @@ p.description{
     width: 100px;
 }
 
+.adDetails{
+    margin-top: 50px!important;
+}
+
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {
         padding: 3px !important;

@@ -357,3 +357,7 @@ a.black{
 .profilePicture img{
     display: inline-block!important;
 }
+
+#googleMap{
+    margin-top:38px
+}

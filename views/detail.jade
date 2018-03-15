@@ -127,6 +127,13 @@ block content
 
             .ui.stackable.grid
                 .six.wide.column
+                    .ui.right.floated
+                        span.rateNumber
+                            b #{ viewRate }
+                        .ui.star.large.rating#detailRating(data-rating='#{ rate }', ng-init="lastRate= #{ rate }")
+                        .reviewMessage(ng-show="onRate")
+                            | #{i18n.__("Thank you for the review")}
+
                     a.ui.fluid.image.showcaseImage(
                             ng-click='openGallery()',
                             href="javascript:;"
@@ -160,17 +167,13 @@ block content
                                 )
 
                 .ten.wide.column
-                    .ui.grid
-                        .ten.wide.column
-                            .ui.breadcrumb.tiny
-                                .active.section #{ place.formatted_address }
-                        .six.wide.column
-                            .ui.right.floated.text-right
-                                span.rateNumber
-                                    b #{ viewRate }
-                                .ui.star.large.rating#detailRating(data-rating='#{ rate }', ng-init="lastRate= #{ rate }")
-                                .reviewMessage(ng-show="onRate")
-                                    | #{i18n.__("Thank you for the review")}
+                    | description
+
+
+
+            .ui.stackable.grid.adDetails
+                .eight.wide.column
+                    .active.section #{ place.formatted_address }
 
 
                     table.ui.definition.table
@@ -198,19 +201,19 @@ block content
                                     | #{ data.zipCode }
 
                             tr(ng-show="#{ data.phone !== '' }", ng-cloak)
-                                td #{i18n.__( "phone" )}
+                                td #{i18n.__("phone")}
                                 td
                                     a.phone-number
                                         | #{ data.phone }
 
                             tr(ng-show="#{ data.website != '' }", ng-cloak)
-                                td #{i18n.__( "website" )}
+                                td #{i18n.__("website")}
                                 td
                                     a(href="#{ data.website }", ng-cloak)
                                         | #{ data.website }
 
                             tr(ng-show="#{ data.address != '' }", ng-cloak)
-                                td #{i18n.__( "address" )}
+                                td #{i18n.__("address")}
                                 td
                                     | #{ data.address }
 
@@ -321,8 +324,9 @@ block content
                                                 - else
                                                     | #{ sunday.openTime } : #{ sunday.closeTime ? sunday.closeTime : ' ~ ' }
 
+                .eight.wide.column
+                    #googleMap(style="width:100%;height:360px;")
 
-                    #googleMap(style="width:100%;height:200px;")
 
             h3 #{i18n.__("description")}
             .ui.segment
