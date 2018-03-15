@@ -98,6 +98,9 @@ p.description{
 .adDetails{
     margin-top: 50px!important;
 }
+.descriptionArea{
+    margin-top: 21px!important;
+}
 
 @media only screen and (max-width: 767px) {
     .ui.stackable.grid > .column:not(.row) {

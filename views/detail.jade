@@ -167,7 +167,10 @@ block content
                                 )
 
                 .ten.wide.column
-                    | description
+                    h3 #{i18n.__("description")}
+                    .ui.segment.descriptionArea
+                        p.description
+                            | !{ data.description }
 
 
 
@@ -328,15 +331,9 @@ block content
                     #googleMap(style="width:100%;height:360px;")
 
 
-            h3 #{i18n.__("description")}
-            .ui.segment
-                p.description
-                    | !{ data.description }
-
-
-            .text-center
+            .text-center.margin-top-30
                 h3 #{ pageView }
-                | page view
+                | #{i18n.__("Page View")}
 
         div.margin-top-30(ng-if="similarAds.length > 1")
             h2 #{i18n.__( "Similar Ads" )}
