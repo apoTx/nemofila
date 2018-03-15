@@ -122,6 +122,11 @@ block content
                                 td
                                     | #{ data.ad.place.formatted_address }
 
+                .sixteen.wide.column
+                    a.ui.button.primary(href="/detail/#{ data.ad.slug }/#{ data.ad._id }")
+                        | #{i18n.__( "More Detail" )}
+
+
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")

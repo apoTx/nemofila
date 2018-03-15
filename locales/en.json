@@ -180,5 +180,6 @@
 	"Login": "Login",
 	"Sign Up": "Sign Up",
 	"Page View": "Page View",
-	"{{ key }}": "{{ key }}"
+	"{{ key }}": "{{ key }}",
+	"More Detail": "More Detail"
 }
