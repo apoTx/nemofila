@@ -236,6 +236,7 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 		{ '$unwind': '$category' },
 
 		// ads collection
+
 		{
 			$lookup: {
 				from: 'ads',

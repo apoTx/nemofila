@@ -105,7 +105,11 @@ block content
 
 
                 .ten.wide.column
-                    | &nbsp;
+                    h3 #{i18n.__("Event Description")}
+                    .ui.segment
+                        p.description
+                            | !{ data.description }
+
                     table.ui.definition.table
                         tbody
                             tr
@@ -118,81 +122,6 @@ block content
                                 td
                                     | #{ data.ad.place.formatted_address }
 
-            h3 #{i18n.__( "Event Description" )}
-            .ui.segment
-                p.description
-                    | !{ data.description }
-
-        div.margin-top-30(
-            ng-controller="detailController"
-            ng-init="init('#{sessionId}','#{ data.ad._id }', '#{JSON.stringify(data.ad.photos)}', '#{ amazon_base_url }', '#{ data.ad.place.geometry.location.lat }', '#{ data.ad.place.geometry.location.lng }' )")
-
-
-            .ui.stackable.grid
-                .ten.wide.column
-                    h1 #{data.ad.title}
-
-                .six.wide.column.text-right.detail-right-menu
-                    - if (session)
-                        .ui.right.floated.main.menu(
-                            ng-show="!isFav",
-                            ng-cloak
-                        )
-                            a.music.popup.icon.item(
-                                data-content='#{i18n.__("add_favourites")}',
-                                ng-click="addFavourites('#{ session._id }','#{ data.ad._id }')"
-                            )
-                                i.star.outline.icon
-
-                        .ui.right.floated.main.menu(
-                            ng-show="isFav",
-                            ng-cloak
-                        )
-                            a.music.popup.icon.item(
-                                data-content='#{i18n.__("remove_favourites")}',
-                                ng-click="delFavourites('#{ session._id }','#{ data.ad._id }')"
-                            )
-                                i.star.icon
-
-
-            - if (sessionId !== null && (sessionId != String(data.user._id)))
-                // Send Message Modal
-                .ui.modal.tiny#sendMessageModal
-                    i.close.icon
-                    .header
-                        | Send Message
-                    .content
-                        div(ng-show="!messageSended" ng-cloak)
-                            div.margin-bottom-30
-                                h4.no-margin-bottom To: #{ data.ad.user.name } #{ data.ad.user.surname }
-
-                            form.ui.form#sendMessageForm
-                                input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ ad.user._id }' ", ng-model="sendMessageFormData.toUserId")
-                                input(type='hidden', ng-init="sendMessageFormData.adId = '#{ ad._id }' ", ng-model="sendMessageFormData.adId")
-
-                                .fields.ui.grid
-                                    .field.sixteen.wide.column.no-padding-top.no-padding-bottom
-                                        textarea(
-                                            name="message",
-                                            placeholder='Enter your message',
-                                            ng-model='sendMessageFormData.message'
-                                        )
-                                .ui.error.message
-                                .backendErr.ui.red.message(ng-if="sendMessageErr")
-                                    | {{ sendMessageErr }}
-
-                        div(ng-show="messageSended" ng-cloak)
-                            .ui.success.message
-                                .header
-                                    | Your message has been sent.
-                    .actions
-                        button.ui.right.icon.button.primary(
-                            form="sendMessageForm",
-                            ng-class="sendMessageLoading ? 'loading disabled' : '' ",
-                            ng-show="!messageSended"
-                        )
-                            | Submit
-
 
 append javascripts
     script(src="/semantic/dist/components/popup.min.js")
@@ -201,5 +130,4 @@ append javascripts
     script(src="/dist/js/app/services/rateFactory.min.js")
     script(src="/dist/js/app/services/eventFactory.min.js")
     script(src="/dist/js/app/services/detailFactory.min.js")
-    script(src="/dist/js/app/controllers/detailController.min.js")
     script(src="/dist/js/app/controllers/eventDetailController.min.js")
