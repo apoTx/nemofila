@@ -281,7 +281,7 @@ block content
                                     div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
 
                     .ui.stackable.grid
-                        .sixteen.wide.column
+                        .ten.wide.column
                             table.ui.definition.table
                                 tbody
                                     tr
@@ -326,11 +326,14 @@ block content
                                         td
                                             | {{ newAdForm.address }}
 
-                    h3 #{ i18n.__("description") }
-                    .ui.segment
-                        p.description(ng-bind-html="newAdForm.description")
+                            h3 #{ i18n.__("description") }
+                            .ui.segment
+                                p.description(ng-bind-html="newAdForm.description")
 
-                    .g-recaptcha(
+                        .six.wide.column
+                            | jheye
+
+                    .g-recaptcha.margin-top-30(
                         vc-recaptcha,
                         key="'#{ recaptcha_site_key }'",
                         on-success="successCaptcha()"
