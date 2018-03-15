@@ -199,9 +199,8 @@ block content
                         .clearfix
 
                 div.margin-top-10#preview(ng-show="steps.preview", ng-cloak)
-                    h2 {{ newEventForm.title }}
 
-                    .ui.four.stackable.cards
+                    .ui.four.stackable.cards.margin-30
                         .card.photoList(ng-repeat='f in newEventForm.files')
                             .image.photoListImage
                                 a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
@@ -217,36 +216,45 @@ block content
                                     div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
 
                     .ui.stackable.grid
-                        .sixteen.wide.column
+                        .eight.wide.column
+                            h2 {{ newEventForm.title }}
+
                             table.ui.definition.table
                                 tbody
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ eventCategories[newEventForm.eventCategory].name }}
                                     tr
-                                        td #{ i18n.__( "start_date" ) }
+                                        td #{ i18n.__("start_date") }
                                         td {{ newEventForm.startDateText }}
                                     tr
-                                        td #{ i18n.__( "end_date" ) }
+                                        td #{ i18n.__("end_date") }
                                         td {{ newEventForm.endDateText }}
 
+                        .eight.wide.column.margin-top-10
+                            h3 #{ i18n.__("description") }
+                            .ui.segment.newEventDescription
+                                p.description(ng-bind-html="newEventForm.description")
 
-                    h3 #{ i18n.__("description") }
-                    .ui.segment
-                        p.description(ng-bind-html="newEventForm.description")
 
-                    .g-recaptcha(
-                        vc-recaptcha,
-                        key="'#{ recaptcha_site_key }'",
-                        on-success="successCaptcha()"
-                    )
-                    button.ui.right.floated.primary.button(
-                        ng-click="uploadAndSaveMongo('#{ id }')",
-                        ng-class="{loading:submitBtnLoading, disabled:uploading || !activeSaveBtn}"
-                    )
-                        | #{ i18n.__("save_btn") }
-                    button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
-                        | #{ i18n.__("back_btn") }
+                    .margin-top-30.text-right
+                        .g-recaptcha(
+                            style="float:right",
+                            vc-recaptcha,
+                            key="'#{ recaptcha_site_key }'",
+                            on-success="successCaptcha()"
+                        )
+
+                    .clearfix
+
+                    .margin-top-30
+                        button.ui.right.floated.primary.button(
+                            ng-click="uploadAndSaveMongo('#{ id }')",
+                            ng-class="{loading:submitBtnLoading, disabled:uploading || !activeSaveBtn}"
+                        )
+                            | #{ i18n.__("save_btn") }
+                        button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
+                            | #{ i18n.__("back_btn") }
 
         div(ng-if="eventSaveComplete", ng-cloak)
             div.text-center
