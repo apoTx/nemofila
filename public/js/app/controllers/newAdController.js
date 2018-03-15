@@ -22,9 +22,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					lat = customLat;
 					lng = customLng;
 				}
-
-
-				console.log('hhewe');
 			}
 
 			newAdFactory.getLocationDetail(lat, lng).then((location) => {
