@@ -75,11 +75,11 @@ block content
                                 input(ng-model='searchForm.title', name="title", value="{{ searchForm.title }}", placeholder='#{i18n.__("searchPlaceholder")}...')
                                 // button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ") #{i18n.__("searchBtn")}
 
-                            .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
+                            // .advancedSearch.ui.container.mobile.tablet.only.grid.padding-top-10
                                 a.ui.button.white(href="javascript:;" ng-click="toggleFilterSidebar()")
                                     | #{i18n.__("filterBtn")}
 
-                            div.searchFormBottom.ui.container.computer.only.grid
+                            div.searchFormBottom.ui.container
                                 .two.fields
                                     .field
                                         label Location
@@ -91,7 +91,7 @@ block content
 
                                 .clearfix
 
-                                .ui.grid
+                                .ui.grid.stackable
                                     .six.wide.column
                                         .field.text-left
                                             label.custom Open Now
