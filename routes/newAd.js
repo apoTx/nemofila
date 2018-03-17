@@ -106,8 +106,10 @@ router.post('/create', requireLogin, (req, res) => {
 			const phone = data.phone;
 			const zip_code = data.zip_code;
 			const address = data.address;
-			const website = data.website;
 			const place = data.place;
+
+			const website = data.website;
+
 
 			if (place)
 				delete place.photos;

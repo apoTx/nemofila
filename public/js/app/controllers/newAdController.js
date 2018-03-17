@@ -194,6 +194,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				},
+
 				country: {
 					identifier: 'country',
 					rules: [
@@ -220,7 +221,17 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 							prompt : 'Please select a category.'
 						}
 					]
-				}
+				},
+				website: {
+					identifier  : 'website',
+					optional: true,
+					rules: [
+						{
+							type   : 'url',
+							prompt : 'Please enter a valid URL'
+						}
+					]
+				},
 			},
 			onSuccess: () => {
 				$scope.next();
