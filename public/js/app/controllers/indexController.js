@@ -6,8 +6,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 				maxRating: 5,
 				interactive: false
 			});
-		}, 1000);
-
+		});
 	});
 
 	$scope.toggleFilterSidebar = () => {
