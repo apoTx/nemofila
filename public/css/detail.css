@@ -1,7 +1,5 @@
 .detail-photo-list{
     margin-top: 10px !important;
-    height: 54px !important;
-    overflow: hidden;
 }
 .detail-photo-list img{
     cursor:pointer;
@@ -96,6 +94,19 @@ p.description{
 .descriptionArea{
     height: 246px;
     overflow-y: auto
+}
+
+.owl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: 1px solid #ccc;
+    background: #333;
+    margin-right: 5px;
+    display: inline-block;  /*for making them horizontal, if you want vertical then you can use- display: block*/
+}
+.owl-dot.active {
+    background: #ffa60a;
 }
 
 @media only screen and (max-width: 767px) {

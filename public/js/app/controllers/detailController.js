@@ -1,6 +1,16 @@
 app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory) => {
 
 	$(() => {
+
+		$(document).ready(() => {
+			$('.owl-carousel').owlCarousel({
+				margin:10,
+				items: 5,
+				dots: true,
+				nav:true
+			});
+		});
+
 		$('.detail-right-menu a').popup({
 			position: 'bottom center'
 		});

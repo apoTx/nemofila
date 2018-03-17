@@ -21,6 +21,8 @@ append stylesheets
     link(rel='old stylesheet', href='/ng-image-gallery/dist/ng-image-gallery.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/style.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/detail.css')
+    link(rel='stylesheet', type='text/css', href='/owl.carousel/dist/assets/owl.carousel.min.css')
+    link(rel='stylesheet', type='text/css', href='/owl.carousel/dist/assets/owl.theme.default.min.css')
 
 block content
     - var sessionId;
@@ -166,11 +168,12 @@ block content
                                 img-bubbles="true",
                             )
 
-                            each photo,k in data.photos
-                                img.ui.image.tiny(
-                                    ng-click='changePhoto(#{k})',
-                                    src='#{ amazon_base_url }/#{ photo.filename }'
-                                )
+                            div.owl-carousel.owl-theme
+                                each photo,k in data.photos
+                                    img.ui.image.tiny(
+                                        ng-click='changePhoto(#{k})',
+                                        src='#{ amazon_base_url }/#{ photo.filename }'
+                                    )
 
                 .ten.wide.column
                     h3 #{i18n.__("description")}
@@ -402,6 +405,7 @@ block content
                         | Submit
 
 append javascripts
+    script(src="/owl.carousel/dist/owl.carousel.min.js")
     script(src="/semantic/dist/components/popup.min.js")
     script(src="/semantic/dist/components/rating.min.js")
     script(src="/dist/js/app/services/favFactory.min.js")
