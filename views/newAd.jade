@@ -327,9 +327,7 @@ block content
                                         td
                                             | {{ newAdForm.address }}
 
-                            h3 #{ i18n.__("description") }
-                            .ui.segment
-                                p.description(ng-bind-html="newAdForm.description")
+
 
                         .six.wide.column
                             h3 #{ i18n.__("Work Times") }
@@ -347,6 +345,13 @@ block content
                                         div(ng-if="day.open && !day.hour24")
                                             | {{ day.openTime }} : {{ day.closeTime ? day.closeTime : '~' }}
 
+                    .ui.stackable.grid
+                        .ten.wide.column
+                            h3 #{ i18n.__("description") }
+                            .ui.segment.descriptionArea
+                                p.description(ng-bind-html="newAdForm.description")
+
+                        .six.wide.column
                             div#mapPreview
 
                     .margin-top-30.text-right
