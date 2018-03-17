@@ -183,5 +183,7 @@
 	"{{ key }}": "{{ key }}",
 	"More Detail": "More Detail",
 	"SFacebook": "SFacebook",
-	"Sign Up Facebook": "Sign Up Facebook"
+	"Sign Up Facebook": "Sign Up Facebook",
+	"Change Description Language": "Change Description Language",
+	"Change Language": "Change Language"
 }

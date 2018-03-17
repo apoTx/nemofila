@@ -176,10 +176,18 @@ block content
                                     )
 
                 .ten.wide.column
-                    h3 #{i18n.__("description")}
+                    .ui.stackable.grid
+                        .eight.wide.column
+                            h3 #{i18n.__("description")}
+                        .eight.wide.column.text-right
+                            button.ui.tiny.button(ng-click="changeDescriptionLanguage()") #{i18n.__("Change Language")}
+
                     .ui.segment.descriptionArea
-                        p.description
-                            | !{ data.description }
+                        .description
+                            div(ng-show="showLang1")
+                                | !{ data.description }
+                            div(ng-show="showLang2")
+                                | !{ data.description2 }
 
 
 

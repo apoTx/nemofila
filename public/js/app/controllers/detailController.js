@@ -145,6 +145,17 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		});
 	};
 
+	$scope.showLang1 = true;
+	$scope.changeDescriptionLanguage = () => {
+		if ($scope.showLang1){
+			$scope.showLang1 = false;
+			$scope.showLang2 = true;
+		}else{
+			$scope.showLang1 = true;
+			$scope.showLang2 = false;
+		}
+	};
+
 	$(() => {
 		$('#sendMessageModal').modal({
 			onHide: function(){
