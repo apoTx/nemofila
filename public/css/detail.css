@@ -81,10 +81,17 @@ p.description{
     margin-left: 15px
 }
 
-
+.sendMessage{
+    height:42px;
+}
 
 .adDetails{
     margin-top: 50px!important;
+}
+
+.favBtn{
+    margin-left:15px!important;
+    margin-bottom: 10px !important;
 }
 .descriptionArea{
     margin-top: 21px!important;

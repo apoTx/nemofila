@@ -81,6 +81,8 @@ block content
 
                 .eight.wide.column.text-right.detail-right-menu
                     .ui.right.floated.main.menu
+
+
                         a.music.popup.icon.item(
                                 data-content='#{i18n.__("share_facebook")}',
                                 target="_blank",
@@ -105,7 +107,7 @@ block content
 
 
                     - if (session)
-                        .ui.right.floated.main.menu(
+                        .ui.right.floated.main.menu.favBtn(
                             ng-show="!isFav",
                             ng-cloak
                         )
@@ -115,7 +117,7 @@ block content
                             )
                                 i.star.outline.icon
 
-                        .ui.right.floated.main.menu(
+                        .ui.right.floated.main.menu.favBtn(
                             ng-show="isFav",
                             ng-cloak
                         )
@@ -124,6 +126,10 @@ block content
                                 ng-click="delFavourites('#{ session._id }','#{ data._id }')"
                             )
                                 i.star.icon
+
+                    - if (!data.anotherContact || !data.anotherContact.checked)
+                        - if (sessionId !== null && (sessionId != String(data.user._id)))
+                            button.ui.right.floated.button.primary.sendMessage(ng-click="openSendMessageModal()") Send Message
 
             .ui.stackable.grid
                 .six.wide.column
@@ -187,17 +193,6 @@ block content
                             //tr
                                 td #{i18n.__("listing_date")}
                                 td #{ moment(data.listingDate).format("DD/MM/YYYY") }
-                            tr
-                                td #{i18n.__("contact_name")}
-                                td
-                                    - if (!data.anotherContact || !data.anotherContact.checked)
-                                        div.contact-name #{ data.user.name } #{ data.user.surname }
-
-                                        - if (sessionId !== null && (sessionId != String(data.user._id)))
-                                            button.ui.right.floated.button.primary(ng-click="openSendMessageModal()") Send Message
-                                    - else
-                                        div #{ data.anotherContact.name }
-                                    .clearfix
                             tr
                                 td #{i18n.__("Zip Code")}
                                 td
