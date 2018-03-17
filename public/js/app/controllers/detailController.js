@@ -7,7 +7,8 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 				margin:10,
 				items: 5,
 				dots: true,
-				nav:true
+				nav:true,
+				smartSpeed: 100
 			});
 		});
 
