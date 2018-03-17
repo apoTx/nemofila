@@ -207,7 +207,7 @@ block content
                             tr(ng-show="#{ data.website != '' }", ng-cloak)
                                 td #{i18n.__("website")}
                                 td
-                                    a(href="#{ data.website }", ng-cloak)
+                                    a(href="#{ data.website }", ng-cloak, target="_blank")
                                         | #{ data.website }
 
                             tr(ng-show="#{ data.address != '' }", ng-cloak)
@@ -323,7 +323,7 @@ block content
                                                     | #{ sunday.openTime } : #{ sunday.closeTime ? sunday.closeTime : ' ~ ' }
 
                 .eight.wide.column
-                    #googleMap(style="width:100%;height:360px;")
+                    #googleMap(style="width:100%;height:227px;")
 
 
             .text-center.margin-top-30
