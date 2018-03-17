@@ -139,9 +139,8 @@ block content
                                     span.right.floated
                                         i.map.marker.alternate.icon
                                         | {{ ad.locationName | limitTo: 12 }}{{ ad.locationName.length > 12 ? '...' : ''}}
-                                    | test: {{ ad.rate }}
                                     div(ng-show="ad.rate")
-                                        .ui.star.rating(data-rating='{{ ad.rate }}')
+                                        .ui.star.rating(data-rating='4')
 
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader
