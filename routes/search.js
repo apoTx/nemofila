@@ -164,6 +164,7 @@ router.get('/getEventsByLocationName', (req, res) => {
 		{
 			'$match': {
 				'place.address_components.long_name': location !== '' ? location : { $exists: true },
+				'status': 1,
 			}
 		},
 

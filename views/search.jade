@@ -88,10 +88,10 @@ block content
                     ng-class="{loading: loadingEvents}",
                     ng-if="!events"
                 )
-                    | #{i18n.__("Show events")} ({{ placeLongName }})
+                    | #{i18n.__("Show events")}
 
             div(ng-if="events.length > 0")
-                h2 #{i18n.__( "Events" )} ({{ placeLongName }})
+                h2 #{i18n.__( "Events" )}
                 .ui.segment.list-segment
                     .ui.grid.no-margin-bottom
                         .doubling.four.column.row
