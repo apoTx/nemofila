@@ -153,8 +153,8 @@ block content
                             .ui.four.stackable.cards
                                 .card.photoList(ng-repeat='f in newAdForm.files')
                                     .image.photoListImage
-                                        a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
-                                            i.bookmark.icon
+                                        a.ui.left.corner.label.bookmarkLabel(ng-if="f.showcase", ng-cloak)
+                                            i.bookmark.icon.orange
                                         img(
                                             ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
                                             ngf-size="{width:200, height:200, quality:0.6}",
@@ -171,7 +171,7 @@ block content
                                         ng-if="f.showcase",
                                         ng-cloak
                                     )
-                                        i.remove.icon
+                                        i.remove.icon.
                                         |  #{ i18n.__("remove") }
 
 
