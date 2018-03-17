@@ -153,7 +153,7 @@ block content
                             .ui.four.stackable.cards
                                 .card.photoList(ng-repeat='f in newAdForm.files')
                                     .image.photoListImage
-                                        a.ui.left.corner.label.bookmarkLabel(ng-if="f.showcase", ng-cloak)
+                                        a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                             i.bookmark.icon.orange
                                         img(
                                             ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
@@ -270,7 +270,7 @@ block content
                         .card.photoList(ng-repeat='f in newAdForm.files')
                             .image.photoListImage
                                 a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
-                                    i.bookmark.icon
+                                    i.bookmark.icon.orange
                                 img(
                                     ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
                                     ngf-size="{width:200, height:200, quality:0.6}",
