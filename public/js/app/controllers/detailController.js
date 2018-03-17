@@ -2,14 +2,12 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 
 	$(() => {
 
-		$(document).ready(() => {
-			$('.owl-carousel').owlCarousel({
-				margin:10,
-				items: 5,
-				dots: true,
-				nav:true,
-				smartSpeed: 100
-			});
+		$('.owl-carousel').owlCarousel({
+			margin:10,
+			items: 5,
+			dots: true,
+			nav:true,
+			smartSpeed: 100
 		});
 
 		$('.detail-right-menu a').popup({
