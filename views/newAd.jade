@@ -291,7 +291,7 @@ block content
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
-                                    tr
+                                    //tr
                                         td #{ i18n.__("contact_name") }
                                         td
                                             span(ng-show="newAdForm.anotherContact.checked")
@@ -332,8 +332,8 @@ block content
                         .six.wide.column
                             h3 #{ i18n.__("Work Times") }
 
-                            ul.workTimeList(ng-repeat="(key, day) in newAdForm.workTimes")
-                                li
+                            ul.workTimeList
+                                li(ng-repeat="(key, day) in newAdForm.workTimes")
                                     div.listDay {{ key }}
                                     div.listWorkTimes
                                         div(ng-if="!day.open")

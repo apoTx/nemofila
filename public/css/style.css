@@ -359,6 +359,10 @@ a.black{
     padding: 0 5px!important;
     margin-top: 15px !important
 }
+.workTimeList li{
+    padding: 5px 0!important;
+}
+
 .listDay{
     width:100px;
     display: inline-block;
