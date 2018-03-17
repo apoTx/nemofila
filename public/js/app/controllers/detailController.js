@@ -15,6 +15,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		});
 
 		$scope.onRate = false;
+
 		$('#detailRating').rating({
 			maxRating: 5,
 			onRate: (value) => {

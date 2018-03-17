@@ -1,10 +1,13 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory,  categoriesFactory) => {
 
 	$(() => {
-		$('.rating').rating({
-			maxRating: 5,
-			interactive: false
-		});
+		setTimeout(() => {
+			$('.rating').rating({
+				maxRating: 5,
+				interactive: false
+			});
+		}, 1000);
+
 	});
 
 	$scope.toggleFilterSidebar = () => {
