@@ -6,7 +6,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
-	function initialize(position, latLng, zoom, elementId, customLat, customLng) {
+	function initialize(position, latLng, zoom, elementId, customLat, customLng, draggable) {
 		try{
 			let lat, lng;
 
@@ -27,7 +27,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			newAdFactory.getLocationDetail(lat, lng).then((location) => {
 				const index = location.results.findIndex(x => x.types[0] == 'locality');
 				$scope.newAdForm.place = location.results[index];
-				console.log(location.results);
 			});
 
 			const myLatLng = new google.maps.LatLng(lat, lng);
@@ -46,7 +45,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			const marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
-				draggable:true,
+				draggable: draggable,
 				title:'Drag me!'
 			});
 
@@ -56,7 +55,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 
 			google.maps.event.addListener(marker, 'dragend', (position) => {
-				newAdFactory.getLocationDetail(position.latLng.lat(), position.latLng.lng()).then((location) => {
+				const lat = position.latLng.lat();
+				const lng = position.latLng.lng();
+
+				$scope.latLng = { lat, lng };
+
+				newAdFactory.getLocationDetail(lat, lng).then((location) => {
 					$scope.newAdForm.place = location.results[0];
 					console.log(location.results);
 				});
@@ -81,7 +85,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				const latLng = { lat: lat, lng: lng };
 				$scope.latLng = latLng;
 
-				initialize(0, latLng, 12, 'map');
+				initialize(0, latLng, 12, 'map', false, false, true);
 			}catch (e){
 				// do stuff
 			}
@@ -622,7 +626,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};*/
 
 	$scope.previewTab = () => {
-		initialize(0, $scope.latLng, 12, 'mapPreview');
+		initialize(0, $scope.latLng, 12, 'mapPreview', false , false, false );
 
 		$scope.steps.informations = false;
 		$scope.steps.power = false;
