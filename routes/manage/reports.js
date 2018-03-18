@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const moment = require('moment');
+
 // Models
 const Reports = require('../../models/reports');
 
+// helpers
 const requireLogin = require('./inc/requireLogin.js');
-
 
 /* GET home page. */
 router.get('/', requireLogin, (req, res) => {
@@ -20,7 +20,7 @@ router.get('/detail/:id', requireLogin, (req, res) => {
 				'_id': mongoose.Types.ObjectId(req.params.id),
 			}
 		},
-		// Power collection
+		// ads collection
 		{
 			$lookup: {
 				from: 'ads',
@@ -32,7 +32,6 @@ router.get('/detail/:id', requireLogin, (req, res) => {
 		{
 			$unwind: {
 				path: '$ad',
-				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
 				preserveNullAndEmptyArrays: true
 			}
 		},
@@ -62,25 +61,9 @@ router.get('/detail/:id', requireLogin, (req, res) => {
 
 		res.render('manage/reports/detail', data[0]);
 	});
-
-	/*
-	Ads.findById( req.params.id ,(err,result) => {
-		if (err)
-			next();
-
-		console.log(result);
-		if (result)
-			res.render('manage/ads/ad_edit', {
-				title: result.title,
-				data: result,
-				statusText: getAdStatusText(result.status)
-			});
-		else
-			next();
-	});*/
 });
 
-router.get('/getAllReports', requireLogin, (req, res, next) => {
+router.get('/getAllReports', requireLogin, (req, res) => {
 	Reports.find({ }, (err, data) => {
 		res.json(data);
 	}).sort({ '_id': -1 });
