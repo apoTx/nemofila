@@ -25,8 +25,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 
 			newAdFactory.getLocationDetail(lat, lng).then((location) => {
-				const index = location.results.findIndex(x => x.formatted_address == $scope.newAdForm.place.formatted_address);
+				const index = location.results.findIndex(x => x.types[0] == 'locality');
 				$scope.newAdForm.place = location.results[index];
+				console.log(location.results);
 			});
 
 			const myLatLng = new google.maps.LatLng(lat, lng);
@@ -57,6 +58,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			google.maps.event.addListener(marker, 'dragend', (position) => {
 				newAdFactory.getLocationDetail(position.latLng.lat(), position.latLng.lng()).then((location) => {
 					$scope.newAdForm.place = location.results[0];
+					console.log(location.results);
 				});
 			});
 		}catch(e){
