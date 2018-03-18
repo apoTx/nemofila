@@ -13,6 +13,17 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			}
 		});
 
+		$('#reportModal').modal({
+			onHide: function(){
+				$scope.reportMessageSended = false;
+				$scope.reportFormData.message = '';
+				$('body').removeClass('ios11-input-bug-fixer');
+			},
+			onShow: () => {
+				$('body').addClass('ios11-input-bug-fixer');
+			}
+		});
+
 		$('.owl-carousel').owlCarousel({
 			margin:10,
 			items: 5,

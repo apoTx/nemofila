@@ -369,14 +369,11 @@ router.post('/sendReport', (req, res) => {
 		userId: req.session.user ? req.session.user._id : null
 	});
 
-	report.save(report).then((err, data) => {
+	report.save(err => {
 		if (err)
 			throw new Error(err);
-			console.log('aslkdlkasdkaskdasda');
 
-
-		console.log(data);
-		res.json(data);
+		res.json({ status: 1 });
 	});
 
 });

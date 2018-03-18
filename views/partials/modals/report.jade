@@ -3,7 +3,7 @@
     .header
         | #{i18n.__("Report")}
     .content
-        div(ng-show="!messageSended" ng-cloak)
+        div(ng-show="!reportMessageSended" ng-cloak)
             form.ui.form#reportForm
                 input(type='hidden', ng-init="reportFormData.adId = '#{ data._id }' ", ng-model="reportFormData.adId")
 
