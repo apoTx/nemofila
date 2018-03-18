@@ -39,7 +39,7 @@
                     on-success="successSignInCaptcha(response)",
                     on-create="onWidgetCreate(widgetId)"
                 )
-                button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="{ loading:signInBtnLoading, disabled: signInBtnLoading, disabled: !activeLoginBtn  }")
+                button.ui.right.icon.fluid.button.primary.margin-top-10(form="signInForm", ng-class="{ loading:signInBtnLoading, disabled: signInBtnLoading, disabled: !activeLoginBtn  }")
                     | Login
             .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
                 a.forgot(href="#", ng-click="openForgotModal()")

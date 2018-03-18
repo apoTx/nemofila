@@ -238,59 +238,57 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 		});
 
-		$(() => {
-			$('#terms').on('click', () => {
-				$('#termsModal').modal('show');
-			});
+		$('#terms').on('click', () => {
+			$('#termsModal').modal('show');
+		});
 
 
-			// $('#workTimesModal').modal('show');
+		// $('#workTimesModal').modal('show');
 
-			$('#workTimesBtn').on('click', () => {
-				$('#workTimesModal').modal('show');
-			});
+		$('#workTimesBtn').on('click', () => {
+			$('#workTimesModal').modal('show');
+		});
 
-			/*$('.openClose.checkbox').checkbox({
-				onChecked: () => {
-					const $childCheckbox  = $(this).closest('.checkbox');
+		/*$('.openClose.checkbox').checkbox({
+			  onChecked: () => {
+				  const $childCheckbox  = $(this).closest('.checkbox');
 
-					console.log($childCheckbox);
-				}
-			});*/
+				  console.log($childCheckbox);
+			  }
+		  });*/
 
-			$('.hour24').change(function() {
-				let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
-				if(this.checked) {
-					$clockDropdowns.addClass('timeDropdownsVisible');
-				}else{
-					$clockDropdowns.removeClass('timeDropdownsVisible');
-				}
-			});
+		$('.hour24').change(function() {
+			let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
+			if(this.checked) {
+				$clockDropdowns.addClass('timeDropdownsVisible');
+			}else{
+				$clockDropdowns.removeClass('timeDropdownsVisible');
+			}
+		});
 
-			$('.openClose').change(function() {
-				let $elem = $(this).parent('div').parent('div').next('div');
+		$('.openClose').change(function() {
+			let $elem = $(this).parent('div').parent('div').next('div');
 
-				if(this.checked) {
-					$elem.removeClass('workTimeSettingsDisplay');
-				}else{
-					$elem.addClass('workTimeSettingsDisplay');
-				}
-			});
+			if(this.checked) {
+				$elem.removeClass('workTimeSettingsDisplay');
+			}else{
+				$elem.addClass('workTimeSettingsDisplay');
+			}
+		});
 
-			$('#anotherPerson').checkbox({
-				onChecked: () => {
-					$scope.newAdForm.anotherContact.checked = true;
-					setTimeout( () => {
-						$('input[name="anotherContactName"]').focus();
-					},20);
-				},
-				onUnchecked: () => {
-					$scope.newAdForm.anotherContact.checked = false;
-				},
-				onChange: () => {
-					$scope.$apply();
-				}
-			});
+		$('#anotherPerson').checkbox({
+			onChecked: () => {
+				$scope.newAdForm.anotherContact.checked = true;
+				setTimeout( () => {
+					$('input[name="anotherContactName"]').focus();
+				},20);
+			},
+			onUnchecked: () => {
+				$scope.newAdForm.anotherContact.checked = false;
+			},
+			onChange: () => {
+				$scope.$apply();
+			}
 		});
 	});
 
@@ -301,6 +299,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 
 			$scope.isEdit = true;
+		}else{
+			$scope.openSignInModal();
 		}
 
 		$scope.userExists =  (userExists == 'true');

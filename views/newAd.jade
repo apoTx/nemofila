@@ -291,13 +291,6 @@ block content
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
-                                    //tr
-                                        td #{ i18n.__("contact_name") }
-                                        td
-                                            span(ng-show="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.anotherContact.name }}
-                                            span(ng-hide="newAdForm.anotherContact.checked")
-                                                | #{ user.name } #{ user.surname }
 
                                     tr(ng-hide="newAdForm.anotherContact.checked")
                                         td #{ i18n.__( "phone" ) }

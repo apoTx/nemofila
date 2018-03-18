@@ -54,7 +54,7 @@ const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
 	});
 };
 
-router.get('/:id?', requireLogin, (req, res, next) => {
+router.get('/:id?',  (req, res, next) => {
 
 	const adId = req.query.id;
 
