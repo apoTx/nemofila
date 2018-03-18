@@ -317,6 +317,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (id !== 'false'){
 			$scope.getAd(id, () => {
 				initialize(0, false, 12, 'map', $scope.newAdForm.place.geometry.location.lat, $scope.newAdForm.place.geometry.location.lng); // map
+				$scope.latLng = { lat: $scope.newAdForm.place.geometry.location.lat, lng: $scope.newAdForm.place.geometry.location.lng };
 			});
 
 			$scope.isEdit = true;
