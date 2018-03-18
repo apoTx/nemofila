@@ -25,7 +25,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 
 			newAdFactory.getLocationDetail(lat, lng).then((location) => {
-				$scope.newAdForm.place = location.results[0];
+				const index = location.results.findIndex(x => x.formatted_address == $scope.newAdForm.place.formatted_address);
+				$scope.newAdForm.place = location.results[index];
 			});
 
 			const myLatLng = new google.maps.LatLng(lat, lng);
@@ -640,7 +641,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.steps.preview = false;
 		$window.scrollTo(0, 0);
 	};
-
 
 	// recaptcha
 	$scope.activeSaveBtn = false;
