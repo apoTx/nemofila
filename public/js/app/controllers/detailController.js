@@ -58,6 +58,33 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 				$scope.sendMessageErr = null;
 			},
 		});
+
+		// repot form
+		$('#reportForm').form({
+			keyboardShortcuts: false,
+			on: 'blur',
+			fields: {
+				pw: {
+					identifier  : 'message',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter your message.'
+						},
+						{
+							type   : 'maxLength[600]',
+							prompt : 'Your message can be up to {ruleValue} characters long.'
+						}
+					]
+				}
+			},
+			onSuccess: () => {
+				$scope.sendReport();
+			},
+			onInvalid:() => {
+				$scope.sendMessageErr = null;
+			},
+		});
 	});
 
 
@@ -172,6 +199,10 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		$('#sendMessageModal').modal('show');
 	};
 
+	$scope.openReportModal = () => {
+		$('#reportModal').modal('show');
+	};
+
 	/*setTimeout(() => {
 		$scope.openSendMessageModal();
 	});*/
@@ -197,6 +228,10 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 				$scope.messageSended = true;
 			});
 		});
+	};
+
+	$scope.sendReport = () => {
+		console.log('k');
 	};
 
 

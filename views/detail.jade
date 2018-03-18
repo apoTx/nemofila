@@ -341,6 +341,9 @@ block content
                 h3 #{ pageView }
                 | #{i18n.__("Page View")}
 
+            .text-right
+                button.ui.button(ng-click="openReportModal()") #{i18n.__("Report")}
+
         div.margin-top-30(ng-if="similarAds.length > 1")
             h2 #{i18n.__( "Similar Ads" )}
             .ui.segment.list-segment
@@ -411,6 +414,11 @@ block content
                         ng-show="!messageSended"
                     )
                         | Submit
+
+
+        include partials/modals/report
+
+
 
 append javascripts
     script(src="/owl.carousel/dist/owl.carousel.min.js")

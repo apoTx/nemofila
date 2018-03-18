@@ -1,0 +1,32 @@
+.ui.modal.tiny#reportModal
+    i.close.icon
+    .header
+        | #{i18n.__("Report")}
+    .content
+        div(ng-show="!messageSended" ng-cloak)
+            form.ui.form#reportForm
+                input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ data.user._id }' ", ng-model="sendMessageFormData.toUserId")
+                input(type='hidden', ng-init="sendMessageFormData.adId = '#{ data._id }' ", ng-model="sendMessageFormData.adId")
+
+                .fields.ui.grid
+                    .field.sixteen.wide.column.no-padding-top.no-padding-bottom
+                        textarea(
+                            name="message",
+                            placeholder='#{i18n.__("Enter Message")}',
+                            ng-model='reportFormData.message'
+                        )
+                .ui.error.message
+                .backendErr.ui.red.message(ng-if="sendMessageErr")
+                    | {{ sendMessageErr }}
+
+        div(ng-show="messageSended" ng-cloak)
+            .ui.success.message
+                .header
+                    | #{i18n.__("Your message has been sent.")}
+    .actions
+        button.ui.right.icon.button.primary(
+            form="reportForm",
+            ng-class="sendMessageLoading ? 'loading disabled' : '' ",
+            ng-show="!messageSended"
+        )
+            | Submit
