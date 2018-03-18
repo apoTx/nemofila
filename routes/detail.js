@@ -358,4 +358,12 @@ router.get('/setRate', requireLogin, (req, res) => {
 	}
 });
 
+router.get('/sendReport', requireLogin, (req, res) => {
+	const adId = req.query.adId;
+	const message = req.query.message;
+
+
+	res.json({ adId, message });
+});
+
 module.exports = router;

@@ -5,8 +5,7 @@
     .content
         div(ng-show="!messageSended" ng-cloak)
             form.ui.form#reportForm
-                input(type='hidden', ng-init="sendMessageFormData.toUserId = '#{ data.user._id }' ", ng-model="sendMessageFormData.toUserId")
-                input(type='hidden', ng-init="sendMessageFormData.adId = '#{ data._id }' ", ng-model="sendMessageFormData.adId")
+                input(type='hidden', ng-init="reportFormData.adId = '#{ data._id }' ", ng-model="reportFormData.adId")
 
                 .fields.ui.grid
                     .field.sixteen.wide.column.no-padding-top.no-padding-bottom

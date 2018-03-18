@@ -1,6 +1,17 @@
-app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', 'reportFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory, reportFactory) => {
 
 	$(() => {
+
+		$('#sendMessageModal').modal({
+			onHide: function(){
+				$scope.messageSended = false;
+				$scope.sendMessageFormData.message = '';
+				$('body').removeClass('ios11-input-bug-fixer');
+			},
+			onShow: () => {
+				$('body').addClass('ios11-input-bug-fixer');
+			}
+		});
 
 		$('.owl-carousel').owlCarousel({
 			margin:10,
@@ -86,7 +97,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			},
 		});
 	});
-
 
 	/*eslint-disable*/
 	function initMap(lat, lng){
@@ -182,19 +192,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		}
 	};
 
-	$(() => {
-		$('#sendMessageModal').modal({
-			onHide: function(){
-				$scope.messageSended = false;
-				$scope.sendMessageFormData.message = '';
-				$('body').removeClass('ios11-input-bug-fixer');
-			},
-			onShow: () => {
-				$('body').addClass('ios11-input-bug-fixer');
-			}
-		});
-	});
-
 	$scope.openSendMessageModal = () => {
 		$('#sendMessageModal').modal('show');
 	};
@@ -202,11 +199,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 	$scope.openReportModal = () => {
 		$('#reportModal').modal('show');
 	};
-
-	/*setTimeout(() => {
-		$scope.openSendMessageModal();
-	});*/
-
 
 	$scope.sendMessage = () => {
 		$scope.sendMessageLoading = true;
@@ -231,9 +223,10 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 	};
 
 	$scope.sendReport = () => {
-		console.log('k');
+		reportFactory.sendReport($scope.reportFormData).then((data) => {
+			console.log(data);
+		});
 	};
-
 
 	// Photo gallery
 	$scope.methods = {};
