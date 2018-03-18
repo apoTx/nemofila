@@ -13,7 +13,7 @@ router.get('/', requireLogin, (req, res) => {
 	res.render('manage/reports/reports', { title: 'Reports' });
 });
 
-router.get('/edit/:id', requireLogin, (req, res) => {
+router.get('/detail/:id', requireLogin, (req, res) => {
 	Reports.aggregate([
 		{
 			'$match': {
@@ -23,15 +23,15 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 		// Power collection
 		{
 			$lookup: {
-				from: 'powers',
-				localField: '_id',
-				foreignField: 'adId',
-				as: 'power'
+				from: 'ads',
+				localField: 'adId',
+				foreignField: '_id',
+				as: 'ad'
 			}
 		},
 		{
 			$unwind: {
-				path: '$power',
+				path: '$ad',
 				// ad collection, power collectionda herhangi eşleşme yapamasa bile ad'i döndür.
 				preserveNullAndEmptyArrays: true
 			}
@@ -41,23 +41,9 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 			$group: {
 				_id: {
 					_id: '$_id',
-					title: '$title',
-					status: '$status',
-					statusText: '$statusText',
-					slug: '$slug',
+					message: '$message',
 					createdAt: '$createdAt',
-				},
-				power: {
-					$push: '$power'
-				},
-				totalActivePower: {
-					$sum: { $cond: [{ $gte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
-				},
-				totalEndingPower: {
-					$sum: { $cond: [{ $lte: [ '$power.endingAt', new Date() ] }, '$power.powerNumber', 0] }
-				},
-				totalPower: {
-					$sum: '$power.powerNumber'
+					ad: '$ad'
 				},
 			}
 		},
@@ -65,29 +51,16 @@ router.get('/edit/:id', requireLogin, (req, res) => {
 		{
 			'$project': {
 				'_id': '$_id._id',
-				'title': '$_id.title',
-				'status': '$_id.status',
-				'statusText': '$_id.statusText',
-				'slug': '$_id.slug',
+				'message': '$_id.message',
 				'createdAt': '$_id.createdAt',
-				power: 1,
-				totalActivePower: 1,
-				totalEndingPower: 1,
-				totalPower: 1
+				'ad': '$_id.ad'
 			},
 		},
 	], (err, data) => {
 		if (err)
 			throw new Error(err);
 
-		let result = data[0];
-		console.log(result);
-		res.render('manage/ads/ad_edit', {
-			title: result.title,
-			data: result,
-			statusText: getAdStatusText(result.status),
-			moment: moment
-		});
+		res.render('manage/reports/detail', data[0]);
 	});
 
 	/*
