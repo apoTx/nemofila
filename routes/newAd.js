@@ -65,7 +65,14 @@ router.get('/:id?',  (req, res, next) => {
 
 			const ownerId = result.ownerId;
 
-			if (String(ownerId) !== String(req.user._id)) {
+			let userId;
+			try{
+				userId = req.user._id;
+			}catch (e){
+				userId = '';
+			}
+
+			if (String(ownerId) !== String(userId) || '') {
 				next('Error.');
 			}else{
 				render();
@@ -76,6 +83,7 @@ router.get('/:id?',  (req, res, next) => {
 	}
 
 	function render () {
+
 		request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
 			res.render( 'newAd', {
 				title: 'New Ad',

@@ -299,11 +299,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 
 			$scope.isEdit = true;
-		}else{
-			$scope.openSignInModal();
 		}
 
 		$scope.userExists =  (userExists == 'true');
+
+		if (!$scope.userExists){
+			$scope.openSignInModal();
+		}
 
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;

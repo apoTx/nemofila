@@ -41,7 +41,7 @@ block content
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
-                    form.ui.form.fluid#newAdForm(ng-init="init('#{ id }')")
+                    form.ui.form.fluid#newAdForm(ng-init="init('#{ id }', '#{ userExists }')")
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
                         input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
