@@ -6,7 +6,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
-	function initialize(position, latLng, zoom, elementId, customLat, customLng, draggable) {
+	function initialize(position, latLng, zoom, elementId, customLat, customLng, draggable = true, previewPage = false) {
 		try{
 			let lat, lng;
 
@@ -24,7 +24,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				}
 			}
 
-			if(draggable){
+			$scope.latLng = { lat, lng };
+
+			if((draggable || !elementId) && !previewPage){
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
 					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_1');
 					const city_and_country = location.results[index].formatted_address;
@@ -43,7 +45,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			};
 
 			const map = new google.maps.Map(
-				document.getElementById(elementId),
+				document.getElementById(elementId || 'map'),
 				mapOptions
 			);
 
@@ -641,7 +643,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};*/
 
 	$scope.previewTab = () => {
-		initialize(0, $scope.latLng, 12, 'mapPreview', false , false, false );
+		initialize(0, $scope.latLng, 12, 'mapPreview', false , false, false, false );
 
 		$scope.steps.informations = false;
 		$scope.steps.power = false;
