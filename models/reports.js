@@ -1,11 +1,14 @@
-let mongoose = require('mongoose');
-let Schema	 = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema	 = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
-let subscribeSchema = new Schema({
-	email: {
-		unique: true,
-		type: String
+const reportSchema = new Schema({
+	adId: ObjectId,
+	message: {
+		type: String,
+		maxlength: 600
 	},
+	userId: ObjectId
 });
 
-module.exports = mongoose.model('subscribes', subscribeSchema);
+module.exports = mongoose.model('reports', reportSchema);

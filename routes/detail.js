@@ -16,6 +16,7 @@ const adminAdToUser = require('../helper/adminAdToUser');
 // Models
 const Ads = require('../models/ads');
 const Favourites = require('../models/favourites');
+const Reports = require('../models/reports');
 
 // helpers
 const openOrClose = require('../helper/openOrClose');
@@ -358,12 +359,23 @@ router.get('/setRate', requireLogin, (req, res) => {
 	}
 });
 
-router.get('/sendReport', requireLogin, (req, res) => {
+router.post('/sendReport', (req, res) => {
 	const adId = req.query.adId;
 	const message = req.query.message;
 
+	const report = new Reports({
+		adId,
+		message,
+		userId: req.session.user ? req.session.user._id : null
+	});
 
-	res.json({ adId, message });
+	report.save(report).then((err) => {
+		if (err)
+			throw new Error(err);
+
+		res.json({ status: 1 });
+	});
+
 });
 
 module.exports = router;

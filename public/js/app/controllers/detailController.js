@@ -225,6 +225,9 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 	$scope.sendReport = () => {
 		reportFactory.sendReport($scope.reportFormData).then((data) => {
 			console.log(data);
+			if (data.status){
+				$scope.reportMessageSended = true;
+			}
 		});
 	};
 

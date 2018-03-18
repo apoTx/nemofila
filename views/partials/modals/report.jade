@@ -18,7 +18,7 @@
                 .backendErr.ui.red.message(ng-if="sendMessageErr")
                     | {{ sendMessageErr }}
 
-        div(ng-show="messageSended" ng-cloak)
+        div(ng-show="reportMessageSended" ng-cloak)
             .ui.success.message
                 .header
                     | #{i18n.__("Your message has been sent.")}
