@@ -8,7 +8,11 @@ const reportSchema = new Schema({
 		type: String,
 		maxlength: 600
 	},
-	userId: ObjectId
+	userId: ObjectId,
+	createdAt: {
+		type: Date,
+		default: Date.now
+	}
 });
 
 module.exports = mongoose.model('reports', reportSchema);
