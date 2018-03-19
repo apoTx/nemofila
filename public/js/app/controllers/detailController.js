@@ -137,7 +137,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 
 		controlUI.addEventListener('click', () => {
 			const coords = lat +','+ lng;
-			window.open('http://maps.google.com/maps?q=loc:'+ coords , '_blank');
+			window.open('https://www.google.com/maps/dir/?api=1&destination='+ coords , '_blank');
 		});
 	}
 
