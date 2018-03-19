@@ -8,7 +8,8 @@ let app = angular.module('app',[
 	'ngSanitize',
 	'bw.paging',
 	'vcRecaptcha',
-	'google.places'
+	'google.places',
+	'slugifier'
 ]);
 
 app.value('config', {

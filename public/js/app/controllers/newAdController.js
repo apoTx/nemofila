@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config',  ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config', 'Slug', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config, Slug) => {
 
 	$scope.mapLoading = false;
 	$scope.locate = () => {
@@ -475,10 +475,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 
 			files.forEach((file) => {
+				let title = Slug.slugify($scope.newAdForm.title);
+				let formatted_address = Slug.slugify($scope.newAdForm.place.formatted_address);
+
+				console.log(title, formatted_address);
+
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 
-				let photoName = guid() + '.' + fileExtension;
+				let photoName = title +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
