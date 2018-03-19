@@ -494,14 +494,18 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				let number = (key + 1) % 3;
 
 				let photoName = '';
+				let altTag = '';
+
 				if(number === 1){
 					photoName = title +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+					altTag = title + '-' + formatted_address + '-nemofila';
 				}else if(number === 2){
 					photoName = categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+					altTag = title + '-' + categoryName +'-'+ formatted_address;
 				}else {
 					photoName = childCategoryName +'-'+ categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+					altTag = title +'-'+ categoryName +'-'+ formatted_address;
 				}
-
 
 				if (!file.name) {
 					oldPhotos++;
@@ -532,9 +536,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					itemsProcessed++;
 
 					if (file.showcase)
-						$scope.photos.push({ filename: photoName, showcase: true });
+						$scope.photos.push({ filename: photoName, showcase: true, altTag: altTag });
 					else
-						$scope.photos.push({ filename: photoName });
+						$scope.photos.push({ filename: photoName, altTag: altTag });
 
 					if(itemsProcessed + oldPhotos === files.length) {
 						$scope.uploading = false;

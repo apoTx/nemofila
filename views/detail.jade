@@ -172,7 +172,8 @@ block content
                                 each photo,k in data.photos
                                     img.ui.image.tiny(
                                         ng-click='changePhoto(#{k})',
-                                        src='#{ amazon_base_url }/#{ photo.filename }'
+                                        src='#{ amazon_base_url }/#{ photo.filename }',
+                                        alt="#{ photo.altTag }"
                                     )
 
                 .ten.wide.column
