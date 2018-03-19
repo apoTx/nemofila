@@ -81,6 +81,10 @@ label.custom{
     padding: 2em 0
 }
 
+.rateArea{
+    margin-bottom: 10px
+}
+
 @media only screen and (max-width: 768px){
     .ui.container.indexHead {
         width: 100%!important;

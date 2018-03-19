@@ -21,6 +21,7 @@ const mailer = require('../helper/mailer');
 const getDayName = require('../helper/getDayName');
 const verifyRecaptcha = require('../helper/recaptcha');
 const adminAdToUser = require('../helper/adminAdToUser');
+const openOrClose = require('../helper/openOrClose');
 
 const keySecret = 'sk_test_wTFYrL2DQjLQ3yALYPOfUWwg';
 const stripe = require('stripe')(keySecret);
@@ -359,7 +360,7 @@ router.get('/getIndexAds', (req,res) => {
 					updateAt: '$updateAt',
 					category: '$category',
 					workTimes: '$workTimes',
-					place: '$place.address_components',
+					place: '$place',
 					placeName: '$place.formatted_address',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					rateAvg: { $ceil: { $avg: '$rates.score' } },
@@ -382,8 +383,8 @@ router.get('/getIndexAds', (req,res) => {
 				updateAt: '$_id.updateAt',
 				photos: '$_id.photos',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
-				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
-				location: '$_id.place',
+				workTimesToday: '$_id.workTimes'+ '.'+ getDayName(),
+				place: '$_id.place',
 				locationName: '$_id.placeName',
 				powers: '$power',
 				category: '$_id.category.name',
@@ -398,6 +399,11 @@ router.get('/getIndexAds', (req,res) => {
 			throw new Error(err);
 
 		Ads.count({ status: 1 }, (err, count) => {
+
+			data.forEach((ad, key) => {
+				data[key].openNow = openOrClose(data[key]);
+			});
+
 			const d = { data: data };
 			const result = Object.assign(d, { dayName: getDayName(), adCount: count, adPerPage: adPerPage, page: req.query.page  });
 

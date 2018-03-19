@@ -8,6 +8,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/index.css')
     style.
         .transparent {
@@ -140,8 +141,12 @@ block content
                                         i.map.marker.alternate.icon
                                         | {{ ad.locationName | limitTo: 12 }}{{ ad.locationName.length > 12 ? '...' : ''}}
 
-                                    div(ng-show="ad.rate")
+                                    div.rateArea(ng-show="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
+
+
+                                    .ui.green.horizontal.label(ng-if="ad.openNow") #{i18n.__("Open")}
+                                    .ui.horizontal.label(ng-if="!ad.openNow") #{i18n.__("Close")}
 
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader
