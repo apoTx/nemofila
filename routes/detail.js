@@ -264,7 +264,7 @@ router.get('/getSimilars', (req, res) => {
 				console.log(err);
 			}
 
-	});
+		});
 });
 
 router.get('/deleteAd', requireLogin, (req, res) => {
