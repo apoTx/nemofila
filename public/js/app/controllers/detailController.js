@@ -113,7 +113,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 	function routeButton(controlDiv, map, lat, lng) {
 
 		// Set CSS for the control border.
-		var controlUI = document.createElement('div');
+		const controlUI = document.createElement('div');
 		controlUI.style.backgroundColor = '#fff';
 		controlUI.style.border = '2px solid #fff';
 		controlUI.style.borderRadius = '3px';
@@ -125,7 +125,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		controlDiv.appendChild(controlUI);
 
 		// Set CSS for the control interior.
-		var controlText = document.createElement('div');
+		const controlText = document.createElement('div');
 		controlText.style.color = 'rgb(25,25,25)';
 		controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
 		controlText.style.fontSize = '16px';
@@ -135,12 +135,10 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		controlText.innerHTML = 'Route';
 		controlUI.appendChild(controlText);
 
-		// Setup the click event listeners: simply set the map to Chicago.
-		controlUI.addEventListener('click', function() {
+		controlUI.addEventListener('click', () => {
 			const coords = lat +','+ lng;
 			window.open('http://maps.google.com/maps?q=loc:'+ coords , '_blank');
 		});
-
 	}
 
 	/*eslint-disable*/
@@ -159,8 +157,8 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			title:'Drag me!'
 		});
 
-		var centerControlDiv = document.createElement('div');
-		var centerControl = new routeButton(centerControlDiv, map, lat, lng);
+		const centerControlDiv = document.createElement('div');
+		const centerControl = new routeButton(centerControlDiv, map, lat, lng);
 		centerControlDiv.index = 1;
 		map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 	}
