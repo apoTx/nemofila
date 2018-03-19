@@ -1,4 +1,4 @@
-app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config) => {
+app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', 'Slug', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config, Slug) => {
 
 	// New Event Form
 	$scope.newEventForm = {};
@@ -128,8 +128,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 		if (eventId !== 'undefined'){
 
-			console.log('tesssst');
-
 			eventFactory.getEventsByEventId(eventId).then((result) => {
 				console.log(result);
 				$scope.newEventForm = result;
@@ -137,7 +135,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				let category = result.categoryId;
 				setTimeout(() => {
 					$scope.newEventForm.eventCategory = (($scope.eventCategories).findIndex(x => String(x._id) === String(category))).toString();
-					console.log($scope.newEventForm.eventCategory);
 				});
 
 				try{
@@ -262,9 +259,19 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			}
 
 			files.forEach((file) => {
+
+				let title = Slug.slugify($scope.newEventForm.title);
+				let formatted_address = Slug.slugify($scope.ad.place.formatted_address);
+
+				let category = $scope.eventCategories[$scope.newEventForm.eventCategory];
+				let categoryName = Slug.slugify(category.name);
+
+				console.log();
+
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
-				let photoName = guid() +'.'+ fileExtension;
+				let altTag = title +','+ formatted_address +','+ categoryName;
+				let photoName = title +'-'+ formatted_address +'-'+ categoryName +'-'+ guid() +'.'+ fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
@@ -295,9 +302,9 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 					itemsProcessed++;
 
 					if (file.showcase)
-						$scope.photos.push({ filename: photoName, showcase: true });
+						$scope.photos.push({ filename: photoName, showcase: true, altTag });
 					else
-						$scope.photos.push({ filename: photoName });
+						$scope.photos.push({ filename: photoName, altTag });
 
 					if(itemsProcessed + oldPhotos === files.length) {
 						$scope.uploading = false;

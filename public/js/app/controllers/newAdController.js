@@ -498,13 +498,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 				if(number === 1){
 					photoName = title +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
-					altTag = title + '-' + formatted_address + '-nemofila';
+					altTag = title + ',' + formatted_address + ' - nemofila';
 				}else if(number === 2){
 					photoName = categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
-					altTag = title + '-' + categoryName +'-'+ formatted_address;
+					altTag = title + ',' + categoryName +','+ formatted_address;
 				}else {
 					photoName = childCategoryName +'-'+ categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
-					altTag = title +'-'+ categoryName +'-'+ formatted_address;
+					altTag = title +','+ categoryName +','+ formatted_address;
 				}
 
 				if (!file.name) {

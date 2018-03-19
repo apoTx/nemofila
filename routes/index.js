@@ -161,6 +161,7 @@ router.get('/getAdById', requireLogin, (req, res) => {
 					status: '$status',
 					statusText: '$statusText',
 					photos: '$photos',
+					place: '$place',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 				},
 				power: {
@@ -180,6 +181,7 @@ router.get('/getAdById', requireLogin, (req, res) => {
 				status: '$_id.status',
 				statusText: '$_id.statusText',
 				photos: '$_id.photos',
+				place: '$_id.place',
 				photoShowcaseIndex: '$_id.photoShowcaseIndex',
 				powers: '$power',
 				totalActivePower: 1
