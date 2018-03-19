@@ -20,6 +20,7 @@ const Reports = require('../models/reports');
 
 // helpers
 const openOrClose = require('../helper/openOrClose');
+const fixUrl = require('../helper/fixUrl');
 
 const getObject = (data, req, res, showEditButton) => {
 
@@ -45,10 +46,10 @@ const getObject = (data, req, res, showEditButton) => {
 
 	const isOpen = openOrClose(data);
 
-
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
 		data: data,
+		absoluteWebsiteUrl: fixUrl(data.website),
 		isOpen: isOpen,
 		moment: moment,
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
@@ -224,7 +225,9 @@ router.get('/:slug/:id', (req, res, next) => {
 
 				Ads.findByIdAndUpdate(
 					ObjectId(_id),
-					{ $inc: { 'pageView': 1 } },
+					{
+						$inc: { 'pageView': 1 }
+					},
 					(err) => {
 						if (err)
 							throw new Error(err);
