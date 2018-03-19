@@ -37,8 +37,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				$scope.newEventForm.startDate = date;
 				$scope.newEventForm.startDateText = text;
 				$scope.$apply();
-				console.log($scope.newEventForm.startDate);
-				console.log($scope.newEventForm.startDate - 30);
 			},
 			formatter: {
 				date: dateFormat.date

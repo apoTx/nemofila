@@ -109,6 +109,40 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		});
 	});
 
+
+	function routeButton(controlDiv, map, lat, lng) {
+
+		// Set CSS for the control border.
+		var controlUI = document.createElement('div');
+		controlUI.style.backgroundColor = '#fff';
+		controlUI.style.border = '2px solid #fff';
+		controlUI.style.borderRadius = '3px';
+		controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+		controlUI.style.cursor = 'pointer';
+		controlUI.style.marginBottom = '22px';
+		controlUI.style.textAlign = 'center';
+		controlUI.title = 'Click to recenter the map';
+		controlDiv.appendChild(controlUI);
+
+		// Set CSS for the control interior.
+		var controlText = document.createElement('div');
+		controlText.style.color = 'rgb(25,25,25)';
+		controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+		controlText.style.fontSize = '16px';
+		controlText.style.lineHeight = '38px';
+		controlText.style.paddingLeft = '5px';
+		controlText.style.paddingRight = '5px';
+		controlText.innerHTML = 'Route';
+		controlUI.appendChild(controlText);
+
+		// Setup the click event listeners: simply set the map to Chicago.
+		controlUI.addEventListener('click', function() {
+			const coords = lat +','+ lng;
+			window.open('http://maps.google.com/maps?q=loc:'+ coords , '_blank');
+		});
+
+	}
+
 	/*eslint-disable*/
 	function initMap(lat, lng){
 		const geocoder = new google.maps.Geocoder();
@@ -124,6 +158,11 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			map: map,
 			title:'Drag me!'
 		});
+
+		var centerControlDiv = document.createElement('div');
+		var centerControl = new routeButton(centerControlDiv, map, lat, lng);
+		centerControlDiv.index = 1;
+		map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 	}
 	/*eslint-enable*/
 
