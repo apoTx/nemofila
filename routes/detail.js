@@ -244,27 +244,25 @@ router.get('/getSimilars', (req, res) => {
 	let findData;
 	/*eslint-enable*/
 
-	Ads.findById(adId, { status: 1 }, (err, result) => {
+	Ads.findOne(
+		{
+			'_id':ObjectId(adId),
+			status: 1
+		},  (err, result) => {
 
-		try {
+			try {
+				const categoryId = result.category.categoryId;
+				const location = result.place.formatted_address;
 
-			const categoryId = result.category.categoryId;
-			// const childCategoryId = result.category.categoryChildId;
-			const location = result.place.address_components[0].long_name;
+				findData = { 'category.categoryId': categoryId, 'place.formatted_address': location };
 
-			//if (childCategoryId === null){
-			findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
-			//}else{
-			//findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
-			//}
+				Ads.find(findData, (err, data) => {
+					res.json(data);
+				}).limit(8);
 
-			Ads.find(findData, (err, data) => {
-				res.json(data);
-			}).limit(8);
-
-		}catch(err){
-			console.log(err);
-		}
+			}catch(err){
+				console.log(err);
+			}
 
 	});
 });
