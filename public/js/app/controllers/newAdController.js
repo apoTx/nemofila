@@ -474,16 +474,34 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.onSubmitAd( files, id, false );
 			}
 
-			files.forEach((file) => {
+			files.forEach((file, key) => {
 				let title = Slug.slugify($scope.newAdForm.title);
 				let formatted_address = Slug.slugify($scope.newAdForm.place.formatted_address);
 
-				console.log(title, formatted_address);
+				let category = $scope.categories[$scope.newAdForm.category];
+				let categoryName = Slug.slugify(category.name);
+
+				let childCategoryName = '';
+				try{
+					childCategoryName = Slug.slugify(category.subCategories[$scope.newAdForm.categoryChild].name);
+				}catch (e){
+					// console.log(e);
+				}
 
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 
-				let photoName = title +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+				let number = (key + 1) % 3;
+
+				let photoName = '';
+				if(number === 1){
+					photoName = title +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+				}else if(number === 2){
+					photoName = categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+				}else {
+					photoName = childCategoryName +'-'+ categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+				}
+
 
 				if (!file.name) {
 					oldPhotos++;
