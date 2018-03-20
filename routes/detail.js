@@ -47,7 +47,7 @@ const getObject = (data, req, res, showEditButton) => {
 	const isOpen = openOrClose(data);
 
 	return {
-		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
+		title: data.title + ' ' + data.categoryObj.name + ','+  data.place.address_components[0].short_name,
 		data: data,
 		absoluteWebsiteUrl: data.website ? fixUrl(data.website) : '',
 		isOpen: isOpen,

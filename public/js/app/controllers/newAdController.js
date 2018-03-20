@@ -257,7 +257,10 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				},
 			},
 			onSuccess: () => {
-				$scope.next();
+				if (typeof $scope.newAdForm.place == 'object' && $scope.newAdForm.place)
+					$scope.next();
+				else
+					alert('Please select a location.');
 			}
 		});
 
