@@ -35,6 +35,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			if (latLng){
 				lat = latLng.lat;
 				lng = latLng.lng;
+				$scope.newAdForm.place.fullPlaceName = getFullPlaceName();
 			}else{
 
 				try{
@@ -48,7 +49,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			$scope.latLng = { lat, lng };
 
-			$scope.newAdForm.place.fullPlaceName = getFullPlaceName();
 
 			/*if((draggable || !elementId) && !previewPage){
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
