@@ -33,10 +33,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 60)
 		};
 
-		const endDateRange = {
-			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30),
-		};
-
 		$('#startDate').calendar({
 			type: 'date',
 			onChange: (date,text) => {
