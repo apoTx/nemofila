@@ -11,6 +11,12 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 	$(() => {
 
+		function addDays(date, days) {
+			const result = new Date(date);
+			result.setDate(result.getDate() + days);
+			return result;
+		}
+
 		const dateFormat = {
 			date:  (date) => {
 				if (!date) return '';
@@ -37,6 +43,9 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				$scope.newEventForm.startDate = date;
 				$scope.newEventForm.startDateText = text;
 				$scope.$apply();
+
+				console.log(date + 30);
+				endDate(addDays(date, 30));
 			},
 			formatter: {
 				date: dateFormat.date
@@ -46,18 +55,21 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			endCalendar: $('#endDate')
 		});
 
-		$('#endDate').calendar({
-			type: 'date',
-			onChange: (date,text) => {
-				$scope.newEventForm.endDate = date;
-				$scope.newEventForm.endDateText = text;
-			},
-			formatter: {
-				date: dateFormat.date
-			},
-			maxDate: endDateRange.maxDate,
-			startCalendar: $('#startDate')
-		});
+
+		function endDate(d) {
+			$('#endDate').calendar({
+				type: 'date',
+				onChange: (date,text) => {
+					$scope.newEventForm.endDate = date;
+					$scope.newEventForm.endDateText = text;
+				},
+				formatter: {
+					date: dateFormat.date
+				},
+				maxDate: d,
+				startCalendar: $('#startDate')
+			});
+		}
 
 		$('#newEventForm').form({
 			keyboardShortcuts: false,
