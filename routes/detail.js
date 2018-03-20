@@ -49,7 +49,7 @@ const getObject = (data, req, res, showEditButton) => {
 	return {
 		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
 		data: data,
-		absoluteWebsiteUrl: fixUrl(data.website),
+		absoluteWebsiteUrl: data.website,
 		isOpen: isOpen,
 		moment: moment,
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,

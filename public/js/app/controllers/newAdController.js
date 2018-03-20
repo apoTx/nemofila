@@ -28,6 +28,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			if((draggable || !elementId) && !previewPage){
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
+					console.log(location);
 					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_1');
 					const city_and_country = location.results[index].formatted_address;
 
