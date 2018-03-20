@@ -6,6 +6,27 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
+
+	function getCountry(place) {
+		for(let i = 0; i < place.address_components.length; i += 1) {
+			let addressObj = place.address_components[i];
+			for(let j = 0; j < addressObj.types.length; j += 1) {
+				if (addressObj.types[j] === 'country') {
+					// console.log(addressObj.types[j]); // confirm that this is 'country'
+					return addressObj.long_name; // confirm that this is the country name
+				}
+			}
+		}
+	}
+
+	function getFullPlaceName() {
+		const placeName = $scope.newAdForm.place.name;
+		const country = getCountry($scope.newAdForm.place);
+
+		const fullPlaceName = placeName +', '+ country;
+		return fullPlaceName;
+	}
+
 	/*eslint-disable-next-line*/
 	function initialize(position, latLng, zoom, elementId, customLat, customLng, draggable = true, previewPage = false) {
 		try{
@@ -26,6 +47,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 
 			$scope.latLng = { lat, lng };
+
+			$scope.newAdForm.place.fullPlaceName = getFullPlaceName();
 
 			/*if((draggable || !elementId) && !previewPage){
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
@@ -70,26 +93,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 				$scope.latLng = { lat, lng };
 
-
-				const service = new google.maps.places.PlacesService(map);
-
-				service.getDetails({
-					placeId: 'ChIJI0nDBVxO0xQRC3xd41VI_7I'
-				}, (place, status) => {
-					if (status === google.maps.places.PlacesServiceStatus.OK) {
-						console.log('asdas');
-						console.log(place);
-					}
-				});
-
-
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
+					console.log(location);
 					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_1');
 					const city_and_country = location.results[index].formatted_address;
 
 					const result = location.results[0];
 					result.formatted_address = city_and_country;
 					$scope.newAdForm.place = result;
+
 				});
 			});
 		}catch(e){

@@ -126,6 +126,9 @@ block content
                                         a {{ ad.category }}
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
+                                    .meta.margin-top-10(ng-init="locationName = ad.place.fullPlaceName ? ad.place.fullPlaceName : ad.locationName")
+                                        i.map.marker.alternate.icon
+                                        | {{ locationName | limitTo: 26 }}{{ locationName.length > 26 ? '...' : ''}}
 
                                 .extra.content(
                                         ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)"
@@ -137,16 +140,14 @@ block content
 
                                         span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
                                             .ui.green.horizontal.label #{i18n.__( "Open" )}
-                                    span.right.floated
-                                        i.map.marker.alternate.icon
-                                        | {{ ad.locationName | limitTo: 12 }}{{ ad.locationName.length > 12 ? '...' : ''}}
 
-                                    div.rateArea(ng-show="ad.rate")
+
+                                    div.rateArea(ng-show="ad.rate", style="display:inline-block")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 
-
-                                    .ui.green.horizontal.label(ng-if="ad.openNow") #{i18n.__("Open")}
-                                    .ui.horizontal.label(ng-if="!ad.openNow") #{i18n.__("Close")}
+                                    div.right.floated(style="display:inline-block")
+                                        .ui.green.horizontal.label(ng-if="ad.openNow") #{i18n.__("Open")}
+                                        .ui.horizontal.label(ng-if="!ad.openNow") #{i18n.__("Close")}
 
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader

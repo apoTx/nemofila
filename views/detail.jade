@@ -194,7 +194,7 @@ block content
 
             .ui.stackable.grid.adDetails
                 .eight.wide.column
-                    .active.section #{ place.formatted_address }
+                    .active.section #{ place.fullPlaceName ? place.fullPlaceName : place.formatted_address }
 
 
                     table.ui.definition.table
