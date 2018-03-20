@@ -35,7 +35,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			if (latLng){
 				lat = latLng.lat;
 				lng = latLng.lng;
-				$scope.newAdForm.place.fullPlaceName = getFullPlaceName();
+
 			}else{
 
 				try{
@@ -45,22 +45,27 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					lat = customLat;
 					lng = customLng;
 				}
+
+				if((draggable || !elementId) && !previewPage){
+					newAdFactory.getLocationDetail(lat, lng).then((location) => {
+						console.log(location);
+						const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_1');
+						const city_and_country = location.results[index].formatted_address;
+
+						const result = location.results[0];
+						result.formatted_address = city_and_country;
+						$scope.newAdForm.place = result;
+
+						$scope.newAdForm.place.fullPlaceName = getFullPlaceName();
+
+					});
+				}
 			}
 
 			$scope.latLng = { lat, lng };
 
 
-			/*if((draggable || !elementId) && !previewPage){
-				newAdFactory.getLocationDetail(lat, lng).then((location) => {
-					console.log(location);
-					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_1');
-					const city_and_country = location.results[index].formatted_address;
 
-					const result = location.results[0];
-					result.formatted_address = city_and_country;
-					$scope.newAdForm.place = result;
-				});
-			}*/
 
 			const myLatLng = new google.maps.LatLng(lat, lng);
 			const mapOptions = {
