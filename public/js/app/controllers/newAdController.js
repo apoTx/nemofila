@@ -7,7 +7,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};
 
 
-	function getCountry(place) {
+	/*function getCountry(place) {
 		for(let i = 0; i < place.address_components.length; i += 1) {
 			let addressObj = place.address_components[i];
 			for(let j = 0; j < addressObj.types.length; j += 1) {
@@ -19,7 +19,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	}
 
-	/*function getFullPlaceName() {
+	function getFullPlaceName() {
 		const placeName = $scope.newAdForm.place.name;
 		const country = getCountry($scope.newAdForm.place);
 
