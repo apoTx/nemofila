@@ -1,13 +1,12 @@
 .cropArea canvas{
     margin-top:0 !important;
     margin-left: 0!important;
+    display: block;
 }
 
 .cropArea {
-    background: #E4E4E4;
     overflow: hidden;
-    width:500px;
-    height:350px;
+    width:100%;
 }
 
 form .progress {
@@ -23,3 +22,4 @@ form .progress {
     background: orange;
     width: 0;
 }
+
