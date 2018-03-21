@@ -192,5 +192,9 @@
 	"Location": "Location",
 	"Events for This Ad": "Events for This Ad",
 	"Profile": "Profile",
-	"Edit Profile": "Edit Profile"
+	"Edit Profile": "Edit Profile",
+	"Profile Picture": "Profile Picture",
+	"Upload new picture": "Upload new picture",
+	"profile_edit_title": "profile_edit_title",
+	"profile_title": "profile_title"
 }

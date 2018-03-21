@@ -6,7 +6,7 @@ let requireLogin = require('../inc/requireLogin.js');
 /* GET users listing. */
 router.get('/', requireLogin, (req, res) => {
 	res.render( 'profile', {
-		title: 'Profile',
+		title: res.__('profile_title'),
 		amazon_base_url: config.amazon_s3.photo_base_url,
 		profile_locales: {
 			myAds: {
@@ -41,7 +41,9 @@ router.get('/', requireLogin, (req, res) => {
 });
 
 router.get('/edit', requireLogin, (req, res) => {
-	res.render('profileEdit', { });
+	res.render('profileEdit', {
+		title: res.__('profile_edit_title')
+	});
 });
 
 module.exports = router;

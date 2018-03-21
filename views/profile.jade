@@ -12,36 +12,11 @@ block content
         ng-controller="profileController",
         ng-init="init('#{ amazon_base_url }', '#{ JSON.stringify(profile_locales) }')"
     )
-        .ui.pointing.menu
-            a.item(
-                href="/profile#!/myads",
-                ng-class="{active: activetab=='myads'}"
-            )
-                | #{i18n.__("my_ads")}
-            a.item(
-                href="/profile#!/myevents",
-                ng-class="{active: activetab=='myevents'}"
-            )
-                | #{i18n.__( "My Events" )}
-            a.item(
-                href="/profile#!/messages",
-                ng-class="{active: activetab=='messages'}"
-            )
-                | #{i18n.__("messages")}
-            a.item(
-                href="/profile#!/myfavourites",
-                ng-class="{active: activetab=='myfavourites'}"
-            )
-                | #{i18n.__("favourites")}
 
-            a.item.right.floated(
-                href="/profile/edit",
-            )
-                | #{i18n.__("Edit Profile")}
+        include partials/profile/menu
 
         div.contentArea(ng-view='')
 
-    block subContent
 
 
 append javascripts
@@ -51,25 +26,25 @@ append javascripts
     script(src="https://checkout.stripe.com/checkout.js")
     script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
-    script(src="dist/js/app/services/profile/buyPowerFactory.min.js")
-    script(src="dist/js/app/controllers/profile/buyPowerController.min.js")
+    script(src="/dist/js/app/services/profile/buyPowerFactory.min.js")
+    script(src="/dist/js/app/controllers/profile/buyPowerController.min.js")
 
     // MyAds
-    script(src="dist/js/app/services/profile/myAdsFactory.min.js")
-    script(src="dist/js/app/controllers/profile/myAdsController.min.js")
+    script(src="/dist/js/app/services/profile/myAdsFactory.min.js")
+    script(src="/dist/js/app/controllers/profile/myAdsController.min.js")
 
     // MyEvents
-    script(src="dist/js/app/services/eventFactory.min.js")
-    script(src="dist/js/app/controllers/profile/myEventsController.min.js")
+    script(src="/dist/js/app/services/eventFactory.min.js")
+    script(src="/dist/js/app/controllers/profile/myEventsController.min.js")
 
     // Messages
     script(src="/dist/js/app/services/profile/myMessageFactory.min.js")
-    script(src="dist/js/app/controllers/profile/messagesController.min.js")
+    script(src="/dist/js/app/controllers/profile/messagesController.min.js")
 
     // MyFavourites
-    script(src="dist/js/app/services/profile/myFavouritesFactory.min.js")
-    script(src="dist/js/app/controllers/profile/myFavouritesController.min.js")
+    script(src="/dist/js/app/services/profile/myFavouritesFactory.min.js")
+    script(src="/dist/js/app/controllers/profile/myFavouritesController.min.js")
 
-    script(src="semantic/dist/components/dimmer.min.js")
-    script(src="semantic/dist/components/modal.min.js")
-    script(src="semantic/dist/components/transition.min.js")
+    script(src="/semantic/dist/components/dimmer.min.js")
+    script(src="/semantic/dist/components/modal.min.js")
+    script(src="/semantic/dist/components/transition.min.js")
