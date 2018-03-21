@@ -51,7 +51,6 @@ router.get('/edit', requireLogin, (req, res) => {
 	const userId = req.session.user._id;
 
 	Users.findById(userId, (err, data) => {
-		console.log(data);
 		res.render('profileEdit', {
 			title: res.__('profile_edit_title'),
 			user: data
