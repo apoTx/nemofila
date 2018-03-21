@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    .ui.main.container.subPage
+    .ui.main.container.subPage(ng-controller="profileEditController")
         include partials/profile/menu
 
         .ui.grid
@@ -12,6 +12,11 @@ block content
                 img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
 
                 div.margin-top-10.text-center
-                    .ui.button  #{i18n.__("Upload new picture")}
+                    .ui.button(ngf-select ng-model="picFile" accept="image/*")
+                        | #{i18n.__("Upload new picture")}
 
-appen block javascripts
+
+    include partials/modals/uploadProfilePicture
+
+block append javascripts
+    script(src="/dist/js/app/controllers/profileEditController.min.js")

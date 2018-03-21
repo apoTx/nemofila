@@ -6,121 +6,122 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 			.sidebar('toggle');
 	};
 
-	// SignUp form validation
-	$('#signUpForm').form({
-		keyboardShortcuts: false,
-		on: 'blur',
-		fields: {
-			name: {
-				identifier  : 'name',
-				rules: [{
-					type   : 'empty',
-					prompt : 'Please enter a name'
-				}]
-			},
-			surname: {
-				identifier  : 'surname',
-				rules: [
-					{
+	$(() => {
+		// SignUp form validation
+		$('#signUpForm').form({
+			keyboardShortcuts: false,
+			on: 'blur',
+			fields: {
+				name: {
+					identifier  : 'name',
+					rules: [{
 						type   : 'empty',
-						prompt : 'Please enter a surname'
-					}
-				]
-			},
-			email: {
-				identifier  : 'email',
-				rules: [
-					{
-						type   : 'email',
-						prompt : 'Please enter a valid e-mail'
-					}
-				]
-			},
-			number: {
-				identifier  : 'number',
-				rules: [
-					{
-						type   : 'number',
-						prompt : 'Please enter a valid number'
-					}
-				]
-			},
-			password: {
-				identifier  : 'password',
-				rules: [
-					{
-						type   : 'empty',
-						prompt : 'Please enter a valid password'
-					}
-				]
-			},
-			passwordConfirm: {
-				identifier: 'passwordConfirm',
-				rules: [
-					{
-						type: 'match[password]',
-						prompt: 'Mismatched Password'
+						prompt : 'Please enter a name'
 					}]
-			}
-		},
-		onSuccess: () => {
-			$scope.signUp();
-		}
-	});
-
-	// SignIn form validation
-	$('#signInForm').form({
-		keyboardShortcuts: false,
-		on: 'blur',
-		fields: {
-			email: {
-				identifier  : 'email',
-				rules: [
-					{
-						type   : 'email',
-						prompt : 'Please enter a valid e-mail'
-					}
-				]
+				},
+				surname: {
+					identifier  : 'surname',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a surname'
+						}
+					]
+				},
+				email: {
+					identifier  : 'email',
+					rules: [
+						{
+							type   : 'email',
+							prompt : 'Please enter a valid e-mail'
+						}
+					]
+				},
+				number: {
+					identifier  : 'number',
+					rules: [
+						{
+							type   : 'number',
+							prompt : 'Please enter a valid number'
+						}
+					]
+				},
+				password: {
+					identifier  : 'password',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a valid password'
+						}
+					]
+				},
+				passwordConfirm: {
+					identifier: 'passwordConfirm',
+					rules: [
+						{
+							type: 'match[password]',
+							prompt: 'Mismatched Password'
+						}]
+				}
 			},
-			pw: {
-				identifier  : 'pw',
-				rules: [
-					{
-						type   : 'empty',
-						prompt : 'Please enter a password'
-					}
-				]
+			onSuccess: () => {
+				$scope.signUp();
 			}
-		},
-		onSuccess: () => {
-			$scope.signIn();
-		},
-		onInvalid:() => {
-			$scope.signInErr = null;
-		},
-	});
+		});
 
-	// Forgot form validation
-	$('#forgotForm').form( {
-		keyboardShortcuts: false,
-		on: 'blur',
-		closable: false,
-		fields: {
-			name: {
-				identifier: 'email',
-				rules: [{
-					type: 'email',
-					prompt: 'Please enter a valid e-mail'
-				}]
+		// SignIn form validation
+		$('#signInForm').form({
+			keyboardShortcuts: false,
+			on: 'blur',
+			fields: {
+				email: {
+					identifier  : 'email',
+					rules: [
+						{
+							type   : 'email',
+							prompt : 'Please enter a valid e-mail'
+						}
+					]
+				},
+				pw: {
+					identifier  : 'pw',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter a password'
+						}
+					]
+				}
 			},
-		},
-		onSuccess: () => {
-			$scope.forgotPassword();
-		}
-	});
+			onSuccess: () => {
+				$scope.signIn();
+			},
+			onInvalid:() => {
+				$scope.signInErr = null;
+			},
+		});
 
-	// Forgot form validation
-	$('#subscribeForm').form( {
+		// Forgot form validation
+		$('#forgotForm').form( {
+			keyboardShortcuts: false,
+			on: 'blur',
+			closable: false,
+			fields: {
+				name: {
+					identifier: 'email',
+					rules: [{
+						type: 'email',
+						prompt: 'Please enter a valid e-mail'
+					}]
+				},
+			},
+			onSuccess: () => {
+				$scope.forgotPassword();
+			}
+		});
+
+		// Forgot form validation
+		$('#subscribeForm').form( {
 		keyboardShortcuts: false,
 		on: 'blur',
 		closable: false,
@@ -138,7 +139,6 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		}
 	});
 
-	$(() => {
 		$('#signInModal,#signUpModal, #forgotModal').modal({
 			onShow: () => {
 				$('body').addClass('ios11-input-bug-fixer');
@@ -155,7 +155,6 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		}
 		$('#signUpModal').modal('show');
 	};
-
 
 	$scope.openSignInModal = (closeOther) => {
 		if (closeOther){

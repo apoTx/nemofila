@@ -1,10 +1,10 @@
-.ui.modal.tiny#subscribeModal
+.ui.modal.tiny#uploadProfilePictureModal
     i.close.icon
     .header
-        | #{i18n.__("Subscribe")}
+        | #{i18n.__("Upload Profile Picture")}
     .content
-        div(ng-show="!emailSended" ng-cloak)
-            form.ui.form#subscribeForm
+        div
+            form.ui.form#uploadProfilePictureForm
                 .fields.ui.grid
                     .field.sixteen.wide.column.no-padding-top.no-padding-bottom
                         //label E-mail
@@ -13,17 +13,10 @@
                 .backendErr.ui.red.message(ng-if="subscribeErr")
                     | {{ subscribeErr }}
 
-        div(ng-show="successSubscribe" ng-cloak)
-            .ui.success.message
-                .header
-                    | #{i18n.__("thankyou")}
-                p
-                    | #{i18n.__("added_mail_description")}
-
 
     .actions
         button.ui.right.icon.button.primary(
-        form="subscribeForm",
-        ng-class="subscribeBtnLoading ? 'loading disabled' : '' "
+            form="uploadProfilePictureForm",
+            ng-class="subscribeBtnLoading ? 'loading disabled' : '' "
         )
             | Submit
