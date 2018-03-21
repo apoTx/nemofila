@@ -20,6 +20,7 @@ passport.use(new GoogleStrategy({
 			surname: data.name.familyName,
 			email: data.emails[0].value,
 			verify: true,
+			profilePictureType: 'social',
 			'social.id': data.id,
 			'social.link': data.url,
 			'social.provider': 'Google',

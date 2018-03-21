@@ -1,7 +1,15 @@
-let express = require('express');
-let router = express.Router();
-let config = require('../../config/env.json')[process.env.NODE_ENV || 'development'];
-let requireLogin = require('../inc/requireLogin.js');
+const express = require('express');
+const router = express.Router();
+
+// config
+const config = require('../../config/env.json')[process.env.NODE_ENV || 'development'];
+const requireLogin = require('../inc/requireLogin.js');
+
+// helpers
+const getProfilePicture = require('../../helper/getProfilePicture.js');
+
+// Models
+const Users = require('../../models/users');
 
 /* GET users listing. */
 router.get('/', requireLogin, (req, res) => {
@@ -41,9 +49,18 @@ router.get('/', requireLogin, (req, res) => {
 });
 
 router.get('/edit', requireLogin, (req, res) => {
-	res.render('profileEdit', {
-		title: res.__('profile_edit_title')
+	const userId = req.session.user._id;
+
+	Users.findById(userId, (err, data) => {
+		console.log(data);
+		res.render('profileEdit', {
+			title: res.__('profile_edit_title'),
+			user: data,
+			profilePicture: data.profilePictureType == 'social' ? getProfilePicture(data.social.provider, data.social.id) : data.profilePictureUrl
+		});
 	});
+
+
 });
 
 module.exports = router;

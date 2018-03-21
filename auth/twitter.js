@@ -24,13 +24,16 @@ passport.use(new TwitterStrategy({
 },
 	((accessToken, refreshToken, profile, done) => {
 		let data = profile._json;
+		console.log(data);
 		User.findOrCreate({
 			'social.id': data.id
 		}, {
 			name: data.name,
 			email: data.email,
 			verify: true,
+			profilePictureType: 'social',
 			'social.id': data.id,
+			'social.screen_name': data.screen_name,
 			'social.link': data.url,
 			'social.provider': 'Twitter',
 		}, (err, user) => {

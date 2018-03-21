@@ -19,6 +19,7 @@ passport.use(new FacebookStrategy({
 			email: profile._json.email ? profile._json.email : profile.id,
 			surname: profile._json.last_name,
 			verify: true,
+			profilePictureType: 'social',
 			'social.id': profile.id,
 			'social.link': profile.profileUrl,
 			'social.provider': 'Facebook',
