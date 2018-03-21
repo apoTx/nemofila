@@ -1,8 +1,14 @@
-let passport = require('passport')
+const passport = require('passport')
 	, TwitterStrategy = require('passport-twitter').Strategy;
-let User = require('../models/users');
 
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
+// Models
+const User = require('../models/users');
+
+// config
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
+
+// helpers
+const getProfilePicture = require('../helper/getProfilePicture.js');
 
 passport.serializeUser((user, fn) => {
 	fn(null, user);
@@ -31,7 +37,7 @@ passport.use(new TwitterStrategy({
 			name: data.name,
 			email: data.email,
 			verify: true,
-			profilePictureType: 'social',
+			profilePictureUrl: getProfilePicture('Twitter', false, data.screen_name),
 			'social.id': data.id,
 			'social.screen_name': data.screen_name,
 			'social.link': data.url,

@@ -6,7 +6,6 @@ const config = require('../../config/env.json')[process.env.NODE_ENV || 'develop
 const requireLogin = require('../inc/requireLogin.js');
 
 // helpers
-const getProfilePicture = require('../../helper/getProfilePicture.js');
 
 // Models
 const Users = require('../../models/users');
@@ -55,8 +54,7 @@ router.get('/edit', requireLogin, (req, res) => {
 		console.log(data);
 		res.render('profileEdit', {
 			title: res.__('profile_edit_title'),
-			user: data,
-			profilePicture: data.profilePictureType == 'social' ? getProfilePicture(data.social.provider, data.social.id) : data.profilePictureUrl
+			user: data
 		});
 	});
 
