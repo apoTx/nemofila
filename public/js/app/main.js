@@ -14,6 +14,6 @@ let app = angular.module('app',[
 ]);
 
 app.value('config', {
-	's3_upload_url': 'https://easyad-static.s3-eu-central-1.amazonaws.com'
+	's3_upload_url': 'https://easyad-static.s3-eu-central-1.amazonaws.com',
 });
 /*eslint-enable */

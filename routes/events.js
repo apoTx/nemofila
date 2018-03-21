@@ -10,6 +10,8 @@ const Events = require('../models/events');
 
 // settings
 const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const settings = require('../config/settings.json');
+
 const verifyRecaptcha = require('../helper/recaptcha');
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -23,7 +25,7 @@ router.get( '/', ( req, res) => {
 });
 
 router.get( '/new/:adId', ( req, res) => {
-	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
+	request(settings.s3_upload_signature_service_url, (error, response, body) => {
 		res.render( 'new-event', {
 			title: res.__('new-event-page-title'),
 			userExists: !!req.session.user,

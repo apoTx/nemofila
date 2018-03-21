@@ -9,6 +9,7 @@ const router = express.Router();
 
 // settings
 const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const settings = require('../config/settings.json');
 
 // Models
 const Ads = require('../models/ads');
@@ -83,8 +84,7 @@ router.get('/:id?',  (req, res, next) => {
 	}
 
 	function render () {
-
-		request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
+		request(settings.s3_upload_signature_service_url, (error, response, body) => {
 			res.render( 'newAd', {
 				title: 'New Ad',
 				userExists: req.session.user ? true : false,
@@ -95,7 +95,6 @@ router.get('/:id?',  (req, res, next) => {
 			});
 		});
 	}
-
 });
 
 router.post('/create', requireLogin, (req, res) => {
