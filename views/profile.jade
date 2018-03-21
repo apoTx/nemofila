@@ -34,6 +34,12 @@ block content
             )
                 | #{i18n.__("favourites")}
 
+            a.item.right.floated(
+                href="#!profileEdit",
+                ng-class="{active: activetab=='profileEdit'}"
+            )
+                | #{i18n.__("Profile")}
+
         div.contentArea(ng-view='')
 
 
@@ -62,6 +68,10 @@ append javascripts
     // MyFavourites
     script(src="dist/js/app/services/profile/myFavouritesFactory.min.js")
     script(src="dist/js/app/controllers/profile/myFavouritesController.min.js")
+
+    // Edit
+    script(src="dist/js/app/services/profile/profileEditFactory.min.js")
+    script(src="dist/js/app/controllers/profile/profileEditController.min.js")
 
     script(src="semantic/dist/components/dimmer.min.js")
     script(src="semantic/dist/components/modal.min.js")
