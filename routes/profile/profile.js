@@ -40,4 +40,8 @@ router.get('/', requireLogin, (req, res) => {
 	});
 });
 
+router.get('/edit', requireLogin, (req, res) => {
+	res.render('profileEdit', { });
+});
+
 module.exports = router;

@@ -50,10 +50,6 @@ app.config(['$routeProvider', ($routeProvider) => {
 			templateUrl : 'partials/profile/myFavourites.jade',
 			controller: 'myFavouritesController'
 		})
-		.when('/profileEdit', {
-			templateUrl : 'partials/profile/profileEdit.jade',
-			controller: 'profileEditController'
-		})
 		.otherwise({
 			redirectTo: '/myads'
 		});
