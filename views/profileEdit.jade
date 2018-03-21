@@ -1,5 +1,9 @@
 extends layout
 
+block append stylesheets
+    link(rel="stylesheet", href="/ng-img-crop/compile/minified/ng-img-crop.css")
+    link(rel="stylesheet", href="/dist/css/editProfile.css")
+
 block content
     .ui.main.container.subPage(ng-controller="profileEditController")
         include partials/profile/menu
@@ -12,11 +16,15 @@ block content
                 img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
 
                 div.margin-top-10.text-center
-                    .ui.button(ngf-select ng-model="picFile" accept="image/*")
+                    .ui.button(
+                        ngf-select="onPhotoSelect()",
+                        ng-model='picFile',
+                        accept='image/*'
+                    )
                         | #{i18n.__("Upload new picture")}
 
 
-    include partials/modals/uploadProfilePicture
+        include partials/modals/uploadProfilePicture
 
 block append javascripts
     script(src="/dist/js/app/controllers/profileEditController.min.js")

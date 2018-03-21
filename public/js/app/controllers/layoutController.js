@@ -122,22 +122,22 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 
 		// Forgot form validation
 		$('#subscribeForm').form( {
-		keyboardShortcuts: false,
-		on: 'blur',
-		closable: false,
-		fields: {
-			name: {
-				identifier: 'email',
-				rules: [{
-					type: 'email',
-					prompt: 'Please enter a valid e-mail'
-				}]
+			keyboardShortcuts: false,
+			on: 'blur',
+			closable: false,
+			fields: {
+				name: {
+					identifier: 'email',
+					rules: [{
+						type: 'email',
+						prompt: 'Please enter a valid e-mail'
+					}]
+				},
 			},
-		},
-		onSuccess: () => {
-			$scope.subscribe();
-		}
-	});
+			onSuccess: () => {
+				$scope.subscribe();
+			}
+		});
 
 		$('#signInModal,#signUpModal, #forgotModal').modal({
 			onShow: () => {

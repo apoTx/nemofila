@@ -2,6 +2,7 @@
 let app = angular.module('app',[
 	'ngRoute',
 	'ngFileUpload',
+	'ngImgCrop',
 	'angularMoment',
 	'thatisuday.ng-image-gallery',
 	'ngWig',
