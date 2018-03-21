@@ -5,8 +5,6 @@ const router = express.Router();
 const config = require('../../config/env.json')[process.env.NODE_ENV || 'development'];
 const requireLogin = require('../inc/requireLogin.js');
 
-// helpers
-
 // Models
 const Users = require('../../models/users');
 
@@ -51,13 +49,12 @@ router.get('/edit', requireLogin, (req, res) => {
 	const userId = req.session.user._id;
 
 	Users.findById(userId, (err, data) => {
+		console.log(data);
 		res.render('profileEdit', {
 			title: res.__('profile_edit_title'),
-			user: data
+			user: data,
 		});
 	});
-
-
 });
 
 module.exports = router;
