@@ -15,14 +15,12 @@
             input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
             input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
 
-            .ui.tiny.stacked.segment
+            div
                 .text-center
                     .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
                         .ui.button
                             i.upload.icon
                             |  #{ i18n.__("upload_photos") }
-                        a.ui.basic.label
-                            | {{ profilePhotoForm.files.length > 0 ? profilePhotoForm.files.length : '0'  }}
                     input(
                         type='file',
                         style="width:30%"

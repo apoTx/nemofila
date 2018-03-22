@@ -46,6 +46,7 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 			}).then((response) => {
 				$scope.result = response.data;
 				$scope.uploading = false;
+				console.log(response);
 
 			}, (response) => {
 				if (response.status > 0) {
