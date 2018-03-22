@@ -18,7 +18,7 @@ block content
         div(ng-if="!adSaveComplete", ng-cloak)
 
             div#adInformation
-                form.ui.form.fluid#newAdForm
+                form.ui.form.fluid#profilePhotoForm
                     input(type='hidden', name='Content-Type', value='')
                     input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
                     input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
@@ -37,12 +37,12 @@ block content
                                     i.upload.icon
                                     |  #{ i18n.__("upload_photos") }
                                 a.ui.basic.label
-                                    | {{ newAdForm.files.length > 0 ? newAdForm.files.length : '0'  }}
+                                    | {{ profilePhotoForm.files.length > 0 ? profilePhotoForm.files.length : '0'  }}
                             input(
                                 type='file',
                                 style="width:30%"
                                 ngf-select='',
-                                ng-model='newAdForm.files',
+                                ng-model='profilePhotoForm.files',
                                 name='photos',
                                 class='hidden'
                                 ngf-fix-orientation="true",
@@ -63,7 +63,7 @@ block content
                                 | #{ i18n.__("photo_size_limit") }
 
                         .ui.four.stackable.cards
-                            .card.photoList(ng-repeat='f in newAdForm.files')
+                            .card.photoList(ng-repeat='f in profilePhotoForm.files')
                                 .image.photoListImage
                                     a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
                                         i.bookmark.icon.orange

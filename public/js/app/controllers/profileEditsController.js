@@ -1,11 +1,11 @@
 app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config', 'Slug', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config, Slug) => {
 
 	// New Ad Form
-	$scope.newAdForm = {};
+	$scope.profilePhotoForm = {};
 
 	$scope.uploadAndSaveMongo = (id) => {
-		if($scope.newAdForm.files && $scope.newAdForm.files.length > 0){
-			$scope.uploadFiles($scope.newAdForm.files, id);
+		if($scope.profilePhotoForm.files && $scope.profilePhotoForm.files.length > 0){
+			$scope.uploadFiles($scope.profilePhotoForm.files, id);
 		}
 	};
 
@@ -20,7 +20,6 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 	}
 
 	$scope.uploading = false;
-
 	$scope.uploadFiles = (files, id) => {
 		$scope.uploading = true;
 		if (files && files.length) {
