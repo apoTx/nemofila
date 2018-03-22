@@ -1,4 +1,4 @@
-app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', 'Slug', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config, Slug) => {
+app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', 'Slug', 'guidFactory', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config, Slug, guidFactory) => {
 
 	// New Event Form
 	$scope.newEventForm = {};
@@ -239,16 +239,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		}
 	};
 
-	function guid() {
-		function s4() {
-			return Math.floor((1 + Math.random()) * 0x10000)
-				.toString(16)
-				.substring(1);
-		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
-
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 	$scope.photos = [];
@@ -279,7 +269,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 				let altTag = title +','+ formatted_address +','+ categoryName;
-				let photoName = title +'-'+ formatted_address +'-'+ categoryName +'-'+ guid() +'.'+ fileExtension;
+				let photoName = title +'-'+ formatted_address +'-'+ categoryName +'-'+ guidFactory.generateGuid() +'.'+ fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
