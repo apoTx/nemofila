@@ -1,8 +1,7 @@
-app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'config', 'profileEditFactory', ($scope, Upload, $timeout, $http, $window, config, profileEditFactory) => {
+app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'config', 'profileEditFactory', 'guidFactory', ($scope, Upload, $timeout, $http, $window, config, profileEditFactory, guidFactory) => {
 
 	// New Ad Form
 	$scope.profilePhotoForm = {};
-
 
 	$scope.init = (photo) => {
 		$scope.profilePhotoForm.photo = photo;
@@ -10,40 +9,32 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 
 	$scope.uploadAndSaveMongo = (croppedDataUrl, name) => {
 		if($scope.profilePhotoForm.files){
-			$scope.uploadFiles(croppedDataUrl, name);
+			profileEditFactory.get_s3_signature().then(data => {
+				$scope.uploadFiles(croppedDataUrl, name, data.inputs);
+			});
 		}
 	};
 
-	function guid() {
-		function s4() {
-			return Math.floor((1 + Math.random()) * 0x10000)
-				.toString(16)
-				.substring(1);
-		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
-
 	$scope.uploading = false;
-	$scope.uploadFiles = (file, name) => {
+	$scope.uploadFiles = (file, name, inputs) => {
 		$scope.uploading = true;
 		if (file) {
 			let extensionData = name.split('.');
 			let fileExtension = extensionData[extensionData.length - 1];
 
-			let photoName = guid() +'.'+ fileExtension;
+			let photoName = guidFactory.generateGuid() +'.'+ fileExtension;
 
 			Upload.upload({
 				url: config.s3_upload_url,
 				method: 'POST',
 				data: {
 					key: photoName, // the key to store the file on S3, could be file name or customized
-					acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
-					policy: $scope.policy, // base64-encoded json policy (see article below)
-					'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
-					'X-amz-credential': $scope.x_amz_credential,
-					'X-amz-algorithm': $scope.X_amz_algorithm,
-					'X-amz-date': $scope.X_amz_date,
+					acl: inputs.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
+					policy: inputs.policy, // base64-encoded json policy (see article below)
+					'X-amz-signature': inputs['X_amz_signature'], // base64-encoded signature based on policy string (see article below)
+					'X-amz-credential': inputs['x_amz_credential'],
+					'X-amz-algorithm': inputs['X_amz_algorithm'],
+					'X-amz-date': inputs['X_amz_date'],
 					'Content-Type': file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
 					filename: photoName, // this is needed for Flash polyfill IE8-9
 					file: Upload.dataUrltoBlob(file, photoName),

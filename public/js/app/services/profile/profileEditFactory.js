@@ -26,7 +26,7 @@ app.factory('profileEditFactory', ['$http','config', ($http, config) => {
 	};
 
 	return {
-		get_s3_signature,
+		get_s3_signature: get_s3_signature,
 		updatePhotoUrl: updatePhotoUrl
 	};
 }]);
