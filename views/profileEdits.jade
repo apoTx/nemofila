@@ -39,7 +39,7 @@ block content
                                 ngf-pattern="'image/*'",
                                 ngf-accept="'image/*'",
                                 ngf-max-size='4MB',
-                                ngf-multiple='true',
+                                ngf-multiple='false',
                                 ngf-keep='true',
                                 ngf-keep-distinct='true',
                                 ngf-max-files="10",
@@ -51,6 +51,11 @@ block content
                         .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
                             .header
                                 | #{ i18n.__("photo_size_limit") }
+
+                        .cropArea(ngf-drop='', ng-model='profilePhotoForm.files[0]', ngf-pattern='image/*')
+                            img-crop(image='profilePhotoForm.files[0]  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                        div
+                            img(ng-src='{{croppedDataUrl}}')
 
                         .ui.four.stackable.cards
                             .card.photoList(ng-repeat='f in profilePhotoForm.files')
