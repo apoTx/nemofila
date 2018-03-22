@@ -17,7 +17,7 @@ block content
     div.ui.main.container.subPage(ng-controller="profileEditsController")
         div(ng-if="!adSaveComplete", ng-cloak)
 
-            div#adInformation(ng-show="steps.informations", ng-cloak)
+            div#adInformation
                 form.ui.form.fluid#newAdForm
                     input(type='hidden', name='Content-Type', value='')
                     input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
@@ -41,7 +41,7 @@ block content
                             input(
                                 type='file',
                                 style="width:30%"
-                                ngf-select='onPhotoSelect()',
+                                ngf-select='',
                                 ng-model='newAdForm.files',
                                 name='photos',
                                 class='hidden'
@@ -85,13 +85,6 @@ block content
                                 )
                                     i.remove.icon.
                                     |  #{ i18n.__("remove") }
-
-
-                                .ui.two.buttons(ng-if="!f.showcase", ng-cloak)
-                                    .ui.bottom.attached.button.noRadius(ng-click="onDeletePhoto($index)")
-                                        i.remove.icon.margin-auto
-                                    .ui.bottom.attached.button.noRadius(ng-click="onSelectShowCase($index)")
-                                        i.bookmark.icon.margin-auto
 
 
                             | {{errorMsg}}

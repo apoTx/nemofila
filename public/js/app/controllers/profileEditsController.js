@@ -2,99 +2,10 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 
 	// New Ad Form
 	$scope.newAdForm = {};
-	$scope.newAdForm.anotherContact =  { };
-
-	$scope.steps = {};
-	$scope.steps.informations = true;
-	$scope.steps.power = false;
-	$scope.steps.preview = false;
-
-	$scope.powerNumber = '0';
-	$scope.buyPowerStatus = false;
-	$scope.buyPowerLoader = false;
-
-	$scope.newAdForm.place = null;
-
-	$scope.autocompleteOptions = {
-		types: ['(cities)']
-	};
-
-
-	$scope.next = () => {
-		/*if ( !$scope.isEdit )
-			$scope.powerTab();
-		else
-			$scope.previewTab();
-		*/
-		$scope.previewTab();
-		$scope.$apply();
-	};
-
-	$scope.back = () => {
-		/*if ( !$scope.isEdit )
-			$scope.powerTab();
-		else
-			$scope.adInformationTab();*/
-
-		$scope.adInformationTab();
-	};
-
-	$scope.uploadedFiles = [];
-	$scope.getAd = (id, callback) => {
-		$scope.loadingBufferData = true;
-		$http( {
-			url: '/newAd/getEditAd/' + id,
-			method: 'GET',
-		}).then( (response) => {
-
-			$scope.newAdForm.title = response.data.title || '';
-			$scope.newAdForm.description = response.data.description || '';
-			$scope.newAdForm.description2 = response.data.description2 || '';
-			$scope.newAdForm.phone = response.data.phone || '';
-			$scope.newAdForm.mobile_phone = response.data.mobile_phone || '';
-			$scope.newAdForm.address = response.data.address || '';
-			$scope.newAdForm.website = response.data.website || '';
-			$scope.newAdForm.anotherContact = response.data.anotherContact;
-			$scope.newAdForm.place = response.data.place;
-			$scope.newAdForm.workTimes = response.data.workTimes;
-
-			if (!$scope.newAdForm.anotherContact){
-				$scope.newAdForm.anotherContact =  { };
-				$scope.newAdForm.anotherContact.checked = false;
-			}
-
-			try{
-				$scope.newAdForm.files = response.data.photos || '';
-				$scope.uploadedFiles = $scope.newAdForm.files;
-				$scope.newAdForm.showcaseIndex = response.data.photoShowcaseIndex;
-			}catch (e){
-				$scope.newAdForm.files = [];
-			}
-
-			let category = response.data.category;
-			setTimeout(() => {
-				$scope.newAdForm.category = (($scope.categories).findIndex(x => String(x._id) === String(category.categoryId))).toString();
-				$scope.newAdForm.categoryChild = (($scope.categories[$scope.newAdForm.category].subCategories).findIndex(x => String(x._id) === String(category.categoryChildId))).toString();
-
-				/*$scope.newAdForm.country = (($scope.countries).findIndex(x => String(x._id) === String(country.countryId))).toString();
-				$scope.newAdForm.city = (($scope.countries[$scope.newAdForm.country].cities).findIndex(x => String(x._id) === String(country.cityId))).toString();
-				$scope.newAdForm.district = (($scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts).findIndex(x => String(x._id) === String(country.districtId))).toString();*/
-			});
-
-			$scope.loadingBufferData = false;
-
-			callback();
-		}, () => { // optional
-			console.log( 'fail' );
-			$scope.loadingBufferData = false;
-		});
-	};
 
 	$scope.uploadAndSaveMongo = (id) => {
 		if($scope.newAdForm.files && $scope.newAdForm.files.length > 0){
 			$scope.uploadFiles($scope.newAdForm.files, id);
-		} else {
-			$scope.onSubmitAd( null, id, false );
 		}
 	};
 
@@ -150,18 +61,6 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 						evt.loaded / evt.total));
 				});
 			}); // foreach
-		}
-	};
-
-
-	$scope.newAdForm.showcaseIndex = 0;
-	$scope.onPhotoSelect = () => {
-		if ($scope.isEdit){
-			if ($scope.uploadedFiles < 1)
-				$scope.newAdForm.files[0].showcase = true;
-		}else{
-			if ($scope.newAdForm.files.length > 0)
-				$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = true;
 		}
 	};
 
