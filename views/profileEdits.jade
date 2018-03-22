@@ -68,8 +68,8 @@ block content
                                         class="upload-photo-thumb"
                                     )
 
-                                    span.progress(ng-hide="f.progressFinish", ng-if="f.progress >= 0")
-                                        div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
+                                    span.progress(ng-show="uploading", ng-if="progress >= 0")
+                                        div(style='width:{{progress}}%', ng-bind="progress + '%'")
 
 
                             | {{errorMsg}}

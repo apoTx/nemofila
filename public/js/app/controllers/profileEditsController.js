@@ -23,8 +23,6 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 	$scope.uploadFiles = (file, name) => {
 		$scope.uploading = true;
 		if (file) {
-			console.log(file);
-			console.log(file.name);
 			let extensionData = name.split('.');
 			let fileExtension = extensionData[extensionData.length - 1];
 
@@ -54,7 +52,7 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 					$scope.errorMsg = response.status + ': ' + response.data;
 				}
 			}, (evt) => {
-				file.progress = Math.min(100, parseInt(100.0 *
+				$scope.progress = Math.min(100, parseInt(100.0 *
 					evt.loaded / evt.total));
 			});
 		}
