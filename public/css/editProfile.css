@@ -6,7 +6,7 @@
 
 .cropArea {
     overflow: hidden;
-    width:100%;
+    width:500px;
 }
 
 form .progress-profile {

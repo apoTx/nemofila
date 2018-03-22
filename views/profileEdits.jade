@@ -1,6 +1,7 @@
 extends layout
 
 append stylesheets
+    link(rel='stylesheet', type='text/css', href='/dist/css/editProfile.css')
 
 block content
 
@@ -56,23 +57,12 @@ block content
                         div
                             img(ng-src='{{croppedDataUrl}}')
 
-                        .ui.four.stackable.cards
-                            .card.photoList(ng-repeat='f in profilePhotoForm.files')
-                                .image.photoListImage
-                                    a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
-                                        i.bookmark.icon.orange
-                                    img(
-                                        ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
-                                        ngf-size="{width:200, height:200, quality:0.6}",
-                                        ng-src="/img/spinner.gif",
-                                        class="upload-photo-thumb"
-                                    )
 
-                                    span.progress(ng-show="uploading", ng-if="progress >= 0")
-                                        div(style='width:{{progress}}%', ng-bind="progress + '%'")
+                        span.progress-profile(ng-show="uploading", ng-if="progress >= 0")
+                            div(style='width:{{progress}}%', ng-bind="progress + '%'")
 
 
-                            | {{errorMsg}}
+                        | {{errorMsg}}
 
 
                     .ui.error.message
