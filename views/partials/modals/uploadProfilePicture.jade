@@ -17,10 +17,9 @@
 
             div
                 .text-center
-                    .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
-                        .ui.button
-                            i.upload.icon
-                            |  #{ i18n.__("upload_photos") }
+                    .ui.button(tabindex='0', ng-click='triggerUploadWindow()')
+                        i.upload.icon
+                        |  #{ i18n.__("upload_photos") }
                     input(
                         type='file',
                         style="width:30%"
@@ -36,7 +35,7 @@
                         ngf-keep='true',
                         ngf-keep-distinct='true',
                         ngf-model-invalid="invalidFiles",
-                        ngf-resize="{ quality: .7 }"
+                        ngf-resize="{ quality: 1 }"
                     )
 
                 .clearfix &nbsp;
@@ -44,10 +43,13 @@
                     .header
                         | #{ i18n.__("photo_size_limit") }
 
-                .cropArea(ngf-drop='', ng-model='profilePhotoForm.files[0]', ngf-pattern='image/*')
-                    img-crop(image='profilePhotoForm.files[0]  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
-                div
-                    img(ng-src='{{croppedDataUrl}}')
+
+                .ui.grid.stackable
+                    .eight.wide.column
+                        .cropArea(ngf-drop='', ng-model='profilePhotoForm.files[0]', ngf-pattern='image/*')
+                            img-crop(image='profilePhotoForm.files[0]  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                    .eight.wide.column
+                        img(ng-src='{{croppedDataUrl}}')
 
 
                 span.progress-profile(ng-show="uploading", ng-if="progress >= 0")

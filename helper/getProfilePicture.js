@@ -1,5 +1,3 @@
-const request = require('request');
-
 function getProfilePicture(provider, id, username) {
 	let url;
 	if (provider === 'Facebook'){
