@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config', 'Slug', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config, Slug) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config', 'Slug', 'guidFactory', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config, Slug, guidFactory) => {
 
 	$scope.mapLoading = false;
 	$scope.locate = () => {
@@ -475,16 +475,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-	function guid() {
-		function s4() {
-			return Math.floor((1 + Math.random()) * 0x10000)
-				.toString(16)
-				.substring(1);
-		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
-
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 	$scope.photos = [];
@@ -525,13 +515,13 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				let altTag = '';
 
 				if(number === 1){
-					photoName = title +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+					photoName = title +'-'+ formatted_address +'-'+ guidFactory.generateGuid() + '.' + fileExtension;
 					altTag = title + ',' + formatted_address + ' - nemofila';
 				}else if(number === 2){
-					photoName = categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+					photoName = categoryName +'-'+ formatted_address +'-'+ guidFactory.generateGuid() + '.' + fileExtension;
 					altTag = title + ',' + categoryName +','+ formatted_address;
 				}else {
-					photoName = childCategoryName +'-'+ categoryName +'-'+ formatted_address +'-'+ guid() + '.' + fileExtension;
+					photoName = childCategoryName +'-'+ categoryName +'-'+ formatted_address +'-'+ guidFactory.generateGuid() + '.' + fileExtension;
 					altTag = title +','+ categoryName +','+ formatted_address;
 				}
 
