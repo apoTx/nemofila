@@ -1,4 +1,4 @@
-app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'config',  ($scope, Upload, $timeout, $http, $window,  config) => {
+app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'config',  ($scope, Upload, $timeout, $http, $window,  config) => {
 
 	// New Ad Form
 	$scope.profilePhotoForm = {};

@@ -50,22 +50,10 @@ router.get('/', requireLogin, (req, res) => {
 router.get('/edit', requireLogin, (req, res) => {
 	const userId = req.session.user._id;
 
-	Users.findById(userId, (err, data) => {
-		console.log(data);
-		res.render('profileEdit', {
-			title: res.__('profile_edit_title'),
-			user: data,
-		});
-	});
-});
-
-router.get('/edits', requireLogin, (req, res) => {
-	const userId = req.session.user._id;
-
 	request(settings.s3_upload_signature_service_url, (error, response, body) => {
 		Users.findById(userId, (err, data) => {
 			console.log(data);
-			res.render('profileEdits', {
+			res.render('profileEdit', {
 				title: res.__('profile_edit_title'),
 				user: data,
 				formdata: JSON.parse(body),

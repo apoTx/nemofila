@@ -1,29 +1,29 @@
 extends layout
 
-block append stylesheets
-    //link(rel='stylesheet', type='text/css', href='/ng-img-crop/compile/minified/ng-img-crop.css')
+append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/editProfile.css')
 
 block content
     .ui.main.container.subPage(ng-controller="profileEditController")
-        include partials/profile/menu
+        div(ng-if="!adSaveComplete", ng-cloak)
 
-        .ui.grid
-            .twelve.wide.column left
+            include partials/profile/menu
 
-            .four.wide.column
-                b #{i18n.__("Profile Picture")}
-                img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
+            .ui.grid
+                .twelve.wide.column left
 
-                div.margin-top-10.text-center
-                    .ui.button(
-                        ngf-select='onPhotoSelect()', ng-model='picFile', accept='image/*'
-                    )
-                        | #{i18n.__("Upload new picture")}
+                .four.wide.column
+                    b #{i18n.__("Profile Picture")}
+                    img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
+
+                    div.margin-top-10.text-center
+                        .ui.button(ng-click='openUploadProfilePictureModal()')
+                            | #{i18n.__("Upload new picture")}
 
 
-        include partials/modals/uploadProfilePicture
+            include partials/modals/uploadProfilePicture
 
-block append javascripts
-    script(src="/dist/js/app/services/profile/profileEditFactory.min.js")
-    script(src="/dist/js/app/controllers/profileEditController.min.js")
+
+append javascripts
+    script(src="/js/app/controllers/profileEditsController.js")
+
