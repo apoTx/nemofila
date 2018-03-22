@@ -108,22 +108,13 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 			s4() + '-' + s4() + s4() + s4();
 	}
 
-	$scope.nextLoader = false;
 	$scope.uploading = false;
-	$scope.photos = [];
 
 	$scope.uploadFiles = (files, id) => {
-		$scope.nextLoader = true;
 		$scope.uploading = true;
 		if (files && files.length) {
-			let totalNewFiles = files.filter((x) => { return x.name; }).length;
 
-			if (totalNewFiles < 1){
-				$scope.uploading = false;
-				$scope.onSubmitAd( files, id, false );
-			}
-
-			files.forEach((file, key) => {
+			files.forEach((file) => {
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 
@@ -162,81 +153,6 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 		}
 	};
 
-	$scope.adSaveComplete = false;
-	$scope.submitBtnLoading = false;
-	$scope.onSubmitAd = (photos, id, newPhotos) => {
-		$scope.submitBtnLoading = true;
-
-		let data = Object.assign({}, $scope.newAdForm);
-
-		delete data.files;
-
-		let photoList;
-		if (newPhotos === false){
-			photoList = photos;
-		}else{
-			if($scope.uploadedFiles){
-				console.log('test');
-				photoList = photos ? photos.concat($scope.uploadedFiles) : null;
-			}else {
-				photoList = photos;
-			}
-		}
-
-		let showcaseIndex;
-		try {
-			showcaseIndex = photoList.findIndex(x => x.showcase === true);
-		}catch (e){
-			showcaseIndex = null;
-		}
-		/*
-		let district;
-		try{
-			district = $scope.countries[$scope.newAdForm.country].cities[$scope.newAdForm.city].districts[$scope.newAdForm.district]._id;
-		}catch(e){
-			district = null;
-		}*/
-
-		let childCategory;
-		try{
-			childCategory = $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id;
-		}catch(e){
-			childCategory = null;
-		}
-
-		let isEdit = id !== 'false' ? true : false;
-
-		$http({
-			url: '/newAd/create',
-			method: 'POST',
-			data: {
-				recaptcha: document.getElementById('g-recaptcha-response').value,
-				data: data,
-				isEdit: isEdit,
-				editId: id,
-				power: {
-					powerStatus: $scope.buyPowerStatus,
-					powerNumber: $scope.powerNumber,
-				},
-				photos: photoList,
-				showcaseIndex: showcaseIndex,
-				category: {
-					categoryId: $scope.categories[$scope.newAdForm.category]._id,
-					childCategoryId: childCategory
-				}
-			}
-		}).then((response) => {
-			$scope.submitBtnLoading = false;
-
-			if(response.data.status === 1){
-				$scope.adSaveComplete = true;
-				$window.scrollTo(0, 0);
-			}
-		}, () => { // optional
-			$scope.submitBtnLoading = false;
-			console.log('fail');
-		});
-	};
 
 	$scope.newAdForm.showcaseIndex = 0;
 	$scope.onPhotoSelect = () => {
@@ -249,58 +165,10 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 		}
 	};
 
-	$scope.onDeletePhoto = (index) => {
-		$scope.newAdForm.files.splice(index, 1);
-		if ($scope.newAdForm.showcaseIndex === index){
-			$scope.newAdForm.files[0].showcase = true;
-			$scope.newAdForm.showcaseIndex = 0;
-		}
-	};
-
-	$scope.onSelectShowCase = (index) => {
-		$scope.newAdForm.files[$scope.newAdForm.showcaseIndex].showcase = false;
-
-		$scope.newAdForm.showcaseIndex = index;
-		$scope.newAdForm.files[index].showcase = true;
-	};
-
 	$scope.triggerUploadWindow = () => {
 		$('input[type="file"]').trigger('click');
 	};
 
-	/*let completeSaveAd = () => {
-		$scope.openSignInModal();
-		$scope.powerTab();
-		$scope.nextLoader = false;
-	};*/
-
-	$scope.previewTab = () => {
-
-		$scope.steps.informations = false;
-		$scope.steps.power = false;
-		$scope.steps.preview = true;
-		$window.scrollTo(0, 0);
-	};
-
-	$scope.powerTab = () => {
-		$scope.steps.informations = false;
-		$scope.steps.power = true;
-		$scope.steps.preview = false;
-		$window.scrollTo(0, 0);
-	};
-
-	$scope.adInformationTab = () => {
-		$scope.steps.informations = true;
-		$scope.steps.power = false;
-		$scope.steps.preview = false;
-		$window.scrollTo(0, 0);
-	};
-
-	// recaptcha
-	$scope.activeSaveBtn = false;
-	$scope.successCaptcha = () => {
-		$scope.activeSaveBtn = true;
-	};
 }]);
 
 
