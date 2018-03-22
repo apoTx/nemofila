@@ -1,4 +1,4 @@
-app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'config',  ($scope, Upload, $timeout, $http, $window,  config) => {
+app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'config', 'profileEditFactory', ($scope, Upload, $timeout, $http, $window, config, profileEditFactory) => {
 
 	// New Ad Form
 	$scope.profilePhotoForm = {};
@@ -47,6 +47,10 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 				$scope.result = response.data;
 				$scope.uploading = false;
 				console.log(response);
+
+				profileEditFactory.updatePhotoUrl(photoName).then((data2) => {
+					console.log(data2);
+				});
 
 			}, (response) => {
 				if (response.status > 0) {

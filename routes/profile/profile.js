@@ -62,4 +62,14 @@ router.get('/edit', requireLogin, (req, res) => {
 	});
 });
 
+
+
+router.put('/updateProfilePhotoUrl', requireLogin, (req, res) => {
+	const userId = req.session.user._id;
+	const photoName = req.query.photoName;
+	console.log(photoName);
+
+
+});
+
 module.exports = router;
