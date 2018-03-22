@@ -3,9 +3,9 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 	// New Ad Form
 	$scope.profilePhotoForm = {};
 
-	$scope.uploadAndSaveMongo = (id) => {
-		if($scope.profilePhotoForm.files && $scope.profilePhotoForm.files.length > 0){
-			$scope.uploadFiles($scope.profilePhotoForm.files, id);
+	$scope.uploadAndSaveMongo = (croppedDataUrl, name) => {
+		if($scope.profilePhotoForm.files){
+			$scope.uploadFiles(croppedDataUrl, name);
 		}
 	};
 
@@ -20,46 +20,43 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 	}
 
 	$scope.uploading = false;
-	$scope.uploadFiles = (files, id) => {
+	$scope.uploadFiles = (file, name) => {
 		$scope.uploading = true;
-		if (files && files.length) {
+		if (file) {
+			console.log(file);
+			console.log(file.name);
+			let extensionData = name.split('.');
+			let fileExtension = extensionData[extensionData.length - 1];
 
-			files.forEach((file) => {
-				let extensionData = (file.name).split('.');
-				let fileExtension = extensionData[extensionData.length - 1];
+			let photoName = guid() +'.'+ fileExtension;
 
-				let photoName = guid() +'.'+ fileExtension;
+			Upload.upload({
+				url: config.s3_upload_url,
+				method: 'POST',
+				data: {
+					key: photoName, // the key to store the file on S3, could be file name or customized
+					acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
+					policy: $scope.policy, // base64-encoded json policy (see article below)
+					'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
+					'X-amz-credential': $scope.x_amz_credential,
+					'X-amz-algorithm': $scope.X_amz_algorithm,
+					'X-amz-date': $scope.X_amz_date,
+					'Content-Type': file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+					filename: photoName, // this is needed for Flash polyfill IE8-9
+					file: Upload.dataUrltoBlob(file, photoName),
+				}
+			}).then((response) => {
+				$scope.result = response.data;
+				$scope.uploading = false;
 
-				file.upload = Upload.upload({
-					url: config.s3_upload_url,
-					method: 'POST',
-					data: {
-						key: photoName, // the key to store the file on S3, could be file name or customized
-						acl: $scope.acl, // sets the access to the uploaded file in the bucket: private, public-read, ...
-						policy: $scope.policy, // base64-encoded json policy (see article below)
-						'X-amz-signature': $scope.X_amz_signature, // base64-encoded signature based on policy string (see article below)
-						'X-amz-credential': $scope.x_amz_credential,
-						'X-amz-algorithm': $scope.X_amz_algorithm,
-						'X-amz-date': $scope.X_amz_date,
-						'Content-Type': file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
-						filename: photoName, // this is needed for Flash polyfill IE8-9
-						file: file,
-					}
-				});
-
-				file.upload.then((response) => {
-					$scope.result = response.data;
-					$scope.uploading = false;
-
-				}, (response) => {
-					if (response.status > 0) {
-						$scope.errorMsg = response.status + ': ' + response.data;
-					}
-				}, (evt) => {
-					file.progress = Math.min(100, parseInt(100.0 *
-						evt.loaded / evt.total));
-				});
-			}); // foreach
+			}, (response) => {
+				if (response.status > 0) {
+					$scope.errorMsg = response.status + ': ' + response.data;
+				}
+			}, (evt) => {
+				file.progress = Math.min(100, parseInt(100.0 *
+					evt.loaded / evt.total));
+			});
 		}
 	};
 
