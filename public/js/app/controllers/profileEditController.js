@@ -46,7 +46,6 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 			}).then((response) => {
 				$scope.result = response.data;
 				$scope.uploading = false;
-				console.log(response);
 
 				profileEditFactory.updatePhotoUrl(photoName).then((data2) => {
 					console.log(data2);
