@@ -19,7 +19,6 @@ app.factory('profileEditFactory', ['$http','config', ($http, config) => {
 			method: 'get',
 		})
 			.then((response) => {
-				console.log(response);
 				return response.data;
 			}, () => {
 				console.log('fail');
