@@ -17,37 +17,27 @@
 
             div
                 .text-center
-                    .ui.button(tabindex='0', ng-click='triggerUploadWindow()')
-                        i.upload.icon
-                        |  #{ i18n.__("upload_photos") }
-                    input(
-                        type='file',
-                        style="width:30%"
-                        ngf-select='triggerUploadWindow()',
-                        ng-model='profilePhotoForm.files',
-                        name='photos',
-                        class='hidden'
-                        ngf-fix-orientation="true",
+                    .ui.button(
+                        ngf-select='',
+                        ng-model='file',
+                        name='file',
                         ngf-pattern="'image/*'",
                         ngf-accept="'image/*'",
-                        ngf-max-size='4MB',
-                        ngf-multiple='false',
-                        ngf-keep='true',
-                        ngf-keep-distinct='true',
+                        ngf-max-size='5MB',
+                        ngf-min-height='100',
+                        ngf-fix-orientation="true",
                         ngf-model-invalid="invalidFiles",
-                        ngf-resize="{ quality: 1 }"
-                    )
+                    ) Select
 
                 .clearfix &nbsp;
-                .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
+                .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0", style="display:block")
                     .header
                         | #{ i18n.__("photo_size_limit") }
 
-
                 .ui.grid.stackable
                     .eight.wide.column
-                        .cropArea(ngf-drop='', ng-model='profilePhotoForm.files[0]', ngf-pattern='image/*')
-                            img-crop(image='profilePhotoForm.files[0]  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                        .cropArea(ngf-drop='', ng-model='file', ngf-pattern='image/*')
+                            img-crop(image='file  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
                     .eight.wide.column
                         img(ng-src='{{croppedDataUrl}}')
 
@@ -65,7 +55,7 @@
 
     .actions
         button.ui.right.icon.button.primary(
-            ng-click="uploadAndSaveMongo(croppedDataUrl, profilePhotoForm.files[0].name)",
+            ng-click="uploadAndSaveMongo(croppedDataUrl, file.name)",
             ng-class="uploading ? 'loading disabled' : '' "
         )
             | Submit
