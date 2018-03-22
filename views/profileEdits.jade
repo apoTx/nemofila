@@ -4,75 +4,25 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/editProfile.css')
 
 block content
-
-    div.ui.main.container.subPage(ng-controller="profileEditsController")
+    .ui.main.container.subPage(ng-controller="profileEditsController")
         div(ng-if="!adSaveComplete", ng-cloak)
 
-            div#adInformation
-                form.ui.form.fluid#profilePhotoForm
-                    input(type='hidden', name='Content-Type', value='')
-                    input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
-                    input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
-                    input(type='hidden', name='success_action_status', ng-model="success_action_status", ng-init="success_action_status= '#{ formdata.inputs.success_action_status }'" )
-                    input(type='hidden', name='policy', ng-model="policy", ng-init="policy = '#{ formdata.inputs.policy }'")
-                    input(type='hidden', name='X-amz-credential', ng-model="x_amz_credential", ng-init="x_amz_credential= '#{ formdata.inputs['X-amz-credential'] }'")
-                    input(type='hidden', name='X-amz-algorithm', ng-model="X_amz_algorithm", ng-init="X_amz_algorithm = '#{ formdata.inputs['X-amz-algorithm'] }'")
-                    input(type='hidden', name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
-                    input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
-                    input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
+            include partials/profile/menu
 
-                    .ui.tiny.stacked.segment
-                        .text-center
-                            .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
-                                .ui.button
-                                    i.upload.icon
-                                    |  #{ i18n.__("upload_photos") }
-                                a.ui.basic.label
-                                    | {{ profilePhotoForm.files.length > 0 ? profilePhotoForm.files.length : '0'  }}
-                            input(
-                                type='file',
-                                style="width:30%"
-                                ngf-select='',
-                                ng-model='profilePhotoForm.files',
-                                name='photos',
-                                class='hidden'
-                                ngf-fix-orientation="true",
-                                ngf-pattern="'image/*'",
-                                ngf-accept="'image/*'",
-                                ngf-max-size='4MB',
-                                ngf-multiple='false',
-                                ngf-keep='true',
-                                ngf-keep-distinct='true',
-                                ngf-model-invalid="invalidFiles",
-                                ngf-resize="{ quality: .7 }"
-                            )
+            .ui.grid
+                .twelve.wide.column left
 
-                        .clearfix &nbsp;
-                        .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
-                            .header
-                                | #{ i18n.__("photo_size_limit") }
+                .four.wide.column
+                    b #{i18n.__("Profile Picture")}
+                    img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
 
-                        .cropArea(ngf-drop='', ng-model='profilePhotoForm.files[0]', ngf-pattern='image/*')
-                            img-crop(image='profilePhotoForm.files[0]  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
-                        div
-                            img(ng-src='{{croppedDataUrl}}')
+                    div.margin-top-10.text-center
+                        .ui.button(ng-click='openUploadProfilePictureModal()')
+                            | #{i18n.__("Upload new picture")}
 
 
-                        span.progress-profile(ng-show="uploading", ng-if="progress >= 0")
-                            div(style='width:{{progress}}%', ng-bind="progress + '%'")
+            include partials/modals/uploadProfilePicture
 
-
-                        | {{errorMsg}}
-
-
-                    .ui.error.message
-                    .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
-                        | {{ newAdErr }}
-
-                    button.ui.right.floated.primary.button(
-                        ng-click="uploadAndSaveMongo(croppedDataUrl, profilePhotoForm.files[0].name)",
-                        ng-class="uploading ? 'loading disabled' : '' "
-                    ) Save
 
 append javascripts
     script(src="/js/app/controllers/profileEditsController.js")

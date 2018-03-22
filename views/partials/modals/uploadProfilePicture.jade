@@ -3,28 +3,69 @@
     .header
         | #{i18n.__("Upload Profile Picture")}
     .content
-        form(name='myForm')
+        form.ui.form.fluid#profilePhotoForm
+            input(type='hidden', name='Content-Type', value='')
+            input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
+            input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
+            input(type='hidden', name='success_action_status', ng-model="success_action_status", ng-init="success_action_status= '#{ formdata.inputs.success_action_status }'" )
+            input(type='hidden', name='policy', ng-model="policy", ng-init="policy = '#{ formdata.inputs.policy }'")
+            input(type='hidden', name='X-amz-credential', ng-model="x_amz_credential", ng-init="x_amz_credential= '#{ formdata.inputs['X-amz-credential'] }'")
+            input(type='hidden', name='X-amz-algorithm', ng-model="X_amz_algorithm", ng-init="X_amz_algorithm = '#{ formdata.inputs['X-amz-algorithm'] }'")
+            input(type='hidden', name='X-amz-date', ng-model="X_amz_date", ng-init="X_amz_date = '#{ formdata.inputs['X-amz-date'] }'")
+            input(type='hidden', name='X-amz-expires', ng-model="X_amz_expires", ng-init="X_amz_expires = '#{ formdata.inputs['X-amz-expires'] }'")
+            input(type='hidden', name='X-amz-signature', ng-model="X_amz_signature", ng-init="X_amz_signature = '#{ formdata.inputs['X-amz-signature'] }'")
 
-            .ui.button(ngf-select='', ng-model='picFile', accept='image/*')
-                | Select Picture
+            .ui.tiny.stacked.segment
+                .text-center
+                    .ui.labeled.button(tabindex='0', ng-click='triggerUploadWindow()')
+                        .ui.button
+                            i.upload.icon
+                            |  #{ i18n.__("upload_photos") }
+                        a.ui.basic.label
+                            | {{ profilePhotoForm.files.length > 0 ? profilePhotoForm.files.length : '0'  }}
+                    input(
+                        type='file',
+                        style="width:30%"
+                        ngf-select='triggerUploadWindow()',
+                        ng-model='profilePhotoForm.files',
+                        name='photos',
+                        class='hidden'
+                        ngf-fix-orientation="true",
+                        ngf-pattern="'image/*'",
+                        ngf-accept="'image/*'",
+                        ngf-max-size='4MB',
+                        ngf-multiple='false',
+                        ngf-keep='true',
+                        ngf-keep-distinct='true',
+                        ngf-model-invalid="invalidFiles",
+                        ngf-resize="{ quality: .7 }"
+                    )
 
-            .clearfix.margin-top-30
+                .clearfix &nbsp;
+                .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0",style="display:block")
+                    .header
+                        | #{ i18n.__("photo_size_limit") }
 
-            .cropArea(ngf-drop='', ng-model='picFile', ngf-pattern='image/*')
-                img-crop(image='picFile  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                .cropArea(ngf-drop='', ng-model='profilePhotoForm.files[0]', ngf-pattern='image/*')
+                    img-crop(image='profilePhotoForm.files[0]  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                div
+                    img(ng-src='{{croppedDataUrl}}')
 
-            div
-                img(ng-src='{{croppedDataUrl}}')
 
-            span.progress-profile(ng-show='progress >= 0')
-                div(style='width:{{progress}}%', ng-bind="progress + '%'")
-            span(ng-show='result') Upload Successful
-            span.err(ng-show='errorMsg') {{errorMsg}}
+                span.progress-profile(ng-show="uploading", ng-if="progress >= 0")
+                    div(style='width:{{progress}}%', ng-bind="progress + '%'")
 
+
+                | {{errorMsg}}
+
+
+            .ui.error.message
+            .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
+                | {{ newAdErr }}
 
     .actions
         button.ui.right.icon.button.primary(
-            ng-click='upload(croppedDataUrl, picFile.name)',
-            ng-class="subscribeBtnLoading ? 'loading disabled' : '' "
+            ng-click="uploadAndSaveMongo(croppedDataUrl, profilePhotoForm.files[0].name)",
+            ng-class="uploading ? 'loading disabled' : '' "
         )
             | Submit

@@ -62,6 +62,10 @@ app.controller('profileEditsController', ['$scope', 'Upload', '$timeout', '$http
 		$('input[type="file"]').trigger('click');
 	};
 
+	$scope.openUploadProfilePictureModal = () => {
+		$('#uploadProfilePictureModal').modal('show');
+	};
+
 }]);
 
 
