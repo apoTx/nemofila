@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const request = require('request');
 
 // config
 const config = require('../../config/env.json')[process.env.NODE_ENV || 'development'];
 const requireLogin = require('../inc/requireLogin.js');
+const settings = require('../../config/settings.json');
 
 // Models
 const Users = require('../../models/users');
@@ -53,6 +55,21 @@ router.get('/edit', requireLogin, (req, res) => {
 		res.render('profileEdit', {
 			title: res.__('profile_edit_title'),
 			user: data,
+		});
+	});
+});
+
+router.get('/edits', requireLogin, (req, res) => {
+	const userId = req.session.user._id;
+
+	request(settings.s3_upload_signature_service_url, (error, response, body) => {
+		Users.findById(userId, (err, data) => {
+			console.log(data);
+			res.render('profileEdits', {
+				title: res.__('profile_edit_title'),
+				user: data,
+				formdata: JSON.parse(body),
+			});
 		});
 	});
 });
