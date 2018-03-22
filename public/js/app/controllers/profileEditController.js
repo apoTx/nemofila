@@ -10,6 +10,7 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 
 	$scope.uploadAndSaveMongo = (croppedDataUrl, name) => {
 		profileEditFactory.get_s3_signature().then(data => {
+			console.log(data);
 			$scope.uploadFiles(croppedDataUrl, name, data.inputs);
 		});
 	};
