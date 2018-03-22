@@ -3,6 +3,11 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 	// New Ad Form
 	$scope.profilePhotoForm = {};
 
+
+	$scope.init = (photo) => {
+		$scope.profilePhotoForm.photo = photo;
+	};
+
 	$scope.uploadAndSaveMongo = (croppedDataUrl, name) => {
 		if($scope.profilePhotoForm.files){
 			$scope.uploadFiles(croppedDataUrl, name);
@@ -47,8 +52,10 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 				$scope.result = response.data;
 				$scope.uploading = false;
 
-				profileEditFactory.updatePhotoUrl(photoName).then((data2) => {
-					console.log(data2);
+				profileEditFactory.updatePhotoUrl(photoName).then((user) => {
+					$scope.profilePhotoForm.photo = user.profilePictureUrl;
+					$scope.profilePhotoForm.files = [];
+					$scope.closeUploadProfilePictureModal();
 				});
 
 			}, (response) => {
@@ -68,6 +75,10 @@ app.controller('profileEditController', ['$scope', 'Upload', '$timeout', '$http'
 
 	$scope.openUploadProfilePictureModal = () => {
 		$('#uploadProfilePictureModal').modal('show');
+	};
+
+	$scope.closeUploadProfilePictureModal = () => {
+		$('#uploadProfilePictureModal').modal('hide');
 	};
 
 }]);

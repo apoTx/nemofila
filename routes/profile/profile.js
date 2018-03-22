@@ -69,11 +69,17 @@ router.put('/updateProfilePhotoUrl', requireLogin, (req, res) => {
 	const photoName = req.query.photoName;
 
 
-	Users.findByIdAndUpdate(userId, { 'profilePictureUrl': config.amazon_s3.photo_base_url +'/'+ photoName }, (err, data) => {
+	Users.findByIdAndUpdate(userId, {
+		'profilePictureUrl': config.amazon_s3.photo_base_url +'/'+ photoName
+	},
+	{
+		new: true
+	},
+	(err, data) => {
 		if (err)
 			res.json(err);
 
-		res.json({ status: 1 });
+		res.json({ status: 1, profilePictureUrl: data.profilePictureUrl });
 	});
 
 });

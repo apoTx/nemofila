@@ -4,7 +4,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/editProfile.css')
 
 block content
-    .ui.main.container.subPage(ng-controller="profileEditController")
+    .ui.main.container.subPage(ng-controller="profileEditController", ng-init="init('#{ user.profilePictureUrl }')")
         div(ng-if="!adSaveComplete", ng-cloak)
 
             include partials/profile/menu
@@ -14,7 +14,9 @@ block content
 
                 .four.wide.column
                     b #{i18n.__("Profile Picture")}
-                    img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
+                    img.ui.medium.rounded.image.margin-top-10(ng-src="{{ profilePhotoForm.photo }}")
+
+                    //img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
 
                     div.margin-top-10.text-center
                         .ui.button(ng-click='openUploadProfilePictureModal()')
