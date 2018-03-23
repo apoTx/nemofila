@@ -14,13 +14,14 @@ let adPerPage = 48;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	let location = req.query.location;
-	let categoryId = req.query.categoryId;
-	let subCategoryId = req.query.subCategoryId;
-	let categoryName = req.query.categoryName;
-	let subCategoryName = req.query.subCategoryName;
-	let sortWith = req.query.sortWith;
+	const location = req.query.location;
+	const categoryId = req.query.categoryId;
+	const subCategoryId = req.query.subCategoryId;
+	const categoryName = req.query.categoryName;
+	const subCategoryName = req.query.subCategoryName;
+	const sortWith = req.query.sortWith;
 	const openNow = req.query.openNow;
+
 
 	let sort;
 	if (sortWith === 'rate'){
@@ -142,6 +143,7 @@ router.get( '/', ( req, res ) => {
 		let d = { data: data };
 
 		let result = Object.assign(d, {
+			location,
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
@@ -151,7 +153,6 @@ router.get( '/', ( req, res ) => {
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
-		console.log(result);
 
 		res.render('search', result);
 	});

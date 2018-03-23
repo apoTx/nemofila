@@ -12,18 +12,19 @@ block content
         - if (data.length < 1)
             h2.text-center.padding-top-10 No results.
         - else
+            | #{ location }
             form.ui.form.fluid(action="/search")
                 div.gray-bg.padding-10
                     .two.fields
                         .field(
-                            ng-init="place.formatted_address='#{ data[0].place.formatted_address }'"
+                            ng-init="place.formatted_address='#{ location }'"
                         )
                             label Location
                             input(g-places-autocomplete='', ng-model='place')
                             input(
                                 name="location",
                                 ng-show="false",
-                                ng-init="placeLongName='#{ data[0].place.address_components[0].long_name }'",
+                                ng-init="placeLongName='#{ location }'",
                                 ng-model='placeLongName'
                             )
 
