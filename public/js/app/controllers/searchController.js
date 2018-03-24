@@ -1,5 +1,4 @@
-app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'searchFactory', ($scope, $http, categoriesFactory, searchFactory) => {
-	$http;
+app.controller('searchController',  ['$scope', 'categoriesFactory', 'searchFactory', ($scope, categoriesFactory, searchFactory) => {
 
 	$(() => {
 		$('.rating').rating({
@@ -29,7 +28,6 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'se
 		searchFactory.getEventsByLocationName(placeLongName).then((result) => {
 			$scope.events = result;
 			$scope.loadingEvents = true;
-			console.log($scope.events);
 		});
 	};
 
