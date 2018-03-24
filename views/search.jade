@@ -82,28 +82,30 @@ block content
                                             - if (ad.rate)
                                                 .ui.star.rating(data-rating='#{ ad.rate }')
 
-        .text-center.margin-top-10
-            button.ui.big.button.margin-auto(
-                ng-click="showEvents(placeLongName)",
-                ng-class="{loading: loadingEvents}",
-                ng-if="!events"
-            )
-                | #{i18n.__("Show events")}
+        - if (location)
 
-        div(ng-if="events.length > 0")
-            h2 #{i18n.__( "Events" )}
-            .ui.segment.list-segment
-                .ui.grid.no-margin-bottom
-                    .doubling.four.column.row
-                        .column.margin-bottom-10(
-                            ng-repeat="e in events",
-                        )
-                            a.ui.fluid.card.adCard(href="/events/detail/{{ e.event.slug }}/{{ e.event._id }}")
-                                .image.cardListImage
-                                    img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
-                                    img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")
-                                .content
-                                    span.black {{ e.event.title }}
+            .text-center.margin-top-10
+                button.ui.big.button.margin-auto(
+                    ng-click="showEvents(placeLongName)",
+                    ng-class="{loading: loadingEvents}",
+                    ng-if="!events"
+                )
+                    | #{i18n.__("Show events")}
+
+            div(ng-if="events.length > 0")
+                h2 #{i18n.__( "Events" )}
+                .ui.segment.list-segment
+                    .ui.grid.no-margin-bottom
+                        .doubling.four.column.row
+                            .column.margin-bottom-10(
+                                ng-repeat="e in events",
+                            )
+                                a.ui.fluid.card.adCard(href="/events/detail/{{ e.event.slug }}/{{ e.event._id }}")
+                                    .image.cardListImage
+                                        img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
+                                        img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")
+                                    .content
+                                        span.black {{ e.event.title }}
 
 
 append javascripts

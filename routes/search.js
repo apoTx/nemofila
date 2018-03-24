@@ -169,6 +169,8 @@ router.get( '/', ( req, res ) => {
 router.get('/getEventsByLocationName', (req, res) => {
 	const location = req.query.location;
 
+	console.log(location);
+
 	Ads.aggregate([
 		{
 			'$match': {
