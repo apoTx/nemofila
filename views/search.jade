@@ -9,45 +9,43 @@ append stylesheets
 
 block content
     .ui.main.container.subPage(ng-controller="searchController", ng-init="init('#{ categoryId }')")
-        - if (data.length < 1)
-            h2.text-center.padding-top-10 No results.
-        - else
-            form.ui.form.fluid(action="/search")
-                div.gray-bg.padding-10
-                    .two.fields
-                        .field(
-                            ng-init="place.formatted_address='#{ location }'"
+        form.ui.form.fluid(action="/search")
+            div.gray-bg.padding-10
+                .two.fields
+                    .field(
+                        ng-init="place.formatted_address='#{ location }'"
+                    )
+                        label Location
+                        input(g-places-autocomplete='', ng-model='place')
+                        input(
+                            name="location",
+                            ng-show="false",
+                            ng-init="placeLongName='#{ location }'",
+                            ng-model='placeLongName'
                         )
-                            label Location
-                            input(g-places-autocomplete='', ng-model='place')
-                            input(
-                                name="location",
-                                ng-show="false",
-                                ng-init="placeLongName='#{ location }'",
-                                ng-model='placeLongName'
-                            )
 
-                        .field
-                            .two.fields(country-and-category-dropdowns)
+                    .field
+                        .two.fields(country-and-category-dropdowns)
 
-                    .field.text-right
-                        label.custom Open Now
-                            - if (openNow)
-                                input.customCheckbox(name='openNow', type='checkbox', checked)
-                            - else
-                                input.customCheckbox(name='openNow', type='checkbox')
+                .field.text-right
+                    label.custom Open Now
+                        - if (openNow)
+                            input.customCheckbox(name='openNow', type='checkbox', checked)
+                        - else
+                            input.customCheckbox(name='openNow', type='checkbox')
 
-                    .field.text-right
-                        button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                            | Search
+                .field.text-right
+                    button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                        | Search
 
-                .field.margin-top-30
-                    select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
-                        option(selected disabled) Sort with
-                        option(value="rate") Rate
+            .field.margin-top-30
+                select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
+                    option(selected disabled) Sort with
+                    option(value="rate") Rate
 
+
+        - if (data.length > 0)
             h1.text-center.padding-bottom-10 #{ title }
-
             .clearfix
             .ui.segment.list-segment.searchData
                 .ui.grid.no-margin-bottom
@@ -82,28 +80,28 @@ block content
                                             - if (ad.rate)
                                                 .ui.star.rating(data-rating='#{ ad.rate }')
 
-            .text-center
-                button.ui.big.button.margin-auto(
-                    ng-click="showEvents(placeLongName)",
-                    ng-class="{loading: loadingEvents}",
-                    ng-if="!events"
-                )
-                    | #{i18n.__("Show events")}
+        .text-center
+            button.ui.big.button.margin-auto(
+                ng-click="showEvents(placeLongName)",
+                ng-class="{loading: loadingEvents}",
+                ng-if="!events"
+            )
+                | #{i18n.__("Show events")}
 
-            div(ng-if="events.length > 0")
-                h2 #{i18n.__( "Events" )}
-                .ui.segment.list-segment
-                    .ui.grid.no-margin-bottom
-                        .doubling.four.column.row
-                            .column.margin-bottom-10(
-                                ng-repeat="e in events",
-                            )
-                                a.ui.fluid.card.adCard(href="/detail/{{ e.event.slug }}/{{ e.event._id }}")
-                                    .image.cardListImage
-                                        img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
-                                        img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")
-                                    .content
-                                        span.black {{ e.event.title }}
+        div(ng-if="events.length > 0")
+            h2 #{i18n.__( "Events" )}
+            .ui.segment.list-segment
+                .ui.grid.no-margin-bottom
+                    .doubling.four.column.row
+                        .column.margin-bottom-10(
+                            ng-repeat="e in events",
+                        )
+                            a.ui.fluid.card.adCard(href="/detail/{{ e.event.slug }}/{{ e.event._id }}")
+                                .image.cardListImage
+                                    img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
+                                    img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")
+                                .content
+                                    span.black {{ e.event.title }}
 
 
 append javascripts
