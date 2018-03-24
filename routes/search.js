@@ -22,7 +22,9 @@ router.get( '/', ( req, res ) => {
 	const categoryName = req.query.categoryName;
 	const subCategoryName = req.query.subCategoryName;
 	const sortWith = req.query.sortWith;
-	const openNow = req.query.openNow;
+	const openNowCheckbox = req.query.openNow === 'on' ? true : false;
+
+	console.log(openNowCheckbox);
 
 	let sort;
 	if (sortWith === 'rate'){
@@ -141,15 +143,18 @@ router.get( '/', ( req, res ) => {
 		const best = category !== '' ? i18n.__( 'best' ) : '';
 		const title = `${best} ${category} ${locationTitle}`;
 
-
 		data.forEach((ad, key) => {
-			data[key].openNow = openOrClose(data[key]);
+			let status = openOrClose(data[key]);
+			data[key].openNow = status;
+
+			if (!status && openNowCheckbox){
+				delete data[key];
+
+			}
 		});
 
-
-		let d = { data: data };
-
-		let result = Object.assign(d, {
+		const d = { data };
+		const result = Object.assign(d, {
 			location,
 			categoryId,
 			subCategoryId,
@@ -157,13 +162,13 @@ router.get( '/', ( req, res ) => {
 			adPerPage: adPerPage,
 			page: req.query.page,
 			url: url,
-			openNow: openNow === 'on' ? true : false,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
 
 		res.render('search', result);
 	});
+
 });
 
 router.get('/getEventsByLocationName', (req, res) => {

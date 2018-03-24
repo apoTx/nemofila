@@ -51,7 +51,7 @@ block content
                 .ui.grid.no-margin-bottom
                     .doubling.four.column.row
                         each ad in data
-                            - if (!((!ad.workTimes.open || clockOpenClose) && openNow) )
+                            - if (ad)
                                 .column.margin-bottom-10
                                     .ui.fluid.card.adCard
                                         a.image.cardListImage(href="/detail/#{ ad.slug }/#{ ad._id }")
