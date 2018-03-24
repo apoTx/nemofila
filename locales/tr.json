@@ -179,5 +179,9 @@
 	"Prev": "Önceki",
 	"Next": "Sonraki",
 	"Please select": "Lütfen Seçin",
-	"Child Category": "Alt Kategori"
+	"Child Category": "Alt Kategori",
+	"profile_edit_title": "profile_edit_title",
+	"Profile Picture": "Profile Picture",
+	"Upload new picture": "Upload new picture",
+	"Upload Profile Picture": "Upload Profile Picture"
 }

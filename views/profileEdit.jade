@@ -14,7 +14,10 @@ block content
 
                 .four.wide.column
                     b #{i18n.__("Profile Picture")}
-                    img.ui.medium.rounded.image.margin-top-10(ng-src="{{ profilePhotoForm.photo }}")
+                    img.ui.medium.rounded.image.margin-top-10(
+                        ng-src="{{ profilePhotoForm.photo }}",
+                        onerror="this.src='/img/avatar-default.jpg'"
+                    )
 
                     //img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
 
