@@ -169,8 +169,6 @@ router.get( '/', ( req, res ) => {
 router.get('/getEventsByLocationName', (req, res) => {
 	const location = req.query.location;
 
-	console.log(location);
-
 	Ads.aggregate([
 		{
 			'$match': {
@@ -187,6 +185,9 @@ router.get('/getEventsByLocationName', (req, res) => {
 				foreignField: 'adId',
 				as: 'event'
 			}
+		},
+		{
+			$match:{ 'event.status' : 1 }
 		},
 		{ '$unwind': '$event' },
 		{ '$limit': 30 },
