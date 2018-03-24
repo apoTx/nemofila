@@ -24,8 +24,6 @@ router.get( '/', ( req, res ) => {
 	const sortWith = req.query.sortWith;
 	const openNowCheckbox = req.query.openNow === 'on' ? true : false;
 
-	console.log(openNowCheckbox);
-
 	let sort;
 	if (sortWith === 'rate'){
 		sort = { 'rate': -1 };

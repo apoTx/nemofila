@@ -20,19 +20,6 @@ app.directive('countryAndCategoryDropdowns', () => {
 
 
 		link: function($scope) {
-			// Select option Countries
-
-			$scope.visiblesCountries = {
-				cities: true,
-				districts: true
-			};
-			$scope.changeCountry = () => {
-				$scope.visiblesCountries.cities = false;
-			};
-			$scope.changeCity= () => {
-				$scope.visiblesCountries.districts = false;
-			};
-
 			// Select option Categories
 			$scope.visiblesCategories = {
 				subCategory: true,
@@ -41,6 +28,5 @@ app.directive('countryAndCategoryDropdowns', () => {
 				$scope.visiblesCategories.subCategory = false;
 			};
 		}
-
 	};
 });
