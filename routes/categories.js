@@ -32,11 +32,22 @@ router.get('/getCategories', (req,res) => {
 });
 
 router.get('/getEventCategories', (req,res) => {
+	const locale = req.cookies['locale'];
+
+	const convertLang = (element) => {
+		return {
+			name: res.__(element.name),
+			_id: element._id,
+		};
+	};
+
 	Categories.find({ type: 1 }, (err, data) => {
-		data.map(category => {
-			return res.__(category.name);
-		});
-		res.json(data);
+		if (!locale || locale === 'en') {
+			res.json(data);
+		}else{
+			const convertedData = data.map(convertLang);
+			res.json(convertedData);
+		}
 	});
 });
 
