@@ -158,6 +158,7 @@ router.get( '/', ( req, res ) => {
 			location,
 			categoryId,
 			subCategoryId,
+			openNowCheckbox,
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,

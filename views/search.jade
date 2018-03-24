@@ -29,7 +29,7 @@ block content
 
                 .field.text-right
                     label.custom Open Now
-                        - if (openNow)
+                        - if (openNowCheckbox)
                             input.customCheckbox(name='openNow', type='checkbox', checked)
                         - else
                             input.customCheckbox(name='openNow', type='checkbox')
