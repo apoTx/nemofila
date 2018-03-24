@@ -1,6 +1,7 @@
 app.directive('countryAndCategoryDropdowns', () => {
 	return {
 		template :
+		'<div class="clearfix"></div>' +
 		'<div class="field">\n' +
 		'  <label>Category</label>\n' +
 		'  <select name="category" ng-model="newAdForm.category" ng-options="index as category.name for (index, category) in categories " ng-change="changeCategory()">' +
@@ -18,20 +19,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 		'  <input ng-hide="true", ng-cloak, ng-model="categories[newAdForm.category].subCategories[newAdForm.categoryChild]._id" name="subCategoryId" /> ' +
 		'</div>',
 
-
 		link: function($scope) {
-			// Select option Countries
-			$scope.visiblesCountries = {
-				cities: true,
-				districts: true
-			};
-			$scope.changeCountry = () => {
-				$scope.visiblesCountries.cities = false;
-			};
-			$scope.changeCity= () => {
-				$scope.visiblesCountries.districts = false;
-			};
-
 			// Select option Categories
 			$scope.visiblesCategories = {
 				subCategory: true,
@@ -40,6 +28,5 @@ app.directive('countryAndCategoryDropdowns', () => {
 				$scope.visiblesCategories.subCategory = false;
 			};
 		}
-
 	};
 });

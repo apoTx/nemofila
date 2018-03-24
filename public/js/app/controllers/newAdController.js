@@ -1,4 +1,4 @@
-app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config',  ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config) => {
+app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'newAdFactory', 'countriesFactory', 'categoriesFactory', 'config', 'Slug', 'guidFactory', ($scope, Upload, $timeout, $http, $window, newAdFactory, countriesFactory, categoriesFactory, config, Slug, guidFactory) => {
 
 	$scope.mapLoading = false;
 	$scope.locate = () => {
@@ -6,13 +6,36 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
-	function initialize(position, latLng, zoom, elementId, customLat, customLng) {
+
+	/*function getCountry(place) {
+		for(let i = 0; i < place.address_components.length; i += 1) {
+			let addressObj = place.address_components[i];
+			for(let j = 0; j < addressObj.types.length; j += 1) {
+				if (addressObj.types[j] === 'country') {
+					// console.log(addressObj.types[j]); // confirm that this is 'country'
+					return addressObj.long_name; // confirm that this is the country name
+				}
+			}
+		}
+	}
+
+	function getFullPlaceName() {
+		const placeName = $scope.newAdForm.place.name;
+		const country = getCountry($scope.newAdForm.place);
+
+		const fullPlaceName = placeName +', '+ country;
+		return fullPlaceName;
+	}*/
+
+	/*eslint-disable-next-line*/
+	function initialize(position, latLng, zoom, elementId, customLat, customLng, draggable = true, previewPage = false) {
 		try{
 			let lat, lng;
 
 			if (latLng){
 				lat = latLng.lat;
 				lng = latLng.lng;
+
 			}else{
 
 				try{
@@ -22,11 +45,25 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					lat = customLat;
 					lng = customLng;
 				}
+
+				if((draggable || !elementId) && !previewPage){
+					newAdFactory.getLocationDetail(lat, lng).then((location) => {
+						const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
+						const city_and_country = location.results[index].formatted_address;
+
+						const result = location.results[0];
+						result.formatted_address = city_and_country;
+						$scope.newAdForm.place = result;
+
+						// $scope.newAdForm.place.fullPlaceName = getFullPlaceName();
+					});
+				}
 			}
 
-			newAdFactory.getLocationDetail(lat, lng).then((location) => {
-				$scope.newAdForm.place = location.results[0];
-			});
+			$scope.latLng = { lat, lng };
+
+
+
 
 			const myLatLng = new google.maps.LatLng(lat, lng);
 			const mapOptions = {
@@ -36,7 +73,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			};
 
 			const map = new google.maps.Map(
-				document.getElementById(elementId),
+				document.getElementById(elementId || 'map'),
 				mapOptions
 			);
 
@@ -44,7 +81,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			const marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
-				draggable:true,
+				draggable: draggable,
 				title:'Drag me!'
 			});
 
@@ -54,8 +91,19 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			});
 
 			google.maps.event.addListener(marker, 'dragend', (position) => {
-				newAdFactory.getLocationDetail(position.latLng.lat(), position.latLng.lng()).then((location) => {
-					$scope.newAdForm.place = location.results[0];
+				const lat = position.latLng.lat();
+				const lng = position.latLng.lng();
+
+				$scope.latLng = { lat, lng };
+
+				newAdFactory.getLocationDetail(lat, lng).then((location) => {
+					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
+					const city_and_country = location.results[index].formatted_address;
+
+					const result = location.results[0];
+					result.formatted_address = city_and_country;
+					$scope.newAdForm.place = result;
+
 				});
 			});
 		}catch(e){
@@ -78,13 +126,12 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				const latLng = { lat: lat, lng: lng };
 				$scope.latLng = latLng;
 
-				initialize(0, latLng, 12, 'map');
+				initialize(0, latLng, 12, 'map', false, false, true);
 			}catch (e){
 				// do stuff
 			}
 		}
 	});
-
 
 	// New Ad Form
 	$scope.newAdForm = {};
@@ -194,6 +241,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 						}
 					]
 				},
+
 				country: {
 					identifier: 'country',
 					rules: [
@@ -220,66 +268,77 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 							prompt : 'Please select a category.'
 						}
 					]
-				}
+				},
+				website: {
+					identifier  : 'website',
+					optional: true,
+					rules: [
+						{
+							type   : 'url',
+							prompt : 'Please enter a valid URL'
+						}
+					]
+				},
 			},
 			onSuccess: () => {
-				$scope.next();
+				if (typeof $scope.newAdForm.place == 'object' && $scope.newAdForm.place)
+					$scope.next();
+				else
+					alert('Please select a location.');
 			}
 		});
 
-		$(() => {
-			$('#terms').on('click', () => {
-				$('#termsModal').modal('show');
-			});
+		$('#terms').on('click', () => {
+			$('#termsModal').modal('show');
+		});
 
 
-			// $('#workTimesModal').modal('show');
+		// $('#workTimesModal').modal('show');
 
-			$('#workTimesBtn').on('click', () => {
-				$('#workTimesModal').modal('show');
-			});
+		$('#workTimesBtn').on('click', () => {
+			$('#workTimesModal').modal('show');
+		});
 
-			/*$('.openClose.checkbox').checkbox({
-				onChecked: () => {
-					const $childCheckbox  = $(this).closest('.checkbox');
+		/*$('.openClose.checkbox').checkbox({
+			  onChecked: () => {
+				  const $childCheckbox  = $(this).closest('.checkbox');
 
-					console.log($childCheckbox);
-				}
-			});*/
+				  console.log($childCheckbox);
+			  }
+		  });*/
 
-			$('.hour24').change(function() {
-				let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
-				if(this.checked) {
-					$clockDropdowns.addClass('timeDropdownsVisible');
-				}else{
-					$clockDropdowns.removeClass('timeDropdownsVisible');
-				}
-			});
+		$('.hour24').change(function() {
+			let $clockDropdowns = $(this).parent('div').parent('div').next('div').children('.dropdowns');
+			if(this.checked) {
+				$clockDropdowns.addClass('timeDropdownsVisible');
+			}else{
+				$clockDropdowns.removeClass('timeDropdownsVisible');
+			}
+		});
 
-			$('.openClose').change(function() {
-				let $elem = $(this).parent('div').parent('div').next('div');
+		$('.openClose').change(function() {
+			let $elem = $(this).parent('div').parent('div').next('div');
 
-				if(this.checked) {
-					$elem.removeClass('workTimeSettingsDisplay');
-				}else{
-					$elem.addClass('workTimeSettingsDisplay');
-				}
-			});
+			if(this.checked) {
+				$elem.removeClass('workTimeSettingsDisplay');
+			}else{
+				$elem.addClass('workTimeSettingsDisplay');
+			}
+		});
 
-			$('#anotherPerson').checkbox({
-				onChecked: () => {
-					$scope.newAdForm.anotherContact.checked = true;
-					setTimeout( () => {
-						$('input[name="anotherContactName"]').focus();
-					},20);
-				},
-				onUnchecked: () => {
-					$scope.newAdForm.anotherContact.checked = false;
-				},
-				onChange: () => {
-					$scope.$apply();
-				}
-			});
+		$('#anotherPerson').checkbox({
+			onChecked: () => {
+				$scope.newAdForm.anotherContact.checked = true;
+				setTimeout( () => {
+					$('input[name="anotherContactName"]').focus();
+				},20);
+			},
+			onUnchecked: () => {
+				$scope.newAdForm.anotherContact.checked = false;
+			},
+			onChange: () => {
+				$scope.$apply();
+			}
 		});
 	});
 
@@ -287,12 +346,17 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		if (id !== 'false'){
 			$scope.getAd(id, () => {
 				initialize(0, false, 12, 'map', $scope.newAdForm.place.geometry.location.lat, $scope.newAdForm.place.geometry.location.lng); // map
+				$scope.latLng = { lat: $scope.newAdForm.place.geometry.location.lat, lng: $scope.newAdForm.place.geometry.location.lng };
 			});
 
 			$scope.isEdit = true;
 		}
 
 		$scope.userExists =  (userExists == 'true');
+
+		if (!$scope.userExists){
+			$scope.openSignInModal();
+		}
 
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
@@ -411,16 +475,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		}
 	};
 
-	function guid() {
-		function s4() {
-			return Math.floor((1 + Math.random()) * 0x10000)
-				.toString(16)
-				.substring(1);
-		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
-
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 	$scope.photos = [];
@@ -438,11 +492,38 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.onSubmitAd( files, id, false );
 			}
 
-			files.forEach((file) => {
+			files.forEach((file, key) => {
+				let title = Slug.slugify($scope.newAdForm.title);
+				let formatted_address = Slug.slugify($scope.newAdForm.place.formatted_address);
+
+				let category = $scope.categories[$scope.newAdForm.category];
+				let categoryName = Slug.slugify(category.name);
+
+				let childCategoryName = '';
+				try{
+					childCategoryName = Slug.slugify(category.subCategories[$scope.newAdForm.categoryChild].name);
+				}catch (e){
+					// console.log(e);
+				}
+
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 
-				let photoName = guid() + '.' + fileExtension;
+				let number = (key + 1) % 3;
+
+				let photoName = '';
+				let altTag = '';
+
+				if(number === 1){
+					photoName = title +'-'+ formatted_address +'-'+ guidFactory.generateGuid() + '.' + fileExtension;
+					altTag = title + ',' + formatted_address + ' - nemofila';
+				}else if(number === 2){
+					photoName = categoryName +'-'+ formatted_address +'-'+ guidFactory.generateGuid() + '.' + fileExtension;
+					altTag = title + ',' + categoryName +','+ formatted_address;
+				}else {
+					photoName = childCategoryName +'-'+ categoryName +'-'+ formatted_address +'-'+ guidFactory.generateGuid() + '.' + fileExtension;
+					altTag = title +','+ categoryName +','+ formatted_address;
+				}
 
 				if (!file.name) {
 					oldPhotos++;
@@ -473,9 +554,9 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 					itemsProcessed++;
 
 					if (file.showcase)
-						$scope.photos.push({ filename: photoName, showcase: true });
+						$scope.photos.push({ filename: photoName, showcase: true, altTag: altTag });
 					else
-						$scope.photos.push({ filename: photoName });
+						$scope.photos.push({ filename: photoName, altTag: altTag });
 
 					if(itemsProcessed + oldPhotos === files.length) {
 						$scope.uploading = false;
@@ -606,7 +687,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	};*/
 
 	$scope.previewTab = () => {
-		initialize(0, $scope.latLng, 12, 'mapPreview');
+		initialize(0, $scope.latLng, 12, 'mapPreview', false , false, false, false );
 
 		$scope.steps.informations = false;
 		$scope.steps.power = false;
@@ -627,7 +708,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		$scope.steps.preview = false;
 		$window.scrollTo(0, 0);
 	};
-
 
 	// recaptcha
 	$scope.activeSaveBtn = false;

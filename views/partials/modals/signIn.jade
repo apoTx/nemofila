@@ -1,21 +1,21 @@
-.ui.modal.mini#signInModal
+.ui.modal.tiny#signInModal
     i.close.icon
     .header
         | Sign In
     .content
         .ui.grid.stackable.no-margin-bottom
-            .sixteen.wide.column
+            .five.wide.column
                 a.ui.facebook.button.fluid(href="/auth/facebook")
                     i.facebook.icon
-                    |   Sign In with Facebook
-            .sixteen.wide.column.no-padding-top
+                    |   Facebook
+            .six.wide.column
                 a.ui.twitter.button.fluid(href="/auth/twitter")
                     i.twitter.icon
-                    |   Sign In with Twitter
-            .sixteen.wide.column.no-padding-top
+                    |   Twitter
+            .five.wide.column
                 a.ui.google.plus.button.fluid(href="/auth/google")
                     i.google.plus.icon
-                    |   Sign In with Google
+                    |   Google
 
         .ui.horizontal.divider
             | Or
@@ -39,7 +39,7 @@
                     on-success="successSignInCaptcha(response)",
                     on-create="onWidgetCreate(widgetId)"
                 )
-                button.ui.right.icon.fluid.button.primary(form="signInForm", ng-class="{ loading:signInBtnLoading, disabled: signInBtnLoading, disabled: !activeLoginBtn  }")
+                button.ui.right.icon.fluid.button.primary.margin-top-10(form="signInForm", ng-class="{ loading:signInBtnLoading, disabled: signInBtnLoading, disabled: !activeLoginBtn  }")
                     | Login
             .field.sixteen.wide.column.no-padding-top.no-padding-bottom.text-right
                 a.forgot(href="#", ng-click="openForgotModal()")

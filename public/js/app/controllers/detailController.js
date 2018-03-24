@@ -1,11 +1,43 @@
-app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory) => {
+app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'messageFactory', 'detailFactory', 'eventFactory', 'reportFactory', ($scope, favFactory, rateFactory, messageFactory, detailFactory, eventFactory, reportFactory) => {
 
 	$(() => {
+
+		$('#sendMessageModal').modal({
+			onHide: function(){
+				$scope.messageSended = false;
+				$scope.sendMessageFormData.message = '';
+				$('body').removeClass('ios11-input-bug-fixer');
+			},
+			onShow: () => {
+				$('body').addClass('ios11-input-bug-fixer');
+			}
+		});
+
+		$('#reportModal').modal({
+			onHide: function(){
+				$scope.reportMessageSended = false;
+				$scope.reportFormData.message = '';
+				$('body').removeClass('ios11-input-bug-fixer');
+			},
+			onShow: () => {
+				$('body').addClass('ios11-input-bug-fixer');
+			}
+		});
+
+		$('.owl-carousel').owlCarousel({
+			margin:10,
+			items: 5,
+			dots: true,
+			nav:true,
+			smartSpeed: 100
+		});
+
 		$('.detail-right-menu a').popup({
 			position: 'bottom center'
 		});
 
 		$scope.onRate = false;
+
 		$('#detailRating').rating({
 			maxRating: 5,
 			onRate: (value) => {
@@ -48,8 +80,66 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 				$scope.sendMessageErr = null;
 			},
 		});
+
+		// repot form
+		$('#reportForm').form({
+			keyboardShortcuts: false,
+			on: 'blur',
+			fields: {
+				pw: {
+					identifier  : 'message',
+					rules: [
+						{
+							type   : 'empty',
+							prompt : 'Please enter your message.'
+						},
+						{
+							type   : 'maxLength[600]',
+							prompt : 'Your message can be up to {ruleValue} characters long.'
+						}
+					]
+				}
+			},
+			onSuccess: () => {
+				$scope.sendReport();
+			},
+			onInvalid:() => {
+				$scope.sendMessageErr = null;
+			},
+		});
 	});
 
+
+	function routeButton(controlDiv, map, lat, lng) {
+
+		// Set CSS for the control border.
+		const controlUI = document.createElement('div');
+		controlUI.style.backgroundColor = '#fff';
+		controlUI.style.border = '2px solid #fff';
+		controlUI.style.borderRadius = '3px';
+		controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+		controlUI.style.cursor = 'pointer';
+		controlUI.style.marginBottom = '22px';
+		controlUI.style.textAlign = 'center';
+		controlUI.title = 'Click to recenter the map';
+		controlDiv.appendChild(controlUI);
+
+		// Set CSS for the control interior.
+		const controlText = document.createElement('div');
+		controlText.style.color = 'rgb(25,25,25)';
+		controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+		controlText.style.fontSize = '16px';
+		controlText.style.lineHeight = '38px';
+		controlText.style.paddingLeft = '5px';
+		controlText.style.paddingRight = '5px';
+		controlText.innerHTML = 'Route';
+		controlUI.appendChild(controlText);
+
+		controlUI.addEventListener('click', () => {
+			const coords = lat +','+ lng;
+			window.open('https://www.google.com/maps/dir/?api=1&destination='+ coords , '_blank');
+		});
+	}
 
 	/*eslint-disable*/
 	function initMap(lat, lng){
@@ -66,6 +156,11 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			map: map,
 			title:'Drag me!'
 		});
+
+		const centerControlDiv = document.createElement('div');
+		const centerControl = new routeButton(centerControlDiv, map, lat, lng);
+		centerControlDiv.index = 1;
+		map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 	}
 	/*eslint-enable*/
 
@@ -134,27 +229,24 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		});
 	};
 
-	$(() => {
-		$('#sendMessageModal').modal({
-			onHide: function(){
-				$scope.messageSended = false;
-				$scope.sendMessageFormData.message = '';
-				$('body').removeClass('ios11-input-bug-fixer');
-			},
-			onShow: () => {
-				$('body').addClass('ios11-input-bug-fixer');
-			}
-		});
-	});
+	$scope.showLang1 = true;
+	$scope.changeDescriptionLanguage = () => {
+		if ($scope.showLang1){
+			$scope.showLang1 = false;
+			$scope.showLang2 = true;
+		}else{
+			$scope.showLang1 = true;
+			$scope.showLang2 = false;
+		}
+	};
 
 	$scope.openSendMessageModal = () => {
 		$('#sendMessageModal').modal('show');
 	};
 
-	/*setTimeout(() => {
-		$scope.openSendMessageModal();
-	});*/
-
+	$scope.openReportModal = () => {
+		$('#reportModal').modal('show');
+	};
 
 	$scope.sendMessage = () => {
 		$scope.sendMessageLoading = true;
@@ -178,6 +270,14 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		});
 	};
 
+	$scope.sendReport = () => {
+		reportFactory.sendReport($scope.reportFormData).then((data) => {
+			console.log(data);
+			if (data.status){
+				$scope.reportMessageSended = true;
+			}
+		});
+	};
 
 	// Photo gallery
 	$scope.methods = {};

@@ -1,8 +1,11 @@
-let passport = require('passport');
-let GoogleStrategy = require('passport-google-oauth20').Strategy;
-let User = require('../models/users');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
+// helpers
+const User = require('../models/users');
+
+// config
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
 
 passport.use(new GoogleStrategy({
 	clientID: config.google.app_id,
@@ -20,6 +23,7 @@ passport.use(new GoogleStrategy({
 			surname: data.name.familyName,
 			email: data.emails[0].value,
 			verify: true,
+			profilePictureUrl: data.image.url + '0',
 			'social.id': data.id,
 			'social.link': data.url,
 			'social.provider': 'Google',

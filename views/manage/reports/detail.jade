@@ -1,0 +1,30 @@
+extends ../layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/segment.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+
+block content
+    div
+        a.ui.right.floated.button(
+                href="/detail/#{ ad.slug }/#{ad._id}",
+                target="_blank"
+            )
+            | View In The Detail Page
+
+        .clearfix
+
+        table.ui.definition.table
+            tbody
+                tr
+                    td Ad Title
+                    td #{ ad.title }
+                tr
+                    td Created At
+                    td #{ ad.createdAt }
+                tr
+                    td Message
+                    td #{ message }
+
+

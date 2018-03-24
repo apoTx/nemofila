@@ -8,19 +8,21 @@ const ObjectId = require('mongoose').Types.ObjectId;
 // Models
 const Ads = require('../models/ads');
 
+// helpers
 const getDayName = require('../helper/getDayName');
+const openOrClose = require('../helper/openOrClose');
 
-let adPerPage = 48;
+const adPerPage = 48;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
-	let location = req.query.location;
-	let categoryId = req.query.categoryId;
-	let subCategoryId = req.query.subCategoryId;
-	let categoryName = req.query.categoryName;
-	let subCategoryName = req.query.subCategoryName;
-	let sortWith = req.query.sortWith;
-	const openNow = req.query.openNow;
+	const location = req.query.location;
+	const categoryId = req.query.categoryId;
+	const subCategoryId = req.query.subCategoryId;
+	const categoryName = req.query.categoryName;
+	const subCategoryName = req.query.subCategoryName;
+	const sortWith = req.query.sortWith;
+	const openNowCheckbox = req.query.openNow === 'on' ? true : false;
 
 	let sort;
 	if (sortWith === 'rate'){
@@ -97,6 +99,7 @@ router.get( '/', ( req, res ) => {
 					category: '$category',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					place: '$place',
+					placeName: '$place.formatted_address',
 					workTimes: '$workTimes',
 					rate: { $ceil: { $avg: '$rates.score' } },
 				},
@@ -119,9 +122,11 @@ router.get( '/', ( req, res ) => {
 				powers: '$power',
 				totalPower: 1,
 				place: '$_id.place',
+				locationName: '$_id.placeName',
 				category: '$_id.category.name',
 				rate: round('$_id.rate', 1),
-				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
+				workTimes: '$_id.workTimes',
+				workTimesToday: '$_id.workTimes'+ '.'+ getDayName(),
 			}
 		}, // ,
 		{ $sort: sort },
@@ -131,30 +136,39 @@ router.get( '/', ( req, res ) => {
 		if (err)
 			throw new Error(err);
 
-		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
-			hour: 'numeric',
-			minute: 'numeric' });
 		const category = subCategoryName !== '' ? subCategoryName : categoryName;
 		const locationTitle = (location !== '') && (location !== undefined)   ? 'in '+ location : '';
 		const best = category !== '' ? i18n.__( 'best' ) : '';
 		const title = `${best} ${category} ${locationTitle}`;
 
-		let d = { data: data };
+		data.forEach((ad, key) => {
+			let status = openOrClose(data[key]);
+			data[key].openNow = status;
+			data[key].category = res.__(data[key].category);
 
-		let result = Object.assign(d, {
+			if (!status && openNowCheckbox){
+				delete data[key];
+
+			}
+		});
+
+		const d = { data };
+		const result = Object.assign(d, {
+			location,
+			categoryId,
+			subCategoryId,
+			openNowCheckbox,
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
 			url: url,
-			currentTime: currentTime,
-			openNow: openNow === 'on' ? true : false,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});
 
-		console.log(result);
 
 		res.render('search', result);
 	});
+
 });
 
 router.get('/getEventsByLocationName', (req, res) => {
@@ -164,6 +178,7 @@ router.get('/getEventsByLocationName', (req, res) => {
 		{
 			'$match': {
 				'place.address_components.long_name': location !== '' ? location : { $exists: true },
+				'status': 1,
 			}
 		},
 
@@ -175,6 +190,9 @@ router.get('/getEventsByLocationName', (req, res) => {
 				foreignField: 'adId',
 				as: 'event'
 			}
+		},
+		{
+			$match:{ 'event.status' : 1 }
 		},
 		{ '$unwind': '$event' },
 		{ '$limit': 30 },

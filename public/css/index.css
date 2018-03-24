@@ -78,7 +78,11 @@ label.custom{
 
 .indexBestInTitle{
     text-align: center;
-    padding: 2em 0
+    padding: 2em 0 .5em 0
+}
+
+.rateArea{
+    margin-bottom: 10px
 }
 
 @media only screen and (max-width: 768px){

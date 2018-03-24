@@ -16,9 +16,11 @@ const adminAdToUser = require('../helper/adminAdToUser');
 // Models
 const Ads = require('../models/ads');
 const Favourites = require('../models/favourites');
+const Reports = require('../models/reports');
 
 // helpers
 const openOrClose = require('../helper/openOrClose');
+const fixUrl = require('../helper/fixUrl');
 
 const getObject = (data, req, res, showEditButton) => {
 
@@ -44,10 +46,10 @@ const getObject = (data, req, res, showEditButton) => {
 
 	const isOpen = openOrClose(data);
 
-
 	return {
-		title: data.title + ' ' + data.categoryObj.name + ','+ data.place.address_components[0].short_name,
+		title: data.title + ' ' + data.categoryObj.name + ','+  data.place.address_components[0].short_name,
 		data: data,
+		absoluteWebsiteUrl: data.website ? fixUrl(data.website) : '',
 		isOpen: isOpen,
 		moment: moment,
 		url: req.protocol + '://' + req.get('host') + req.originalUrl,
@@ -112,6 +114,7 @@ router.get('/:slug/:id', (req, res, next) => {
 					'_id': '$_id',
 					'title': '$title',
 					'description': '$description',
+					'description2': '$description2',
 					'price': '$price',
 					'anotherContact': '$anotherContact',
 					'uuid': '$uuid',
@@ -149,6 +152,7 @@ router.get('/:slug/:id', (req, res, next) => {
 				'title': '$_id.title',
 				'rate': '$_id.rateAvg',
 				'description': '$_id.description',
+				'description2': '$_id.description2',
 				'price': '$_id.price',
 				'anotherContact': '$_id.anotherContact',
 				'uuid': '$_id.uuid',
@@ -221,7 +225,9 @@ router.get('/:slug/:id', (req, res, next) => {
 
 				Ads.findByIdAndUpdate(
 					ObjectId(_id),
-					{ $inc: { 'pageView': 1 } },
+					{
+						$inc: { 'pageView': 1 }
+					},
 					(err) => {
 						if (err)
 							throw new Error(err);
@@ -241,29 +247,27 @@ router.get('/getSimilars', (req, res) => {
 	let findData;
 	/*eslint-enable*/
 
-	Ads.findById(adId, { status: 1 }, (err, result) => {
+	Ads.findOne(
+		{
+			'_id':ObjectId(adId),
+			status: 1
+		},  (err, result) => {
 
-		try {
+			try {
+				const categoryId = result.category.categoryId;
+				const location = result.place.formatted_address;
 
-			const categoryId = result.category.categoryId;
-			// const childCategoryId = result.category.categoryChildId;
-			const location = result.place.address_components[0].long_name;
+				findData = { 'category.categoryId': categoryId, 'place.formatted_address': location };
 
-			//if (childCategoryId === null){
-			findData = { 'category.categoryId': categoryId, 'place.address_components.0.long_name': location };
-			//}else{
-			//findData = { 'category.categoryChildId': childCategoryId, 'place.address_components[0].long_name': location };
-			//}
+				Ads.find(findData, (err, data) => {
+					res.json(data);
+				}).limit(8);
 
-			Ads.find(findData, (err, data) => {
-				res.json(data);
-			}).limit(8);
+			}catch(err){
+				console.log(err);
+			}
 
-		}catch(err){
-			console.log(err);
-		}
-
-	});
+		});
 });
 
 router.get('/deleteAd', requireLogin, (req, res) => {
@@ -354,6 +358,25 @@ router.get('/setRate', requireLogin, (req, res) => {
 			res.json(result);
 		});
 	}
+});
+
+router.post('/sendReport', (req, res) => {
+	const adId = req.query.adId;
+	const message = req.query.message;
+
+	const report = new Reports({
+		adId,
+		message,
+		userId: req.session.user ? req.session.user._id : null
+	});
+
+	report.save(err => {
+		if (err)
+			throw new Error(err);
+
+		res.json({ status: 1 });
+	});
+
 });
 
 module.exports = router;

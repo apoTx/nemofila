@@ -8,6 +8,7 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.min.css')
     link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
+    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/index.css')
     style.
         .transparent {
@@ -60,13 +61,13 @@ block content
                 .ui.sidebar.inverted.vertical.left.menu.filterSidebar
                     form.ui.form.sidebarFilterForm
                         .field
-                            label Location
+                            label #{i18n.__( "Location" )}
                             input(class="ui input", id="searchLocation2", class="autocompletePlace")
-                        country-and-category-dropdowns
+                        country-and-category-dropdowns(categoryLang="heyo")
 
                         .field.text-right.margin-top-10
                             .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                                | Search
+                                | #{i18n.__( "Search" )}
 
                 .search.ui.container
                     .searchForm
@@ -82,19 +83,31 @@ block content
                             div.searchFormBottom.ui.container
                                 .two.fields
                                     .field
-                                        label Location
+                                        label #{i18n.__( "Location" )}
                                         input(g-places-autocomplete='', ng-model='place')
                                         input(name="location", type="hidden", value="{{ place.address_components[0].long_name }}")
 
                                     .field
-                                        .two.fields(country-and-category-dropdowns)
+                                        .two.fields
+                                            .field
+                                                label #{i18n.__( "Category" )}
+                                                select(name='category', ng-model='newAdForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')
+                                                    option(value='') #{i18n.__( "Please select" )}
+                                                input(ng-hide='true', ng-model='categories[newAdForm.category].name', name='categoryName')
+                                                input(ng-hide='true', ng-model='categories[newAdForm.category]._id', name='categoryId')
+                                            .field
+                                                label #{i18n.__( "Child Category" )}
+                                                select(name='subCategory', ng-disabled='visiblesCategories.subCategory', ng-model='newAdForm.categoryChild', ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories')
+                                                    option(value='') #{i18n.__( "Please select" )}
+                                                input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild].name', name='subCategoryName')
+                                                input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild]._id', name='subCategoryId')
 
                                 .clearfix
 
                                 .ui.grid.stackable
                                     .six.wide.column
                                         .field.text-left
-                                            label.custom Open Now
+                                            label.custom #{i18n.__( "Open Now" )}
                                                 input.customCheckbox(name='openNow', type='checkbox')
 
                                     .ten.wide.column
@@ -125,22 +138,17 @@ block content
                                         a {{ ad.category }}
                                     //.description
                                         | {{ ad.description | limitTo: 26 }} {{ ad.description.length > 26 ? '...' : ''}}
-
-                                .extra.content(
-                                        ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)"
-                                    )
-
-                                    //
-                                        span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
-                                            .ui.red.horizontal.label #{i18n.__( "Close" )}
-
-                                        span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
-                                            .ui.green.horizontal.label #{i18n.__( "Open" )}
-                                    span.right.floated
+                                    .meta.margin-top-10(ng-init="locationName = ad.place.fullPlaceName ? ad.place.fullPlaceName : ad.locationName")
                                         i.map.marker.alternate.icon
-                                        | {{ ad.locationName | limitTo: 12 }}{{ ad.locationName.length > 12 ? '...' : ''}}
-                                    div(ng-show="ad.rate")
+                                        | {{ locationName | limitTo: 26 }}{{ locationName.length > 26 ? '...' : ''}}
+
+                                .extra.content
+                                    div.rateArea(ng-show="ad.rate", style="display:inline-block")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
+
+                                    div.right.floated(style="display:inline-block")
+                                        .ui.green.horizontal.label(ng-if="ad.openNow") #{i18n.__("Open")}
+                                        .ui.horizontal.label(ng-if="!ad.openNow") #{i18n.__("Close")}
 
                 .ui.dimmer(ng-class="{ active:indexAdsLoading }")
                     .ui.loader
@@ -157,14 +165,14 @@ block content
                         pg-href="?page={page}",
                         show-prev-next='true',
                         show-first-last='true',
-                        text-prev="Prev",
-                        text-next="Next"
+                        text-prev="#{i18n.__( 'Prev' )}",
+                        text-next="#{i18n.__( 'Next' )}"
                     )
 
             .clearfix
 
             div(ng-if="events.length > 0")
-                h2.indexBestInTitle #{i18n.__( "last_events" )}
+                h2.indexBestInTitle.margin-top-10 #{i18n.__( "last_events" )}
                 .ui.segment.list-segment
                     .ui.grid.no-margin-bottom(ng-show="!indexEventsLoading" ng-cloak)
                         .doubling.three.column.row
@@ -201,3 +209,5 @@ append javascripts
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="dist/js/app/controllers/indexController.min.js")
+    script(type='text/javascript', src='https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521b6aa16401756b')
+

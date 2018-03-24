@@ -9,6 +9,7 @@ const router = express.Router();
 
 // settings
 const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const settings = require('../config/settings.json');
 
 // Models
 const Ads = require('../models/ads');
@@ -54,7 +55,7 @@ const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
 	});
 };
 
-router.get('/:id?', requireLogin, (req, res, next) => {
+router.get('/:id?',  (req, res, next) => {
 
 	const adId = req.query.id;
 
@@ -65,7 +66,14 @@ router.get('/:id?', requireLogin, (req, res, next) => {
 
 			const ownerId = result.ownerId;
 
-			if (String(ownerId) !== String(req.user._id)) {
+			let userId;
+			try{
+				userId = req.user._id;
+			}catch (e){
+				userId = '';
+			}
+
+			if (String(ownerId) !== String(userId) || '') {
 				next('Error.');
 			}else{
 				render();
@@ -76,7 +84,7 @@ router.get('/:id?', requireLogin, (req, res, next) => {
 	}
 
 	function render () {
-		request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
+		request(settings.s3_upload_signature_service_url, (error, response, body) => {
 			res.render( 'newAd', {
 				title: 'New Ad',
 				userExists: req.session.user ? true : false,
@@ -87,7 +95,6 @@ router.get('/:id?', requireLogin, (req, res, next) => {
 			});
 		});
 	}
-
 });
 
 router.post('/create', requireLogin, (req, res) => {
@@ -106,8 +113,10 @@ router.post('/create', requireLogin, (req, res) => {
 			const phone = data.phone;
 			const zip_code = data.zip_code;
 			const address = data.address;
-			const website = data.website;
 			const place = data.place;
+
+			const website = data.website;
+
 
 			if (place)
 				delete place.photos;

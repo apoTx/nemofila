@@ -1,4 +1,4 @@
-app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config) => {
+app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', 'Slug', 'guidFactory', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config, Slug, guidFactory) => {
 
 	// New Event Form
 	$scope.newEventForm = {};
@@ -10,6 +10,12 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 	$scope.newEventForm.place = null;
 
 	$(() => {
+
+		function addDays(date, days) {
+			const result = new Date(date);
+			result.setDate(result.getDate() + days);
+			return result;
+		}
 
 		const dateFormat = {
 			date:  (date) => {
@@ -27,18 +33,15 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 60)
 		};
 
-		const endDateRange = {
-			maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30),
-		};
-
 		$('#startDate').calendar({
 			type: 'date',
 			onChange: (date,text) => {
 				$scope.newEventForm.startDate = date;
 				$scope.newEventForm.startDateText = text;
 				$scope.$apply();
-				console.log($scope.newEventForm.startDate);
-				console.log($scope.newEventForm.startDate - 30);
+
+				console.log(date + 30);
+				endDate(addDays(date, 30));
 			},
 			formatter: {
 				date: dateFormat.date
@@ -48,18 +51,21 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			endCalendar: $('#endDate')
 		});
 
-		$('#endDate').calendar({
-			type: 'date',
-			onChange: (date,text) => {
-				$scope.newEventForm.endDate = date;
-				$scope.newEventForm.endDateText = text;
-			},
-			formatter: {
-				date: dateFormat.date
-			},
-			maxDate: endDateRange.maxDate,
-			startCalendar: $('#startDate')
-		});
+
+		function endDate(d) {
+			$('#endDate').calendar({
+				type: 'date',
+				onChange: (date,text) => {
+					$scope.newEventForm.endDate = date;
+					$scope.newEventForm.endDateText = text;
+				},
+				formatter: {
+					date: dateFormat.date
+				},
+				maxDate: d,
+				startCalendar: $('#startDate')
+			});
+		}
 
 		$('#newEventForm').form({
 			keyboardShortcuts: false,
@@ -130,8 +136,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 
 		if (eventId !== 'undefined'){
 
-			console.log('tesssst');
-
 			eventFactory.getEventsByEventId(eventId).then((result) => {
 				console.log(result);
 				$scope.newEventForm = result;
@@ -139,7 +143,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				let category = result.categoryId;
 				setTimeout(() => {
 					$scope.newEventForm.eventCategory = (($scope.eventCategories).findIndex(x => String(x._id) === String(category))).toString();
-					console.log($scope.newEventForm.eventCategory);
 				});
 
 				try{
@@ -236,16 +239,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		}
 	};
 
-	function guid() {
-		function s4() {
-			return Math.floor((1 + Math.random()) * 0x10000)
-				.toString(16)
-				.substring(1);
-		}
-		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-			s4() + '-' + s4() + s4() + s4();
-	}
-
 	$scope.nextLoader = false;
 	$scope.uploading = false;
 	$scope.photos = [];
@@ -264,9 +257,19 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			}
 
 			files.forEach((file) => {
+
+				let title = Slug.slugify($scope.newEventForm.title);
+				let formatted_address = Slug.slugify($scope.ad.place.formatted_address);
+
+				let category = $scope.eventCategories[$scope.newEventForm.eventCategory];
+				let categoryName = Slug.slugify(category.name);
+
+				console.log();
+
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
-				let photoName = guid() +'.'+ fileExtension;
+				let altTag = title +','+ formatted_address +','+ categoryName;
+				let photoName = title +'-'+ formatted_address +'-'+ categoryName +'-'+ guidFactory.generateGuid() +'.'+ fileExtension;
 
 				if (!file.name) {
 					oldPhotos++;
@@ -297,9 +300,9 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 					itemsProcessed++;
 
 					if (file.showcase)
-						$scope.photos.push({ filename: photoName, showcase: true });
+						$scope.photos.push({ filename: photoName, showcase: true, altTag });
 					else
-						$scope.photos.push({ filename: photoName });
+						$scope.photos.push({ filename: photoName, altTag });
 
 					if(itemsProcessed + oldPhotos === files.length) {
 						$scope.uploading = false;

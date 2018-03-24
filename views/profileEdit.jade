@@ -1,0 +1,36 @@
+extends layout
+
+append stylesheets
+    link(rel='stylesheet', type='text/css', href='/dist/css/editProfile.css')
+
+block content
+    .ui.main.container.subPage(ng-controller="profileEditController", ng-init="init('#{ user.profilePictureUrl }')")
+        div(ng-if="!adSaveComplete", ng-cloak)
+
+            include partials/profile/menu
+
+            .ui.grid
+                .twelve.wide.column &nbsp;
+
+                .four.wide.column
+                    b #{i18n.__("Profile Picture")}
+                    img.ui.medium.rounded.image.margin-top-10(
+                        ng-src="{{ profilePhotoForm.photo }}",
+                        onerror="this.src='/img/avatar-default.jpg'"
+                    )
+
+                    //img.ui.medium.rounded.image.margin-top-10(src="#{ user.profilePictureUrl }")
+
+                    div.margin-top-10.text-center
+                        .ui.button(ng-click='openUploadProfilePictureModal()')
+                            | #{i18n.__("Upload new picture")}
+
+
+            include partials/modals/uploadProfilePicture
+
+
+append javascripts
+    script(src="/dist/js/app/helpers/guid.min.js")
+    script(src="/dist/js/app/services/profile/profileEditFactory.min.js")
+    script(src="/dist/js/app/controllers/profileEditController.min.js")
+

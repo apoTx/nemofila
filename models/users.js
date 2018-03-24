@@ -40,8 +40,11 @@ let userSchema = new Schema({
 	social: {
 		id: String,
 		link: String,
-		provider: String
-	}
+		provider: String,
+		screen_name: String
+	},
+	profilePictureType: String, // social or custom
+	profilePictureUrl: String
 });
 
 userSchema.statics.findOrCreate = require('find-or-create');

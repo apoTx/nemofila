@@ -10,6 +10,8 @@ const Events = require('../models/events');
 
 // settings
 const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
+const settings = require('../config/settings.json');
+
 const verifyRecaptcha = require('../helper/recaptcha');
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -23,7 +25,7 @@ router.get( '/', ( req, res) => {
 });
 
 router.get( '/new/:adId', ( req, res) => {
-	request('http://jqueryegitimseti.com/amazon-service.php', (error, response, body) => {
+	request(settings.s3_upload_signature_service_url, (error, response, body) => {
 		res.render( 'new-event', {
 			title: res.__('new-event-page-title'),
 			userExists: !!req.session.user,
@@ -146,12 +148,15 @@ router.get( '/getIndexEvents', (req, res) => {
 				howManyDaysAreLeft: { $ceil: { $divide: [ { $subtract: [ '$endDate', new Date() ] }, 86400000 ] } }
 			}
 		},
-	], (err, result) => {
+	], (err, data) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(result);
-		res.json(result);
+		data.forEach((event, key) => {
+			data[key].category.name = res.__(data[key].category.name);
+		});
+
+		res.json(data);
 	});
 
 	/*Events.find({
@@ -289,9 +294,9 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 					if (String(event.user._id) == req.session.user._id || req.session.user.isAdmin)
 						res.render('event-detail', data);
 					else
-						res.status(404).render('error/404', { message: 'Ad Not Found' });
+						res.status(404).render('error/404', { message: 'Event Not Found' });
 				} else {
-					res.status(404).render('error/404', { message: 'Ad Not Found' });
+					res.status(404).render('error/404', { message: 'Event Not Found' });
 				}
 			} else {
 				res.render('event-detail', data);

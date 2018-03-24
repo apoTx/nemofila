@@ -98,7 +98,8 @@ block content
                     )
                         - if (data.photos !== null)
                             img(
-                                src='#{ amazon_base_url }/#{ data.photos[0].filename }'
+                                src='#{ amazon_base_url }/#{ data.photos[0].filename }',
+                                alt="#{ data.photos[0].altTag }"
                             )
                         - else
                             img(src='/img/no-photo.png')
@@ -115,7 +116,7 @@ block content
                             tr
                                 td #{i18n.__( "Category" )}
                                 td
-                                    | #{ data.category.name }
+                                    | #{ i18n.__(data.category.name) }
 
                             tr
                                 td #{i18n.__( "Place" )}

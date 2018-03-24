@@ -8,52 +8,62 @@ append stylesheets
 
 
 block content
-    .ui.main.container.subPage(ng-controller="searchController", ng-init="init()")
-        - if (data.length < 1)
-            h2.text-center.padding-top-10 No results.
-        - else
-            form.ui.form.fluid(action="/search")
-                div.gray-bg.padding-10
-                    .two.fields
-                        .field(
-                            ng-init="place.formatted_address='#{ data[0].place.formatted_address }'"
+    .ui.main.container.subPage(ng-controller="searchController", ng-init="init('#{ categoryId }', '#{ subCategoryId }')")
+        form.ui.form.fluid(action="/search")
+            div.gray-bg.padding-10
+                .two.fields
+                    .field(
+                        ng-init="place.formatted_address='#{ location }'"
+                    )
+                        label Location
+                        input(g-places-autocomplete='', ng-model='place')
+                        input(
+                            name="location",
+                            ng-show="false",
+                            ng-init="placeLongName='#{ location }'",
+                            ng-model='placeLongName'
                         )
-                            label Location
-                            input(g-places-autocomplete='', ng-model='place')
-                            input(
-                                name="location",
-                                ng-show="false",
-                                ng-init="placeLongName='#{ data[0].place.address_components[0].long_name }'",
-                                ng-model='placeLongName'
-                            )
 
-                        .field
-                            .two.fields(country-and-category-dropdowns)
+                    .field
+                        .two.fields
+                            .field
+                                label #{i18n.__("Category")}
+                                select(name='category', ng-model='searchForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')
+                                    option(value='') #{i18n.__("Please select")}
+                                input(ng-hide='true', ng-model='categories[searchForm.category].name', name='categoryName')
+                                input(ng-hide='true', ng-model='categories[searchForm.category]._id', name='categoryId')
+                            .field
+                                label #{i18n.__("Child Category")}
+                                select(name='subCategory', ng-disabled='visiblesCategories.subCategory', ng-model='searchForm.categoryChild', ng-options='index as subCategory.name for (index, subCategory) in categories[searchForm.category].subCategories')
+                                    option(value='') #{i18n.__("Please select")}
+                                input(ng-hide='true', ng-model='categories[searchForm.category].subCategories[searchForm.categoryChild].name', name='subCategoryName')
+                                input(ng-hide='true', ng-model='categories[searchForm.category].subCategories[searchForm.categoryChild]._id', name='subCategoryId')
 
-                    .field.text-right
-                        label.custom Open Now
-                            - if (openNow)
-                                input.customCheckbox(name='openNow', type='checkbox', checked)
-                            - else
-                                input.customCheckbox(name='openNow', type='checkbox')
+                .field.text-right
+                    label.custom #{i18n.__("Open Now")}
+                        - if (openNowCheckbox)
+                            input.customCheckbox(name='openNow', type='checkbox', checked)
+                        - else
+                            input.customCheckbox(name='openNow', type='checkbox')
 
-                    .field.text-right
-                        button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                            | Search
+                .field.text-right
+                    button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
+                        | #{i18n.__("Search")}
 
-                .field.margin-top-30
-                    select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
-                        option(selected disabled) Sort with
-                        option(value="rate") Rate
 
+            .field.margin-top-30
+                select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
+                    option(selected disabled) #{i18n.__("Sort with")}
+                    option(value="rate") #{i18n.__("Rate")}
+
+        - if (data.length > 0)
             h1.text-center.padding-bottom-10 #{ title }
-
             .clearfix
             .ui.segment.list-segment.searchData
                 .ui.grid.no-margin-bottom
                     .doubling.four.column.row
                         each ad in data
-                            - if (!((!ad.workTimes.open || clockOpenClose) && openNow) )
+                            - if (ad)
                                 .column.margin-bottom-10
                                     .ui.fluid.card.adCard
                                         a.image.cardListImage(href="/detail/#{ ad.slug }/#{ ad._id }")
@@ -69,36 +79,41 @@ block content
                                             span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
                                             .meta #{ ad.category }
 
-                                        .extra.content
-                                            - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
+                                            - var locationName = ad.place.fullPlaceName ? ad.place.fullPlaceName : ad.locationName
+                                            .meta.margin-top-10
+                                                i.map.marker.alternate.icon
+                                                | #{ locationName.substr(0, 26) } #{ locationName.length > 26 ? '...' : '' }
 
-                                            - if (!ad.workTimes.open || !clockOpenClose)
-                                                span.right.floated
-                                                    .ui.red.horizontal.label #{i18n.__( "Close" )}
-                                            - else
-                                                span.right.floated
-                                                    .ui.green.horizontal.label #{i18n.__( "Open" )}
+                                        .extra.content
+                                            div.right.floated(style="display:inline-block")
+                                                - if (ad.openNow)
+                                                    .ui.green.horizontal.label #{i18n.__("Open")}
+                                                - else
+                                                    .ui.horizontal.label #{i18n.__("Close")}
 
                                             - if (ad.rate)
                                                 .ui.star.rating(data-rating='#{ ad.rate }')
+        - else
+            h2.text-center.padding-bottom-10 #{i18n.__("No Results")}
 
-            .text-center
+        - if (location && data.length > 0)
+            .text-center.margin-top-10
                 button.ui.big.button.margin-auto(
                     ng-click="showEvents(placeLongName)",
                     ng-class="{loading: loadingEvents}",
                     ng-if="!events"
                 )
-                    | #{i18n.__("Show events")} ({{ placeLongName }})
+                    | #{i18n.__("Show events")}
 
             div(ng-if="events.length > 0")
-                h2 #{i18n.__( "Events" )} ({{ placeLongName }})
+                h2 #{i18n.__( "Events" )}
                 .ui.segment.list-segment
                     .ui.grid.no-margin-bottom
                         .doubling.four.column.row
                             .column.margin-bottom-10(
                                 ng-repeat="e in events",
                             )
-                                a.ui.fluid.card.adCard(href="/detail/{{ e.event.slug }}/{{ e.event._id }}")
+                                a.ui.fluid.card.adCard(href="/events/detail/{{ e.event.slug }}/{{ e.event._id }}")
                                     .image.cardListImage
                                         img(ng-src='#{ amazon_base_url }/{{ e.event.photos[e.event.photoShowcaseIndex].filename }}', ng-hide="e.event.photoShowcaseIndex === null")
                                         img(ng-src='/img/no-photo.png', , ng-show="e.event.photoShowcaseIndex === null")

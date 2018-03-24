@@ -1,8 +1,14 @@
-let passport = require('passport')
+const passport = require('passport')
 	, FacebookStrategy = require('passport-facebook').Strategy;
-let User = require('../models/users');
 
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
+// models
+const User = require('../models/users');
+
+// config
+const config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
+
+// helpers
+const getProfilePicture = require('../helper/getProfilePicture.js');
 
 passport.use(new FacebookStrategy({
 	clientID: config.facebook.app_id,
@@ -19,6 +25,7 @@ passport.use(new FacebookStrategy({
 			email: profile._json.email ? profile._json.email : profile.id,
 			surname: profile._json.last_name,
 			verify: true,
+			profilePictureUrl: getProfilePicture('Facebook', profile.id),
 			'social.id': profile.id,
 			'social.link': profile.profileUrl,
 			'social.provider': 'Facebook',

@@ -42,6 +42,7 @@ const users = require('./routes/manage/users');
 const manage_countries = require('./routes/manage/countries');
 const manage_categories = require('./routes/manage/categories');
 const manage_event_categories = require('./routes/manage/event-categories');
+const reports = require('./routes/manage/reports');
 
 // Mongo connection
 const mongoose = require('mongoose');
@@ -140,6 +141,7 @@ app.use('/manage/users', users);
 app.use('/manage/countries', manage_countries);
 app.use('/manage/categories', manage_categories);
 app.use('/manage/event-categories', manage_event_categories);
+app.use('/manage/reports', reports);
 app.use('/', index);
 app.use('/search', search);
 app.use('/auth', auth);

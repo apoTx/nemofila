@@ -41,7 +41,7 @@ block content
                     .ui.text.loader Loading
 
                 div#adInformation(ng-show="steps.informations", ng-cloak)
-                    form.ui.form.fluid#newAdForm(ng-init="init('#{ id }')")
+                    form.ui.form.fluid#newAdForm(ng-init="init('#{ id }', '#{ userExists }')")
                         input(type='hidden', name='Content-Type', value='')
                         input(type='hidden', name='Content-Type', ng-init="url= '#{ formdata.url }' ", ng-model="url")
                         input(type='hidden', name='acl', ng-model="acl", ng-init="acl= '#{ formdata.inputs.acl }'")
@@ -78,13 +78,25 @@ block content
 
                         .two.fields
                             .field
-                                label Location
+                                label #{ i18n.__("Location") }
 
                                 .ui.action.input
                                     input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
                                     .ui.button(ng-click='locate()') #{ i18n.__("Find my location") }
                             .field
-                                .two.fields(country-and-category-dropdowns)
+                                .two.fields
+                                    .field
+                                        label #{i18n.__("Category")}
+                                        select(name='category', ng-model='newAdForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')
+                                            option(value='') #{i18n.__("Please select")}
+                                        input(ng-hide='true', ng-model='categories[newAdForm.category].name', name='categoryName')
+                                        input(ng-hide='true', ng-model='categories[newAdForm.category]._id', name='categoryId')
+                                    .field
+                                        label #{i18n.__("Child Category")}
+                                        select(name='subCategory', ng-disabled='visiblesCategories.subCategory', ng-model='newAdForm.categoryChild', ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories')
+                                            option(value='') #{i18n.__("Please select")}
+                                        input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild].name', name='subCategoryName')
+                                        input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild]._id', name='subCategoryId')
 
 
                         .fields.two
@@ -154,7 +166,7 @@ block content
                                 .card.photoList(ng-repeat='f in newAdForm.files')
                                     .image.photoListImage
                                         a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
-                                            i.bookmark.icon
+                                            i.bookmark.icon.orange
                                         img(
                                             ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
                                             ngf-size="{width:200, height:200, quality:0.6}",
@@ -171,7 +183,7 @@ block content
                                         ng-if="f.showcase",
                                         ng-cloak
                                     )
-                                        i.remove.icon
+                                        i.remove.icon.
                                         |  #{ i18n.__("remove") }
 
 
@@ -270,7 +282,7 @@ block content
                         .card.photoList(ng-repeat='f in newAdForm.files')
                             .image.photoListImage
                                 a.ui.left.corner.label(ng-if="f.showcase", ng-cloak)
-                                    i.bookmark.icon
+                                    i.bookmark.icon.orange
                                 img(
                                     ngf-thumbnail="f.filename ? '#{ amazon_base_url }/{{f.filename}}': f ",
                                     ngf-size="{width:200, height:200, quality:0.6}",
@@ -291,13 +303,6 @@ block content
                                     tr
                                         td #{ i18n.__("category") }
                                         td {{ categories[newAdForm.category].name }} / {{ categories[newAdForm.category].subCategories[newAdForm.categoryChild].name }}
-                                    tr
-                                        td #{ i18n.__("contact_name") }
-                                        td
-                                            span(ng-show="newAdForm.anotherContact.checked")
-                                                | {{ newAdForm.anotherContact.name }}
-                                            span(ng-hide="newAdForm.anotherContact.checked")
-                                                | #{ user.name } #{ user.surname }
 
                                     tr(ng-hide="newAdForm.anotherContact.checked")
                                         td #{ i18n.__( "phone" ) }
@@ -327,15 +332,13 @@ block content
                                         td
                                             | {{ newAdForm.address }}
 
-                            h3 #{ i18n.__("description") }
-                            .ui.segment
-                                p.description(ng-bind-html="newAdForm.description")
+
 
                         .six.wide.column
                             h3 #{ i18n.__("Work Times") }
 
-                            ul.workTimeList(ng-repeat="(key, day) in newAdForm.workTimes")
-                                li
+                            ul.workTimeList
+                                li(ng-repeat="(key, day) in newAdForm.workTimes")
                                     div.listDay {{ key }}
                                     div.listWorkTimes
                                         div(ng-if="!day.open")
@@ -347,6 +350,13 @@ block content
                                         div(ng-if="day.open && !day.hour24")
                                             | {{ day.openTime }} : {{ day.closeTime ? day.closeTime : '~' }}
 
+                    .ui.stackable.grid
+                        .ten.wide.column
+                            h3 #{ i18n.__("description") }
+                            .ui.segment.descriptionArea
+                                p.description(ng-bind-html="newAdForm.description")
+
+                        .six.wide.column
                             div#mapPreview
 
                     .margin-top-30.text-right
@@ -394,13 +404,14 @@ block content
                 | Velit euismod in pellentesque massa placerat duis ultricies lacus. Tortor id aliquet lectus proin nibh. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Diam volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat. Sollicitudin nibh sit amet commodo nulla facilisi. Eu mi bibendum neque egestas congue quisque. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Tellus molestie nunc non blandit. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum. Cursus euismod quis viverra nibh cras. Elementum facilisis leo vel fringilla est. At elementum eu facilisis sed odio morbi. Sed egestas egestas fringilla phasellus faucibus scelerisque. Faucibus scelerisque eleifend donec pretium vulputate sapien nec.
 
 append javascripts
+    script(src="/dist/js/app/helpers/guid.min.js")
     script(src="/dist/js/app/services/newAdFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/services/countriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
-    script(src="https://checkout.stripe.com/checkout.js")
-    script(src="/dist/js/app/stripe.min.js")
+    //script(src="https://checkout.stripe.com/checkout.js")
+    //script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
     script(src="/dist/js/app/controllers/newAdController.min.js")
-    script(src="semantic/dist/components/checkbox.min.js")
+    script(src="/semantic/dist/components/checkbox.min.js")
 

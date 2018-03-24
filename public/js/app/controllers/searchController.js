@@ -1,5 +1,4 @@
-app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'searchFactory', ($scope, $http, categoriesFactory, searchFactory) => {
-	$http;
+app.controller('searchController',  ['$scope', 'categoriesFactory', 'searchFactory', ($scope, categoriesFactory, searchFactory) => {
 
 	$(() => {
 		$('.rating').rating({
@@ -8,9 +7,23 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'se
 		});
 	});
 
-	$scope.init = () => {
+	$scope.init = (categoryId, subCategoryId) => {
+		$scope.searchForm = {};
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
+
+			try{
+				const categoryIndex = $scope.categories.findIndex(x => x._id == categoryId);
+				const subCategoryIndex = $scope.categories[categoryIndex].subCategories.findIndex(x => x._id == subCategoryId);
+
+				console.log(subCategoryIndex);
+
+				$scope.searchForm.category = String(categoryIndex);
+				$scope.searchForm.categoryChild = String(subCategoryIndex);
+			}catch (e){
+				//
+			}
+
 		});
 	};
 
@@ -26,7 +39,6 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'se
 		searchFactory.getEventsByLocationName(placeLongName).then((result) => {
 			$scope.events = result;
 			$scope.loadingEvents = true;
-			console.log($scope.events);
 		});
 	};
 

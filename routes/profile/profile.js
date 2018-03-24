@@ -1,12 +1,19 @@
-let express = require('express');
-let router = express.Router();
-let config = require('../../config/env.json')[process.env.NODE_ENV || 'development'];
-let requireLogin = require('../inc/requireLogin.js');
+const express = require('express');
+const router = express.Router();
+const request = require('request');
+
+// config
+const config = require('../../config/env.json')[process.env.NODE_ENV || 'development'];
+const requireLogin = require('../inc/requireLogin.js');
+const settings = require('../../config/settings.json');
+
+// Models
+const Users = require('../../models/users');
 
 /* GET users listing. */
 router.get('/', requireLogin, (req, res) => {
 	res.render( 'profile', {
-		title: 'Profile',
+		title: res.__('profile_title'),
 		amazon_base_url: config.amazon_s3.photo_base_url,
 		profile_locales: {
 			myAds: {
@@ -38,6 +45,43 @@ router.get('/', requireLogin, (req, res) => {
 			}
 		},
 	});
+});
+
+router.get('/edit', requireLogin, (req, res) => {
+	const userId = req.session.user._id;
+
+	request(settings.s3_upload_signature_service_url, (error, response, body) => {
+		Users.findById(userId, (err, data) => {
+			console.log(data);
+			res.render('profileEdit', {
+				title: res.__('profile_edit_title'),
+				user: data,
+				formdata: JSON.parse(body),
+			});
+		});
+	});
+});
+
+
+
+router.put('/updateProfilePhotoUrl', requireLogin, (req, res) => {
+	const userId = req.session.user._id;
+	const photoName = req.query.photoName;
+
+
+	Users.findByIdAndUpdate(userId, {
+		'profilePictureUrl': config.amazon_s3.photo_base_url +'/'+ photoName
+	},
+	{
+		new: true
+	},
+	(err, data) => {
+		if (err)
+			res.json(err);
+
+		res.json({ status: 1, profilePictureUrl: data.profilePictureUrl });
+	});
+
 });
 
 module.exports = router;
