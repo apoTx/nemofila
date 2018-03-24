@@ -201,7 +201,7 @@ block content
                         tbody
                             tr
                                 td #{i18n.__("category")}
-                                td #{ category.name } / #{ category.childCategoryName }
+                                td #{ i18n.__(category.name) } / #{ i18n.__(category.childCategoryName) }
                             //tr
                                 td #{i18n.__("listing_date")}
                                 td #{ moment(data.listingDate).format("DD/MM/YYYY") }
