@@ -122,7 +122,7 @@
 	"Best": "Best",
 	"event": "event",
 	"in": "in",
-	"Category": "Category",
+	"Category": "Kategori",
 	"Place": "Place",
 	"Event Description": "Event Description",
 	"Start Date": "Start Date",
@@ -159,7 +159,7 @@
 	"Edit Profile": "Edit Profile",
 	"Coupon": "Kupon",
 	"Car": "Araç",
-	"Location": "Location",
+	"Location": "Konum",
 	"24 hours": "24 hours",
 	"No reviews yet": "No reviews yet",
 	"Thank you for the review": "Thank you for the review",
@@ -171,11 +171,9 @@
 	"Similar Ads": "Similar Ads",
 	"Enter Message": "Enter Message",
 	"Your message has been sent.": "Your message has been sent.",
-	"$_id.category.name": "$_id.category.name",
 	"More Detail": "More Detail",
-	"Open Now": "Open Now",
+	"Open Now": "Şuan Açık",
 	"Search": "Search",
 	"Sort with": "İle sırala",
-	"Rate": "Oy",
-	" ": " "
+	"Rate": "Oy"
 }

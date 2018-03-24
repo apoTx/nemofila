@@ -61,13 +61,13 @@ block content
                 .ui.sidebar.inverted.vertical.left.menu.filterSidebar
                     form.ui.form.sidebarFilterForm
                         .field
-                            label Location
+                            label #{i18n.__( "Location" )}
                             input(class="ui input", id="searchLocation2", class="autocompletePlace")
                         country-and-category-dropdowns
 
                         .field.text-right.margin-top-10
                             .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                                | Search
+                                | #{i18n.__( "Search" )}
 
                 .search.ui.container
                     .searchForm
@@ -83,7 +83,7 @@ block content
                             div.searchFormBottom.ui.container
                                 .two.fields
                                     .field
-                                        label Location
+                                        label #{i18n.__( "Location" )}
                                         input(g-places-autocomplete='', ng-model='place')
                                         input(name="location", type="hidden", value="{{ place.address_components[0].long_name }}")
 
@@ -95,7 +95,7 @@ block content
                                 .ui.grid.stackable
                                     .six.wide.column
                                         .field.text-left
-                                            label.custom Open Now
+                                            label.custom #{i18n.__( "Open Now" )}
                                                 input.customCheckbox(name='openNow', type='checkbox')
 
                                     .ten.wide.column

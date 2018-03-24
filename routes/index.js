@@ -389,7 +389,7 @@ router.get('/getIndexAds', (req,res) => {
 				place: '$_id.place',
 				locationName: '$_id.placeName',
 				powers: '$power',
-				category: res.__('$_id.category.name'),
+				category: '$_id.category.name',
 				totalPower: 1,
 			}
 		},
