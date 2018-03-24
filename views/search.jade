@@ -8,7 +8,7 @@ append stylesheets
 
 
 block content
-    .ui.main.container.subPage(ng-controller="searchController", ng-init="init('#{ categoryId }')")
+    .ui.main.container.subPage(ng-controller="searchController", ng-init="init('#{ categoryId }', '#{ subCategoryId }')")
         form.ui.form.fluid(action="/search")
             div.gray-bg.padding-10
                 .two.fields
@@ -28,16 +28,16 @@ block content
                         .two.fields
                             .field
                                 label #{i18n.__("Category")}
-                                select(name='category', ng-model='newAdForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')
+                                select(name='category', ng-model='searchForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')
                                     option(value='') #{i18n.__("Please select")}
-                                input(ng-hide='true', ng-model='categories[newAdForm.category].name', name='categoryName')
-                                input(ng-hide='true', ng-model='categories[newAdForm.category]._id', name='categoryId')
+                                input(ng-hide='true', ng-model='categories[searchForm.category].name', name='categoryName')
+                                input(ng-hide='true', ng-model='categories[searchForm.category]._id', name='categoryId')
                             .field
                                 label #{i18n.__("Child Category")}
-                                select(name='subCategory', ng-disabled='visiblesCategories.subCategory', ng-model='newAdForm.categoryChild', ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories')
+                                select(name='subCategory', ng-disabled='visiblesCategories.subCategory', ng-model='searchForm.categoryChild', ng-options='index as subCategory.name for (index, subCategory) in categories[searchForm.category].subCategories')
                                     option(value='') #{i18n.__("Please select")}
-                                input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild].name', name='subCategoryName')
-                                input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild]._id', name='subCategoryId')
+                                input(ng-hide='true', ng-model='categories[searchForm.category].subCategories[searchForm.categoryChild].name', name='subCategoryName')
+                                input(ng-hide='true', ng-model='categories[searchForm.category].subCategories[searchForm.categoryChild]._id', name='subCategoryId')
 
                 .field.text-right
                     label.custom #{i18n.__("Open Now")}

@@ -7,12 +7,23 @@ app.controller('searchController',  ['$scope', 'categoriesFactory', 'searchFacto
 		});
 	});
 
-	$scope.init = (categoryId) => {
+	$scope.init = (categoryId, subCategoryId) => {
+		$scope.searchForm = {};
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
 
-			$scope.categoryIndex = $scope.categories.findIndex(x => x._id == categoryId);
-			console.log($scope.categoryIndex);
+			try{
+				const categoryIndex = $scope.categories.findIndex(x => x._id == categoryId);
+				const subCategoryIndex = $scope.categories[categoryIndex].subCategories.findIndex(x => x._id == subCategoryId);
+
+				console.log(subCategoryIndex);
+
+				$scope.searchForm.category = String(categoryIndex);
+				$scope.searchForm.categoryChild = String(subCategoryIndex);
+			}catch (e){
+				//
+			}
+
 		});
 	};
 
