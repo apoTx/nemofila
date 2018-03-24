@@ -144,6 +144,7 @@ router.get( '/', ( req, res ) => {
 		data.forEach((ad, key) => {
 			let status = openOrClose(data[key]);
 			data[key].openNow = status;
+			data[key].category = res.__(data[key].category);
 
 			if (!status && openNowCheckbox){
 				delete data[key];

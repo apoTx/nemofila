@@ -28,7 +28,7 @@ block content
                         .two.fields(country-and-category-dropdowns)
 
                 .field.text-right
-                    label.custom Open Now
+                    label.custom #{i18n.__("Open Now")}
                         - if (openNowCheckbox)
                             input.customCheckbox(name='openNow', type='checkbox', checked)
                         - else
@@ -36,13 +36,13 @@ block content
 
                 .field.text-right
                     button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
-                        | Search
+                        | #{i18n.__("Search")}
 
 
             .field.margin-top-30
                 select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
-                    option(selected disabled) Sort with
-                    option(value="rate") Rate
+                    option(selected disabled) #{i18n.__("Sort with")}
+                    option(value="rate") #{i18n.__("Rate")}
 
         - if (data.length > 0)
             h1.text-center.padding-bottom-10 #{ title }

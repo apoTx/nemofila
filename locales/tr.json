@@ -172,5 +172,9 @@
 	"Enter Message": "Enter Message",
 	"Your message has been sent.": "Your message has been sent.",
 	"$_id.category.name": "$_id.category.name",
-	"More Detail": "More Detail"
+	"More Detail": "More Detail",
+	"Open Now": "Open Now",
+	"Search": "Search",
+	"Sort with": "İle sırala",
+	"Rate": "Oy"
 }
