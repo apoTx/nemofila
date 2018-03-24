@@ -63,7 +63,7 @@ block content
                         .field
                             label #{i18n.__( "Location" )}
                             input(class="ui input", id="searchLocation2", class="autocompletePlace")
-                        country-and-category-dropdowns
+                        country-and-category-dropdowns(categoryLang="heyo")
 
                         .field.text-right.margin-top-10
                             .ui.button.primary(ng-click="onSubmit(true)", ng-class="indexAdsLoading ? 'loading disabled' : '' ")
@@ -153,8 +153,8 @@ block content
                         pg-href="?page={page}",
                         show-prev-next='true',
                         show-first-last='true',
-                        text-prev="Prev",
-                        text-next="Next"
+                        text-prev="#{i18n.__( 'Prev' )}",
+                        text-next="#{i18n.__( 'Next' )}"
                     )
 
             .clearfix
