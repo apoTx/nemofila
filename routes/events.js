@@ -291,9 +291,9 @@ router.get( '/detail/:slug/:id', (req, res, next) => {
 					if (String(event.user._id) == req.session.user._id || req.session.user.isAdmin)
 						res.render('event-detail', data);
 					else
-						res.status(404).render('error/404', { message: 'Ad Not Found' });
+						res.status(404).render('error/404', { message: 'Event Not Found' });
 				} else {
-					res.status(404).render('error/404', { message: 'Ad Not Found' });
+					res.status(404).render('error/404', { message: 'Event Not Found' });
 				}
 			} else {
 				res.render('event-detail', data);
