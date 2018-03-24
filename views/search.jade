@@ -83,8 +83,8 @@ block content
                                                 .ui.star.rating(data-rating='#{ ad.rate }')
         - else
             h2.text-center.padding-bottom-10 #{i18n.__("No Results")}
-        - if (location)
 
+        - if (location && data.length > 0)
             .text-center.margin-top-10
                 button.ui.big.button.margin-auto(
                     ng-click="showEvents(placeLongName)",
