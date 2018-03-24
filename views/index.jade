@@ -130,18 +130,7 @@ block content
                                         i.map.marker.alternate.icon
                                         | {{ locationName | limitTo: 26 }}{{ locationName.length > 26 ? '...' : ''}}
 
-                                .extra.content(
-                                        ng-init="clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)"
-                                    )
-
-                                    //
-                                        span.right.floated(ng-if="!ad.workTimes.open || !clockOpenClose")
-                                            .ui.red.horizontal.label #{i18n.__( "Close" )}
-
-                                        span.right.floated(ng-if="ad.workTimes.open && (ad.workTimes.hour24 || clockOpenClose)")
-                                            .ui.green.horizontal.label #{i18n.__( "Open" )}
-
-
+                                .extra.content
                                     div.rateArea(ng-show="ad.rate", style="display:inline-block")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 

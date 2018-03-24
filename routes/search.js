@@ -8,9 +8,11 @@ const ObjectId = require('mongoose').Types.ObjectId;
 // Models
 const Ads = require('../models/ads');
 
+// helpers
 const getDayName = require('../helper/getDayName');
+const openOrClose = require('../helper/openOrClose');
 
-let adPerPage = 48;
+const adPerPage = 48;
 
 /* GET home page. */
 router.get( '/', ( req, res ) => {
@@ -123,7 +125,8 @@ router.get( '/', ( req, res ) => {
 				locationName: '$_id.placeName',
 				category: '$_id.category.name',
 				rate: round('$_id.rate', 1),
-				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
+				workTimes: '$_id.workTimes',
+				workTimesToday: '$_id.workTimes'+ '.'+ getDayName(),
 			}
 		}, // ,
 		{ $sort: sort },
@@ -133,17 +136,18 @@ router.get( '/', ( req, res ) => {
 		if (err)
 			throw new Error(err);
 
-		const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false,
-			hour: 'numeric',
-			minute: 'numeric' });
 		const category = subCategoryName !== '' ? subCategoryName : categoryName;
 		const locationTitle = (location !== '') && (location !== undefined)   ? 'in '+ location : '';
 		const best = category !== '' ? i18n.__( 'best' ) : '';
 		const title = `${best} ${category} ${locationTitle}`;
 
-		let d = { data: data };
 
-		console.log(data);
+		data.forEach((ad, key) => {
+			data[key].openNow = openOrClose(data[key]);
+		});
+
+
+		let d = { data: data };
 
 		let result = Object.assign(d, {
 			location,
@@ -153,7 +157,6 @@ router.get( '/', ( req, res ) => {
 			adPerPage: adPerPage,
 			page: req.query.page,
 			url: url,
-			currentTime: currentTime,
 			openNow: openNow === 'on' ? true : false,
 			title: title.trim() !== '' ? title : i18n.__( 'Search Results' )
 		});

@@ -73,14 +73,11 @@ block content
                                                 | #{ locationName.substr(0, 26) } #{ locationName.length > 26 ? '...' : '' }
 
                                         .extra.content
-                                            - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
-
-                                            - if (!ad.workTimes.open || !clockOpenClose)
-                                                span.right.floated
-                                                    .ui.red.horizontal.label #{i18n.__( "Close" )}
-                                            - else
-                                                span.right.floated
-                                                    .ui.green.horizontal.label #{i18n.__( "Open" )}
+                                            div.right.floated(style="display:inline-block")
+                                                - if (ad.openNow)
+                                                    .ui.green.horizontal.label #{i18n.__("Open")}
+                                                - else
+                                                    .ui.horizontal.label #{i18n.__("Close")}
 
                                             - if (ad.rate)
                                                 .ui.star.rating(data-rating='#{ ad.rate }')
