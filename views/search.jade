@@ -70,7 +70,7 @@ block content
                                             - var locationName = ad.place.fullPlaceName ? ad.place.fullPlaceName : ad.locationName
                                             .meta.margin-top-10
                                                 i.map.marker.alternate.icon
-                                                | #{ locationName }
+                                                | #{ locationName.substr(0, 26) } #{ locationName.length > 26 ? '...' : '' }
 
                                         .extra.content
                                             - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
