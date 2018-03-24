@@ -8,11 +8,10 @@ append stylesheets
 
 
 block content
-    .ui.main.container.subPage(ng-controller="searchController", ng-init="init()")
+    .ui.main.container.subPage(ng-controller="searchController", ng-init="init('#{ categoryId }')")
         - if (data.length < 1)
             h2.text-center.padding-top-10 No results.
         - else
-            | #{ location }
             form.ui.form.fluid(action="/search")
                 div.gray-bg.padding-10
                     .two.fields

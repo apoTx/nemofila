@@ -8,9 +8,12 @@ app.controller('searchController',  ['$scope', '$http', 'categoriesFactory', 'se
 		});
 	});
 
-	$scope.init = () => {
+	$scope.init = (categoryId) => {
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
+
+			$scope.categoryIndex = $scope.categories.findIndex(x => x._id == categoryId);
+			console.log($scope.categoryIndex);
 		});
 	};
 

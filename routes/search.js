@@ -22,6 +22,8 @@ router.get( '/', ( req, res ) => {
 	const sortWith = req.query.sortWith;
 	const openNow = req.query.openNow;
 
+	console.log(categoryName);
+
 
 	let sort;
 	if (sortWith === 'rate'){
@@ -144,6 +146,8 @@ router.get( '/', ( req, res ) => {
 
 		let result = Object.assign(d, {
 			location,
+			categoryId,
+			subCategoryId,
 			adCount: data.length,
 			adPerPage: adPerPage,
 			page: req.query.page,
