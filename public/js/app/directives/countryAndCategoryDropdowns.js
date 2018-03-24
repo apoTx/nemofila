@@ -21,6 +21,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 
 		link: function($scope) {
 			// Select option Countries
+
 			$scope.visiblesCountries = {
 				cities: true,
 				districts: true
