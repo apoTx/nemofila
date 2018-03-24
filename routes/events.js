@@ -148,12 +148,15 @@ router.get( '/getIndexEvents', (req, res) => {
 				howManyDaysAreLeft: { $ceil: { $divide: [ { $subtract: [ '$endDate', new Date() ] }, 86400000 ] } }
 			}
 		},
-	], (err, result) => {
+	], (err, data) => {
 		if (err)
 			throw new Error(err);
 
-		console.log(result);
-		res.json(result);
+		data.forEach((event, key) => {
+			data[key].category.name = res.__(data[key].category.name);
+		});
+
+		res.json(data);
 	});
 
 	/*Events.find({

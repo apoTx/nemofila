@@ -204,5 +204,10 @@
 	"Bars": "Bars",
 	"Restaurants": "Restaurants",
 	"Clubs": "Clubs",
-	"Real Estate": "Real Estate"
+	"Real Estate": "Real Estate",
+	"$_id.category.name": "$_id.category.name",
+	"Holyday": "Holyday",
+	"Long Term": "Long Term",
+	"Sale": "Sale",
+	"Coupon": "Coupon"
 }

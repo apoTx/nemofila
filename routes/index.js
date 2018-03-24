@@ -389,7 +389,7 @@ router.get('/getIndexAds', (req,res) => {
 				place: '$_id.place',
 				locationName: '$_id.placeName',
 				powers: '$power',
-				category: '$_id.category.name',
+				category: res.__('$_id.category.name'),
 				totalPower: 1,
 			}
 		},
@@ -401,9 +401,9 @@ router.get('/getIndexAds', (req,res) => {
 			throw new Error(err);
 
 		Ads.count({ status: 1 }, (err, count) => {
-
 			data.forEach((ad, key) => {
 				data[key].openNow = openOrClose(data[key]);
+				data[key].category = res.__(data[key].category);
 			});
 
 			const d = { data: data };
