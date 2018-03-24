@@ -22,9 +22,6 @@ router.get( '/', ( req, res ) => {
 	const sortWith = req.query.sortWith;
 	const openNow = req.query.openNow;
 
-	console.log(categoryName);
-
-
 	let sort;
 	if (sortWith === 'rate'){
 		sort = { 'rate': -1 };
@@ -100,6 +97,7 @@ router.get( '/', ( req, res ) => {
 					category: '$category',
 					photoShowcaseIndex: '$photoShowcaseIndex',
 					place: '$place',
+					placeName: '$place.formatted_address',
 					workTimes: '$workTimes',
 					rate: { $ceil: { $avg: '$rates.score' } },
 				},
@@ -122,6 +120,7 @@ router.get( '/', ( req, res ) => {
 				powers: '$power',
 				totalPower: 1,
 				place: '$_id.place',
+				locationName: '$_id.placeName',
 				category: '$_id.category.name',
 				rate: round('$_id.rate', 1),
 				workTimes: '$_id.workTimes'+ '.'+ getDayName(),
@@ -143,6 +142,8 @@ router.get( '/', ( req, res ) => {
 		const title = `${best} ${category} ${locationTitle}`;
 
 		let d = { data: data };
+
+		console.log(data);
 
 		let result = Object.assign(d, {
 			location,

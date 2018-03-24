@@ -38,13 +38,13 @@ block content
                     button.ui.button.primary(ng-class="indexAdsLoading ? 'loading disabled' : '' ")
                         | Search
 
+        - if (data.length > 0)
+
             .field.margin-top-30
                 select.ui.dropdown.inline-block-select.float-right(onchange="this.form.submit()", name="sortWith")
                     option(selected disabled) Sort with
                     option(value="rate") Rate
 
-
-        - if (data.length > 0)
             h1.text-center.padding-bottom-10 #{ title }
             .clearfix
             .ui.segment.list-segment.searchData
@@ -67,6 +67,11 @@ block content
                                             span #{ ad.title.substr(0, 26) } #{ ad.title.length > 26 ? '...' : '' }
                                             .meta #{ ad.category }
 
+                                            - var locationName = ad.place.fullPlaceName ? ad.place.fullPlaceName : ad.locationName
+                                            .meta.margin-top-10
+                                                i.map.marker.alternate.icon
+                                                | #{ locationName }
+
                                         .extra.content
                                             - var clockOpenClose = (currentTime > ad.workTimes.openTime && currentTime < ad.workTimes.closeTime)
 
@@ -80,7 +85,7 @@ block content
                                             - if (ad.rate)
                                                 .ui.star.rating(data-rating='#{ ad.rate }')
 
-        .text-center
+        .text-center.margin-top-10
             button.ui.big.button.margin-auto(
                 ng-click="showEvents(placeLongName)",
                 ng-class="{loading: loadingEvents}",
