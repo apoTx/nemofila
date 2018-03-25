@@ -55,6 +55,7 @@ block content
 
                         - if (isAdmin)
                             .field
+                                div #{ i18n.__("new_ad_text_1") }
                                 label #{ i18n.__("To Email Address") }
                                 input(name="toEmailAddress", placeholder='#{ i18n.__("To Email Address") }',  ng-model="newAdForm.toEmailAddress")
 
@@ -78,12 +79,15 @@ block content
 
                         .two.fields
                             .field
+                                div #{ i18n.__("new_ad_text_2") }
                                 label #{ i18n.__("Location") }
 
                                 .ui.action.input
                                     input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
                                     .ui.button(ng-click='locate()') #{ i18n.__("Find my location") }
-                            .field
+
+                                div.margin-top-10 #{ i18n.__("new_ad_text_3") }
+                            .field.margin-top-10
                                 .two.fields
                                     .field
                                         label #{i18n.__("Category")}
@@ -126,6 +130,7 @@ block content
                                     input(name='website', placeholder='#{ i18n.__("website") }',  ng-model="newAdForm.website")
 
                         .field
+                            div #{ i18n.__("new_ad_text_4") }
                             label #{ i18n.__( "Work Times" ) }
                             .ui.button#workTimesBtn #{ i18n.__( "Add Work Times" ) }
 
