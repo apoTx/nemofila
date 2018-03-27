@@ -1,11 +1,11 @@
 extends layout
 
 append meta_tags
-    meta(name='description', content='#{ data.description.substr(0, 300) }')
+    meta(name='description', content='#{ data.description ? data.description.substr(0, 300) : "" }')
 
     // social meta tags
     meta(property='og:title', content='#{ data.title }')
-    meta(property='og:description', content='#{ data.description.substr(0, 300) }')
+    meta(property='og:description', content='#{ data.description ? data.description.substr(0, 300) : "" }')
     meta(property='og:url', content='#{ url }')
     - if (data.photos)
         meta(property='og:image', content='#{ amazon_base_url }/#{ data.photos[data.photoShowcaseIndex].filename }')
