@@ -373,3 +373,9 @@ a.black{
     text-align: center;
     width: 100px;
 }
+#signUpModal {
+    margin-bottom: 5rem!important;
+}
+#signInModal {
+    margin-bottom: 5rem!important;
+}
