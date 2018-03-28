@@ -27,7 +27,6 @@ let userSchema = new Schema({
 	},
 	isAdmin: {
 		type: Boolean,
-		default: 0
 	},
 	verify: {
 		type: Boolean,
