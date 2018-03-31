@@ -128,7 +128,7 @@ app.use((req,res,next) => {
 				res.locals.user = req.user;
 			}
 			next();
-		}).select({ name: 1, surname:1, _id: 1, isAdmin: true, email: 1 });
+		}).select({ name: 1, surname:1, _id: 1, isAdmin: true, email: 1, profilePictureUrl: 1 });
 	}else{
 		next();
 	}
