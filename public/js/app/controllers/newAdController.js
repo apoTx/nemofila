@@ -35,7 +35,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			if (latLng){
 				lat = latLng.lat;
 				lng = latLng.lng;
-
+				console.log($scope.newAdForm.place);
 			}else{
 
 				try{
@@ -48,6 +48,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 				if((draggable || !elementId) && !previewPage){
 					newAdFactory.getLocationDetail(lat, lng).then((location) => {
+						console.log(location);
 						const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
 						const city_and_country = location.results[index].formatted_address;
 
@@ -61,9 +62,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			}
 
 			$scope.latLng = { lat, lng };
-
-
-
 
 			const myLatLng = new google.maps.LatLng(lat, lng);
 			const mapOptions = {
@@ -97,6 +95,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.latLng = { lat, lng };
 
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
+					console.log(location);
 					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
 					const city_and_country = location.results[index].formatted_address;
 
