@@ -27,6 +27,23 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		return fullPlaceName;
 	}*/
 
+	function getLocation(location){
+
+		let index;
+		const index_level_4 = location.results.findIndex(x => x.types[0] == 'administrative_area_level_4');
+		if(index_level_4 !== -1){
+			index = index_level_4;
+		}else{
+			index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
+		}
+
+		const city_and_country = location.results[index].formatted_address;
+
+		const result = location.results[0];
+		result.formatted_address = city_and_country;
+		$scope.newAdForm.place = result;
+	}
+
 	/*eslint-disable-next-line*/
 	function initialize(position, latLng, zoom, elementId, customLat, customLng, draggable = true, previewPage = false) {
 		try{
@@ -49,12 +66,8 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				if((draggable || !elementId) && !previewPage){
 					newAdFactory.getLocationDetail(lat, lng).then((location) => {
 						console.log(location);
-						const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
-						const city_and_country = location.results[index].formatted_address;
 
-						const result = location.results[0];
-						result.formatted_address = city_and_country;
-						$scope.newAdForm.place = result;
+						getLocation(location);
 
 						// $scope.newAdForm.place.fullPlaceName = getFullPlaceName();
 					});
@@ -95,14 +108,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				$scope.latLng = { lat, lng };
 
 				newAdFactory.getLocationDetail(lat, lng).then((location) => {
-					console.log(location);
-					const index = location.results.findIndex(x => x.types[0] == 'administrative_area_level_2');
-					const city_and_country = location.results[index].formatted_address;
-
-					const result = location.results[0];
-					result.formatted_address = city_and_country;
-					$scope.newAdForm.place = result;
-
+					getLocation(location);
 				});
 			});
 		}catch(e){
@@ -148,7 +154,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.newAdForm.place = null;
 
 	$scope.autocompleteOptions = {
-		types: ['(cities)']
+		types: ['(regions)']
 	};
 
 	$(() => {
