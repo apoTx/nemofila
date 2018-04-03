@@ -1,5 +1,5 @@
 {
-	"sign_in": "LogIn",
+	"sign_in": "Login",
 	"sign_up": "Sign Up",
 	"index_title": "Home",
 	"newAdBtn": "New Ad",
@@ -157,7 +157,7 @@
 	"24 hours": "24 hours",
 	"Email Address": "Email Address",
 	"To Email Address": "To Email Address",
-	"description2": "description2",
+	"description2": "Discription in Local Language",
 	"Find my location": "Find my location",
 	"Delete": "Delete",
 	"Edit and Approve": "Edit and Approve",
