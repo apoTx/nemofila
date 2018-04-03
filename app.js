@@ -67,7 +67,9 @@ i18n.configure({
 	cookie: 'locale',
 });
 
-app.use(favicon(path.join(__dirname, 'public/img', 'favicon.ico')));
+console.log(__dirname);
+
+app.use(favicon(path.join(__dirname, '/public/img', 'logo-invert.png')));
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));

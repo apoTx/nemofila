@@ -60,6 +60,7 @@ block content
 
                 div.headTitle
                     h1 #{i18n.__( "Say Hello to Nemofila" )}
+                    h2.subTitle #{i18n.__( "index_subtitle" )}
 
                 .ui.sidebar.inverted.vertical.left.menu.filterSidebar
                     form.ui.form.sidebarFilterForm
@@ -119,7 +120,7 @@ block content
                                                 | Search
 
         .ui.main.container
-            h2.indexBestInTitle #{i18n.__("best_in_nemofila")}
+            h3.indexBestInTitle #{i18n.__("best_in_nemofila")}
 
             h2(ng-show="isSearch && resultNumber > 0", ng-cloak) We found {{ resultNumber }} results.
             .ui.segment.list-segment

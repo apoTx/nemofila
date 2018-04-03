@@ -1,7 +1,7 @@
 {
 	"sign_in": "Sign In",
 	"sign_up": "Sign Up",
-	"index_title": "Home",
+	"index_title": "Restaurant-Lawyers-Home services-Real Estate-Car Rental",
 	"newAdBtn": "New Ad",
 	"searchPlaceholder": "Search",
 	"searchBtn": "Search",
@@ -217,5 +217,9 @@
 	"new_ad_text_1": "new_ad_text_1",
 	"new_ad_text_2": "new_ad_text_2",
 	"new_ad_text_3": "new_ad_text_3",
-	"new_ad_text_4": "new_ad_text_4"
+	"new_ad_text_4": "new_ad_text_4",
+	"Hotel": "Hotel",
+	"Night Life": "Night Life",
+	"Restaurant": "Restaurant",
+	"index_subtitle": "Real Estate, Rental Car, Resturant, Hotels,  Education, Lawres, Sports, Architect, Home Service"
 }

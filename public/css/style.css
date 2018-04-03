@@ -386,3 +386,10 @@ a.black{
 .profilePictureHeader{
     width:25px!important
 }
+
+.subTitle{
+    padding: 10px;
+    display: inline-block;
+    background-color: rgba(0,0,0,.4);
+    font-size: 18px;
+}
