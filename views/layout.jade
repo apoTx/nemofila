@@ -50,10 +50,13 @@ html
                 a.item(href='javascript:;', ng-click="openSignInModal()") #{i18n.__("sign_in")}
             else
                 a.item(href="/profile")=user.name
-                    .ui.right.floated.red.label(ng-show="messageLength > 0", ng-cloak, style="display:none") {{ messageLength }}
+                    i.angle.right.icon
+                    .ui.right.floated.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
                 a.item(href='/logout')
-                    i.icon.sign.out
                     | #{i18n.__("logout")}
+
+                .item.text-center
+                    button.ui.orange.button.tiny(ng-click="openHowItWorkModal()") #{i18n.__( "how_it_work" )}
 
 
         .ui.fixed.inverted.menu.transparent
