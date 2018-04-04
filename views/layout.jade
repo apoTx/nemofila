@@ -55,12 +55,6 @@ html
                     i.icon.sign.out
                     | #{i18n.__("logout")}
 
-            .item.text-center
-                if user
-                    a.ui.primary.button(href="/newAd") #{i18n.__("newAdBtn")}
-                else
-                    button.ui.primary.button(ng-click="openSignInModal()") #{i18n.__("newAdBtn")}
-
 
         .ui.fixed.inverted.menu.transparent
             .ui.container
@@ -135,7 +129,7 @@ html
                             img.ui.mini.image.profilePictureHeader(src='#{ user.profilePictureUrl }', onerror="this.src='/img/avatar-default.jpg'")
                             span.margin-left-10=user.name
                     a.item.no-before(ng-click="toggleSidebar()")
-                        i.sidebar.medium.icon
+                        i.icon.bars
 
         .pusher
             .ui.main.container.fluid.containerParent
