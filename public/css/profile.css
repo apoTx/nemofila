@@ -6,4 +6,24 @@
     overflow: hidden!important;
     align-items:center!important;
     justify-content:center!important;
+    margin-left:0!important
+}
+
+.myAdsLabel{
+    margin-left: 15px!important;
+    margin-top: -10px!important;
+}
+
+.menuArea{
+    display: block!important;
+}
+
+.mobile-menu{
+    width: 100%!important;
+}
+@media only screen and (max-width: 767px){
+    .ui.container{
+        margin-left: 0.3em!important;
+        margin-right: 0.3em!important;
+    }
 }

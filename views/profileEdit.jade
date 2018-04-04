@@ -2,6 +2,7 @@ extends layout
 
 append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/editProfile.css')
+    link(rel='stylesheet', type='text/css', href='/dist/css/profile.css')
 
 block content
     .ui.main.container.subPage(ng-controller="profileEditController", ng-init="init('#{ user.profilePictureUrl }')")
@@ -9,7 +10,7 @@ block content
 
             include partials/profile/menu
 
-            .ui.grid
+            .ui.grid.stackable
                 .twelve.wide.column &nbsp;
 
                 .four.wide.column

@@ -13,22 +13,18 @@ h2.text-center(ng-if="myEvents.length < 1") {{ i18n_no_results }}
             .content
                 a.header(href='/detail/{{ event.slug }}/{{ event._id }}' , target="_blank")
                     | {{ event.title }}
+
+                .mini.ui.label.myAdsLabel(
+                    ng-class="{red: event.status===2 || event.status === 4, orange: event.status === 0}"
+                )
+                    | {{ event.statusText }}
                 .description
                     p
                 .extra
-                    .ui.label(
-                            ng-class="{red: event.status===2 || event.status === 4, orange: event.status === 0}"
-                        )
-                        | {{ event.statusText }}
-
                     .ui.text.menu
-                        .ui.simple.right.dropdown.item
-                            | {{ i18n_settings }}
-                            i.dropdown.icon
-                            .menu
-                                a.item(href="./events/new/{{ event.adId }}/?eventId={{ event._id }}")
-                                    i.edit.icon
-                                    | {{ i18n_edit }}
+                         a.item(href="./events/new/{{ event.adId }}/?eventId={{ event._id }}")
+                            i.edit.icon
+                            | {{ i18n_edit }}
 
 .ui.dimmer(ng-class="{active: loadingMyEvents}")
     .ui.loader

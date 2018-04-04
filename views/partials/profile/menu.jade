@@ -1,26 +1,58 @@
-.ui.pointing.menu
-    a.item(
-    href="/profile#!/myads",
-    ng-class="{active: activetab=='myads'}"
-    )
-        | #{i18n.__("my_ads")}
-    a.item(
-    href="/profile#!/myevents",
-    ng-class="{active: activetab=='myevents'}"
-    )
-        | #{i18n.__( "My Events" )}
-    a.item(
-    href="/profile#!/messages",
-    ng-class="{active: activetab=='messages'}"
-    )
-        | #{i18n.__("messages")}
-    a.item(
-    href="/profile#!/myfavourites",
-    ng-class="{active: activetab=='myfavourites'}"
-    )
-        | #{i18n.__("favourites")}
+.ui.container.mobile.only.grid.no-margin
+    .ui.secondary.vertical.menu.no-padding.mobile-menu
+        a.item(
+            href="/profile#!/myads",
+            ng-class="{active: activetab=='myads'}"
+        )
+            | #{i18n.__("my_ads")}
+        a.item(
+            href="/profile#!/myevents",
+            ng-class="{active: activetab=='myevents'}"
+        )
+            | #{i18n.__("My Events")}
+        a.item(
+            href="/profile#!/messages",
+            ng-class="{active: activetab=='messages'}"
+        )
+            | #{i18n.__("messages")}
+        a.item(
+            href="/profile#!/myfavourites",
+            ng-class="{active: activetab=='myfavourites'}"
+        )
+            | #{i18n.__("favourites")}
+        a.item(
+            href="/profile/edit",
+            ng-class="{active: activetab==undefined}"
+        )
+            | #{i18n.__("Edit Profile")}
 
-    a.item.right.floated(
-    href="/profile/edit",
-    )
-        | #{i18n.__("Edit Profile")}
+
+.ui.container.computer.tablet.only.grid.no-margin.menuArea
+    .ui.secondary.pointing.menu
+        a.item(
+            href="/profile#!/myads",
+            ng-class="{active: activetab=='myads'}"
+        )
+            | #{i18n.__("my_ads")}
+        a.item(
+            href="/profile#!/myevents",
+            ng-class="{active: activetab=='myevents'}"
+        )
+            | #{i18n.__( "My Events" )}
+        a.item(
+            href="/profile#!/messages",
+            ng-class="{active: activetab=='messages'}"
+        )
+            | #{i18n.__("messages")}
+
+        a.item(
+            href="/profile#!/myfavourites",
+            ng-class="{active: activetab=='myfavourites'}"
+        )
+            | #{i18n.__("favourites")}
+
+        a.item.right.floated(
+            href="/profile/edit",
+            ng-class="{active: activetab==undefined}"
+        )
+            | #{i18n.__("Edit Profile")}

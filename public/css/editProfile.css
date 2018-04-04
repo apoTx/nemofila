@@ -26,3 +26,6 @@ form .progress-profile {
     text-indent: 1em;
 }
 
+.profileEdit{
+    display: block!important;
+}
