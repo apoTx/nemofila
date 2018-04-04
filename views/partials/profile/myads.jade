@@ -14,18 +14,17 @@ h2.text-center(ng-if="myAds.length < 1") {{ i18n_no_results }}
                 img(ng-src='{{ amazon_base_url }}/{{ ad.photos[ad.photoShowcaseIndex].filename }}', ng-show="{{ ad.photos !== null }}")
                 img(ng-src='/img/no-photo.png', ng-show="{{ ad.photos === null }}")
             .content
-                a.header(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
+                a.header.myAdsTitle(href='/detail/{{ ad.slug }}/{{ ad._id }}' , target="_blank")
                     | {{ ad.title }}
+
+                .mini.ui.label.myAdsLabel(
+                    ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
+                )
+                    | {{ ad.statusText }}
                 .description
                     p
                 .extra
-                    .ui.label(
-                            ng-class="{red: ad.status===2 || ad.status === 4, orange: ad.status === 0}"
-                        )
-                        | {{ ad.statusText }}
-
-                    br
-                    .ui.primary.button(
+                    .mini.ui.primary.button(
                         ng-show="ad.totalActivePower === 0"
                         ng-click="update(ad._id)",
                         ng-class="{ disabled: !ad.updateble || ad.status !== 1 || loading }"

@@ -1,26 +1,27 @@
-.ui.pointing.menu
+.ui.secondary.pointing.menu
     a.item(
-    href="/profile#!/myads",
-    ng-class="{active: activetab=='myads'}"
+        href="/profile#!/myads",
+        ng-class="{active: activetab=='myads'}"
     )
         | #{i18n.__("my_ads")}
     a.item(
-    href="/profile#!/myevents",
-    ng-class="{active: activetab=='myevents'}"
+        href="/profile#!/myevents",
+        ng-class="{active: activetab=='myevents'}"
     )
         | #{i18n.__( "My Events" )}
     a.item(
-    href="/profile#!/messages",
-    ng-class="{active: activetab=='messages'}"
+        href="/profile#!/messages",
+        ng-class="{active: activetab=='messages'}"
     )
         | #{i18n.__("messages")}
     a.item(
-    href="/profile#!/myfavourites",
-    ng-class="{active: activetab=='myfavourites'}"
+        href="/profile#!/myfavourites",
+        ng-class="{active: activetab=='myfavourites'}"
     )
         | #{i18n.__("favourites")}
 
     a.item.right.floated(
-    href="/profile/edit",
+        href="/profile/edit",
+        ng-class="{active: activetab==undefined}"
     )
         | #{i18n.__("Edit Profile")}

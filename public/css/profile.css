@@ -6,4 +6,10 @@
     overflow: hidden!important;
     align-items:center!important;
     justify-content:center!important;
+    margin-left:0!important
+}
+
+.myAdsLabel{
+    margin-left: 15px!important;
+    margin-top: -10px!important;
 }
