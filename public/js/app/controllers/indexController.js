@@ -104,6 +104,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 		}
 	};
 
+
 	$scope.openHowItWorkModal = () => {
 		$('#howItWorkModal').modal('show');
 	};

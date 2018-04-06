@@ -16,11 +16,11 @@ block content
 
 
 append javascripts
-    script(src="dist/js/app/controllers/profileController.min.js")
+    script(src="/dist/js/app/controllers/profileController.min.js")
 
     // Buy Power
-    script(src="https://checkout.stripe.com/checkout.js")
-    script(src="/dist/js/app/stripe.min.js")
+    //script(src="https://checkout.stripe.com/checkout.js")
+    //script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
     script(src="/dist/js/app/services/profile/buyPowerFactory.min.js")
     script(src="/dist/js/app/controllers/profile/buyPowerController.min.js")
@@ -40,7 +40,3 @@ append javascripts
     // MyFavourites
     script(src="/dist/js/app/services/profile/myFavouritesFactory.min.js")
     script(src="/dist/js/app/controllers/profile/myFavouritesController.min.js")
-
-    script(src="/semantic/dist/components/dimmer.min.js")
-    script(src="/semantic/dist/components/modal.min.js")
-    script(src="/semantic/dist/components/transition.min.js")
