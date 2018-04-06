@@ -46,8 +46,13 @@ const getObject = (data, req, res, showEditButton) => {
 
 	const isOpen = openOrClose(data);
 
+	let childCategoryTitle = '';
+	if (childCategoryName !== null){
+		childCategoryTitle = childCategoryName + ',';
+	}
+
 	return {
-		title: data.title + ' ' + data.categoryObj.name + ','+  data.place.address_components[0].short_name,
+		title: data.title + ', ' + data.categoryObj.name + ', ' + childCategoryTitle +  data.place.formatted_address,
 		data: data,
 		absoluteWebsiteUrl: data.website ? fixUrl(data.website) : '',
 		isOpen: isOpen,
