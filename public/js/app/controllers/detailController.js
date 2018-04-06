@@ -46,7 +46,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 					return false;
 				}
 
-				rateFactory.setRate($scope.adId, value).then((data) => {
+				rateFactory.setRate($scope.adId, value).then(() => {
 					// console.log(data);
 				});
 

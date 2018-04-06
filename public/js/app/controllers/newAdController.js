@@ -52,7 +52,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			if (latLng){
 				lat = latLng.lat;
 				lng = latLng.lng;
-				console.log($scope.newAdForm.place);
 			}else{
 
 				try{
