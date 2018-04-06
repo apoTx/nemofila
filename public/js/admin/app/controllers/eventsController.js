@@ -20,7 +20,6 @@ app.controller('eventsController', ['$scope', '$http', 'eventsFactory', '$window
 	$scope.submitEdit = () => {
 		$scope.loadingEditSubmit = true;
 		eventsFactory.publish($scope.eventEditForm).then((response) => {
-			console.log(response);
 			$scope.loadingEditSubmit = false;
 
 			if (response.status === 1){
@@ -94,11 +93,9 @@ app.controller('eventsController', ['$scope', '$http', 'eventsFactory', '$window
 	$scope.searchForm = { };
 	$scope.advanceSearch = () => {
 		$scope.loadingAds = true;
-		console.log($scope.searchForm);
 		eventsFactory.advanceSearch($scope.searchForm).then((response) => {
 			$scope.loadingAds = false;
 			$scope.ads = response;
-			console.log(response);
 		});
 	};
 

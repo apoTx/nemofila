@@ -35,7 +35,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 			url: path +'/countries/getCountries',
 			method: 'GET',
 		}).then((response) => {
-			console.log(response);
 			$scope.countries.list = response.data;
 		}, () => { // optional
 			console.log('fail');
@@ -63,7 +62,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				method: 'POST',
 				data: { 'name': $scope.countries.form.country.name }
 			}).then((response) => {
-				console.log(response);
 				if (response.data.status === 1) {
 					$scope.countries.list.push( { name: response.data.name, _id: response.data._id } );
 					$scope.countries.form.country.name = '';
@@ -81,7 +79,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				method: 'POST',
 				data: { 'name': $scope.countries.form.city.name, 'countryId': $scope.countries.selected._id }
 			}).then((response) => {
-				console.log(response);
 				if (response.data.status === 1){
 					try{
 						$scope.countries.list[$scope.countries.selected.index].cities.push({ name: response.data.name, _id: response.data._id });
@@ -104,7 +101,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 				method: 'POST',
 				data: { 'name': $scope.countries.form.district.name, 'countryId': $scope.countries.selected._id, 'cityId': $scope.city.selected._id, 'cityIndex':$scope.city.selected.index  }
 			}).then((response) => {
-				console.log(response);
 				if (response.data.status === 1){
 					try{
 						$scope.countries.list[$scope.countries.selected.index].cities[$scope.city.selected.index].districts.push({ name: response.data.name, _id: response.data._id });
@@ -164,8 +160,6 @@ app.controller('countryController', ['$scope', '$http',  ($scope, $http) => {
 
 	$scope.deleteDistrict = (index) => {
 		let confirm = window.confirm('Are you sure ?');
-
-		console.log(index);
 
 		if (confirm){
 			$http({

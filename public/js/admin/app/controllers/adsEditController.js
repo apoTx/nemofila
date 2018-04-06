@@ -14,7 +14,6 @@ app.controller('adsEditController', ['$scope', '$http', 'adsFactory', '$window',
 	$scope.submitEdit = () => {
 		$scope.loadingEditSubmit = true;
 		adsFactory.publishAd($scope.adEditForm).then((response) => {
-			console.log(response);
 			$scope.loadingEditSubmit = false;
 
 			if (response.status === 1){

@@ -4,7 +4,6 @@ app.controller('reportsController', ['$scope', '$http', 'reportsFactory', ($scop
 	reportsFactory.getAllReports().then((response) => {
 		$scope.loadingReports = false;
 		$scope.reports = response;
-		console.log($scope.reports);
 	});
 
 }]);

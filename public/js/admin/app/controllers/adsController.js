@@ -20,7 +20,6 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	$scope.submitEdit = () => {
 		$scope.loadingEditSubmit = true;
 		adsFactory.publishAd($scope.adEditForm).then((response) => {
-			console.log(response);
 			$scope.loadingEditSubmit = false;
 
 			if (response.status === 1){
@@ -94,11 +93,9 @@ app.controller('adsController', ['$scope', '$http', 'adsFactory', '$window', ($s
 	$scope.searchForm = { };
 	$scope.advanceSearch = () => {
 		$scope.loadingAds = true;
-		console.log($scope.searchForm);
 		adsFactory.advanceSearch($scope.searchForm).then((response) => {
 			$scope.loadingAds = false;
 			$scope.ads = response;
-			console.log(response);
 		});
 	};
 

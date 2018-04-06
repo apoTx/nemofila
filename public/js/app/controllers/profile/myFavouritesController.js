@@ -6,6 +6,5 @@ app.controller('myFavouritesController', ['$scope', 'myFavouritesFactory' ,  fun
 	myFavouritesFactory.getMyFavourites().then((response) => {
 		$scope.loadingMyFavourites = false;
 		$scope.myFavourites = response;
-		console.log(response);
 	});
 }]);

@@ -31,7 +31,6 @@ app.controller('eventCategoryController', ['$scope', '$http',  ($scope, $http) =
 			url: path +'/event-categories/getEventCategories',
 			method: 'GET',
 		}).then((response) => {
-			console.log(response);
 			$scope.categories.list = response.data;
 		}, () => { // optional
 			console.log('fail');
@@ -52,7 +51,6 @@ app.controller('eventCategoryController', ['$scope', '$http',  ($scope, $http) =
 				method: 'POST',
 				data: { 'name': $scope.categories.form.category.name, type: 1 }
 			}).then((response) => {
-				console.log(response);
 				if (response.data.status === 1) {
 					$scope.categories.list.push( { name: response.data.name, _id: response.data._id } );
 					$scope.categories.form.category.name = '';
@@ -70,7 +68,6 @@ app.controller('eventCategoryController', ['$scope', '$http',  ($scope, $http) =
 				method: 'POST',
 				data: { 'name': $scope.categories.form.subCategory.name, 'countryId': $scope.categories.selected._id }
 			}).then((response) => {
-				console.log(response);
 				if (response.data.status === 1){
 					try{
 						$scope.categories.list[$scope.categories.selected.index].subCategories.push({ name: response.data.name, _id: response.data._id });

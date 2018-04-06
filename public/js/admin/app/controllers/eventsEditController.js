@@ -14,7 +14,6 @@ app.controller('eventsEditController', ['$scope', '$http', 'eventsFactory', '$wi
 	$scope.submitEdit = () => {
 		$scope.loadingEditSubmit = true;
 		eventsFactory.publish($scope.adEditForm).then((response) => {
-			console.log(response);
 			$scope.loadingEditSubmit = false;
 
 			if (response.status === 1){

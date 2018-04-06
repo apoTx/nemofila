@@ -65,8 +65,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 				if((draggable || !elementId) && !previewPage){
 					newAdFactory.getLocationDetail(lat, lng).then((location) => {
-						console.log(location);
-
 						getLocation(location);
 
 						// $scope.newAdForm.place.fullPlaceName = getFullPlaceName();
@@ -593,7 +591,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			photoList = photos;
 		}else{
 			if($scope.uploadedFiles){
-				console.log('test');
 				photoList = photos ? photos.concat($scope.uploadedFiles) : null;
 			}else {
 				photoList = photos;

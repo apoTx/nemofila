@@ -47,7 +47,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 				}
 
 				rateFactory.setRate($scope.adId, value).then((data) => {
-					console.log(data);
+					// console.log(data);
 				});
 
 				$scope.onRate = true;
@@ -192,7 +192,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 		// similar ads
 		detailFactory.getSimilars($scope.adId).then((result) => {
 			$scope.similarAds = result;
-			console.log(result);
 		});
 
 		// events
@@ -272,7 +271,6 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 
 	$scope.sendReport = () => {
 		reportFactory.sendReport($scope.reportFormData).then((data) => {
-			console.log(data);
 			if (data.status){
 				$scope.reportMessageSended = true;
 			}

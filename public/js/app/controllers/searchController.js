@@ -16,8 +16,6 @@ app.controller('searchController',  ['$scope', 'categoriesFactory', 'searchFacto
 				const categoryIndex = $scope.categories.findIndex(x => x._id == categoryId);
 				const subCategoryIndex = $scope.categories[categoryIndex].subCategories.findIndex(x => x._id == subCategoryId);
 
-				console.log(subCategoryIndex);
-
 				$scope.searchForm.category = String(categoryIndex);
 				$scope.searchForm.categoryChild = String(subCategoryIndex);
 			}catch (e){

@@ -237,7 +237,6 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 
 		layoutFactory.forgotPassword($scope.forgotFormData.email).then((response) => {
 			$scope.forgotBtnLoading = false;
-			console.log(response);
 			if (response.status === 1){
 				$scope.emailSended = true;
 			}else {
@@ -254,7 +253,6 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 
 		layoutFactory.subscribe($scope.subscribeFormData.email).then((response) => {
 			$scope.subscribeBtnLoading = false;
-			console.log(response);
 			if (response.status === 1){
 				$scope.successSubscribe = true;
 				$scope.subscribeErr = null;

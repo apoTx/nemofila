@@ -6,7 +6,6 @@ app.controller('buyPowerController', ['$scope', 'buyPowerFactory', '$window', '$
 		let id = $routeParams.id;
 		$scope.loadingAd = true;
 		buyPowerFactory.getAd(id).then((result) => {
-			console.log(result);
 			$scope.loadingAd = false;
 			$scope.ad = result;
 		});
@@ -20,7 +19,6 @@ app.controller('buyPowerController', ['$scope', 'buyPowerFactory', '$window', '$
 		// stripe
 		$('#buttonCheckout').on('click', () => {
 			$scope.powerNumber = ($scope.powerNumber.split(':'))[1];
-			console.log($scope.powerNumber);
 			if(parseInt($scope.powerNumber) > 0)
 				checkoutHandler.open({
 					name: 'Easyad',

@@ -36,7 +36,6 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 		});
 
 		indexFactory.getIndexEvents().then((response) => {
-			console.log(response);
 			$scope.indexEventsLoading = false;
 			$scope.events = response;
 		});

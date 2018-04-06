@@ -9,7 +9,6 @@ app.factory('adsFactory', ['$http', ($http) => {
 	};
 
 	let publishAd = (data) => {
-		console.log(data);
 		return $http({
 			url: '/manage/ads/publishAd',
 			method: 'POST',

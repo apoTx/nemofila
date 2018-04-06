@@ -7,7 +7,6 @@ app.factory('reportFactory', ['$http', ($http) => {
 			params: { adId: data.adId, message: data.message },
 		})
 			.then((response) => {
-				console.log(response);
 				return response.data;
 			}, () => {
 				console.log('fail');

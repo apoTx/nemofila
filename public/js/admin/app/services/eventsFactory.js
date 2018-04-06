@@ -9,7 +9,6 @@ app.factory('eventsFactory', ['$http', ($http) => {
 	};
 
 	let publish = (data) => {
-		console.log(data);
 		return $http({
 			url: '/manage/events/publish',
 			method: 'POST',

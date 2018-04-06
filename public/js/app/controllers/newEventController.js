@@ -40,7 +40,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				$scope.newEventForm.startDateText = text;
 				$scope.$apply();
 
-				console.log(date + 30);
 				endDate(addDays(date, 30));
 			},
 			formatter: {
@@ -137,7 +136,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		if (eventId !== 'undefined'){
 
 			eventFactory.getEventsByEventId(eventId).then((result) => {
-				console.log(result);
 				$scope.newEventForm = result;
 
 				let category = result.categoryId;
@@ -264,8 +262,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				let category = $scope.eventCategories[$scope.newEventForm.eventCategory];
 				let categoryName = Slug.slugify(category.name);
 
-				console.log();
-
 				let extensionData = (file.name).split('.');
 				let fileExtension = extensionData[extensionData.length - 1];
 				let altTag = title +','+ formatted_address +','+ categoryName;
@@ -334,7 +330,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 			photoList = photos;
 		}else{
 			if($scope.uploadedFiles){
-				console.log('test');
 				photoList = photos ? photos.concat($scope.uploadedFiles) : null;
 			}else {
 				photoList = photos;
@@ -349,7 +344,6 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 		}
 
 		data.eventCategory = $scope.eventCategories[$scope.newEventForm.eventCategory]._id;
-		console.log(data.eventCategory);
 		// let isEdit = id !== 'false' ? true : false;
 
 		$http({
