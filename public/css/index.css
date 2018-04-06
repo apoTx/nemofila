@@ -85,6 +85,10 @@ label.custom{
     margin-bottom: 10px
 }
 
+.transparent {
+    background: rgba(0, 0, 0, 0.1) !important
+}
+
 @media only screen and (max-width: 768px){
     .ui.container.indexHead {
         width: 100%!important;

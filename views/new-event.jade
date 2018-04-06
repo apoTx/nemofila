@@ -1,16 +1,6 @@
 extends layout
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='/dist/css/profile.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/item.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/table.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/step.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/popup.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/message.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newEventPage.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/newAdPage.css')
     link(rel='stylesheet', type='text/css', href='/ngWig/dist/css/ng-wig.min.css')
@@ -263,7 +253,6 @@ block content
                 a.ui.primary.button(href="/") #{ i18n.__("index_title") }
 
 append javascripts
-    script(src="/semantic/dist/semantic.min.js")
     script(src="/dist/js/app/helpers/guid.min.js")
     script(src="/dist/js/app/services/eventFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")

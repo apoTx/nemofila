@@ -4,19 +4,7 @@ append meta_tags
     meta(name='description', content='Nemofila your own online lifestyle guru! We offer a universal platform when seeking ALL kinds of different services ranging anywhere and anything from restaurant, lawyers to home services and education.')
 
 append stylesheets
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/card.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/input.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/loader.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/rating.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/form.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/checkbox.min.css')
-    link(rel='stylesheet', type='text/css', href='/semantic/dist/components/label.min.css')
     link(rel='stylesheet', type='text/css', href='/dist/css/index.css')
-    style.
-        .transparent {
-            background: rgba(0, 0, 0, 0.1) !important
-        }
 
 block logo
 
@@ -204,14 +192,12 @@ block content
                         .ui.loader
 
 
-    include partials/modals/index/howItWork
+        include partials/modals/index/howItWork
 
 append javascripts
-    script(src="/semantic/dist/components/rating.min.js")
-    script(src="/semantic/dist/components/dropdown.min.js")
     script(src="/dist/js/app/services/indexFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
-    script(src="dist/js/app/controllers/indexController.min.js")
+    script(src="/dist/js/app/controllers/indexController.min.js")
     script(type='text/javascript', src='https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521b6aa16401756b')
 
