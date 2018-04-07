@@ -82,7 +82,12 @@ label.custom{
 }
 
 .rateArea{
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    display:inline-block
+}
+
+.inline-block{
+    display:inline-block
 }
 
 .transparent {

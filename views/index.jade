@@ -135,10 +135,10 @@ block content
                                         | {{ locationName | limitTo: 26 }}{{ locationName.length > 26 ? '...' : ''}}
 
                                 .extra.content
-                                    div.rateArea(ng-show="ad.rate", style="display:inline-block")
+                                    div.rateArea(ng-show="ad.rate")
                                         .ui.star.rating(data-rating='{{ ad.rate }}')
 
-                                    div.right.floated(style="display:inline-block")
+                                    div.right.floated.inline-block
                                         .ui.green.horizontal.label(ng-if="ad.openNow") #{i18n.__("Open")}
                                         .ui.horizontal.label(ng-if="!ad.openNow") #{i18n.__("Close")}
 
