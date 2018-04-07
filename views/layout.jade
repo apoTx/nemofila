@@ -15,7 +15,7 @@ html
         block stylesheets
             link(rel='stylesheet', type='text/css', href='/semantic/dist/semantic.min.css')
             link(rel='old stylesheet', href='/dist/css/style.css')
-            link(rel='stylesheet', type='text/css', href='/angular-google-places-autocomplete/src/autocomplete.min.css')
+            link(rel='stylesheet', type='text/css', href='/angular-google-places-autocomplete/src/autocomplete.css')
 
     body(
         ng-app="app",
@@ -119,6 +119,7 @@ html
 
                 block content
 
+
         // Footer
         include partials/footer
 
@@ -135,61 +136,10 @@ html
         // subscribe Modal
         include partials/modals/subscribe
 
-
-
     block javascripts
-        script(src="/angular/angular.min.js")
-        script(src="/angular-route/angular-route.min.js")
+        script(src="/dist/js/layoutAll.min.js")
 
-        // ng-file-upload module
-        script(src="/ng-file-upload/ng-file-upload-shim.min.js")
-        script(src="/ng-file-upload/ng-file-upload.min.js")
-        // ng-file-upload module ##
-
-        // ngImgCrop
-        script(src="/ng-img-crop/compile/minified/ng-img-crop.js")
-
-        // moment
-        script(src='/moment/min/moment.min.js')
-        script(src='/angular-moment/angular-moment.min.js')
-        // moment ##
-
-        // angular-paging
-        script(src='/angular-paging/dist/paging.min.js')
-        // angular-paging ##
-
-        // ng-image-gallery
-        script(src="/angular-animate/angular-animate.min.js")
-        script(src="/ng-image-gallery/dist/ng-image-gallery.min.js")
-        // ng-image-gallery ##
-
-        // ng-wig
-        script(src="/ngWig/dist/ng-wig.min.js")
-
-        // angular-sanitize
-        script(src="/angular-sanitize/angular-sanitize.min.js")
-
-        // recaptcha
-        script(src="/angular-recaptcha/release/angular-recaptcha.min.js")
-
-        // angular-slugify
-        script(src="/angular-slugify/angular-slugify.js")
-
-        script(src="/dist/js/app/main.min.js")
-        script(src="/jquery/dist/jquery.min.js")
-
-        // Factory
-        script(src="/dist/js/app/services/profile/myMessageFactory.min.js")
-        script(src="/dist/js/app/services/layoutFactory.min.js")
-
-        // Controller
-        script(src="/dist/js/app/controllers/layoutController.min.js")
-
-        // google map
         script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB_lGh1XHqm3h8QkP75avEWwP53G08K8EI&sensor=false&libraries=places' )
-        script(type='text/javascript', src="/angular-google-places-autocomplete/dist/autocomplete.min.js")
-
-        script(src="/semantic/dist/semantic.min.js")
 
         // Global site tag (gtag.js) - Google Analytics
         script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-109564878-1')
