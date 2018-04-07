@@ -72,7 +72,7 @@ gulp.task('layoutScripts',() => {
 		'./public/dist/js/app/services/layoutFactory.min.js',
 		'./public/dist/js/app/controllers/layoutController.min.js',
 	])
-		.pipe(concat('layoutAll.js'))
+		.pipe(concat('layoutAll.min.js'))
 		.pipe(gulp.dest('./public/dist/js/'));
 });
 
