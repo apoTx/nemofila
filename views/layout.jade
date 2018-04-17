@@ -49,15 +49,15 @@ html
                 .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item
-                            div(ng-show=" '#{locale}' == 'en' ", ng-cloak)
+                            div(ng-if=" '#{locale}' == 'en' ", ng-cloak)
                                 i.gb.flag
                                 | English
 
-                            div(ng-show=" '#{locale}' == 'tr' ", ng-cloak)
+                            div(ng-if=" '#{locale}' == 'tr' ", ng-cloak)
                                 i.tr.flag
                                 | Türkçe
 
-                            div(ng-show=" '#{locale}' == 'es' ", ng-cloak)
+                            div(ng-if=" '#{locale}' == 'es' ", ng-cloak)
                                 i.spain.flag
                                 | Español
 
