@@ -7,10 +7,15 @@ append stylesheets
     link(rel='stylesheet', type='text/css', href='/dist/css/index.css')
 
 
+block logo
+
 block top_left
 
+    a.header.item.no-before.no-border(href='/')
+        img.logo(src='/img/nemofila.png', alt='nemofila logo')
+
     .ui.container.computer.tablet.only.grid.no-margin
-        .left.menu
+        .left.menu.no-padding
             .ui.dropdown.icon.item
                 i.map.signs.thin.icon &nbsp;
                 span.text #{i18n.__( "business_owners" )}
