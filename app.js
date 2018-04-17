@@ -63,7 +63,7 @@ app.set('config', config);
 i18n.configure({
 	locales:['en', 'es', 'tr'],
 	directory: __dirname + '/locales',
-	defaultLocale: 'en',
+	defaultLocale: 'tr',
 	cookie: 'locale',
 });
 
