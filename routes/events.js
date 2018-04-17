@@ -152,9 +152,14 @@ router.get( '/getIndexEvents', (req, res) => {
 		if (err)
 			throw new Error(err);
 
-		data.forEach((event, key) => {
-			data[key].category.name = res.__(data[key].category.name);
-		});
+		try{
+			data.forEach((event, key) => {
+				data[key].category.name = res.__(data[key].category.name);
+			});
+		}catch (e) {
+			// asdasda
+		}
+
 
 		res.json(data);
 	});
