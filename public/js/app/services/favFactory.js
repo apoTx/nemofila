@@ -2,11 +2,11 @@ app.factory('favFactory', ['$http', ($http) => {
 	/**
 	 * @favType: 0 or 1 -> ad or event
 	 * */
-	let addFavourites = (userId, adId, favType ) => {
+	let addFavourites = (adId, favType ) => {
 		return $http({
 			url: '/detail/addFavourites',
 			method: 'get',
-			params: { userId: userId, adId: adId, type: favType ? favType : 0  },
+			params: { adId, type: favType ? favType : 0  },
 		})
 			.then((response) => {
 				return response.data;
@@ -15,11 +15,11 @@ app.factory('favFactory', ['$http', ($http) => {
 			});
 	};
 
-	let delFavourites = (userId, adId) => {
+	let delFavourites = adId => {
 		return $http({
 			url: '/detail/delFavourites',
 			method: 'get',
-			params: { userId: userId, adId: adId },
+			params: { adId },
 		})
 			.then((response) => {
 				return response.data;
@@ -32,7 +32,7 @@ app.factory('favFactory', ['$http', ($http) => {
 		return $http({
 			url: '/detail/isFav',
 			method: 'get',
-			params: { userId: userId, adId: adId },
+			params: { userId, adId },
 		})
 			.then((response) => {
 				return response.data;

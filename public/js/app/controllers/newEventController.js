@@ -1,5 +1,4 @@
 app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '$window', 'eventFactory', 'categoriesFactory', 'config', 'Slug', 'guidFactory', ($scope, Upload, $timeout, $http, $window, eventFactory, categoriesFactory, config, Slug, guidFactory) => {
-
 	// New Event Form
 	$scope.newEventForm = {};
 
@@ -141,6 +140,7 @@ app.controller('newEventController', ['$scope', 'Upload', '$timeout', '$http', '
 				let category = result.categoryId;
 				setTimeout(() => {
 					$scope.newEventForm.eventCategory = (($scope.eventCategories).findIndex(x => String(x._id) === String(category))).toString();
+					$scope.$apply();
 				});
 
 				try{

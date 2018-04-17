@@ -49,17 +49,20 @@ html
                 .ui.container.computer.tablet.only.grid.no-margin
                     .right.menu
                         .ui.simple.dropdown.item
-                            div(ng-show=" '#{locale}' == 'en' ", ng-cloak)
-                                i.gb.flag
-                                | English
+                            - if (locale === 'en')
+                                div
+                                    i.gb.flag
+                                    | English
 
-                            div(ng-show=" '#{locale}' == 'tr' ", ng-cloak)
-                                i.tr.flag
-                                | Türkçe
+                            - else if (locale === 'tr')
+                                div
+                                    i.tr.flag
+                                    | Türkçe
 
-                            div(ng-show=" '#{locale}' == 'es' ", ng-cloak)
-                                i.spain.flag
-                                | Español
+                            - else if (locale === 'es')
+                                div
+                                    i.spain.flag
+                                    | Español
 
                             i.dropdown.icon
                             .menu
@@ -82,7 +85,7 @@ html
 
                                 a.margin-left-10(href="/profile")=user.name
                                 i.dropdown.icon
-                                .ui.red.label(ng-if="messageLength > 0", ng-cloak) {{ messageLength }}
+                                .ui.red.label(ng-if="messageLength > 0") {{ messageLength }}
                                 .menu
                                     a.item(href='/profile#!/myads')
                                         i.icon.block.layout
