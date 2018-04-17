@@ -190,26 +190,30 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 
 
 		// similar ads
-		detailFactory.getSimilars($scope.adId).then((result) => {
+		detailFactory.getSimilars($scope.adId).then(result => {
 			$scope.similarAds = result;
 		});
 
 		// events
-		eventFactory.getEventsByAdId($scope.adId).then((result) => {
+		eventFactory.getEventsByAdId($scope.adId).then(result => {
 			$scope.events = result;
 		});
 	};
 
-	$scope.addFavourites = (adId, userId) => {
-		favFactory.addFavourites(adId,userId).then((response) => {
+	$scope.addFavourites = adId => {
+		if(!$scope.userId || $scope.userId === 'null'){
+			$scope.openSignInModal();
+			return false;
+		}
+		favFactory.addFavourites(adId).then(response => {
 			if (response.status){
 				$scope.isFav = true;
 			}
 		});
 	};
 
-	$scope.delFavourites = (adId, userId) => {
-		favFactory.delFavourites(adId,userId).then((response) => {
+	$scope.delFavourites = adId => {
+		favFactory.delFavourites(adId).then(response => {
 			if (response.status){
 				$scope.isFav = false;
 			}

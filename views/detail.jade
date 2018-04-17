@@ -101,26 +101,25 @@ block content
                             i.google.plus.icon
 
 
-                    - if (session)
-                        .ui.right.floated.main.menu.favBtn(
-                            ng-show="!isFav",
-                            ng-cloak
+                    .ui.right.floated.main.menu.favBtn(
+                        ng-if="!isFav",
+                        ng-cloak
+                    )
+                        a.music.popup.icon.item(
+                            data-content='#{i18n.__("add_favourites")}',
+                            ng-click="addFavourites('#{ data._id }')"
                         )
-                            a.music.popup.icon.item(
-                                data-content='#{i18n.__("add_favourites")}',
-                                ng-click="addFavourites('#{ session._id }','#{ data._id }')"
-                            )
-                                i.star.outline.icon
+                            i.star.outline.icon
 
-                        .ui.right.floated.main.menu.favBtn(
-                            ng-show="isFav",
-                            ng-cloak
+                    .ui.right.floated.main.menu.favBtn(
+                        ng-if="isFav",
+                        ng-cloak
+                    )
+                        a.music.popup.icon.item(
+                            data-content='#{i18n.__("remove_favourites")}',
+                            ng-click="delFavourites('#{ data._id }')"
                         )
-                            a.music.popup.icon.item(
-                                data-content='#{i18n.__("remove_favourites")}',
-                                ng-click="delFavourites('#{ session._id }','#{ data._id }')"
-                            )
-                                i.star.icon
+                            i.star.icon
 
                     - if (!data.anotherContact || !data.anotherContact.checked)
                         - if (sessionId !== null && (sessionId != String(data.user._id)))

@@ -292,7 +292,7 @@ router.get('/deleteAd', requireLogin, (req, res) => {
 
 router.get('/addFavourites', requireLogin, (req, res) => {
 	let fav = new Favourites({
-		userId: req.query.userId,
+		userId: req.session.user._id,
 		adId: req.query.adId,
 		type: req.query.type
 	});
@@ -307,7 +307,7 @@ router.get('/addFavourites', requireLogin, (req, res) => {
 
 router.get('/delFavourites', requireLogin, (req, res) => {
 	Favourites.findOneAndRemove({
-		userId: req.query.userId,
+		userId: req.session.user._id,
 		adId: req.query.adId
 	},(err) => {
 		if (err)
