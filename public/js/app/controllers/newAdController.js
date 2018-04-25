@@ -12,7 +12,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 			initialize(false, false, false, false, latLng[0], latLng[1], true, false);
 		}catch(e){
-			// asdasd
+			// e
 		}
 	};
 
