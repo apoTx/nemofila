@@ -69,10 +69,16 @@ block content
                                 )
 
                         .two.fields
+
                             .field
                                 label #{ i18n.__("Location") }
-                                div.subLabel #{ i18n.__("new_ad_text_2") }
 
+                                - if (isAdmin)
+                                    .ui.action.input.margin-bottom-10
+                                        input(placeholder="example 40.9,29.1", ng-model='newAdForm.coordinates')
+                                        .ui.button(ng-click='getPin()') Get Pin
+
+                                div.subLabel #{ i18n.__("new_ad_text_2") }
                                 .ui.action.input
                                     input(g-places-autocomplete='', options="autocompleteOptions", ng-model='newAdForm.place')
                                     .ui.button(ng-click='locate()') #{ i18n.__("Find my location") }

@@ -6,26 +6,15 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 		navigator.geolocation.getCurrentPosition(initialize, fail);
 	};
 
+	$scope.getPin = () => {
+		try{
+			const latLng = ($scope.newAdForm.coordinates).split(',');
 
-	/*function getCountry(place) {
-		for(let i = 0; i < place.address_components.length; i += 1) {
-			let addressObj = place.address_components[i];
-			for(let j = 0; j < addressObj.types.length; j += 1) {
-				if (addressObj.types[j] === 'country') {
-					// console.log(addressObj.types[j]); // confirm that this is 'country'
-					return addressObj.long_name; // confirm that this is the country name
-				}
-			}
+			initialize(false, false, false, false, latLng[0], latLng[1], true, false);
+		}catch(e){
+			// e
 		}
-	}
-
-	function getFullPlaceName() {
-		const placeName = $scope.newAdForm.place.name;
-		const country = getCountry($scope.newAdForm.place);
-
-		const fullPlaceName = placeName +', '+ country;
-		return fullPlaceName;
-	}*/
+	};
 
 	function getLocation(location){
 
