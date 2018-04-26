@@ -190,7 +190,13 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 		layoutFactory.signUp($scope.signupForm, $scope.signUpRecaptchaResponse).then((response) => {
 			if (response.status === 1){
 				// auto login
-				layoutFactory.signIn({ email: $scope.signupForm.email }, true).then((response) => {
+				layoutFactory.signIn(
+					{
+						email: ($scope.signupForm.email).toLowerCase()
+					},
+					true
+				).then((response) => {
+					console.log(response);
 					$scope.registerBtnLoading = false;
 					if (response.status === 1){
 						$window.location.reload();
