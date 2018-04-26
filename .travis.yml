@@ -8,7 +8,7 @@ node_js:
 before_install:
   - npm install
   - npm install -g node-gyp
-  - export NODE_ENV=production
+  - export NODE_ENV=staging
 before_script:
   - bower install
 script:
