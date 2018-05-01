@@ -3,17 +3,23 @@ extends layout
 block content
     div(ng-controller="generalController")
         div
-            .text-center
-                .ui.button(
-                    ngf-select='getUploadCredentials($file, $invalidFiles)',
-                    name='file',
-                    ngf-pattern="'image/*'",
-                    ngf-accept="'image/*'",
-                    ngf-max-size='5MB',
-                    ngf-min-height='100',
-                    ngf-fix-orientation="true",
-                    ngf-model-invalid="invalidFiles",
-                ) Select
+            h2 Header Image
+            .ui.grid
+                .four.wide.column
+                    .text-center
+                        .ui.button(
+                            ngf-select='getUploadCredentials($file, $invalidFiles)',
+                            name='file',
+                            ngf-pattern="'image/*'",
+                            ngf-accept="'image/*'",
+                            ngf-max-size='5MB',
+                            ngf-min-height='100',
+                            ngf-fix-orientation="true",
+                            ngf-model-invalid="invalidFiles",
+                        ) Select
+                .twelve.wide.column
+                    img(src="{{ headerImage }}", style="height:200px")
+
 
             .clearfix &nbsp;
             div(style='font:smaller')

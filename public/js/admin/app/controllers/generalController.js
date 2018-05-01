@@ -1,5 +1,7 @@
 app.controller('generalController', ['$scope', 'Upload', 'config', '$timeout', 'generalFactory',  ($scope, Upload, config, $timeout, generalFactory) => {
 
+	$scope.headerImage = config.s3_photo_base + '/' + config.s3_bucket + '/header.jpg';
+
 	$scope.getUploadCredentials = (file, errFiles) => {
 		generalFactory.get_s3_signature().then(data => {
 			$scope.uploadFiles(file, errFiles, data.inputs);
