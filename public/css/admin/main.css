@@ -70,3 +70,16 @@ hr{
     box-shadow: none !important;
     min-height: 60px
 }
+
+
+.progress {
+	display: inline-block;
+	width: 100px;
+	border: 3px groove #CCC;
+}
+
+.progress div {
+	font-size: smaller;
+	background: orange;
+	width: 0;
+}

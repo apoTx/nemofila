@@ -5,8 +5,7 @@ block content
         div
             .text-center
                 .ui.button(
-                    ngf-select='',
-                    ng-model='file',
+                    ngf-select='uploadFiles($file, $invalidFiles)',
                     name='file',
                     ngf-pattern="'image/*'",
                     ngf-accept="'image/*'",
@@ -17,28 +16,12 @@ block content
                 ) Select
 
             .clearfix &nbsp;
-            .ui.warning.message.margin-bottom-30(ng-show="invalidFiles.length > 0", style="display:block")
-                .header
-                    | #{ i18n.__("photo_size_limit") }
+            div(style='font:smaller')
+                | {{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                span.progress(ng-show='f.progress >= 0')
+                    div(style='width:{{f.progress}}%', ng-bind="f.progress + '%'")
+            |   {{errorMsg}}
 
-            .ui.grid.stackable
-                .eight.wide.column
-                    .cropArea(ngf-drop='', ng-model='file', ngf-pattern='image/*')
-                        img-crop(image='file  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
-                .eight.wide.column
-                    img(ng-src='{{croppedDataUrl}}')
-
-
-            span.progress-profile(ng-show="uploading", ng-if="progress >= 0")
-                div(style='width:{{progress}}%', ng-bind="progress + '%'")
-
-
-            | {{errorMsg}}
-
-
-        .ui.error.message
-        .backendErr.ui.red.message(ng-if="newAdErr", ng-cloak)
-            | {{ newAdErr }}
 
 
 append javascripts
