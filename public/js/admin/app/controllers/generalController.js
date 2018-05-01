@@ -1,4 +1,4 @@
-app.controller('generalController', ['$scope', 'Upload', 'config', '$timeout', 'generalFactory',  ($scope, Upload, config, $timeout, generalFactory) => {
+app.controller('generalController', ['$scope', '$http', 'Upload', 'config', '$timeout', 'generalFactory',  ($scope, $http, Upload, config, $timeout, generalFactory) => {
 
 	$scope.headerImage = config.s3_photo_base + '/' + config.s3_bucket + '/header.jpg';
 

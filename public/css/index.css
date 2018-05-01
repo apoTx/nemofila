@@ -48,7 +48,7 @@ label.custom{
 
 
 .indexHead{
-    background: url('/img/index-head-bg-min.jpg') no-repeat center #eee;
+    background: url('https://s3.eu-central-1.amazonaws.com/easyad-static/header.jpg') no-repeat center #eee;
     background-size: cover;
     padding:10% 0
 }
