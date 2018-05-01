@@ -1,5 +1,5 @@
 /*eslint-disable */
-let app = angular.module('app',[
+const app = angular.module('app',[
 	'ngRoute',
 	'ngFileUpload',
 	'ngImgCrop',
