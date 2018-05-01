@@ -1,6 +1,6 @@
 {
-	"sign_in": "Join",
-	"sign_up": "Sign Up",
+	"sign_in": "Sign In",
+	"sign_up": "Join",
 	"index_title": "Restaurant-Lawyers-Home services-Real Estate-Car Rental",
 	"newAdBtn": "Claim Your Business",
 	"searchPlaceholder": "Search",
@@ -128,7 +128,7 @@
 	"Thank you for the review": "Thank you for the review",
 	"Similar Ads": "Similar services",
 	"Events": "Events",
-	"Say Hello to Nemofila": "catch everything - spice up your life.",
+	"Say Hello to Nemofila": "catch everything - spice up your life",
 	"No Results": "No Results",
 	"Work Times": "Work Times",
 	"Add Work Times": "Add Work Times",
@@ -227,5 +227,8 @@
 	"Fitness Activities": "Fitness Activities",
 	"Professional Services": "Professional Services",
 	"Education": "Education",
-	"Local Services And Repairing": "Local Services And Repairing"
+	"Local Services And Repairing": "Local Services And Repairing",
+	"Restaurants": "Restaurants",
+	"Hotels": "Hotels",
+	"Real Estate": "Real Estate"
 }
