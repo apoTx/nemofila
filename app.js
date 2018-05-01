@@ -36,6 +36,7 @@ const terms = require('./routes/terms');
 
 // Admin Routes
 const manage = require('./routes/manage/index');
+const general = require('./routes/manage/general');
 const ads = require('./routes/manage/ads');
 const eventsManage = require('./routes/manage/events');
 const users = require('./routes/manage/users');
@@ -137,6 +138,7 @@ app.use((req,res,next) => {
 });
 
 app.use('/manage/', manage);
+app.use('/manage/general', general);
 app.use('/manage/ads', ads);
 app.use('/manage/events', eventsManage);
 app.use('/manage/users', users);
@@ -144,6 +146,7 @@ app.use('/manage/countries', manage_countries);
 app.use('/manage/categories', manage_categories);
 app.use('/manage/event-categories', manage_event_categories);
 app.use('/manage/reports', reports);
+
 app.use('/', index);
 app.use('/search', search);
 app.use('/auth', auth);
