@@ -5,7 +5,7 @@ block content
         div
             .text-center
                 .ui.button(
-                    ngf-select='uploadFiles($file, $invalidFiles)',
+                    ngf-select='getUploadCredentials($file, $invalidFiles)',
                     name='file',
                     ngf-pattern="'image/*'",
                     ngf-accept="'image/*'",
@@ -25,4 +25,5 @@ block content
 
 
 append javascripts
+    script(src='/dist/js/admin/app/services/generalFactory.min.js')
     script(src='/dist/js/admin/app/controllers/generalController.min.js')

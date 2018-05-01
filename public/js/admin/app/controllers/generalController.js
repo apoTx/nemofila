@@ -1,7 +1,14 @@
-app.controller('generalController', ['$scope', 'Upload', 'config', '$timeout',  ($scope, Upload, config, $timeout) => {
+app.controller('generalController', ['$scope', 'Upload', 'config', '$timeout', 'generalFactory',  ($scope, Upload, config, $timeout, generalFactory) => {
+
+	$scope.getUploadCredentials = (file, errFiles) => {
+		generalFactory.get_s3_signature().then(data => {
+			$scope.uploadFiles(file, errFiles, data.inputs);
+			console.log(data.inputs);
+		});
+	};
 
 	$scope.uploading = false;
-	$scope.uploadFiles = function(file, errFiles) {
+	$scope.uploadFiles = function(file, errFiles, inputs) {
 		$scope.f = file;
 		$scope.errFile = errFiles && errFiles[0];
 		if (file) {
