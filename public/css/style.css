@@ -383,6 +383,10 @@ a.black{
     margin-bottom: 5rem!important;
 }
 
+.social-buttons{
+    padding: 0.2rem 0.2rem !important;
+}
+
 .profilePictureHeader{
     width:25px!important
 }

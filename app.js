@@ -33,6 +33,7 @@ const auth = require('./routes/auth');
 const services = require('./routes/services');
 const contact = require('./routes/contact');
 const terms = require('./routes/terms');
+const privacyPolicy = require('./routes/privacy-policy');
 
 // Admin Routes
 const manage = require('./routes/manage/index');
@@ -164,6 +165,7 @@ app.use('/categories', categories);
 app.use('/services', services);
 app.use('/contact', contact);
 app.use('/termofuse', terms);
+app.use('/privacy-policy', privacyPolicy);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

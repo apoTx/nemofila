@@ -1,0 +1,13 @@
+ul{
+    margin-left: 15px!important;
+    margin-bottom: 20px!important;
+}
+
+li{
+    padding-left: 10px;
+    list-style-type: decimal;
+}
+
+ul.circle li{
+    list-style-type: disc;
+}
