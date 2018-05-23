@@ -151,7 +151,7 @@ block content
                 h1.text-center(ng-show="ads.length < 1", ng-cloak)
                     | #{i18n.__( "No Results" )}
 
-            .ui.grid.stackable
+            .ui.grid.stackable.pagination-area
                 .eighteen.wide.column.center.aligned
                     paging(
                         page= 'currentPage',

@@ -397,3 +397,7 @@ a.black{
     background-color: rgba(0,0,0,.4);
     font-size: 18px;
 }
+
+.pagination-area{
+    margin: 10px 0 !important;
+}

@@ -50,7 +50,7 @@ label.custom{
 .indexHead{
     background: url('https://s3.eu-central-1.amazonaws.com/easyad-static/header.jpg') no-repeat center #eee;
     background-size: cover;
-    padding:10% 0
+    padding:6% 0
 }
 .filterInput{
     padding: 0 1em;
@@ -67,7 +67,7 @@ label.custom{
 .headTitle{
     text-align: center;
     color: #fff;
-    margin: 7em 0
+    margin: 4em 0
 }
 .headTitle h1{
     padding: 5px 15px;
