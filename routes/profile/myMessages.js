@@ -15,12 +15,12 @@ let sendMail = (toEmail, conversationId, message) => {
 	let to_email = toEmail;
 	let subject = 'New Message';
 	let mailOptions = {
-		from: mailer.config.defaultFromAddress,
+		from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 		to: to_email,
 		subject: subject,
 		template: 'new-message',
 		context: {
-			siteUrl: mailer.siteUrl,
+			siteUrl: process.env.SITE_URL,
 			message: message,
 			conversationId: conversationId,
 			subject: subject,

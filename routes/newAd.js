@@ -27,18 +27,18 @@ const mailTemplate = {
 	defaultTemplate: 'admin/new-ad-alert',
 	adminAdTemplate: 'new-ad-alert-from-admin'
 };
-const to_email = mailer.config.new_ad_alert_to_email;
+const to_email = process.env.MAIL_NEW_AD_ALERT_TO_MAIL;
 const subject = 'There\'s a new ad that is pending approval';
 const subject_for_from_admin = 'Your ad was added';
 
 const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
 	const mailOptions = {
-		from: mailer.config.defaultFromAddress,
+		from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 		to: to ? to : to_email,
 		subject: isAdmin ?  subject_for_from_admin : subject,
 		template: template ? template : mailTemplate.defaultTemplate,
 		context: {
-			siteUrl: mailer.siteUrl,
+			siteUrl: process.env.SITE_URL,
 			adTitle: title,
 			id: id,
 			subject: subject,

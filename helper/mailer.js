@@ -1,12 +1,11 @@
 let nodemailer = require('nodemailer');
-let config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
 let hbs = require('nodemailer-express-handlebars');
 
 let transporter = nodemailer.createTransport({
-	service: config.mail.service,
+	service: process.env.MAIL_SERVICE,
 	auth: {
-		user: config.mail.user,
-		pass: config.mail.pass
+		user: process.env.MAIL_USER,
+		pass: process.env.MAIL_PASSWORD
 	}
 });
 
@@ -25,6 +24,5 @@ transporter.use('compile', hbs(options));
 
 module.exports = {
 	transporter: transporter,
-	config: config.mail,
-	siteUrl: config.siteUrl
+	siteUrl: process.env.SITE_URL
 };

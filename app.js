@@ -9,6 +9,9 @@ const sessions = require('client-sessions');
 const passport = require('passport');
 const i18n = require('i18n');
 
+//dotnev
+require('dotenv').config();
+
 // Development env file
 const config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
@@ -48,7 +51,7 @@ const reports = require('./routes/manage/reports');
 
 // Mongo connection
 const mongoose = require('mongoose');
-mongoose.connect(config.db.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI, {
 	useMongoClient: true,
 });
 
@@ -68,8 +71,6 @@ i18n.configure({
 	defaultLocale: 'tr',
 	cookie: 'locale',
 });
-
-console.log(__dirname);
 
 app.use(favicon(path.join(__dirname, '/public/img', 'logo-invert.png')));
 app.use(compression());

@@ -135,12 +135,12 @@ router.post('/publishAd', requireLogin, (req, res) => {
 				let to_email = response.email;
 				let subject = publishStatus === 1 ? 'Your ad has been published' : 'Your ad has been rejected';
 				let mailOptions = {
-					from: mailer.config.defaultFromAddress,
+					from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 					to: to_email,
 					subject: subject,
 					template: 'ad-approve',
 					context: {
-						siteUrl: mailer.siteUrl,
+						siteUrl: process.env.SITE_URL,
 						adTitle: result.title,
 						slug: result.slug,
 						id: result._id,

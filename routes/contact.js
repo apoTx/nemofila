@@ -12,16 +12,16 @@ router.get( '/', ( req, res) => {
 router.post( '/', ( req, res) => {
 	verifyRecaptcha(req.body.recaptcha, (success) => {
 		if (success) {
-			let to_email = mailer.config.contact_messages_to;
+			let to_email = process.env.MAIL_CONTACT_MESSAGES_TO;
 			let subject = req.body.subject;
 			let mailOptions = {
-				from: mailer.config.defaultFromAddress,
+				from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 				to: to_email,
 				subject: 'Contact message: '+ subject,
 				replyTo: req.body.email,
 				template: 'contact',
 				context: {
-					siteUrl: mailer.siteUrl,
+					siteUrl: process.env.SITE_URL,
 					subject: subject,
 					message: req.body.message
 				}
