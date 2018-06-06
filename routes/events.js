@@ -32,7 +32,7 @@ router.get( '/new/:adId', ( req, res) => {
 			id: req.params.adId ? req.params.adId : 'false',
 			formdata: JSON.parse(body),
 			eventId: req.query.eventId,
-			amazon_base_url: config.amazon_s3.photo_base_url,
+			amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 		});
 	});
 });

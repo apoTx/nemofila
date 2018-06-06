@@ -23,9 +23,9 @@ passport.deserializeUser((id, fn) => {
 });
 
 passport.use(new TwitterStrategy({
-	consumerKey: config.twitter.api_key,
-	consumerSecret: config.twitter.api_secret,
-	callbackURL: config.twitter.callbackUrl,
+	consumerKey: process.env.TWITTER_API_KEY,
+	consumerSecret: process.env.TWITTER_API_SECRET,
+	callbackURL: process.env.TWITTER_API_CALLBACK_URL,
 	userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
 },
 	((accessToken, refreshToken, profile, done) => {

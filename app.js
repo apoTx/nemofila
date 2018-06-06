@@ -105,7 +105,7 @@ app.use((req, res, next) => {
 		locale: req.cookies.locale || 'en',
 		i18n: res,
 		user: req.session.user,
-		amazon_base_url: config.amazon_s3.photo_base_url,
+		amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 	};
 
 	try{

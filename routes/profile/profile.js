@@ -14,7 +14,7 @@ const Users = require('../../models/users');
 router.get('/', requireLogin, (req, res) => {
 	res.render( 'profile', {
 		title: res.__('profile_title'),
-		amazon_base_url: config.amazon_s3.photo_base_url,
+		amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 		profile_locales: {
 			myAds: {
 				title: res.__('my_ads'),
@@ -70,7 +70,7 @@ router.put('/updateProfilePhotoUrl', requireLogin, (req, res) => {
 
 
 	Users.findByIdAndUpdate(userId, {
-		'profilePictureUrl': config.amazon_s3.photo_base_url +'/'+ photoName
+		'profilePictureUrl': process.env.AMAZON_S3_PHOTO_BASE_URL +'/'+ photoName
 	},
 	{
 		new: true

@@ -380,6 +380,9 @@ block content
                         button.ui.right.floated.secondary.button(ng-click="back()", ng-class="{disabled:uploading}")
                             | #{ i18n.__("back_btn") }
 
+
+    .clearfix
+
         div(ng-if="adSaveComplete", ng-cloak)
             div.text-center
                 h1 #{ i18n.__("new_ad_successful_title") }

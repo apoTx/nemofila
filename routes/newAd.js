@@ -91,7 +91,7 @@ router.get('/:id?',  (req, res, next) => {
 				id: req.query.id ? req.query.id : 'false',
 				isAdmin: req.isAdmin,
 				formdata: JSON.parse(body),
-				amazon_base_url: config.amazon_s3.photo_base_url,
+				amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 			});
 		});
 	}
