@@ -81,6 +81,7 @@ router.get('/:slug/:id', (req, res, next) => {
 	}
 
 
+
 	Ads.aggregate([
 		{
 			'$match': {
@@ -197,6 +198,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
 			const data = result[0];
+
 
 			const uuid = req.query.uuid;
 			let showEditButton = false;
