@@ -12,9 +12,6 @@ const i18n = require('i18n');
 //dotnev
 require('dotenv').config();
 
-// Development env file
-const config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
-
 // models
 const User = require('./models/users');
 
@@ -61,7 +58,6 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('view cache', process.env.VIEW_CACHE);
-app.set('config', config);
 
 i18n.configure({
 	locales:['en', 'es', 'tr'],

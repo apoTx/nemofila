@@ -4,13 +4,10 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // helpers
 const User = require('../models/users');
 
-// config
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
-
 passport.use(new GoogleStrategy({
-	clientID: config.google.app_id,
-	clientSecret: config.google.app_secret,
-	callbackURL: config.google.callbackUrl
+	clientID: process.env.GOOGLE_APP_ID,
+	clientSecret: process.env.GOOGLE_APP_SECRET,
+	callbackURL: process.env.GOOGLE_APP_CALLBACK_URL
 },
 	((accessToken, refreshToken, profile, done) => {
 		let data = profile._json;
