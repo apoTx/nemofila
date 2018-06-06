@@ -8,10 +8,6 @@ const router = express.Router();
 // Models
 const Events = require('../models/events');
 
-// settings
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-const settings = require('../config/settings.json');
-
 const verifyRecaptcha = require('../helper/recaptcha');
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -25,14 +21,14 @@ router.get( '/', ( req, res) => {
 });
 
 router.get( '/new/:adId', ( req, res) => {
-	request(settings.s3_upload_signature_service_url, (error, response, body) => {
+	request(process.env.AMAZON_S3_UPLOAD_SIGNATURE_SERVICE_URL, (error, response, body) => {
 		res.render( 'new-event', {
 			title: res.__('new-event-page-title'),
 			userExists: !!req.session.user,
 			id: req.params.adId ? req.params.adId : 'false',
 			formdata: JSON.parse(body),
 			eventId: req.query.eventId,
-			amazon_base_url: config.amazon_s3.photo_base_url,
+			amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 		});
 	});
 });

@@ -184,6 +184,7 @@ app.controller('detailController', ['$scope', 'favFactory', 'rateFactory', 'mess
 			});
 
 			$scope.imagesa = photoList;
+			console.log($scope.imagesa);
 		}catch (e) {
 			//catch
 		}

@@ -80,12 +80,12 @@ router.post( '/reset_password', ( req, res ) => {
 					// send email
 					let to_email = user.email;
 					let mailOptions = {
-						from: mailer.config.defaultFromAddress,
+						from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 						to: to_email,
 						subject: 'Your Easyad password has been changed',
 						template: 'forgot-password-changed',
 						context: {
-							siteUrl: mailer.siteUrl,
+							siteUrl: process.env.SITE_URL,
 							email : to_email,
 						}
 					};

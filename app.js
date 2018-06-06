@@ -9,6 +9,9 @@ const sessions = require('client-sessions');
 const passport = require('passport');
 const i18n = require('i18n');
 
+//dotnev
+require('dotenv').config();
+
 // Development env file
 const config = require('./config/env.json')[process.env.NODE_ENV || 'development'];
 
@@ -48,18 +51,16 @@ const reports = require('./routes/manage/reports');
 
 // Mongo connection
 const mongoose = require('mongoose');
-mongoose.connect(config.db.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI, {
 	useMongoClient: true,
 });
 
 const app = express();
 
-const settings = require('./config/settings.json');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('view cache', config.viewCache);
+app.set('view cache', process.env.VIEW_CACHE);
 app.set('config', config);
 
 i18n.configure({
@@ -68,8 +69,6 @@ i18n.configure({
 	defaultLocale: 'tr',
 	cookie: 'locale',
 });
-
-console.log(__dirname);
 
 app.use(favicon(path.join(__dirname, '/public/img', 'logo-invert.png')));
 app.use(compression());
@@ -100,11 +99,11 @@ app.use(passport.initialize());
 // global variables
 app.use((req, res, next) => {
 	res.locals = {
-		recaptcha_site_key: settings.recapcha.site_key,
+		recaptcha_site_key: process.env.RECAPTCHA_SITE_KEY,
 		locale: req.cookies.locale || 'en',
 		i18n: res,
 		user: req.session.user,
-		amazon_base_url: config.amazon_s3.photo_base_url,
+		amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 	};
 
 	try{

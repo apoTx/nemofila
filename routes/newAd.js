@@ -7,10 +7,6 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const router = express.Router();
 
-// settings
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-const settings = require('../config/settings.json');
-
 // Models
 const Ads = require('../models/ads');
 const Power = require('../models/powers');
@@ -27,18 +23,18 @@ const mailTemplate = {
 	defaultTemplate: 'admin/new-ad-alert',
 	adminAdTemplate: 'new-ad-alert-from-admin'
 };
-const to_email = mailer.config.new_ad_alert_to_email;
+const to_email = process.env.MAIL_NEW_AD_ALERT_TO_MAIL;
 const subject = 'There\'s a new ad that is pending approval';
 const subject_for_from_admin = 'Your ad was added';
 
 const sendMail = (title, id, isAdmin, template, to, uuid, slug) => {
 	const mailOptions = {
-		from: mailer.config.defaultFromAddress,
+		from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 		to: to ? to : to_email,
 		subject: isAdmin ?  subject_for_from_admin : subject,
 		template: template ? template : mailTemplate.defaultTemplate,
 		context: {
-			siteUrl: mailer.siteUrl,
+			siteUrl: process.env.SITE_URL,
 			adTitle: title,
 			id: id,
 			subject: subject,
@@ -84,14 +80,14 @@ router.get('/:id?',  (req, res, next) => {
 	}
 
 	function render () {
-		request(settings.s3_upload_signature_service_url, (error, response, body) => {
+		request(process.env.AMAZON_S3_UPLOAD_SIGNATURE_SERVICE_URL, (error, response, body) => {
 			res.render( 'newAd', {
 				title: 'New Ad',
 				userExists: req.session.user ? true : false,
 				id: req.query.id ? req.query.id : 'false',
 				isAdmin: req.isAdmin,
 				formdata: JSON.parse(body),
-				amazon_base_url: config.amazon_s3.photo_base_url,
+				amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 			});
 		});
 	}

@@ -247,12 +247,12 @@ router.post('/forgotPassword',  (req,res) => {
 			// send email
 			const to_email = req.body.email.trim();
 			const mailOptions = {
-				from: mailer.config.defaultFromAddress,
+				from: process.env.MAIL_DEFAULT_FROM_ADDRESS,
 				to: to_email,
 				subject: 'Password reset request',
 				template: 'forgot-password',
 				context: {
-					siteUrl: mailer.siteUrl,
+					siteUrl: process.env.SITE_URL,
 					email : to_email,
 					uuid: _uuid
 				}

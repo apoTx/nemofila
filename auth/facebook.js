@@ -4,16 +4,13 @@ const passport = require('passport')
 // models
 const User = require('../models/users');
 
-// config
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
-
 // helpers
 const getProfilePicture = require('../helper/getProfilePicture.js');
 
 passport.use(new FacebookStrategy({
-	clientID: config.facebook.app_id,
-	clientSecret: config.facebook.app_secret,
-	callbackURL: config.facebook.callbackUrl,
+	clientID: process.env.FACEBOOK_APP_ID,
+	clientSecret: process.env.FACEBOOK_APP_SECRET,
+	callbackURL: process.env.FACEBOOK_APP_CALLBACK_URL,
 	profileFields: ['id', 'displayName', 'email', 'first_name', 'last_name', 'link']
 },
 	((accessToken, refreshToken, profile, done) => {

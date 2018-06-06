@@ -6,8 +6,6 @@ const numeral = require('numeral');
 
 const ObjectId = mongoose.Types.ObjectId;
 
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-
 //helpers
 const requireLogin = require('./inc/requireLogin.js');
 const getDayName = require('../helper/getDayName');
@@ -69,7 +67,7 @@ const getObject = (data, req, res, showEditButton) => {
 			name: data.categoryObj.name,
 			childCategoryName: childCategoryName,
 		},
-		amazon_base_url: config.amazon_s3.photo_base_url,
+		amazon_base_url: process.env.AMAZON_S3_PHOTO_BASE_URL,
 		events: data.events
 	};
 };
@@ -81,6 +79,7 @@ router.get('/:slug/:id', (req, res, next) => {
 	}catch(e){
 		_id = '';
 	}
+
 
 
 	Ads.aggregate([
@@ -199,6 +198,7 @@ router.get('/:slug/:id', (req, res, next) => {
 			res.status(404).render('error/404', { message: 'Ad Not Found' });
 		}else{
 			const data = result[0];
+
 
 			const uuid = req.query.uuid;
 			let showEditButton = false;
