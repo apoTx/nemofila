@@ -7,10 +7,6 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const router = express.Router();
 
-// settings
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'];
-const settings = require('../config/settings.json');
-
 // Models
 const Ads = require('../models/ads');
 const Power = require('../models/powers');
@@ -84,7 +80,7 @@ router.get('/:id?',  (req, res, next) => {
 	}
 
 	function render () {
-		request(settings.s3_upload_signature_service_url, (error, response, body) => {
+		request(process.env.AMAZON_S3_UPLOAD_SIGNATURE_SERVICE_URL, (error, response, body) => {
 			res.render( 'newAd', {
 				title: 'New Ad',
 				userExists: req.session.user ? true : false,

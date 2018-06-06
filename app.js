@@ -57,12 +57,10 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const app = express();
 
-const settings = require('./config/settings.json');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('view cache', config.viewCache);
+app.set('view cache', process.env.VIEW_CACHE);
 app.set('config', config);
 
 i18n.configure({
@@ -101,7 +99,7 @@ app.use(passport.initialize());
 // global variables
 app.use((req, res, next) => {
 	res.locals = {
-		recaptcha_site_key: settings.recapcha.site_key,
+		recaptcha_site_key: process.env.RECAPTCHA_SITE_KEY,
 		locale: req.cookies.locale || 'en',
 		i18n: res,
 		user: req.session.user,

@@ -4,9 +4,6 @@ const passport = require('passport')
 // Models
 const User = require('../models/users');
 
-// config
-const config = require('../config/env.json')[process.env.NODE_ENV || 'development'].login;
-
 // helpers
 const getProfilePicture = require('../helper/getProfilePicture.js');
 

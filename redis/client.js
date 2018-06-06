@@ -7,7 +7,7 @@ if (process.env.NODE_ENV == 'production' ){
 	client = redis.createClient(rtg.port, rtg.hostname);
 	client.auth(rtg.auth.split(':')[1]);
 }else{
-	client = redis.createClient(process.env.REDIS_PORT, config.redis.URI);
+	client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_URL);
 }
 
 client.on('connect', () => {
