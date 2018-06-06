@@ -381,13 +381,14 @@ block content
                             | #{ i18n.__("back_btn") }
 
 
-    .clearfix
 
         div(ng-if="adSaveComplete", ng-cloak)
             div.text-center
                 h1 #{ i18n.__("new_ad_successful_title") }
                 div.margin-bottom-30 #{ i18n.__("new_ad_successful_info") }
                 a.ui.primary.button(href="/") #{ i18n.__("Home") }
+
+    .clearfix
 
         // Work Times Modal
         include partials/modals/workTimes
