@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "export NODE_ENV=staging && node ./bin/www",
-    "start:dev": "export NODE_ENV=development && nodemon ./bin/www",
+    "start:dev": "export NODE_ENV=development && nodemon -e jade ./bin/www",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "mocha --recursive",
