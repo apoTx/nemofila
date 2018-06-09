@@ -83,22 +83,7 @@ block content
                                         input(name="location", type="hidden", value="{{ place.address_components[0].long_name }}")
 
                                     .field
-                                        .two.fields
-                                            .field
-                                                .ui.selection.dropdown
-                                                    input(name='id', type='hidden', value='0')
-                                                    .text #{i18n.__( "Please select" )}
-                                                    i.dropdown.icon
-                                                    .menu.transition.hidden
-                                                        .item.active #{i18n.__( "Please select" )}
-                                                        .item(data-value='{{category.id}}', ng-repeat='category in categories', ng-click='select(category)')
-                                                            | {{category.name}}
-
-                                            .field
-
-
-
-
+                                        include partials/cityDropdown
 
                                         .two.fields
                                             .field
@@ -223,5 +208,6 @@ append javascripts
     script(src="/dist/js/app/services/indexFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/controllers/indexController.min.js")
+    script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(type='text/javascript', src='https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521b6aa16401756b')
 

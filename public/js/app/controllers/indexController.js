@@ -28,7 +28,6 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 	$scope.place = null;
 
 	$scope.init = (page) => {
-		$('.dropdown').dropdown();
 
 		$scope.indexAdsLoading = true;
 		$scope.indexEventsLoading = true;

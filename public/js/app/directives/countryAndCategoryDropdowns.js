@@ -2,6 +2,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 	return {
 		link: function($scope) {
 			$scope.select = function(category) {
+				console.log('asd');
 				$scope.visiblesCategories.subCategory = false;
 				$scope.categoryIndex = $scope.categories.findIndex(x => x._id ===  category._id);
 				console.log("index", $scope.categoryIndex);

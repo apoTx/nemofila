@@ -85,6 +85,8 @@ block content
 
                                 div.subLabel.margin-top-30 #{ i18n.__("new_ad_text_3") }
                             .field.margin-top-10
+                                include partials/cityDropdown
+
                                 .two.fields
                                     .field
                                         label #{i18n.__("Category")}
@@ -414,8 +416,8 @@ append javascripts
     script(src="/dist/js/app/services/newAdFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
     script(src="/dist/js/app/services/countriesFactory.min.js")
+    script(src="/dist/js/app/controllers/newAdController.min.js")
     script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     //script(src="https://checkout.stripe.com/checkout.js")
     //script(src="/dist/js/app/stripe.min.js")
     script(src="/dist/js/app/filters/range.min.js")
-    script(src="/dist/js/app/controllers/newAdController.min.js")

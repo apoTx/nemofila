@@ -7,6 +7,8 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	};
 
 	$(() => {
+		$('.dropdown').dropdown();
+
 		// SignUp form validation
 		$('#signUpForm').form({
 			keyboardShortcuts: false,
