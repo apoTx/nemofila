@@ -87,10 +87,10 @@ block content
                                             .field
                                                 .ui.selection.dropdown
                                                     input(name='id', type='hidden', value='0')
-                                                    .text -- Pick A Container --
+                                                    .text #{i18n.__( "Please select" )}
                                                     i.dropdown.icon
                                                     .menu.transition.hidden
-                                                        .item.active -- Pick A Container --
+                                                        .item.active #{i18n.__( "Please select" )}
                                                         .item(data-value='{{category.id}}', ng-repeat='category in categories', ng-click='select(category)')
                                                             | {{category.name}}
 

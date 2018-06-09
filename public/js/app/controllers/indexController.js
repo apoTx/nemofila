@@ -12,10 +12,10 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 	}];
 
 	$scope.select = function(category) {
-		console.log(category);
-
+		$scope.visiblesCategories.subCategory = false;
 		$scope.categoryIndex = $scope.categories.findIndex(x => x._id ===  category._id);
 		console.log("index", $scope.categoryIndex);
+		$scope.newAdForm.category = $scope.categoryIndex;
 	};
 
 
