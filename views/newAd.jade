@@ -96,7 +96,12 @@ block content
                                         input(ng-hide='true', ng-model='categories[newAdForm.category]._id', name='categoryId')
                                     .field
                                         label #{i18n.__("Child Category")}
-                                        select(name='subCategory', ng-disabled='visiblesCategories.subCategory', ng-model='newAdForm.categoryChild', ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories')
+                                        select(
+                                            name='subCategory',
+                                            ng-disabled='visiblesCategories.subCategory',
+                                            ng-model='newAdForm.categoryChild',
+                                            ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories'
+                                        )
                                             option(value='') #{i18n.__("Please select")}
                                         input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild].name', name='subCategoryName')
                                         input(ng-hide='true', ng-model='categories[newAdForm.category].subCategories[newAdForm.categoryChild]._id', name='subCategoryId')

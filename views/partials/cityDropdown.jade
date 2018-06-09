@@ -6,8 +6,15 @@
             i.dropdown.icon
             .menu.transition.hidden
                 .item.active #{i18n.__( "Please select" )}
-                .item(data-value='{{category.id}}', ng-repeat='category in categories', ng-click='select(category)')
+                .item(data-value='{{category.id}}', ng-repeat='category in categories', ng-click='selectCategory(category)')
                     | {{category.name}}
 
     .field
-        | test
+        .ui.selection.dropdown
+            input(name='id', type='hidden', value='0')
+            .text #{i18n.__("Please select")}
+            i.dropdown.icon
+            .menu.transition.hidden
+                .item.active #{i18n.__("Please select")}
+                .item(data-value='{{category.id}}', ng-repeat='category in categories[newAdForm.category].subCategories', ng-click='selectSubCategory(category)')
+                    | {{category.name}}
