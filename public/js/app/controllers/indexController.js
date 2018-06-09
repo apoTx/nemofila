@@ -1,5 +1,35 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory,  categoriesFactory) => {
 
+	$scope.containers = [{
+		id: 1,
+		name: 'Box1'
+	}, {
+		id: 2,
+		name: 'Box2'
+	}, {
+		id: 3,
+		name: 'Box3'
+	}];
+
+	$scope.select = function(category) {
+		console.log(category);
+
+		$scope.categoryIndex = $scope.categories.findIndex(x => x._id ===  category._id);
+		console.log("index", $scope.categoryIndex);
+	};
+
+
+
+	$scope.visiblesCategories = {
+		subCategory: true,
+	};
+
+	$scope.changeCategory = () => {
+		$scope.visiblesCategories.subCategory = false;
+
+	};
+
+
 	$(() => {
 		setTimeout(() => {
 			$('.rating').rating({
@@ -42,6 +72,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
+			console.log($scope.categories);
 		});
 	};
 

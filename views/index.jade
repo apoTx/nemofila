@@ -85,8 +85,30 @@ block content
                                     .field
                                         .two.fields
                                             .field
+                                                .ui.selection.dropdown
+                                                    input(name='id', type='hidden', value='0')
+                                                    .text -- Pick A Container --
+                                                    i.dropdown.icon
+                                                    .menu.transition.hidden
+                                                        .item.active -- Pick A Container --
+                                                        .item(data-value='{{category.id}}', ng-repeat='category in categories', ng-click='select(category)')
+                                                            | {{category.name}}
+
+                                            .field
+
+
+
+
+
+                                        .two.fields
+                                            .field
                                                 label #{i18n.__( "Category" )}
-                                                select(name='category', ng-model='newAdForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')
+                                                select(
+                                                    name='category',
+                                                    ng-model='newAdForm.category',
+                                                    ng-options='index as category.name for (index, category) in categories ',
+                                                    ng-change='changeCategory()'
+                                                )
                                                     option(value='') #{i18n.__( "Please select" )}
                                                 input(ng-hide='true', ng-model='categories[newAdForm.category].name', name='categoryName')
                                                 input(ng-hide='true', ng-model='categories[newAdForm.category]._id', name='categoryId')
@@ -200,7 +222,6 @@ block content
 append javascripts
     script(src="/dist/js/app/services/indexFactory.min.js")
     script(src="/dist/js/app/services/categoriesFactory.min.js")
-    script(src="/dist/js/app/directives/countryAndCategoryDropdowns.min.js")
     script(src="/dist/js/app/controllers/indexController.min.js")
     script(type='text/javascript', src='https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-521b6aa16401756b')
 
