@@ -708,16 +708,17 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 
 	// dropdown
 
-	$scope.selectCategory = function(category) {
-		console.log('asd');
+	$scope.selectCategory = category => {
 		$scope.visiblesCategories.subCategory = false;
 		$scope.categoryIndex = $scope.categories.findIndex(x => x._id ===  category._id);
-		console.log("index", $scope.categoryIndex);
 		$scope.newAdForm.category = $scope.categoryIndex;
 	};
 
-	$scope.selectSubCategory = function(category) {
+	$scope.selectSubCategory = category => {
 		console.log(category);
+		const subCategories = $scope.categories[$scope.newAdForm.category].subCategories;
+		$scope.subCategoryIndex = subCategories.findIndex(x => x._id ===  category._id);
+		$scope.newAdForm.categoryChild = $scope.subCategoryIndex;
 	};
 
 	$scope.visiblesCategories = {
