@@ -1,6 +1,6 @@
 .two.fields
     .field
-        .ui.selection.dropdown
+        .ui.selection.dropdown.dropdownMenu
             input(name='id', type='hidden', value='0')
             .text #{i18n.__( "Please select" )}
             i.dropdown.icon
@@ -10,16 +10,28 @@
                     | {{category.name}}
 
     .field
-        .ui.selection.dropdown(ng-class="{ 'disabled': newAdForm.category === undefined }")
-            input(name='id', type='hidden', value='0')
-            .text #{i18n.__("Please select")}
-            i.dropdown.icon
-            .menu.transition.hidden
-                .item.active #{i18n.__("Please select")}
-                .item(
-                    data-value='{{category.id}}',
-                    ng-repeat='category in categories[newAdForm.category].subCategories',
-                    ng-click='selectSubCategory(category)',
-                    ng-class=""
-                )
-                    | {{category.name}}
+
+        | asd {{newAdForm.categoryChild}}
+        select.ui.fluid.dropdown(
+            multiple='',
+            name='subCategory',
+            ng-model='newAdForm.categoryChild',
+            ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories'
+        )
+            option(value='') #{i18n.__("Please select")}
+
+
+        //
+            .ui.selection.dropdown(ng-class="{ 'disabled': newAdForm.category === undefined }")
+                input(name='id', type='hidden', value='0')
+                .text #{i18n.__("Please select")}
+                i.dropdown.icon
+                .menu.transition.hidden
+                    .item.active #{i18n.__("Please select")}
+                    .item(
+                        data-value='{{category.id}}',
+                        ng-repeat='category in categories[newAdForm.category].subCategories',
+                        ng-click='selectSubCategory(category)',
+                        ng-class=""
+                    )
+                        | {{category.name}}
