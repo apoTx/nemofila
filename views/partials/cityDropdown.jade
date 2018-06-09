@@ -10,11 +10,16 @@
                     | {{category.name}}
 
     .field
-        .ui.selection.dropdown
+        .ui.selection.dropdown(ng-class="{ 'disabled': newAdForm.category === undefined }")
             input(name='id', type='hidden', value='0')
             .text #{i18n.__("Please select")}
             i.dropdown.icon
             .menu.transition.hidden
                 .item.active #{i18n.__("Please select")}
-                .item(data-value='{{category.id}}', ng-repeat='category in categories[newAdForm.category].subCategories', ng-click='selectSubCategory(category)')
+                .item(
+                    data-value='{{category.id}}',
+                    ng-repeat='category in categories[newAdForm.category].subCategories',
+                    ng-click='selectSubCategory(category)',
+                    ng-class=""
+                )
                     | {{category.name}}
