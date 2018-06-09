@@ -30,7 +30,7 @@ let adSchema = new Schema({
 	place: {},
 	category: {
 		categoryId: ObjectId ,
-		categoryChildId: ObjectId ,
+		categoryChild: [] ,
 	},
 	anotherContact: {
 		checked: {

@@ -10,13 +10,12 @@
                     | {{category.name}}
 
     .field
-
-        | asd {{newAdForm.categoryChild}}
         select.ui.fluid.dropdown(
             multiple='',
             name='subCategory',
+            ng-change="changeSubCategory()",
             ng-model='newAdForm.categoryChild',
-            ng-options='index as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories'
+            ng-options='subCategory._id as subCategory.name for (index, subCategory) in categories[newAdForm.category].subCategories'
         )
             option(value='') #{i18n.__("Please select")}
 
