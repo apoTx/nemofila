@@ -5,7 +5,7 @@ app.directive('countryAndCategoryDropdowns', () => {
 				console.log('asd');
 				$scope.visiblesCategories.subCategory = false;
 				$scope.categoryIndex = $scope.categories.findIndex(x => x._id ===  category._id);
-				console.log("index", $scope.categoryIndex);
+				console.log('index', $scope.categoryIndex);
 				$scope.newAdForm.category = $scope.categoryIndex;
 			};
 

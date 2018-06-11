@@ -87,7 +87,7 @@ block content
                             .field.margin-top-10
                                 include partials/cityDropdown
 
-                                .two.fields
+                                //.two.fields
                                     .field
                                         label #{i18n.__("Category")}
                                         select(name='category', ng-model='newAdForm.category', ng-options='index as category.name for (index, category) in categories ', ng-change='changeCategory()')

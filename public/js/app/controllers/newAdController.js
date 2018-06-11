@@ -599,12 +599,6 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 			district = null;
 		}*/
 
-		let childCategory;
-		try{
-			childCategory = $scope.categories[$scope.newAdForm.category].subCategories[$scope.newAdForm.categoryChild]._id;
-		}catch(e){
-			childCategory = null;
-		}
 
 		let isEdit = id !== 'false' ? true : false;
 
