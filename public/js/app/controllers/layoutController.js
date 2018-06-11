@@ -7,6 +7,12 @@ app.controller('layoutController', ['$scope', '$rootScope', '$http', '$window', 
 	};
 
 	$(() => {
+		$('.dropdown').dropdown();
+		$('.multiple').dropdown({
+			useLabels: false
+
+		});
+
 		// SignUp form validation
 		$('#signUpForm').form({
 			keyboardShortcuts: false,

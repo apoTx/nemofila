@@ -624,7 +624,7 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 				showcaseIndex: showcaseIndex,
 				category: {
 					categoryId: $scope.categories[$scope.newAdForm.category]._id,
-					childCategoryId: childCategory
+					childCategory: $scope.newAdForm.categoryChild
 				}
 			}
 		}).then((response) => {
@@ -703,6 +703,30 @@ app.controller('newAdController', ['$scope', 'Upload', '$timeout', '$http', '$wi
 	$scope.activeSaveBtn = false;
 	$scope.successCaptcha = () => {
 		$scope.activeSaveBtn = true;
+	};
+
+
+	// dropdown
+
+	$scope.selectCategory = category => {
+		$scope.visiblesCategories.subCategory = false;
+		$scope.categoryIndex = $scope.categories.findIndex(x => x._id ===  category._id);
+		$scope.newAdForm.category = $scope.categoryIndex;
+	};
+
+	/*$scope.selectSubCategory = category => {
+		console.log(category);
+		const subCategories = $scope.categories[$scope.newAdForm.category].subCategories;
+		$scope.subCategoryIndex = subCategories.findIndex(x => x._id ===  category._id);
+		$scope.newAdForm.categoryChild = $scope.subCategoryIndex;
+	};*/
+
+	$scope.changeSubCategory = () => {
+		console.log($scope.newAdForm.categoryChild);
+	};
+
+	$scope.visiblesCategories = {
+		subCategory: true,
 	};
 }]);
 

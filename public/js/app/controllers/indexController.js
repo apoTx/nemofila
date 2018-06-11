@@ -1,5 +1,14 @@
 app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categoriesFactory', ($scope, $http, indexFactory,  categoriesFactory) => {
 
+
+
+
+	$scope.changeCategory = () => {
+		$scope.visiblesCategories.subCategory = false;
+
+	};
+
+
 	$(() => {
 		setTimeout(() => {
 			$('.rating').rating({
@@ -19,7 +28,6 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 	$scope.place = null;
 
 	$scope.init = (page) => {
-		$('.dropdown').dropdown();
 
 		$scope.indexAdsLoading = true;
 		$scope.indexEventsLoading = true;
@@ -42,6 +50,7 @@ app.controller('indexController',  ['$scope', '$http', 'indexFactory',  'categor
 
 		categoriesFactory.getCategories().then((response) => {
 			$scope.categories = response;
+			console.log($scope.categories);
 		});
 	};
 

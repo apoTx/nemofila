@@ -134,7 +134,7 @@ router.post('/create', requireLogin, (req, res) => {
 				place: place,
 				category: {
 					categoryId: category.categoryId,
-					categoryChildId: category.childCategoryId
+					categoryChild: category.childCategory
 				},
 				workTimes: data.workTimes,
 				adminAd: req.isAdmin,
