@@ -1,0 +1,19 @@
+ul{
+    margin-left: 15px !important;
+}
+
+li{
+    list-style-type: initial;
+    padding: 3px 0!important;
+}
+
+.listArea{
+
+}
+
+.listArea li{
+    list-style-type: none;
+}
+
+.listArea.indent li{
+}
